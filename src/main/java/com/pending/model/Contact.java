@@ -30,4 +30,32 @@ public class Contact {
     public boolean contactPhoneText() {
         return false;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phoneNumber) {
+
+    }
+
+    public ContactPreference getContactPreference() {
+        return contactPreference;
+    }
+
+    public void setContactPreference(ContactPreference contactPreference) {
+
+    }
 }

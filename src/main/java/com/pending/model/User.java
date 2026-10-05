@@ -3,6 +3,8 @@ package com.pending.model;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import javafx.scene.layout.Priority;
+
 public class User {
     private UUID id;
     private String firstName;
@@ -40,6 +42,66 @@ public class User {
 
     }
     public void acknowledgeAlert() {
+
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+
+    }
+
+    public Contact getUserContact() {
+        return userContact;
+    }   
+
+    public void setUserContact(Contact userContact) {
+
+    }
+
+    public Contact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(Contact emergencyContact) {
+
+    }
+
+    public ArrayList<ReliefRequest> getUserReliefRequests() {
+        return userReliefRequests;
+    }
+
+    public void setUserReliefRequests(ArrayList<ReliefRequest> userReliefRequests) {
 
     }
 
