@@ -1,5 +1,6 @@
 package com.pending.model;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
@@ -53,7 +54,11 @@ public class User extends Serializable {
         jsonObject.put("location", location);
         jsonObject.put("userContact", userContact.getId());
         jsonObject.put("emergencyContact", emergencyContact.getId());
-        jsonObject.put("userReliefRequests", userReliefRequests.getId());
+
+        JSONArray userReliefRequests = new JSONArray();
+        userReliefRequests.addAll(this.userReliefRequests);
+
+        jsonObject.put("userReliefRequests", userReliefRequests);
 
         return jsonObject;
     }
@@ -66,9 +71,6 @@ public class User extends Serializable {
 
         JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
         location.deserialize(locationJsonObject);
-
-        userContact =
-
     }
 
 }
