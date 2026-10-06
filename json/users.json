@@ -1,0 +1,72 @@
+[
+  {
+    "id": "ace00e95-9f57-4b63-86e6-0530a92c011b",
+    "first_name": "Portia",
+    "last_name": "Plante",
+    "password": "P3ND1NG_1S_TH3_B35T_GR0UP",
+    "location": {
+      "state": "SC",
+      "city": "Columbia",
+      "county": "Richland",
+      "street": "550 Assembly St",
+      "zip": "29201"
+    },
+    "user_contact": "42355785-2e10-4df8-a497-16c8af5c5a1c",
+    "emergency_contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "c389344a-c65b-4f0f-b084-62dd42886b08",
+    "first_name": "Walter",
+    "last_name": "White",
+    "password": "!mTh3Cook",
+    "location": {
+      "state": "NM",
+      "city": "Albuquerque",
+      "county": "Bernalillo",
+      "street": "308 Negra Arroyo Ln",
+      "zip": "87104"
+    },
+    "user_contact": "6c4f57ba-80e6-4e20-89ab-b99406b6a9cb",
+    "emergency_contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "d1d8dc85-e69f-42bf-af84-7be5a65878ee",
+    "first_name": "Goody",
+    "last_name": "Twoshoes",
+    "password": "12345QWERty*",
+    "location": {
+      "state": "NC",
+      "city": "Waxhaw",
+      "county": "Union",
+      "street": "119 Brevard St",
+      "zip": "28173"
+    },
+    "user_contact": "716e2075-5d56-482f-b109-c3068b50528d",
+    "emergency_contact": "1d70cd7d-7b6f-4363-b3d2-6b94eae75815",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "9097baea-66ad-43fe-9970-0aa7afe1ac10",
+    "first_name": "Average",
+    "last_name": "Joe",
+    "password": "password1",
+    "location": {
+      "state": "SC",
+      "city": "Columbia",
+      "county": "Richland",
+      "street": "1215 Blossom St",
+      "zip": "29201"
+    },
+    "user_contact": "0108660c-72df-41af-8ada-397bd344ef27",
+    "emergency_contact": "c2bb4710-f6bf-4b2a-bb57-75b254a80d50",
+    "user_relief_requests": [
+      "2ce1ccde-886a-45f2-9d5a-9d74f399df73",
+      "d03bdc30-aeb7-450b-b8aa-031e14dbe916"
+    ]
+  }
+]

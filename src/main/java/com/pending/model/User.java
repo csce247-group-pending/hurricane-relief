@@ -1,12 +1,12 @@
 package com.pending.model;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
-import javafx.scene.layout.Priority;
-
-public class User {
-    private UUID id;
+public class User extends Serializable {
     private String firstName;
     private String lastName;
     private String password;
@@ -23,7 +23,7 @@ public class User {
 
     public User(String firstName, String lastName, String password,
         Location location, Contact userContact, Contact emergencyContact) {
-
+        super();
     }
 
     public void requestRelief(Priority priority, String description,
@@ -45,64 +45,32 @@ public class User {
 
     }
 
-    public UUID getId() {
-        return id;
+    public JSONObject serialize() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id.toString());
+        jsonObject.put("firstName", firstName);
+        jsonObject.put("lastName", lastName);
+        jsonObject.put("password", password);
+        jsonObject.put("location", location);
+        jsonObject.put("userContact", userContact.getId());
+        jsonObject.put("emergencyContact", emergencyContact.getId());
+
+        JSONArray userReliefRequests = new JSONArray();
+        userReliefRequests.addAll(this.userReliefRequests);
+
+        jsonObject.put("userReliefRequests", userReliefRequests);
+
+        return jsonObject;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+    public void deserialize(JSONObject jsonObject) {
+        id = UUID.fromString((String) jsonObject.get("id"));
+        firstName = (String) jsonObject.get("firstName");
+        lastName = (String) jsonObject.get("lastName");
+        password = (String) jsonObject.get("password");
 
-    public void setFirstName(String firstName) {
-
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-
-    }
-
-    public Contact getUserContact() {
-        return userContact;
-    }   
-
-    public void setUserContact(Contact userContact) {
-
-    }
-
-    public Contact getEmergencyContact() {
-        return emergencyContact;
-    }
-
-    public void setEmergencyContact(Contact emergencyContact) {
-
-    }
-
-    public ArrayList<ReliefRequest> getUserReliefRequests() {
-        return userReliefRequests;
-    }
-
-    public void setUserReliefRequests(ArrayList<ReliefRequest> userReliefRequests) {
-
+        JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
+        location.deserialize(locationJsonObject);
     }
 
 }
