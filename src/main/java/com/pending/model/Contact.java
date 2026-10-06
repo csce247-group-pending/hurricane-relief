@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 import java.util.UUID;
 
-public class Contact implements Serializable {
+public class Contact extends Serializable {
     private UUID id;
     private String email;
     private String phone;
