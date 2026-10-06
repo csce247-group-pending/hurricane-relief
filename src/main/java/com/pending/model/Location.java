@@ -1,18 +1,20 @@
 package com.pending.model;
 
-public class Location {
+import org.json.simple.JSONObject;
+
+public class Location extends Serializable {
     private String state;
     private String city;
     private String county;
     private String street;
-    private String zipcode;
+    private String zip;
 
-    public Location(String state, String city, String county, String street, String zipcode) {
+    public Location(String state, String city, String county, String street, String zip) {
         this.state = state;
         this.city = city;
         this.county = county;
         this.street = street;
-        this.zipcode = zipcode;
+        this.zip = zip;
     }
 
     public boolean isInState(String state) {
@@ -28,7 +30,7 @@ public class Location {
     }
 
     public boolean isInZip(String zipcode) {
-        return zipcode.equals(this.zipcode);
+        return zipcode.equals(this.zip);
     }
 
     public String getState() {
@@ -63,11 +65,29 @@ public class Location {
         this.street = street;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getZip() {
+        return zip;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public JSONObject serialize() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("state", state);
+        jsonObject.put("city", city);
+        jsonObject.put("county", county);
+        jsonObject.put("street", street);
+        jsonObject.put("zip", zip);
+        return jsonObject;
+    }
+
+    public void deserialize(JSONObject jsonObject) {
+        state = (String) jsonObject.get("state");
+        city = (String) jsonObject.get("city");
+        county = (String) jsonObject.get("county");
+        street = (String) jsonObject.get("street");
+        zip = (String) jsonObject.get("zip");
     }
 }
