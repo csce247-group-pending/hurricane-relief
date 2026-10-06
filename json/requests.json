@@ -1,0 +1,58 @@
+[
+  {
+    "id": "2ce1ccde-886a-45f2-9d5a-9d74f399df73",
+    "priority": "HIGH",
+    "status": "ASSIGNED",
+    "description": "Need food.",
+    "location": {
+        "state": "SC",
+        "city": "Columbia",
+        "county": "Richland",
+        "street": "300 Main St",
+        "zipcode": "29208"
+    },
+    "submitted_at": "2026-09-24T10:30:21",
+    "completion_time": "null",
+    "needed_resources": [
+        {
+        "type": "FOOD",
+        "quantity": 1,
+        "description": "canned black beans",
+        "restock_date": "2026-09-25T14:30:00"
+      },
+      {
+        "type": "FOOD",
+        "quantity": 1,
+        "description": "watermelon",
+        "restock_date": "2026-09-25T15:30:00"
+      }
+    ],
+    "attached_photo": "imgs/empty_pantry.png",
+    "type": "FOOD"
+  },
+  {
+    "id": "d03bdc30-aeb7-450b-b8aa-031e14dbe916",
+    "priority": "LOW",
+    "status": "REQUESTED",
+    "description": "Need water.",
+    "location": {
+        "state": "SC",
+        "city": "Columbia",
+        "county": "Richland",
+        "street": "5000 Main St",
+        "zipcode": "29208"
+    },
+    "submitted_at": "2026-08-22T10:30:21",
+    "completion_time": "null",
+    "needed_resources": [
+        {
+        "type": "WATER",
+        "quantity": 1,
+        "description": "1 gallon of water",
+        "restock_date": "2026-09-25T14:30:00"
+      }
+    ],
+    "attached_photo": "imgs/empty_water_bottle.png",
+    "type": "WATER"
+  }
+]

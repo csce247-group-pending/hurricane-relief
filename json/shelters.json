@@ -1,0 +1,61 @@
+[
+  {
+    "id": "b6332649-0695-402f-9006-12ddd2277128",
+    "name": "TheBestShelter",
+    "location": {
+        "state": "SC",
+        "city": "Columbia",
+        "county": "Richland",
+        "street": "211 Main St",
+        "zipcode": "29208"
+    },
+    "contactInfo": "UUID",
+    "capacity": 100,
+    "occupancy": 70,
+    "volunteers": [
+      "ace00e95-9f57-4b63-86e6-0530a92c011b"
+    ],
+    "resources": [
+      {
+        "type": "FOOD",
+        "quantity": 200,
+        "description": "canned black beans",
+        "restock_date": "2026-09-25T14:30:00"
+      },
+      {
+        "type": "WATER",
+        "quantity": 100,
+        "description": "water gallons",
+        "restock_date": "2026-09-25T15:30:00"
+      }
+    ],
+    "status": "OPEN"
+  },
+  {
+    "id": "abc977ab-0e7e-47d7-930e-4adb0aa8a519",
+    "name": "TheWorstShelter",
+    "location": "UUID",
+    "contactInfo": "UUID",
+    "capacity": 20,
+    "occupancy": 20,
+    "volunteers": [
+      "d1d8dc85-e69f-42bf-af84-7be5a65878ee"
+    ],
+    "resources": [
+      {
+        "type": "WATER",
+        "quantity": 5,
+        "description": "water gallons",
+        "restock_date": "2026-09-25T15:30:00"
+      },
+      {
+        "type": "FOOD",
+        "quantity": 20,
+        "description": "canned corn",
+        "restock_date": "2026-09-25T14:30:00"
+      }
+    ],
+    "status": "FULL"
+  }
+
+]

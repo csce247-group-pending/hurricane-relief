@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class ReliefRequest {
+public class ReliefRequest extends Serializable {
 
     private UUID id;
     private Priority priority;
@@ -96,3 +96,4 @@ public class ReliefRequest {
     }
 
 }
+
