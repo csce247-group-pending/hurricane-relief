@@ -10,6 +10,7 @@ public class Shelter extends Serializable {
     private Location location;
     private Contact contactInfo;
     private int capacity;
+    private int occupancy;
     private ArrayList<Volunteer> volunteers;
     private ArrayList<Resource> resources;
     private ShelterStatus status;
@@ -19,25 +20,68 @@ public class Shelter extends Serializable {
         ShelterStatus status) {
         super();    //? does this create a new id every time,
                     //? thus needing to inefficiently overwrite it for pre-existing Shelters?
+            int capacity, ArrayList<Resource> resources) {
+        super();
         this.id = id;
         this.name = name;
         this.location = location;
         this.capacity = capacity;
-        this.volunteers = volunteers;
-        this.resources = resources;
-        this.status = status;
+        this.occupancy = 0;
+        this.volunteers = new ArrayList<Volunteer>();
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
+        this.status = ShelterStatus.OPEN;
     }
 
     public Shelter(String name, Location location,
-        int capacity, ArrayList<Volunteer> volunteers, ArrayList<Resource> resources,
-        ShelterStatus status) {
+            int capacity, ArrayList<Resource> resources) {
         super();
         this.name = name;
         this.location = location;
         this.capacity = capacity;
-        this.volunteers = volunteers;
-        this.resources = resources;
+        this.occupancy = 0;
+        this.volunteers = new ArrayList<Volunteer>();
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
+        this.status = ShelterStatus.OPEN;
+    }
+
+    public Shelter(UUID id, String name, Location location,
+            int capacity, ArrayList<Volunteer> volunteers,
+            ArrayList<Resource> resources, ShelterStatus status) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.capacity = capacity;
+        this.occupancy = 0;
+        this.volunteers = volunteers == null
+                ? new ArrayList<Volunteer>()
+                : new ArrayList<Volunteer>(volunteers);
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
         this.status = status;
+    }
+
+    public Shelter(String name, Location location,
+            int capacity, ArrayList<Volunteer> volunteers,
+            ArrayList<Resource> resources, ShelterStatus status) {
+        super();
+        this.name = name;
+        this.location = location;
+        this.capacity = capacity;
+        this.occupancy = 0;
+        this.volunteers = volunteers == null
+                ? new ArrayList<Volunteer>()
+                : new ArrayList<Volunteer>(volunteers);
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
+        this.status = status;
+
 
     public void addVolunteer(Volunteer volunteer) {
 
@@ -71,12 +115,20 @@ public class Shelter extends Serializable {
         this.contactInfo = contactInfo;
     }
 
-    public int getCapactiy() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapactiy(int capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public int getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(int occupancy) {
+        this.occupancy = occupancy;
     }
 
     public ArrayList<Volunteer> getVolunteers() {
@@ -84,7 +136,9 @@ public class Shelter extends Serializable {
     }
 
     public void setVolunteers(ArrayList<Volunteer> volunteers) {
-        this.volunteers = volunteers;
+        this.volunteers = volunteers == null
+                ? new ArrayList<Volunteer>()
+                : new ArrayList<Volunteer>(volunteers);
     }
 
     public void addVolunteer(Volunteer volunteer) {
@@ -99,16 +153,18 @@ public class Shelter extends Serializable {
         return resources;
     }
 
+    public void setResources(ArrayList<Resource> resources) {
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
+    }
+
     public void addResource(Resource resource) {
         resources.add(resource);
     }
 
     public void removeResource(Resource resource) {
         resources.remove(resource);
-    }
-
-    public void setResources(ArrayList<Resource> resources) {
-        this.resources = resources;
     }
 
     public ShelterStatus getStatus() {
@@ -127,5 +183,4 @@ public class Shelter extends Serializable {
     public void deserialize(JSONObject jsonObject) {
 
     }
-
 }
