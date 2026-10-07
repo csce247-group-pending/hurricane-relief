@@ -39,18 +39,18 @@ public class Shelter extends Serializable {
         super();
         this.name = name;
         this.location = location;
-        this.capacity = capacity;
-        this.occupancy = 0;
-        this.volunteers = new ArrayList<Volunteer>();
-        this.resources = resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
-        this.status = ShelterStatus.OPEN;
-    }
+            this.capacity = capacity;
+            this.occupancy = 0;
+            this.volunteers = new ArrayList<Volunteer>();
+            this.resources = resources == null
+                    ? new ArrayList<Resource>()
+                    : new ArrayList<Resource>(resources);
+            this.status = ShelterStatus.OPEN;
+        }
 
     public Shelter(UUID id, String name, Location location,
-            int capacity, ArrayList<Volunteer> volunteers,
-            ArrayList<Resource> resources, ShelterStatus status) {
+        int capacity, ArrayList<Volunteer > volunteers,
+                ArrayList < Resource> resources, ShelterStatus status) {
         super();
         this.id = id;
         this.name = name;
