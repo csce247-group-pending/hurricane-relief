@@ -2,8 +2,7 @@ package com.pending.model;
 
 import java.util.ArrayList;
 
-public class Admin implements Observer {
-
+public class Admin {
     public Admin() {
 
     }
@@ -25,11 +24,6 @@ public class Admin implements Observer {
     }
 
     public ArrayList<ReliefRequest> viewAllReliefRequests() {
-        
+        return null;
     }
-
-    @Override
-    public void update(Hurricane hurricane) {
-    }
-    
 }

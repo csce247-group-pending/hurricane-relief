@@ -1,9 +1,9 @@
 package com.pending.model;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.UUID;
-
-import org.json.simple.JSONObject;
 
 public class Shelter extends Serializable {
     private String name;
@@ -17,7 +17,7 @@ public class Shelter extends Serializable {
     public Shelter(UUID id, String name, Location location,
         int capacity, ArrayList<Volunteer> volunteers, ArrayList<Resource> resources,
         ShelterStatus status) {
-        super();    //? does this create a new id every time, 
+        super();    //? does this create a new id every time,
                     //? thus needing to inefficiently overwrite it for pre-existing Shelters?
         this.id = id;
         this.name = name;
@@ -38,6 +38,12 @@ public class Shelter extends Serializable {
         this.volunteers = volunteers;
         this.resources = resources;
         this.status = status;
+
+    public void addVolunteer(Volunteer volunteer) {
+
+    }
+
+    public void removeVolunteer(Volunteer volunteer) {
 
     }
 
@@ -118,8 +124,8 @@ public class Shelter extends Serializable {
         return null;
     }
 
-    @Override
-    public void deserialize(JSONObject object) {
+    public void deserialize(JSONObject jsonObject) {
+
     }
 
 }
