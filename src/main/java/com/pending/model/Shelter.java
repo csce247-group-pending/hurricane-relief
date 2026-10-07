@@ -62,14 +62,6 @@ public class Shelter extends Serializable {
                 ? new ArrayList<Resource>()
                 : new ArrayList<Resource>(resources);
         this.status = status;
-
-
-    public void addVolunteer(Volunteer volunteer) {
-
-    }
-
-    public void removeVolunteer(Volunteer volunteer) {
-
     }
 
     public String getName() {
