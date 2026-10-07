@@ -15,25 +15,6 @@ public class Shelter extends Serializable {
     private ArrayList<Resource> resources;
     private ShelterStatus status;
 
-    public Shelter(UUID id, String name, Location location,
-        int capacity, ArrayList<Volunteer> volunteers, ArrayList<Resource> resources,
-        ShelterStatus status) {
-        super();    //? does this create a new id every time,
-                    //? thus needing to inefficiently overwrite it for pre-existing Shelters?
-            int capacity, ArrayList<Resource> resources) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.location = location;
-        this.capacity = capacity;
-        this.occupancy = 0;
-        this.volunteers = new ArrayList<Volunteer>();
-        this.resources = resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
-        this.status = ShelterStatus.OPEN;
-    }
-
     public Shelter(String name, Location location,
             int capacity, ArrayList<Resource> resources) {
         super();
