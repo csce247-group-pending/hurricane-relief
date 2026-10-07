@@ -3,7 +3,6 @@ package com.pending.model;
 import java.util.ArrayList;
 
 public class Admin {
-
     public Admin() {
 
     }
@@ -25,7 +24,6 @@ public class Admin {
     }
 
     public ArrayList<ReliefRequest> viewAllReliefRequests() {
-        
+        return null;
     }
-    
 }
