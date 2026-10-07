@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import org.json.simple.JSONObject;
+
 public class ReliefRequest extends Serializable {
 
     private UUID id;
@@ -93,6 +95,15 @@ public class ReliefRequest extends Serializable {
 
     public void setType(ReliefType type) {
         this.type = type;
+    }
+
+    @Override
+    public JSONObject serialize() {
+        return null;
+    }
+
+    @Override
+    public void deserialize(JSONObject object) {
     }
 
 }
