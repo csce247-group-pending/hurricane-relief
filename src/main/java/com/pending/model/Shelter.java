@@ -1,10 +1,11 @@
 package com.pending.model;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Shelter {
-    private UUID id;
+public class Shelter extends Serializable {
     private String name;
     private Location location;
     private Contact contactInfo;
@@ -29,10 +30,6 @@ public class Shelter {
 
     public void removeVolunteer(Volunteer volunteer) {
 
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public String getName() {
@@ -91,5 +88,13 @@ public class Shelter {
 
     }
 
+    public JSONObject serialize() {
+        JSONObject jsonObject = new JSONObject();
+        return jsonObject;
+    }
+
+    public void deserialize(JSONObject jsonObject) {
+
+    }
 
 }
