@@ -9,7 +9,9 @@ public class Resource {
     private LocalDateTime restockDate;
 
     public Resource(ResourceType type, int quantity, String description) {
-
-    }
-    
+    this.type = type;
+    this.quantity = quantity;
+    this.description = description;
+    this.restockDate = null;
+    }  
 }
