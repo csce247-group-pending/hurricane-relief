@@ -1,14 +1,18 @@
 package com.pending.model;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
-public class Volunteer {
+public class Volunteer extends User {
     private boolean isAvailable;
     private ArrayList<Skill> skills;
     private ArrayList<ReliefRequest> tasks;
 
-    public Volunteer(boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
-
+    public Volunteer(UUID id, String firstName, String lastName, String password,
+        Location location, Contact userContact, Contact emergencyContact,
+        boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
+        super(id, firstName, lastName, password,
+            location, userContact, emergencyContact);
     }
 
     public void startRequest(ReliefRequest reliefRequest) {
