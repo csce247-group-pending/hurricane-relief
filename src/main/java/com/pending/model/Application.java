@@ -9,10 +9,12 @@ public class Application {
     private Location location;
 
     private Application() {
-
+        database = Database.getInstance();
+        currentUser = null;
+        location = null;
     }
 
-    public Application getIstance() {
+    public static Application getInstance() {
         if (application == null) {
             application = new Application();
         }
@@ -31,8 +33,8 @@ public class Application {
         return null;
     }
 
-    public boolean attemptLogin(String email, String password) {
-        return false;
+    public User attemptLogin(String email, String password) {
+        return database.attemptLogin(email, password);
     }
 
     public void logout() {

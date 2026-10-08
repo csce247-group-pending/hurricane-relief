@@ -15,4 +15,8 @@ public enum JSONFile {
     JSONFile(String filename) {
         this.filename = filename;
     }
+
+    public String getFilename() {
+        return filename;
+    }
 }

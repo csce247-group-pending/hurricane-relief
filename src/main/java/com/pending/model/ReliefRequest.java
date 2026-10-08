@@ -8,8 +8,7 @@ import java.util.UUID;
 import org.json.simple.JSONObject;
 
 public class ReliefRequest extends Serializable {
-
-    private UUID id;
+    public static String file = JSONFile.REQUESTS.getFilename();
     private Priority priority;
     private ReliefStatus status;
     private String description;
@@ -27,10 +26,6 @@ public class ReliefRequest extends Serializable {
     public ReliefRequest(UUID id, Priority priority, String description, Location location,
         ArrayList<Resource> neededResources) {
  
-    }
-
-    public UUID getId() {
-        return id;
     }
 
     public ReliefStatus getStatus() {
@@ -103,7 +98,7 @@ public class ReliefRequest extends Serializable {
     }
 
     @Override
-    public void deserialize(JSONObject object) {
+    public void deserialize(JSONObject jsonObject) {
     }
 
 }

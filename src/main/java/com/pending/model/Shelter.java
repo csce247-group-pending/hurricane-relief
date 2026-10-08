@@ -1,11 +1,15 @@
 package com.pending.model;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
 public class Shelter extends Serializable {
+    public static String file = JSONFile.SHELTERS.getFilename();
+
     private String name;
     private Location location;
     private Contact contactInfo;
@@ -20,14 +24,14 @@ public class Shelter extends Serializable {
         super();
         this.name = name;
         this.location = location;
-            this.capacity = capacity;
-            this.occupancy = 0;
-            this.volunteers = new ArrayList<Volunteer>();
-            this.resources = resources == null
-                    ? new ArrayList<Resource>()
-                    : new ArrayList<Resource>(resources);
-            this.status = ShelterStatus.OPEN;
-        }
+        this.capacity = capacity;
+        this.occupancy = 0;
+        this.volunteers = new ArrayList<Volunteer>();
+        this.resources = resources == null
+                ? new ArrayList<Resource>()
+                : new ArrayList<Resource>(resources);
+        this.status = ShelterStatus.OPEN;
+    }
 
     public Shelter(UUID id, String name, Location location,
         int capacity, ArrayList<Volunteer > volunteers,
@@ -150,6 +154,18 @@ public class Shelter extends Serializable {
 
     @Override
     public JSONObject serialize() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id.toString());
+        jsonObject.put("name", name);
+        jsonObject.put("location", location.serialize());
+        jsonObject.put("capacity", capacity);
+        jsonObject.put("occupancy", occupancy);
+
+        JSONArray volunteers = new JSONArray();
+        for (Volunteer volunteer: this.volunteers) {
+            volunteers.add(volunteer.getId().toString());
+        }
+
         return null;
     }
 
