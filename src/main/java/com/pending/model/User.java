@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class User extends Serializable {
+    public static String file = JSONFile.USERS.getFilename();
     private String firstName;
     private String lastName;
     private String password;
@@ -26,23 +27,64 @@ public class User extends Serializable {
         super();
     }
 
-    public void requestRelief(Priority priority, String description,
-        Location location, ArrayList<Resource> neededResources) {
-
+    public User() {
+        this("", "", "", null, null, null);
     }
 
-    public void viewReliefRequest(ReliefRequest reliefRequest) {
-
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void viewHurricaneStatus() {
-
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    public void cancelReliefRequest(ReliefRequest reliefRequest) {
 
+    public String getLastName() {
+        return lastName;
     }
-    public void acknowledgeAlert() {
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Contact getUserContact() {
+        return userContact;
+    }
+
+    public void setUserContact(Contact userContact) {
+        this.userContact = userContact;
+    }
+
+    public Contact getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(Contact emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public ArrayList<ReliefRequest> getUserReliefRequests() {
+        return userReliefRequests;
+    }
+
+    public void setUserReliefRequests(ArrayList<ReliefRequest> userReliefRequests) {
+        this.userReliefRequests = userReliefRequests;
     }
 
     public JSONObject serialize() {

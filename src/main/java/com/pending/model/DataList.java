@@ -1,23 +1,29 @@
 package com.pending.model;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DataList<T extends Serializable> {
-    private static final HashMap<String, DataList<?>> dataLists = new HashMap<>();
+    private static final HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists = new HashMap<>();
     ArrayList<T> objects;
     private String fileName;
     private DataManager dataManager;
 
-    private DataList() {
-
+    private DataList(Class<T> cls) {
+        try {
+            System.out.println("Reading file " + cls.getField("file").get(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static <T extends Serializable>DataList<?> getInstance(String filename) {
-        if (!dataLists.containsKey(filename)) {
-            dataLists.put(filename, new DataList<T>());
+    public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
+        if (!dataLists.containsKey(cls)) {
+            dataLists.put(cls, new DataList<T>(cls));
         }
-        return dataLists.get(filename);
+
+        return (DataList<T>) dataLists.get(cls);
     }
 
     public ArrayList<T> filterByAttribute(Filter<T> filter) {
@@ -41,6 +47,10 @@ public class DataList<T extends Serializable> {
             }
         }
         return null;
+    }
+
+    public ArrayList<T> getAll() {
+        return objects;
     }
 
     public boolean add(T object) {

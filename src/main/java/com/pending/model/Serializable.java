@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public abstract class Serializable {
     protected UUID id;
+    public static String file;
 
     public Serializable() {
         id = UUID.randomUUID();
@@ -16,5 +17,5 @@ public abstract class Serializable {
     }
 
     public abstract JSONObject serialize();
-    public abstract void deserialize(JSONObject object);
+    public abstract void deserialize(JSONObject jsonObject);
 }

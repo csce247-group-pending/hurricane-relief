@@ -1,12 +1,14 @@
 package com.pending.model;
 
+import org.json.simple.JSONObject;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.UUID;
 
-public class Hurricane {
-    private UUID id;
+public class Hurricane extends Serializable {
+    public static String file = JSONFile.HURRICANES.getFilename();
     private String name;
     private int category;
     private LocalDateTime startDate;
@@ -39,8 +41,14 @@ public class Hurricane {
         
     }
 
-    public UUID getId() {
-        return id;
+    @Override
+    public JSONObject serialize() {
+        return null;
+    }
+
+    @Override
+    public void deserialize(JSONObject jsonObject) {
+
     }
 
     public String getName() {

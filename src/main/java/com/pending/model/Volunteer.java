@@ -2,12 +2,13 @@ package com.pending.model;
 
 import java.util.ArrayList;
 
-public class Volunteer {
+public class Volunteer extends User {
     private boolean isAvailable;
     private ArrayList<Skill> skills;
     private ArrayList<ReliefRequest> tasks;
 
     public Volunteer(boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
+        super();
 
     }
 
