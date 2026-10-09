@@ -1,10 +1,10 @@
 package com.pending.model;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
 import java.util.UUID;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class User extends Serializable {
     public static String file = JSONFile.USERS.getFilename();

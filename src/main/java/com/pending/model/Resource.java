@@ -1,10 +1,8 @@
 package com.pending.model;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import java.io.Serial;
 import java.time.LocalDateTime;
+
+import org.json.simple.JSONObject;
 
 public class Resource extends Serializable {
     private ResourceType type;
@@ -18,9 +16,6 @@ public class Resource extends Serializable {
     this.description = description;
     this.restockDate = null;
     }
-
-    }
-
 
     @Override
     public JSONObject serialize() {
