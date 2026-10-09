@@ -33,12 +33,18 @@ public class Application {
         return null;
     }
 
-    public User attemptLogin(String email, String password) {
-        return database.attemptLogin(email, password);
+    //? Should this be switched from return User to return boolean?
+    public boolean attemptLogin(String email, String password) {
+        currentUser = database.attemptLogin(email, password);
+        return currentUser != null;
     }
 
     public void logout() {
 
+    }
+
+    public String getUserFullName() {
+        return currentUser.getFirstName() + " " + currentUser.getLastName();
     }
 
     public void createReliefRequest() {
