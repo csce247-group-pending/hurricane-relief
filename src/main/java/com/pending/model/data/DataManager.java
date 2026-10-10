@@ -1,8 +1,7 @@
-package com.pending.model;
+package com.pending.model.data;
 
 import org.json.simple.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;

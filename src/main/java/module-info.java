@@ -8,4 +8,8 @@ module com.pending.hurricanerelief {
     exports com.pending.hurricanerelief;
     exports com.pending.model;
     opens com.pending.model to javafx.fxml;
+    exports com.pending.model.data;
+    opens com.pending.model.data to javafx.fxml;
+    exports com.pending.model.data.serializables;
+    opens com.pending.model.data.serializables to javafx.fxml;
 }

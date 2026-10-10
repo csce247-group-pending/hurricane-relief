@@ -1,10 +1,11 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.*;
 import org.json.simple.JSONObject;
 
 public class ReliefRequest extends Serializable {

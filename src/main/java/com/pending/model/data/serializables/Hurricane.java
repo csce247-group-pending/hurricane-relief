@@ -1,5 +1,7 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
+import com.pending.model.HurricaneStatus;
+import com.pending.model.JSONFile;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDateTime;

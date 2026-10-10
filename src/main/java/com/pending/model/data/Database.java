@@ -1,6 +1,7 @@
-package com.pending.model;
+package com.pending.model.data;
 
-import javafx.scene.chart.PieChart;
+import com.pending.model.*;
+import com.pending.model.data.serializables.*;
 
 import java.util.ArrayList;
 import java.util.UUID;

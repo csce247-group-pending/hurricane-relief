@@ -1,4 +1,4 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
 import org.json.simple.JSONObject;
 

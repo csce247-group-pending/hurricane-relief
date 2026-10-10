@@ -1,9 +1,8 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
-import org.json.simple.JSONArray;
+import com.pending.model.ResourceType;
 import org.json.simple.JSONObject;
 
-import java.io.Serial;
 import java.time.LocalDateTime;
 
 public class Resource extends Serializable {
@@ -13,13 +12,12 @@ public class Resource extends Serializable {
     private LocalDateTime restockDate;
 
     public Resource(ResourceType type, int quantity, String description) {
-    this.type = type;
-    this.quantity = quantity;
-    this.description = description;
-    this.restockDate = null;
+        this.type = type;
+        this.quantity = quantity;
+        this.description = description;
+        this.restockDate = null;
     }
 
-    }
 
 
     @Override

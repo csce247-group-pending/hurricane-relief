@@ -1,5 +1,8 @@
 package com.pending.model;
 
+import com.pending.model.data.Database;
+import com.pending.model.data.serializables.*;
+
 import java.util.ArrayList;
 
 public class Application {
@@ -28,7 +31,7 @@ public class Application {
     }
 
     private User requestCreateAccount(String firstName, String lastName, String password,
-        Location location, Contact userContact, Contact emergencyContact
+                                      Location location, Contact userContact, Contact emergencyContact
     ) {
         return null;
     }

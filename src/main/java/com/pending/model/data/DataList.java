@@ -1,6 +1,8 @@
-package com.pending.model;
+package com.pending.model.data;
 
-import java.io.Serial;
+import com.pending.model.Filter;
+import com.pending.model.data.serializables.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

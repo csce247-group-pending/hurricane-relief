@@ -1,4 +1,6 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
+
+import com.pending.model.Skill;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -9,8 +11,8 @@ public class Volunteer extends User {
     private ArrayList<ReliefRequest> tasks;
 
     public Volunteer(UUID id, String firstName, String lastName, String password,
-        Location location, Contact userContact, Contact emergencyContact,
-        boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
+                     Location location, Contact userContact, Contact emergencyContact,
+                     boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
         super(id, firstName, lastName, password,
             location, userContact, emergencyContact);
     }
