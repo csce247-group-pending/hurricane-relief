@@ -44,6 +44,18 @@ public class DataList<T extends Serializable> {
         return objects;
     }
 
+    public ArrayList<T> getObjects(Filter<T> filter) {
+    ArrayList<T> output = new ArrayList<>();
+
+    for (T object : objects) {
+        if (filter.filter(object)) {
+            output.add(object);
+        }
+    }
+
+    return output;
+}
+
     public T getObject(Filter<T> filter) {
         for (T object: objects) {
             if (filter.filter(object)) {
