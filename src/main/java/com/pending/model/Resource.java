@@ -19,9 +19,6 @@ public class Resource extends Serializable {
     this.restockDate = null;
     }
 
-    }
-
-
     @Override
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();

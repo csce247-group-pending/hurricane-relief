@@ -11,12 +11,16 @@ public class DataList<T extends Serializable> {
     private DataManager dataManager;
 
     private DataList(Class<T> cls) {
-        try {
-            System.out.println("Reading file " + cls.getField("file").get(null));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    objects = new ArrayList<T>();
+
+    try {
+        fileName = (String) cls.getField("file").get(null);
+        dataManager = new DataManager(fileName);
+        System.out.println("Reading file " + fileName);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 
     public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
         if (!dataLists.containsKey(cls)) {
