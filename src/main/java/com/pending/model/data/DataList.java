@@ -2,6 +2,8 @@ package com.pending.model.data;
 
 import com.pending.model.Filter;
 import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.SerializeBehavior;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +16,15 @@ public class DataList<T extends Serializable> {
 
     private DataList(Class<T> cls) {
         try {
-            System.out.println("Reading file " + cls.getField("file").get(null));
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+
+            objects = new ArrayList<>();
+            ArrayList<?> dataObjects = dataManager.read();
+            for (Object dataObject: dataObjects) {
+                Serializable serializable = cls.getDeclaredConstructor().newInstance();
+                serializable.deserialize(dataObject);
+                objects.add((T) serializable);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
