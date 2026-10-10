@@ -43,16 +43,6 @@ public class Hurricane extends Serializable {
         
     }
 
-    @Override
-    public JSONObject serialize() {
-        return null;
-    }
-
-    @Override
-    public void deserialize(JSONObject jsonObject) {
-
-    }
-
     public String getName() {
         return name;
     }

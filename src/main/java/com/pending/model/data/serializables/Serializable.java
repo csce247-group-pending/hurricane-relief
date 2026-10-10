@@ -6,6 +6,7 @@ import java.util.UUID;
 
 public abstract class Serializable {
     protected UUID id;
+    protected SerializeBehavior<? extends Serializable> serializeBehavior;
     public static String file;
 
     public Serializable() {
@@ -16,6 +17,15 @@ public abstract class Serializable {
         return id;
     }
 
-    public abstract JSONObject serialize();
-    public abstract void deserialize(JSONObject jsonObject);
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Object serialize() {
+        return serializeBehavior.serialize();
+    }
+
+    public void deserialize(Object object) {
+        serializeBehavior.deserialize(object);
+    }
 }

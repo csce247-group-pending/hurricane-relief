@@ -92,15 +92,5 @@ public class ReliefRequest extends Serializable {
     public void setType(ReliefType type) {
         this.type = type;
     }
-
-    @Override
-    public JSONObject serialize() {
-        return null;
-    }
-
-    @Override
-    public void deserialize(JSONObject jsonObject) {
-    }
-
 }
 

@@ -20,21 +20,21 @@ public class Resource extends Serializable {
 
 
 
-    @Override
-    public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("type", type.ordinal());
-        jsonObject.put("quantity", quantity);
-        jsonObject.put("description", description);
-        jsonObject.put("restock_date", restockDate.toString());
-        return jsonObject;
-    }
-
-    @Override
-    public void deserialize(JSONObject jsonObject) {
-        type = ResourceType.values()[(int) jsonObject.get("type")];
-        quantity = (int) jsonObject.get("quantity");
-        description = (String) jsonObject.get("description");
-        restockDate = LocalDateTime.parse((String) jsonObject.get("restock_date"));
-    }
+//    @Override
+//    public JSONObject serialize() {
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("type", type.ordinal());
+//        jsonObject.put("quantity", quantity);
+//        jsonObject.put("description", description);
+//        jsonObject.put("restock_date", restockDate.toString());
+//        return jsonObject;
+//    }
+//
+//    @Override
+//    public void deserialize(JSONObject jsonObject) {
+//        type = ResourceType.values()[(int) jsonObject.get("type")];
+//        quantity = (int) jsonObject.get("quantity");
+//        description = (String) jsonObject.get("description");
+//        restockDate = LocalDateTime.parse((String) jsonObject.get("restock_date"));
+//    }
 }
