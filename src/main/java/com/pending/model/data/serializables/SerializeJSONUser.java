@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -40,5 +41,12 @@ public class SerializeJSONUser extends SerializeJSON<User> {
 
         JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
         serializable.getLocation().deserialize(locationJsonObject);
+    }
+
+    @Override
+    public void resolveReferences() {
+        Database database = Database.getInstance();
+        serializable.setUserContact(database.getContactByUUID(serializable.getUserContactUUIDReference()));
+        serializable.setEmergencyContact(database.getContactByUUID(serializable.getEmergencyContactUUIDReference()));
     }
 }

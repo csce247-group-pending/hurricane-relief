@@ -13,8 +13,14 @@ public class User extends Serializable {
     private String lastName;
     private String password;
     private Location location;
+
+    private UUID userContactUUIDReference;
+    private UUID emergencyContactUUIDReference;
+
     private Contact userContact;
     private Contact emergencyContact;
+
+
     private ArrayList<UUID> userReliefRequests;
 
     public User(UUID id, String firstName, String lastName,
@@ -94,6 +100,22 @@ public class User extends Serializable {
 
     public void clearUserReliefRequests() {
         userReliefRequests = new ArrayList<>();
+    }
+
+    public UUID getUserContactUUIDReference() {
+        return userContactUUIDReference;
+    }
+
+    public void setUserContactUUIDReference(UUID userContactUUIDReference) {
+        this.userContactUUIDReference = userContactUUIDReference;
+    }
+
+    public UUID getEmergencyContactUUIDReference() {
+        return emergencyContactUUIDReference;
+    }
+
+    public void setEmergencyContactUUIDReference(UUID emergencyContactUUIDReference) {
+        this.emergencyContactUUIDReference = emergencyContactUUIDReference;
     }
 
     public JSONObject serialize() {

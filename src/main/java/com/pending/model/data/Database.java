@@ -23,6 +23,8 @@ public class Database {
 //        hurricanes = DataList.getInstance(Hurricane.class);
 //        shelters = DataList.getInstance(Shelter.class);
         contacts = DataList.getInstance(Contact.class);
+
+        resolveReferences();
     }
 
     public static Database getInstance() {
@@ -32,6 +34,10 @@ public class Database {
 
     public static void main(String[] args) {
         getInstance();
+    }
+
+    private void resolveReferences() {
+        contacts.res
     }
 
     public User attemptLogin(String email, String password) {
@@ -64,5 +70,29 @@ public class Database {
 
     public ArrayList<Shelter> getShelters(Filter<Shelter> filter) {
         return shelters.filterByAttribute(filter);
+    }
+
+    public ArrayList<ReliefRequest> getRequestByUUID() {
+        return requests.getAll();
+    }
+
+    public ArrayList<Hurricane> getHurricaneByUUID() {
+        return hurricanes.getAll();
+    }
+
+    public ArrayList<Hurricane> getHurricanes(Filter<Hurricane> filter) {
+        return hurricanes.filterByAttribute(filter);
+    }
+
+    public ArrayList<Shelter> getShelters() {
+        return shelters.getAll();
+    }
+
+    public ArrayList<Shelter> getShelters(Filter<Shelter> filter) {
+        return shelters.filterByAttribute(filter);
+    }
+
+    public Contact getContactByUUID(UUID id) {
+        return contacts.getObjectByUUID(id);
     }
 }
