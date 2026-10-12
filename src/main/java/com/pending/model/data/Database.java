@@ -1,6 +1,5 @@
 package com.pending.model.data;
 
-import com.pending.model.*;
 import com.pending.model.data.serializables.*;
 
 import java.util.ArrayList;

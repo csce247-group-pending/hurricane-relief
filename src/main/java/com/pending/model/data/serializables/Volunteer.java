@@ -1,6 +1,6 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.Skill;
+import com.pending.model.enums.Skill;
 
 import java.util.ArrayList;
 import java.util.UUID;

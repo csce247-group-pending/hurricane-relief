@@ -1,6 +1,6 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.ContactPreference;
+import com.pending.model.enums.ContactPreference;
 import org.json.simple.JSONObject;
 
 import java.util.UUID;

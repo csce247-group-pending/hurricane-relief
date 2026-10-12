@@ -1,14 +1,11 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.JSONFile;
+import com.pending.model.enums.JSONFile;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 public class User extends Serializable {
     public static String file = JSONFile.USERS.getFilename();

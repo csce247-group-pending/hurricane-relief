@@ -1,6 +1,4 @@
-package com.pending.model;
-
-import java.util.HashMap;
+package com.pending.model.enums;
 
 public enum Priority {
     LOW(0),

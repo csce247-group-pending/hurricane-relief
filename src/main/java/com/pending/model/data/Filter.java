@@ -1,4 +1,4 @@
-package com.pending.model;
+package com.pending.model.data;
 
 @FunctionalInterface
 public interface Filter<T> {

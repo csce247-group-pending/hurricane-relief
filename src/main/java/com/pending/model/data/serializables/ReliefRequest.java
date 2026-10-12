@@ -5,8 +5,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.pending.model.*;
-import org.json.simple.JSONObject;
+import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.Priority;
+import com.pending.model.enums.ReliefStatus;
+import com.pending.model.enums.ReliefType;
 
 public class ReliefRequest extends Serializable {
     public static String file = JSONFile.REQUESTS.getFilename();

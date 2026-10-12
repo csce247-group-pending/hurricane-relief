@@ -1,8 +1,7 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.HurricaneStatus;
-import com.pending.model.JSONFile;
-import org.json.simple.JSONObject;
+import com.pending.model.enums.HurricaneStatus;
+import com.pending.model.enums.JSONFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

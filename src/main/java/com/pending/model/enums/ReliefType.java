@@ -1,4 +1,4 @@
-package com.pending.model;
+package com.pending.model.enums;
 
 public enum ReliefType {
     FOOD,

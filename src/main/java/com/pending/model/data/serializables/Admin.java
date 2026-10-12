@@ -1,6 +1,4 @@
-package com.pending.model;
-
-import com.pending.model.data.serializables.*;
+package com.pending.model.data.serializables;
 
 import java.util.ArrayList;
 import java.util.UUID;

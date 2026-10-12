@@ -1,7 +1,7 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.JSONFile;
-import com.pending.model.ShelterStatus;
+import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.ShelterStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
