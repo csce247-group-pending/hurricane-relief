@@ -45,13 +45,13 @@ public class DataList<T extends Serializable> {
     }
 
     public ArrayList<T> getObjects(Filter<T> filter) {
-    ArrayList<T> output = new ArrayList<>();
+        ArrayList<T> output = new ArrayList<>();
 
-    for (T object : objects) {
-        if (filter.filter(object)) {
-            output.add(object);
+        for (T object : objects) {
+            if (filter.filter(object)) {
+                output.add(object);
+            }
         }
-    }
 
     return output;
 }

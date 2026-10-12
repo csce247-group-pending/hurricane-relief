@@ -11,10 +11,10 @@ public class Resource extends Serializable {
     private LocalDateTime restockDate;
 
     public Resource(ResourceType type, int quantity, String description) {
-    this.type = type;
-    this.quantity = quantity;
-    this.description = description;
-    this.restockDate = null;
+        this.type = type;
+        this.quantity = quantity;
+        this.description = description;
+        this.restockDate = null;
     }
 
     @Override
@@ -33,5 +33,37 @@ public class Resource extends Serializable {
         quantity = (int) jsonObject.get("quantity");
         description = (String) jsonObject.get("description");
         restockDate = LocalDateTime.parse((String) jsonObject.get("restock_date"));
+    }
+
+    public ResourceType getType() {
+        return type;
+    }
+
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getRestockDate() {
+        return restockDate;
+    }
+
+    public void setRestockDate(LocalDateTime restockDate) {
+        this.restockDate = restockDate;
     }
 }
