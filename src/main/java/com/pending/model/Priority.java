@@ -1,7 +1,19 @@
 package com.pending.model;
 
-public class Priority {
-    public static final int LOW = 0;
-    public static final int MEDIUM = 1;
-    public static final int HIGH = 2;
+import java.util.HashMap;
+
+public enum Priority {
+    LOW(0),
+    MEDIUM(1),
+    HIGH(2);
+
+    private int value;
+
+    private Priority(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }

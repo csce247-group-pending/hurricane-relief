@@ -1,4 +1,8 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
+
+import com.pending.model.JSONFile;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -14,7 +18,7 @@ public class User extends Serializable {
     private Location location;
     private Contact userContact;
     private Contact emergencyContact;
-    private ArrayList<ReliefRequest> userReliefRequests;
+    private ArrayList<UUID> userReliefRequests;
 
     public User(UUID id, String firstName, String lastName,
         String password, Location location, Contact userContact,
@@ -79,12 +83,20 @@ public class User extends Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public ArrayList<ReliefRequest> getUserReliefRequests() {
+    public ArrayList<UUID> getUserReliefRequests() {
         return userReliefRequests;
     }
 
-    public void setUserReliefRequests(ArrayList<ReliefRequest> userReliefRequests) {
-        this.userReliefRequests = userReliefRequests;
+    public boolean addUserReliefRequest(ReliefRequest reliefRequest) {
+        return userReliefRequests.add(reliefRequest.getId());
+    }
+
+    public boolean addUserReliefRequest(UUID id) {
+        return userReliefRequests.add(id);
+    }
+
+    public void clearUserReliefRequests() {
+        userReliefRequests = new ArrayList<>();
     }
 
     public JSONObject serialize() {

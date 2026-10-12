@@ -1,5 +1,7 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
+import com.pending.model.HurricaneStatus;
+import com.pending.model.JSONFile;
 import org.json.simple.JSONObject;
 
 import java.time.LocalDateTime;
@@ -17,16 +19,24 @@ public class Hurricane extends Serializable {
     private HurricaneStatus status;
     private ArrayList<Observer> observers;
 
-    public Hurricane(String name, String category, LocalDateTime startDate,
-        ArrayList<Location> locations, HurricaneStatus status) {
-
-        
+    public Hurricane(String name, int category, LocalDateTime startDate, LocalDateTime endDate,
+                     ArrayList<Location> locations, HurricaneStatus status) {
+        this.name = name;
+        this.category = category;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.locations = locations;
+        this.status = status;
     }
 
-    public Hurricane(UUID id, String name, String category, LocalDateTime startDate,
-        ArrayList<Location> locations, HurricaneStatus status) {
+    public Hurricane(UUID id, String name, int category, LocalDateTime startDate, LocalDateTime endDate,
+                     ArrayList<Location> locations, HurricaneStatus status) {
+        this(name, category, startDate, endDate, locations, status);
+        this.id = id;
+    }
 
-        
+    public Hurricane() {
+
     }
 
     public void addObserver(Observer observer) {
@@ -39,16 +49,6 @@ public class Hurricane extends Serializable {
 
     public void notifyObservers() {
         
-    }
-
-    @Override
-    public JSONObject serialize() {
-        return null;
-    }
-
-    @Override
-    public void deserialize(JSONObject jsonObject) {
-
     }
 
     public String getName() {

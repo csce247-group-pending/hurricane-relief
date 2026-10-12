@@ -1,6 +1,7 @@
-package com.pending.model;
+package com.pending.model.data;
 
-import javafx.scene.chart.PieChart;
+import com.pending.model.*;
+import com.pending.model.data.serializables.*;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -18,10 +19,10 @@ public class Database {
     private static Database database;
 
     private Database() {
-        users = DataList.getInstance(User.class);
-        requests = DataList.getInstance(ReliefRequest.class);
-        hurricanes = DataList.getInstance(Hurricane.class);
-        shelters = DataList.getInstance(Shelter.class);
+//        users = DataList.getInstance(User.class);
+//        requests = DataList.getInstance(ReliefRequest.class);
+//        hurricanes = DataList.getInstance(Hurricane.class);
+//        shelters = DataList.getInstance(Shelter.class);
         contacts = DataList.getInstance(Contact.class);
     }
 

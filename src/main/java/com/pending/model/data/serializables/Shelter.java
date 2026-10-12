@@ -1,10 +1,11 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
+import com.pending.model.JSONFile;
+import com.pending.model.ShelterStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 
 public class Shelter extends Serializable {

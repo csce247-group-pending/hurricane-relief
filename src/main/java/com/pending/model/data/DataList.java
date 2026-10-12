@@ -1,26 +1,36 @@
-package com.pending.model;
+package com.pending.model.data;
 
-import java.io.Serial;
+import com.pending.model.Filter;
+import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.SerializeBehavior;
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class DataList<T extends Serializable> {
     private static final HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists = new HashMap<>();
-    ArrayList<T> objects;
+    private ArrayList<T> objects;
+    private HashMap<UUID, T> objectsById;
     private String fileName;
     private DataManager dataManager;
 
     private DataList(Class<T> cls) {
-    objects = new ArrayList<T>();
+        try {
+            dataManager = new DataManager((String) cls.getField("file").get(null));
 
-    try {
-        fileName = (String) cls.getField("file").get(null);
-        dataManager = new DataManager(fileName);
-        System.out.println("Reading file " + fileName);
-    } catch (Exception e) {
-        e.printStackTrace();
+            objects = new ArrayList<>();
+            ArrayList<?> dataObjects = dataManager.read();
+            for (Object dataObject: dataObjects) {
+                Serializable serializable = cls.getDeclaredConstructor().newInstance();
+                serializable.deserialize(dataObject);
+                objects.add((T) serializable);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
 
     public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
         if (!dataLists.containsKey(cls)) {
@@ -70,6 +80,11 @@ public class DataList<T extends Serializable> {
     }
 
     public boolean add(T object) {
+        UUID id = object.getId();
+        if (objectsById.containsKey(id)) {
+            return false;
+        }
+        objectsById.put(id, object);
         return objects.add(object);
     }
 

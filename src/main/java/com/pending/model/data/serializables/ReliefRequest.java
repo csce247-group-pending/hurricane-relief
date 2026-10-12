@@ -1,10 +1,11 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.*;
 import org.json.simple.JSONObject;
 
 public class ReliefRequest extends Serializable {
@@ -20,12 +21,18 @@ public class ReliefRequest extends Serializable {
 
     public ReliefRequest(Priority priority, String description, Location location,
         ArrayList<Resource> neededResources) {
-
+        super();
+        this.priority = priority;
+        this.description = description;
+        this.location = location;
+        this.neededResources = neededResources;
+        serializeBehavior = new SerializeJSONReliefRequest(this);
     }
 
     public ReliefRequest(UUID id, Priority priority, String description, Location location,
         ArrayList<Resource> neededResources) {
- 
+        this(priority, description, location, neededResources);
+        this.id = id;
     }
 
     public ReliefStatus getStatus() {
@@ -91,15 +98,5 @@ public class ReliefRequest extends Serializable {
     public void setType(ReliefType type) {
         this.type = type;
     }
-
-    @Override
-    public JSONObject serialize() {
-        return null;
-    }
-
-    @Override
-    public void deserialize(JSONObject jsonObject) {
-    }
-
 }
 

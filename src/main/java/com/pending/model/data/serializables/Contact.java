@@ -1,6 +1,7 @@
-package com.pending.model;
+package com.pending.model.data.serializables;
 
-import org.json.simple.JSONObject;
+import com.pending.model.ContactPreference;
+import com.pending.model.JSONFile;
 
 import java.util.UUID;
 
@@ -11,14 +12,21 @@ public class Contact extends Serializable {
     private String phone;
     private ContactPreference contactPreference;
 
-    public Contact(UUID id, String email, String phoneNumber,
-        ContactPreference contactPreference) {
-
+    public Contact(String email, String phone, ContactPreference contactPreference) {
+        super();
+        this.email = email;
+        this.phone = phone;
+        this.contactPreference = contactPreference;
+        serializeBehavior = new SerializeJSONContact(this);
     }
 
-    public Contact(String email, String phoneNumber,
-        ContactPreference contactPreference) {
+    public Contact(UUID id, String email, String phone, ContactPreference contactPreference) {
+        this(email, phone, contactPreference);
+        this.id = id;
+    }
 
+    public Contact() {
+        this("", "", null);
     }
 
     public String getEmail() {
@@ -55,21 +63,5 @@ public class Contact extends Serializable {
 
     public boolean contactPhoneText() {
         return false;
-    }
-
-    public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id.toString());
-        jsonObject.put("email", email);
-        jsonObject.put("phone", phone);
-        jsonObject.put(contactPreference, contactPreference.ordinal());
-        return jsonObject;
-    }
-
-    public void deserialize(JSONObject jsonObject) {
-        id = UUID.fromString((String) jsonObject.get("id"));
-        email = (String) jsonObject.get("email");
-        phone = (String) jsonObject.get("phone");
-        contactPreference = (ContactPreference) jsonObject.get("contact_preference");
     }
 }
