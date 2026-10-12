@@ -16,12 +16,12 @@ public class User extends Serializable {
 
     private UUID userContactUUIDReference;
     private UUID emergencyContactUUIDReference;
-
     private Contact userContact;
     private Contact emergencyContact;
 
 
-    private ArrayList<UUID> userReliefRequests;
+    private ArrayList<UUID> userReliefRequestsByUUID;
+    private ArrayList<ReliefRequest> userReliefRequests;
 
     public User(UUID id, String firstName, String lastName,
         String password, Location location, Contact userContact,
@@ -86,20 +86,20 @@ public class User extends Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public ArrayList<UUID> getUserReliefRequests() {
+    public ArrayList<ReliefRequest> getUserReliefRequests() {
         return userReliefRequests;
     }
 
+    public ArrayList<UUID> getUserReliefRequestsByUUID() {
+        return userReliefRequestsByUUID;
+    }
+
     public boolean addUserReliefRequest(ReliefRequest reliefRequest) {
-        return userReliefRequests.add(reliefRequest.getId());
+        return userReliefRequestsByUUID.add(reliefRequest.getId());
     }
 
     public boolean addUserReliefRequest(UUID id) {
-        return userReliefRequests.add(id);
-    }
-
-    public void clearUserReliefRequests() {
-        userReliefRequests = new ArrayList<>();
+        return userReliefRequestsByUUID.add(id);
     }
 
     public UUID getUserContactUUIDReference() {
@@ -129,7 +129,7 @@ public class User extends Serializable {
         jsonObject.put("emergencyContact", emergencyContact.getId());
 
         JSONArray userReliefRequests = new JSONArray();
-        userReliefRequests.addAll(this.userReliefRequests);
+        userReliefRequests.addAll(this.userReliefRequestsByUUID);
 
         jsonObject.put("userReliefRequests", userReliefRequests);
 
