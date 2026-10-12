@@ -17,7 +17,7 @@ public class Contact extends Serializable {
         this.email = email;
         this.phone = phone;
         this.contactPreference = contactPreference;
-        serializeBehavior = new SerializeContactJSON(this);
+        serializeBehavior = new SerializeJSONContact(this);
     }
 
     public Contact(UUID id, String email, String phone, ContactPreference contactPreference) {

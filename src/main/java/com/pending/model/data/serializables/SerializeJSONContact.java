@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 
 import java.util.UUID;
 
-public class SerializeContactJSON extends SerializeJSON<Contact> {
-    public SerializeContactJSON(Contact serializable) {
+public class SerializeJSONContact extends SerializeJSON<Contact> {
+    public SerializeJSONContact(Contact serializable) {
         super(serializable);
     }
 
@@ -15,7 +15,7 @@ public class SerializeContactJSON extends SerializeJSON<Contact> {
         jsonObject.put("id", serializable.getId().toString());
         jsonObject.put("email", serializable.getEmail());
         jsonObject.put("phone", serializable.getPhone());
-        jsonObject.put("contactPreference", serializable.getContactPreference().ordinal());
+        jsonObject.put("contactPreference", serializable.getContactPreference().name());
         return jsonObject;
     }
 

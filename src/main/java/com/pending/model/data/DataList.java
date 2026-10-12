@@ -7,10 +7,12 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class DataList<T extends Serializable> {
     private static final HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists = new HashMap<>();
-    ArrayList<T> objects;
+    private ArrayList<T> objects;
+    private HashMap<UUID, T> objectsById;
     private String fileName;
     private DataManager dataManager;
 
@@ -66,6 +68,11 @@ public class DataList<T extends Serializable> {
     }
 
     public boolean add(T object) {
+        UUID id = object.getId();
+        if (objectsById.containsKey(id)) {
+            return false;
+        }
+        objectsById.put(id, object);
         return objects.add(object);
     }
 

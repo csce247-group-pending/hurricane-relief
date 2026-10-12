@@ -19,16 +19,24 @@ public class Hurricane extends Serializable {
     private HurricaneStatus status;
     private ArrayList<Observer> observers;
 
-    public Hurricane(String name, String category, LocalDateTime startDate,
-        ArrayList<Location> locations, HurricaneStatus status) {
-
-        
+    public Hurricane(String name, int category, LocalDateTime startDate, LocalDateTime endDate,
+                     ArrayList<Location> locations, HurricaneStatus status) {
+        this.name = name;
+        this.category = category;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.locations = locations;
+        this.status = status;
     }
 
-    public Hurricane(UUID id, String name, String category, LocalDateTime startDate,
-        ArrayList<Location> locations, HurricaneStatus status) {
+    public Hurricane(UUID id, String name, int category, LocalDateTime startDate, LocalDateTime endDate,
+                     ArrayList<Location> locations, HurricaneStatus status) {
+        this(name, category, startDate, endDate, locations, status);
+        this.id = id;
+    }
 
-        
+    public Hurricane() {
+
     }
 
     public void addObserver(Observer observer) {

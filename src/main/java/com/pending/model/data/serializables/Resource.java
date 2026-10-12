@@ -16,25 +16,42 @@ public class Resource extends Serializable {
         this.quantity = quantity;
         this.description = description;
         this.restockDate = null;
+        serializeBehavior = new SerializeJSONResource(this);
     }
 
+    public Resource() {
+        this(null, 0, "");
+    }
 
+    public ResourceType getType() {
+        return type;
+    }
 
-//    @Override
-//    public JSONObject serialize() {
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("type", type.ordinal());
-//        jsonObject.put("quantity", quantity);
-//        jsonObject.put("description", description);
-//        jsonObject.put("restock_date", restockDate.toString());
-//        return jsonObject;
-//    }
-//
-//    @Override
-//    public void deserialize(JSONObject jsonObject) {
-//        type = ResourceType.values()[(int) jsonObject.get("type")];
-//        quantity = (int) jsonObject.get("quantity");
-//        description = (String) jsonObject.get("description");
-//        restockDate = LocalDateTime.parse((String) jsonObject.get("restock_date"));
-//    }
+    public void setType(ResourceType type) {
+        this.type = type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getRestockDate() {
+        return restockDate;
+    }
+
+    public void setRestockDate(LocalDateTime restockDate) {
+        this.restockDate = restockDate;
+    }
 }

@@ -72,22 +72,4 @@ public class Location extends Serializable {
     public void setZip(String zip) {
         this.zip = zip;
     }
-
-    public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("state", state);
-        jsonObject.put("city", city);
-        jsonObject.put("county", county);
-        jsonObject.put("street", street);
-        jsonObject.put("zip", zip);
-        return jsonObject;
-    }
-
-    public void deserialize(JSONObject jsonObject) {
-        state = (String) jsonObject.get("state");
-        city = (String) jsonObject.get("city");
-        county = (String) jsonObject.get("county");
-        street = (String) jsonObject.get("street");
-        zip = (String) jsonObject.get("zip");
-    }
 }

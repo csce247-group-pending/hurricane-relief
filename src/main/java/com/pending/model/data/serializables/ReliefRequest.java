@@ -21,12 +21,18 @@ public class ReliefRequest extends Serializable {
 
     public ReliefRequest(Priority priority, String description, Location location,
         ArrayList<Resource> neededResources) {
-
+        super();
+        this.priority = priority;
+        this.description = description;
+        this.location = location;
+        this.neededResources = neededResources;
+        serializeBehavior = new SerializeJSONReliefRequest(this);
     }
 
     public ReliefRequest(UUID id, Priority priority, String description, Location location,
         ArrayList<Resource> neededResources) {
- 
+        this(priority, description, location, neededResources);
+        this.id = id;
     }
 
     public ReliefStatus getStatus() {
