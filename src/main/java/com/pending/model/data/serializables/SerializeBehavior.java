@@ -11,5 +11,7 @@ public abstract class SerializeBehavior<T extends Serializable> {
 
     public abstract Object serialize();
     public abstract void deserialize(Object object);
-    public abstract void resolveReferences();
+    public void resolveReferences() {
+        // Do nothing most of the time, overridden by User and
+    }
 }

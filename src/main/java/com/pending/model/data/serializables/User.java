@@ -21,17 +21,25 @@ public class User extends Serializable {
 
 
     private ArrayList<UUID> userReliefRequestsByUUID;
-    private ArrayList<ReliefRequest> userReliefRequests;
-
-    public User(UUID id, String firstName, String lastName,
-        String password, Location location, Contact userContact,
-        Contact emergencyContact) {
-
-    }
+    private final ArrayList<ReliefRequest> userReliefRequests;
 
     public User(String firstName, String lastName, String password,
-        Location location, Contact userContact, Contact emergencyContact) {
+                Location location, Contact userContact, Contact emergencyContact) {
         super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.location = location;
+        this.userContact = userContact;
+        this.emergencyContact = emergencyContact;
+        this.userReliefRequests = new ArrayList<>();
+    }
+
+    public User(UUID id, String firstName, String lastName,
+                String password, Location location, Contact userContact,
+                Contact emergencyContact) {
+        this(firstName, lastName, password, location, userContact, emergencyContact);
+        this.id = id;
     }
 
     public User() {
