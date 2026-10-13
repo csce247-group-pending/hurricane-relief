@@ -2,9 +2,6 @@ package com.pending.model;
 
 import java.util.ArrayList;
 
-import org.json.simple.JSONObject;
-
-import com.pending.model.data.DataManager;
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.Hurricane;
@@ -13,9 +10,6 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Resource;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
-import com.pending.model.enums.ContactPreference;
-import com.pending.model.enums.JSONFile;
-import com.pending.model.enums.ShelterStatus;
 
 public class Application {
     private static Application application;
