@@ -26,7 +26,7 @@ public class Contact extends Serializable {
     }
 
     public Contact() {
-        this("", "", null);
+        this("", "", ContactPreference.CALL);
     }
 
     public String getEmail() {

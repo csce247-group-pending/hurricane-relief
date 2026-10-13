@@ -4,7 +4,6 @@ import com.pending.model.data.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -25,7 +24,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
 
         JSONArray userReliefRequests = new JSONArray();
-        for (UUID id: serializable.getUserReliefRequestsByUUID()) {
+        for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
             userReliefRequests.add(id.toString());
         }
 
@@ -47,7 +46,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setUserContactUUIDReference(UUID.fromString((String) jsonObject.get("user_contact")));
         serializable.setEmergencyContactUUIDReference(UUID.fromString((String) jsonObject.get("emergency_contact")));
 
-        ArrayList<UUID> userReliefRequestsByUUID = serializable.getUserReliefRequestsByUUID();
+        ArrayList<UUID> userReliefRequestsByUUID = serializable.getUserReliefRequestsUUIDReference();
         for (Object jsonReliefRequestUUID: userReliefRequestsByUUID) {
             userReliefRequestsByUUID.add(UUID.fromString((String) jsonReliefRequestUUID));
         }
@@ -60,7 +59,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setEmergencyContact(database.getContactByUUID(serializable.getEmergencyContactUUIDReference()));
 
         ArrayList<ReliefRequest> userReliefRequests = serializable.getUserReliefRequests();
-        for (UUID id: serializable.getUserReliefRequestsByUUID()) {
+        for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
             userReliefRequests.add(database.getReliefRequestByUUID(id));
         }
     }

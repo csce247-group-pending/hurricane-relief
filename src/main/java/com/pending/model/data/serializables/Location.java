@@ -15,6 +15,12 @@ public class Location extends Serializable {
         this.county = county;
         this.street = street;
         this.zip = zip;
+
+        serializeBehavior = new SerializeJSONLocation(this);
+    }
+
+    public Location() {
+        this("", "", "", "", "");
     }
 
     public boolean isInState(String state) {
