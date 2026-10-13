@@ -16,7 +16,7 @@ public class Application {
     private Location location;
 
     private Application() {
-        database = Database.getInstance();
+        database = null;
         currentUser = null;
         location = null;
     }
