@@ -3,11 +3,13 @@ package com.pending.model.data.serializables;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import com.pending.model.data.Database;
 
 public class SerializeJSONUser extends SerializeJSON<User> {
     public SerializeJSONUser(User serializable) {
