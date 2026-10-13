@@ -1,8 +1,9 @@
 package com.pending.model;
 
-import java.util.Scanner;
-import com.pending.model.data.serializables.Shelter;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.pending.model.data.serializables.Shelter;
 
 public class ConsoleUI {
     private Scanner scanner;

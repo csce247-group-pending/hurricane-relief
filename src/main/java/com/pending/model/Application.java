@@ -1,13 +1,15 @@
 package com.pending.model;
 
-import com.pending.model.data.Database;
-import com.pending.model.data.serializables.*;
-import com.pending.model.data.DataManager;
-import com.pending.model.enums.JSONFile;
-import com.pending.model.enums.ShelterStatus;
-import org.json.simple.JSONObject;
-
 import java.util.ArrayList;
+
+import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Resource;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.User;
 
 public class Application {
     private static Application application;
