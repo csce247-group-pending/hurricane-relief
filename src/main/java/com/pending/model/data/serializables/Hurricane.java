@@ -26,6 +26,8 @@ public class Hurricane extends Serializable {
         this.endDate = endDate;
         this.locations = locations;
         this.status = status;
+
+        serializeBehavior = new SerializeJSONHurricane(this);
     }
 
     public Hurricane(UUID id, String name, int category, LocalDateTime startDate, LocalDateTime endDate,

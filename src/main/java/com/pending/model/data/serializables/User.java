@@ -33,6 +33,8 @@ public class User extends Serializable {
         this.userContact = userContact;
         this.emergencyContact = emergencyContact;
         this.userReliefRequests = new ArrayList<>();
+
+        serializeBehavior = new SerializeJSONUser(this);
     }
 
     public User(UUID id, String firstName, String lastName,
