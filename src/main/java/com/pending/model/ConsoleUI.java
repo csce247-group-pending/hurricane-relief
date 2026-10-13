@@ -2,8 +2,8 @@ package com.pending.model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.pending.model.data.serializables.Shelter;
+import java.util.ArrayList;
 
 public class ConsoleUI {
     private Scanner scanner;
@@ -14,9 +14,7 @@ public class ConsoleUI {
     }
 
     public void run() {
-        // loginScenario();
-        createAccountScenario();
-        // readAndPrintSheltersScenario();
+        readAndPrintSheltersScenario();
     }
 
     public void loginScenario() {
@@ -66,7 +64,23 @@ public class ConsoleUI {
 
     if (shelters.isEmpty()) {
         System.out.println("No shelters found.");
+    ArrayList<Shelter> shelters = app.getShelters();
+
+    System.out.println("\nShelters loaded from JSON:");
+
+    if (shelters.isEmpty()) {
+        System.out.println("No shelters found.");
         return;
+    }
+
+    for (Shelter shelter : shelters) {
+        System.out.println("Name: " + shelter.getName());
+        System.out.println("Capacity: " + shelter.getOccupancy()
+                + "/" + shelter.getCapacity());
+        System.out.println("Status: " + shelter.getStatus());
+        System.out.println();
+    }
+}
     }
 
     for (Shelter shelter : shelters) {
