@@ -37,6 +37,12 @@ public class DataList<T extends Serializable> {
         return (DataList<T>) dataLists.get(cls);
     }
 
+    public void resolveReferences() {
+        for (T object: objects) {
+            object.resolveReferences();
+        }
+    }
+
     public ArrayList<T> filterByAttribute(Filter<T> filter) {
         ArrayList<T> output = new ArrayList<>();
         for (T object: objects) {
@@ -70,6 +76,10 @@ public class DataList<T extends Serializable> {
             }
         }
         return null;
+    }
+
+    public T getObjectByUUID(UUID id) {
+        return objectsById.get(id);
     }
 
     public ArrayList<T> getAll() {

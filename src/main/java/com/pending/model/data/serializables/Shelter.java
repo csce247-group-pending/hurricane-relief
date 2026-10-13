@@ -16,8 +16,13 @@ public class Shelter extends Serializable {
     private Contact contactInfo;
     private int capacity;
     private int occupancy;
+
     private ArrayList<Volunteer> volunteers;
+    private ArrayList<UUID> volunteersByUUID;
+
     private ArrayList<Resource> resources;
+    private ArrayList<UUID> resourcesByUUID;
+
     private ShelterStatus status;
 
     public Shelter(String name, Location location,
@@ -109,6 +114,10 @@ public class Shelter extends Serializable {
         this.occupancy = occupancy;
     }
 
+    public ArrayList<UUID> getVolunteersUUIDReferecne() {
+        return volunteersByUUID;
+    }
+
     public ArrayList<Volunteer> getVolunteers() {
         return volunteers;
     }
@@ -145,32 +154,15 @@ public class Shelter extends Serializable {
         resources.remove(resource);
     }
 
+    public ArrayList<UUID> getResourcesUUIDReference() {
+        return resourcesByUUID;
+    }
+
     public ShelterStatus getStatus() {
         return status;
     }
 
     public void setStatus(ShelterStatus status) {
         this.status = status;
-    }
-
-    @Override
-    public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id.toString());
-        jsonObject.put("name", name);
-        jsonObject.put("location", location.serialize());
-        jsonObject.put("capacity", capacity);
-        jsonObject.put("occupancy", occupancy);
-
-        JSONArray volunteers = new JSONArray();
-        for (Volunteer volunteer: this.volunteers) {
-            volunteers.add(volunteer.getId().toString());
-        }
-
-        return null;
-    }
-
-    public void deserialize(JSONObject jsonObject) {
-
     }
 }

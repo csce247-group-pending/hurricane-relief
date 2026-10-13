@@ -2,27 +2,44 @@ package com.pending.model.data;
 
 import com.pending.model.data.serializables.*;
 
+import java.io.Serial;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class Database {
-    private DataList<User> users;
-    private DataList<ReliefRequest> requests;
+    private final DataList<User> users;
+    private final DataList<ReliefRequest> requests;
     private ArrayList<UUID> blacklist;
-    private DataList<Hurricane> hurricanes;
-    private DataList<Shelter> shelters;
-    private DataList<Contact> contacts;
+    private final DataList<Hurricane> hurricanes;
+    private final DataList<Shelter> shelters;
+    private final DataList<Contact> contacts;
+
+    private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
 
     private ArrayList<Admin> admins;
 
     private static Database database;
 
     private Database() {
-//        users = DataList.getInstance(User.class);
-//        requests = DataList.getInstance(ReliefRequest.class);
-//        hurricanes = DataList.getInstance(Hurricane.class);
-//        shelters = DataList.getInstance(Shelter.class);
+        dataLists = new HashMap<>();
+
+        users = DataList.getInstance(User.class);
+        dataLists.put(User.class, users);
+
+        requests = DataList.getInstance(ReliefRequest.class);
+        dataLists.put(ReliefRequest.class, requests);
+
+        hurricanes = DataList.getInstance(Hurricane.class);
+        dataLists.put(Hurricane.class, hurricanes);
+
+        shelters = DataList.getInstance(Shelter.class);
+        dataLists.put(Shelter.class, shelters);
+
         contacts = DataList.getInstance(Contact.class);
+        dataLists.put(Contact.class, contacts);
+
+        resolveReferences();
     }
 
     public static Database getInstance() {
@@ -34,12 +51,26 @@ public class Database {
         getInstance();
     }
 
+    private void resolveReferences() {
+        for (DataList<?> dataList: dataLists.values()) {
+            dataList.resolveReferences();
+        }
+    }
+
     public User attemptLogin(String email, String password) {
         User user = users.getObject(
                 (u) -> email.equals(u.getUserContact().getEmail())
         );
 
         return user == null || !password.equals(user.getPassword()) ? null : user;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users.getAll();
+    }
+
+    public ArrayList<User> getUsers(Filter<User> filter) {
+        return users.filterByAttribute(filter);
     }
 
     public ArrayList<ReliefRequest> getRequests() {
@@ -64,5 +95,37 @@ public class Database {
 
     public ArrayList<Shelter> getShelters(Filter<Shelter> filter) {
         return shelters.filterByAttribute(filter);
+    }
+
+    public ArrayList<Contact> getContacts() {
+        return contacts.getAll();
+    }
+
+    public ArrayList<Contact> getContacts(Filter<Contact> filter) {
+        return contacts.filterByAttribute(filter);
+    }
+
+    public User getUserByUUID(UUID id) {
+        return users.getObjectByUUID(id);
+    }
+
+    public ReliefRequest getReliefRequestByUUID(UUID id) {
+        return requests.getObjectByUUID(id);
+    }
+
+    public Hurricane getHurricaneByUUID(UUID id) {
+        return hurricanes.getObjectByUUID(id);
+    }
+
+    public Shelter getShelterByUUID(UUID id) {
+        return shelters.getObjectByUUID(id);
+    }
+
+    public Contact getContactByUUID(UUID id) {
+        return contacts.getObjectByUUID(id);
+    }
+
+    public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {
+        return dataLists.get(cls);
     }
 }

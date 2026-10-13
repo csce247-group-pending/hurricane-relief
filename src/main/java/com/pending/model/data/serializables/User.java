@@ -13,19 +13,33 @@ public class User extends Serializable {
     private String lastName;
     private String password;
     private Location location;
+
+    private UUID userContactUUIDReference;
+    private UUID emergencyContactUUIDReference;
     private Contact userContact;
     private Contact emergencyContact;
-    private ArrayList<UUID> userReliefRequests;
 
-    public User(UUID id, String firstName, String lastName,
-        String password, Location location, Contact userContact,
-        Contact emergencyContact) {
 
-    }
+    private ArrayList<UUID> userReliefRequestsByUUID;
+    private final ArrayList<ReliefRequest> userReliefRequests;
 
     public User(String firstName, String lastName, String password,
-        Location location, Contact userContact, Contact emergencyContact) {
+                Location location, Contact userContact, Contact emergencyContact) {
         super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.location = location;
+        this.userContact = userContact;
+        this.emergencyContact = emergencyContact;
+        this.userReliefRequests = new ArrayList<>();
+    }
+
+    public User(UUID id, String firstName, String lastName,
+                String password, Location location, Contact userContact,
+                Contact emergencyContact) {
+        this(firstName, lastName, password, location, userContact, emergencyContact);
+        this.id = id;
     }
 
     public User() {
@@ -80,20 +94,36 @@ public class User extends Serializable {
         this.emergencyContact = emergencyContact;
     }
 
-    public ArrayList<UUID> getUserReliefRequests() {
+    public ArrayList<ReliefRequest> getUserReliefRequests() {
         return userReliefRequests;
     }
 
+    public ArrayList<UUID> getUserReliefRequestsByUUID() {
+        return userReliefRequestsByUUID;
+    }
+
     public boolean addUserReliefRequest(ReliefRequest reliefRequest) {
-        return userReliefRequests.add(reliefRequest.getId());
+        return userReliefRequestsByUUID.add(reliefRequest.getId());
     }
 
     public boolean addUserReliefRequest(UUID id) {
-        return userReliefRequests.add(id);
+        return userReliefRequestsByUUID.add(id);
     }
 
-    public void clearUserReliefRequests() {
-        userReliefRequests = new ArrayList<>();
+    public UUID getUserContactUUIDReference() {
+        return userContactUUIDReference;
+    }
+
+    public void setUserContactUUIDReference(UUID userContactUUIDReference) {
+        this.userContactUUIDReference = userContactUUIDReference;
+    }
+
+    public UUID getEmergencyContactUUIDReference() {
+        return emergencyContactUUIDReference;
+    }
+
+    public void setEmergencyContactUUIDReference(UUID emergencyContactUUIDReference) {
+        this.emergencyContactUUIDReference = emergencyContactUUIDReference;
     }
 
     public JSONObject serialize() {
@@ -107,7 +137,7 @@ public class User extends Serializable {
         jsonObject.put("emergencyContact", emergencyContact.getId());
 
         JSONArray userReliefRequests = new JSONArray();
-        userReliefRequests.addAll(this.userReliefRequests);
+        userReliefRequests.addAll(this.userReliefRequestsByUUID);
 
         jsonObject.put("userReliefRequests", userReliefRequests);
 

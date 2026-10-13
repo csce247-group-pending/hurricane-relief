@@ -1,8 +1,11 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.Database;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class SerializeJSONUser extends SerializeJSON<User> {
@@ -22,7 +25,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
 
         JSONArray userReliefRequests = new JSONArray();
-        for (UUID id: serializable.getUserReliefRequests()) {
+        for (UUID id: serializable.getUserReliefRequestsByUUID()) {
             userReliefRequests.add(id.toString());
         }
 
@@ -40,5 +43,25 @@ public class SerializeJSONUser extends SerializeJSON<User> {
 
         JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
         serializable.getLocation().deserialize(locationJsonObject);
+
+        serializable.setUserContactUUIDReference(UUID.fromString((String) jsonObject.get("user_contact")));
+        serializable.setEmergencyContactUUIDReference(UUID.fromString((String) jsonObject.get("emergency_contact")));
+
+        ArrayList<UUID> userReliefRequestsByUUID = serializable.getUserReliefRequestsByUUID();
+        for (Object jsonReliefRequestUUID: userReliefRequestsByUUID) {
+            userReliefRequestsByUUID.add(UUID.fromString((String) jsonReliefRequestUUID));
+        }
+    }
+
+    @Override
+    public void resolveReferences() {
+        Database database = Database.getInstance();
+        serializable.setUserContact(database.getContactByUUID(serializable.getUserContactUUIDReference()));
+        serializable.setEmergencyContact(database.getContactByUUID(serializable.getEmergencyContactUUIDReference()));
+
+        ArrayList<ReliefRequest> userReliefRequests = serializable.getUserReliefRequests();
+        for (UUID id: serializable.getUserReliefRequestsByUUID()) {
+            userReliefRequests.add(database.getReliefRequestByUUID(id));
+        }
     }
 }

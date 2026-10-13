@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.Database;
 import org.json.simple.JSONObject;
 
 import java.util.UUID;
@@ -26,6 +27,14 @@ public abstract class Serializable {
     }
 
     public void deserialize(Object object) {
-        serializeBehavior.deserialize(object);
+        if (serializeBehavior == null) {
+            System.out.println(this.getClass().getName() + " has no serialize behavior!");
+        } else {
+            serializeBehavior.deserialize(object);
+        }
+    }
+
+    public void resolveReferences() {
+        serializeBehavior.resolveReferences();
     }
 }
