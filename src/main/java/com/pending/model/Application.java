@@ -2,6 +2,10 @@ package com.pending.model;
 
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.*;
+import com.pending.model.data.DataManager;
+import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.ShelterStatus;
+import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
@@ -12,7 +16,7 @@ public class Application {
     private Location location;
 
     private Application() {
-        database = Database.getInstance();
+        database = null;
         currentUser = null;
         location = null;
     }
@@ -54,9 +58,29 @@ public class Application {
 
     }
 
-    public ArrayList<Shelter> findNearbyShelters(Location location) {
-        return null;
+    public ArrayList<Shelter> getShelters() {
+    ArrayList<Shelter> shelters = new ArrayList<>();
+
+    DataManager dataManager = new DataManager(JSONFile.SHELTERS.getFilename());
+    ArrayList<JSONObject> shelterData = dataManager.readJSON();
+
+    if (shelterData == null) {
+        return shelters;
     }
+
+    for (JSONObject jsonObject : shelterData) {
+        String name = (String) jsonObject.get("name");
+        int capacity = ((Long) jsonObject.get("capacity")).intValue();
+
+        Shelter shelter = new Shelter(name, null, capacity, null);
+        shelter.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
+        shelter.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
+
+        shelters.add(shelter);
+    }
+
+    return shelters;
+}
 
     public ArrayList<Shelter> findNearbyResource(Location location, Resource resource) {
         return null;
