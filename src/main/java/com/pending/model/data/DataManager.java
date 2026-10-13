@@ -7,6 +7,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,6 +37,18 @@ public class DataManager {
         }
     }
 
+    public boolean write(ArrayList<?> objects) throws ExecutionControl.NotImplementedException {
+        System.out.println("Writing to file " + filename);
+        switch (mode) {
+            case FileMode.JSON:
+                return writeJSON((ArrayList<JSONObject>) objects);
+            case FileMode.SQL:
+                throw new ExecutionControl.NotImplementedException("SQL");
+            default:
+                return false;
+        }
+    }
+
     public ArrayList<JSONObject> readJSON() {
         ArrayList<JSONObject> jsonObjects = new ArrayList<>();
         try (FileReader reader = new FileReader(filename)) {
@@ -47,6 +60,21 @@ public class DataManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean writeJSON(ArrayList<JSONObject> objects) {
+        String jsonFileString;
+        JSONArray jsonFileArray = new JSONArray();
+        jsonFileArray.addAll(objects);
+        try (FileWriter writer = new FileWriter(filename)) {
+            // reader = new FileReader(filename);
+            jsonFileString = jsonFileArray.toJSONString();
+            writer.write(jsonFileString);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public ArrayList<JSONObject> readUUIDList() {
