@@ -1,8 +1,6 @@
 package com.pending.model.data.serializables;
 
 import com.pending.model.enums.JSONFile;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -20,7 +18,7 @@ public class User extends Serializable {
     private Contact emergencyContact;
 
 
-    private ArrayList<UUID> userReliefRequestsByUUID;
+    private ArrayList<UUID> userReliefRequestsUUIDReference;
     private final ArrayList<ReliefRequest> userReliefRequests;
 
     public User(String firstName, String lastName, String password,
@@ -34,6 +32,11 @@ public class User extends Serializable {
         this.emergencyContact = emergencyContact;
         this.userReliefRequests = new ArrayList<>();
 
+        userContactUUIDReference = UUID.randomUUID();
+        emergencyContactUUIDReference = UUID.randomUUID();
+
+        userReliefRequestsUUIDReference = new ArrayList<>();
+
         serializeBehavior = new SerializeJSONUser(this);
     }
 
@@ -45,7 +48,7 @@ public class User extends Serializable {
     }
 
     public User() {
-        this("", "", "", null, null, null);
+        this("", "", "", new Location(), new Contact(), new Contact());
     }
 
     public String getFirstName() {
@@ -100,16 +103,16 @@ public class User extends Serializable {
         return userReliefRequests;
     }
 
-    public ArrayList<UUID> getUserReliefRequestsByUUID() {
-        return userReliefRequestsByUUID;
+    public ArrayList<UUID> getUserReliefRequestsUUIDReference() {
+        return userReliefRequestsUUIDReference;
     }
 
     public boolean addUserReliefRequest(ReliefRequest reliefRequest) {
-        return userReliefRequestsByUUID.add(reliefRequest.getId());
+        return userReliefRequestsUUIDReference.add(reliefRequest.getId());
     }
 
     public boolean addUserReliefRequest(UUID id) {
-        return userReliefRequestsByUUID.add(id);
+        return userReliefRequestsUUIDReference.add(id);
     }
 
     public UUID getUserContactUUIDReference() {
@@ -127,33 +130,4 @@ public class User extends Serializable {
     public void setEmergencyContactUUIDReference(UUID emergencyContactUUIDReference) {
         this.emergencyContactUUIDReference = emergencyContactUUIDReference;
     }
-
-    public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id.toString());
-        jsonObject.put("firstName", firstName);
-        jsonObject.put("lastName", lastName);
-        jsonObject.put("password", password);
-        jsonObject.put("location", location);
-        jsonObject.put("userContact", userContact.getId());
-        jsonObject.put("emergencyContact", emergencyContact.getId());
-
-        JSONArray userReliefRequests = new JSONArray();
-        userReliefRequests.addAll(this.userReliefRequestsByUUID);
-
-        jsonObject.put("userReliefRequests", userReliefRequests);
-
-        return jsonObject;
-    }
-
-    public void deserialize(JSONObject jsonObject) {
-        id = UUID.fromString((String) jsonObject.get("id"));
-        firstName = (String) jsonObject.get("firstName");
-        lastName = (String) jsonObject.get("lastName");
-        password = (String) jsonObject.get("password");
-
-        JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
-        location.deserialize(locationJsonObject);
-    }
-
 }
