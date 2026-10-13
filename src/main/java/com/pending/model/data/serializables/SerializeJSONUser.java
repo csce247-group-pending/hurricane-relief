@@ -3,9 +3,12 @@ package com.pending.model.data.serializables;
 import java.util.ArrayList;
 import java.util.UUID;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.UUID;
 
+=======
+>>>>>>> 779af39 (Fix some bugs and add file writing to DataManager)
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
