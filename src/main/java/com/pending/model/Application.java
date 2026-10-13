@@ -10,7 +10,10 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Resource;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
+<<<<<<< HEAD
 import com.pending.model.enums.ContactPreference;
+=======
+>>>>>>> 9bd00ef (Add shelter JSON terminal scenario)
 
 public class Application {
     private static Application application;
