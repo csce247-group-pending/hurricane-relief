@@ -100,6 +100,10 @@ public class DataList<T extends Serializable> {
     }
     
     public boolean save() {
-        return false;
-    }
+        try {
+            return dataManager.write(objects);
+        } catch (Exception e) {
+            return false;
+        }
+    }   
 }

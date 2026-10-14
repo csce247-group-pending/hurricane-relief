@@ -1,11 +1,12 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.data.Database;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import com.pending.model.data.Database;
 
 public class SerializeJSONUser extends SerializeJSON<User> {
     public SerializeJSONUser(User serializable) {
@@ -40,7 +41,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setLastName((String) jsonObject.get("lastName"));
         serializable.setPassword((String) jsonObject.get("password"));
 
-        JSONObject locationJsonObject = (JSONObject) jsonObject.get("location");
+        String locationJsonObject = (String) jsonObject.get("location");
         serializable.getLocation().deserialize(locationJsonObject);
 
         serializable.setUserContactUUIDReference(UUID.fromString((String) jsonObject.get("user_contact")));
