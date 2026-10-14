@@ -6,20 +6,8 @@
     "start_date": "2026-08-17T10:30:21",
     "end_date": "2026-08-20T16:34:21",
     "locations": [
-      {
-        "state": "SC",
-        "city": "",
-        "county": "Richland",
-        "street": "",
-        "zipcode": "29201"
-      },
-      {
-        "state": "SC",
-        "city": "",
-        "county": "Richland",
-        "street": "",
-        "zipcode": "29208"
-      }
+      "2d8f619b-c40e-4375-9e67-5d07a1b41e8c",
+      "6a91c348-18e4-4a27-89bb-72d0ee13f8c5"
     ],
     "status": "PASSED",
     "observers": [
@@ -34,20 +22,8 @@
     "start_date": "2026-10-17T10:30:21",
     "end_date": "2026-10-20T16:34:21",
     "locations": [
-      {
-        "state": "SC",
-        "city": "",
-        "county": "Central",
-        "street": "",
-        "zipcode": "29630"
-      },
-      {
-        "state": "SC",
-        "city": "",
-        "county": "Clemson",
-        "street": "",
-        "zipcode": "29631"
-      }
+      "c5304b72-f2de-4ec9-b4cf-81c0029b47e2",
+      "41e976f3-a8c5-4dc7-8ea3-3e1986427db9"
     ],
     "status": "APPROACHING",
     "observers": [

@@ -4,13 +4,7 @@
     "priority": "HIGH",
     "status": "ASSIGNED",
     "description": "Need food.",
-    "location": {
-        "state": "SC",
-        "city": "Columbia",
-        "county": "Richland",
-        "street": "300 Main St",
-        "zipcode": "29208"
-    },
+    "location": "c2b47624-88e1-474d-8482-762f9379a445",
     "submitted_at": "2026-09-24T10:30:21",
     "completion_time": "null",
     "needed_resources": [
@@ -35,13 +29,7 @@
     "priority": "LOW",
     "status": "REQUESTED",
     "description": "Need water.",
-    "location": {
-        "state": "SC",
-        "city": "Columbia",
-        "county": "Richland",
-        "street": "5000 Main St",
-        "zipcode": "29208"
-    },
+    "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
     "submitted_at": "2026-08-22T10:30:21",
     "completion_time": "null",
     "needed_resources": [

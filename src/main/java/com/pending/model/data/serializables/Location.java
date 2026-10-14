@@ -1,6 +1,6 @@
 package com.pending.model.data.serializables;
 
-import org.json.simple.JSONObject;
+import java.util.UUID;
 
 public class Location extends Serializable {
     private String state;
@@ -17,6 +17,11 @@ public class Location extends Serializable {
         this.zip = zip;
 
         serializeBehavior = new SerializeJSONLocation(this);
+    }
+
+    public Location(UUID id, String state, String city, String county, String street, String zip) {
+        this(state, city, county, street, zip);
+        this.id = id;
     }
 
     public Location() {
