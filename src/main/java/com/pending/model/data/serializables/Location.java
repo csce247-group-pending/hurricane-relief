@@ -19,6 +19,11 @@ public class Location extends Serializable {
         serializeBehavior = new SerializeJSONLocation(this);
     }
 
+    public Location(UUID id, String state, String city, String county, String street, String zip) {
+        this(state, city, county, street, zip);
+        this.id = id;
+    }
+
     public Location() {
         this("", "", "", "", "");
     }
