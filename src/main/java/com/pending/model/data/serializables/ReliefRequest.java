@@ -37,6 +37,10 @@ public class ReliefRequest extends Serializable {
         this.id = id;
     }
 
+    public ReliefRequest() {
+        this(Priority.MEDIUM, "", new Location(), new ArrayList<>());
+    }
+
     public ReliefStatus getStatus() {
         return status;
     }

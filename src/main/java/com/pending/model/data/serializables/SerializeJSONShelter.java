@@ -38,6 +38,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public void deserialize(JSONObject jsonObject) {
         serializable.setId(UUID.fromString((String) jsonObject.get("id")));
         serializable.setName((String) jsonObject.get("name"));
+        System.out.println(jsonObject.get("location").getClass());
         serializable.getLocation().deserialize(jsonObject.get("location"));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
         serializable.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());

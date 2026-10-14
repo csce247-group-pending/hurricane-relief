@@ -47,8 +47,14 @@ public class Database {
         return database;
     }
 
+    public void readDataLists() {
+        for (DataList<? extends Serializable> dataList: dataLists.values()) {
+            dataList.read();
+        }
+    }
+
     public static void main(String[] args) {
-        getInstance();
+        getInstance().readDataLists();
     }
 
     private void resolveReferences() {

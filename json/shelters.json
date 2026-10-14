@@ -17,13 +17,13 @@
     ],
     "resources": [
       {
-        "type": 0,
+        "type": "FOOD",
         "quantity": 200,
         "description": "canned black beans",
         "restock_date": "2026-09-25T14:30:00"
       },
       {
-        "type": 1,
+        "type": "WATER",
         "quantity": 100,
         "description": "water gallons",
         "restock_date": "2026-09-25T15:30:00"
@@ -43,13 +43,13 @@
     ],
     "resources": [
       {
-        "type": 1,
+        "type": "WATER",
         "quantity": 5,
         "description": "water gallons",
         "restock_date": "2026-09-25T15:30:00"
       },
       {
-        "type": 0,
+        "type": "FOOD",
         "quantity": 20,
         "description": "canned corn",
         "restock_date": "2026-09-25T14:30:00"

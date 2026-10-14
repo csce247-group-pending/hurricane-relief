@@ -37,7 +37,7 @@ public class Hurricane extends Serializable {
     }
 
     public Hurricane() {
-
+        this("", 5, LocalDateTime.now(), LocalDateTime.now(), new ArrayList<>(), HurricaneStatus.PASSED);
     }
 
     public void addObserver(Observer observer) {
