@@ -94,10 +94,14 @@ public class Database {
 
     public static void main(String[] args) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         getInstance().readDataLists();
 =======
         getInstance().read();
 >>>>>>> 1fece38 (Fix more bugs)
+=======
+        getInstance().readDataLists();
+>>>>>>> 7dd33f2 (Fix more bugs)
     }
 
     private void resolveReferences() {

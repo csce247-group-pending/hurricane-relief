@@ -14,6 +14,7 @@ public class DataList<T extends Serializable> {
     private DataManager dataManager;
     private Class<T> cls;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Class<T> cls;
 
     private DataList(Class<T> cls) {
@@ -26,11 +27,43 @@ public class DataList<T extends Serializable> {
             this.cls = cls;
 
             objects = new ArrayList<>();
+=======
+
+    private DataList(Class<T> cls) {
+        try {
+            objects = new ArrayList<>();
+            this.cls = cls;
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
+        if (!dataLists.containsKey(cls)) {
+            dataLists.put(cls, new DataList<T>(cls));
+        }
+
+        return (DataList<T>) dataLists.get(cls);
+    }
+
+    public void read() {
+        try {
+            objects.clear();
+            ArrayList<?> dataObjects = dataManager.read();
+            for (Object dataObject: dataObjects) {
+                Serializable serializable = cls.getDeclaredConstructor().newInstance();
+                serializable.deserialize(dataObject);
+                objects.add((T) serializable);
+            }
+>>>>>>> 7dd33f2 (Fix more bugs)
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+<<<<<<< HEAD
     public void read() {
         try {
             dataManager = new DataManager((String) cls.getField("file").get(null));
@@ -111,6 +144,8 @@ public class DataList<T extends Serializable> {
         }
     }
 
+=======
+>>>>>>> 7dd33f2 (Fix more bugs)
     public void resolveReferences() {
         for (T object: objects) {
             object.resolveReferences();
