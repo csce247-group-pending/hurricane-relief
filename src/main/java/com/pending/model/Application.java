@@ -31,16 +31,24 @@ public class Application {
         return application;
     }
 
-    public User createAccountPopup() {
-        // prompt user for the account information
-        // return requestCreateAccount(firstName, lastName, password, location, userContact, emergencyContact);
-        return null;
-    }
+    public boolean requestCreateAccount(String firstName, String lastName, String password,
+            String address, 
+            String userContactEmail, String userContactPhone, String userContactPreference,
+            String emergencyContactEmail, String emergencyContactPhone, String emergencyContactPreference) {
 
-    private User requestCreateAccount(String firstName, String lastName, String password,
-                                      Location location, Contact userContact, Contact emergencyContact
-    ) {
-        return null;
+        String[] locationInformation = address.split(", ");
+        String state = locationInformation[2];
+        String city = locationInformation[1];
+        String street = locationInformation[0];
+        String zip = locationInformation[3];
+        Location location = new Location(state, city, "", street, zip);
+
+        Contact userContact = new Contact(userContactEmail, userContactPhone, ContactPreference.valueOf(userContactPreference));
+        Contact emergencyContact = new Contact(emergencyContactEmail, emergencyContactPhone, ContactPreference.valueOf(emergencyContactPreference));
+
+        currentUser = database.createAccount(firstName, lastName, password,
+                            location, userContact, emergencyContact);
+        return currentUser != null;
     }
 
     //? Should this be switched from return User to return boolean?

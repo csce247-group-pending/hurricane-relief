@@ -1,10 +1,18 @@
 package com.pending.model.data;
 
-import com.pending.model.data.serializables.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+
+import com.pending.model.data.serializables.Admin;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.User;
+
 
 public class Database {
     private final DataList<User> users;
@@ -87,6 +95,14 @@ public class Database {
         return user == null || !password.equals(user.getPassword()) ? null : user;
     }
 
+    public User createAccount(String firstName, String lastName, String password,
+        Location location, Contact userContact, Contact emergencyContact) {
+        
+        //* add code to write an account to the db
+        
+        return null;
+    }
+
     public ArrayList<User> getUsers() {
         return users.getAll();
     }
@@ -162,4 +178,5 @@ public class Database {
     public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {
         return dataLists.get(cls);
     }
+
 }
