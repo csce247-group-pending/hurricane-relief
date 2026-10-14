@@ -1,12 +1,12 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.data.DataList;
-import com.pending.model.data.Database;
-import com.pending.model.enums.ShelterStatus;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.UUID;
+import com.pending.model.data.Database;
+import com.pending.model.enums.ShelterStatus;
 
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public SerializeJSONShelter(Shelter serializable) {
