@@ -13,47 +13,17 @@ public class DataList<T extends Serializable> {
     private String fileName;
     private DataManager dataManager;
     private Class<T> cls;
+    private Class<T> cls;
 
     private DataList(Class<T> cls) {
         try {
-            dataManager = new DataManager((String) cls.getField("file").get(null));
+            objects = new ArrayList<>();
             this.cls = cls;
-
-            objects = new ArrayList<>();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void read() {
-        try {
             dataManager = new DataManager((String) cls.getField("file").get(null));
-
-            objects = new ArrayList<>();
-            ArrayList<?> dataObjects = dataManager.read();
-            for (Object dataObject: dataObjects) {
-                Serializable serializable = cls.getDeclaredConstructor().newInstance();
-                serializable.deserialize(dataObject);
-                objects.add((T) serializable);
-            }
-        } catch (Exception e) {
-            System.out.println("Problematic class: " +cls);
-            e.printStackTrace();
-        }
-    }
-
-    public void write() {
-        try {
-            dataManager = new DataManager((String) cls.getField("file").get(null));
-
-            ArrayList<Object> dataObjects = new ArrayList<>();
-            for (T object: objects) {
-                dataObjects.add(object.serialize());
-            }
-            dataManager.write(dataObjects);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
@@ -62,6 +32,20 @@ public class DataList<T extends Serializable> {
         }
 
         return (DataList<T>) dataLists.get(cls);
+    }
+
+    public void read() {
+        try {
+            objects.clear();
+            ArrayList<?> dataObjects = dataManager.read();
+            for (Object dataObject: dataObjects) {
+                Serializable serializable = cls.getDeclaredConstructor().newInstance();
+                serializable.deserialize(dataObject);
+                objects.add((T) serializable);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void resolveReferences() {

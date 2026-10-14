@@ -27,34 +27,16 @@ public class Shelter extends Serializable {
 
     public Shelter(String name, Location location,
             int capacity, ArrayList<Resource> resources) {
-        super();
-        this.name = name;
-        this.location = location;
-        this.capacity = capacity;
-        this.occupancy = 0;
-        this.volunteers = new ArrayList<Volunteer>();
-        this.resources = resources == null
+        this(name, location, capacity, new ArrayList<>(), resources == null
                 ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
-        this.status = ShelterStatus.OPEN;
+                : new ArrayList<Resource>(resources), ShelterStatus.OPEN);
     }
 
     public Shelter(UUID id, String name, Location location,
         int capacity, ArrayList<Volunteer > volunteers,
                 ArrayList < Resource> resources, ShelterStatus status) {
-        super();
+        this(name, location, capacity, volunteers, resources, status);
         this.id = id;
-        this.name = name;
-        this.location = location;
-        this.capacity = capacity;
-        this.occupancy = 0;
-        this.volunteers = volunteers == null
-                ? new ArrayList<Volunteer>()
-                : new ArrayList<Volunteer>(volunteers);
-        this.resources = resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
-        this.status = status;
     }
 
     public Shelter(String name, Location location,
@@ -72,6 +54,14 @@ public class Shelter extends Serializable {
                 ? new ArrayList<Resource>()
                 : new ArrayList<Resource>(resources);
         this.status = status;
+
+        volunteersByUUID = new ArrayList<>();
+
+        serializeBehavior = new SerializeJSONShelter(this);
+    }
+
+    public Shelter() {
+        this("", new Location(), 0, new ArrayList<>(), new ArrayList<>(), ShelterStatus.OPEN);
     }
 
     public String getName() {
