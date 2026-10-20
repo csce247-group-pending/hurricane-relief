@@ -53,6 +53,12 @@ public class Database {
         resolveReferences();
     }
 
+    public void read() {
+        for (DataList<?> dataList: dataLists.values()) {
+            dataList.read();
+        }
+    }
+
     public static Database getInstance() {
         if (database == null) {
             database = new Database();
@@ -61,7 +67,7 @@ public class Database {
     }
 
     public static void main(String[] args) {
-        getInstance();
+        getInstance().read();
     }
 
     private void resolveReferences() {
