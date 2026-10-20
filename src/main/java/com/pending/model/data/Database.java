@@ -46,13 +46,19 @@ public class Database {
         resolveReferences();
     }
 
+    public void read() {
+        for (DataList<?> dataList: dataLists.values()) {
+            dataList.read();
+        }
+    }
+
     public static Database getInstance() {
         if (database == null) return database = new Database();
         return database;
     }
 
     public static void main(String[] args) {
-        getInstance();
+        getInstance().read();
     }
 
     private void resolveReferences() {

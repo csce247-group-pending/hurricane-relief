@@ -12,8 +12,20 @@ public class DataList<T extends Serializable> {
     private HashMap<UUID, T> objectsById;
     private String fileName;
     private DataManager dataManager;
+    private Class<T> cls;
 
     private DataList(Class<T> cls) {
+        try {
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+            this.cls = cls;
+
+            objects = new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void read() {
         try {
             dataManager = new DataManager((String) cls.getField("file").get(null));
 
