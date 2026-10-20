@@ -29,7 +29,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
             userReliefRequests.add(id.toString());
         }
 
-        jsonObject.put("userReliefRequests", userReliefRequests);
+        jsonObject.put("user_relief_requests", userReliefRequests);
 
         return jsonObject;
     }

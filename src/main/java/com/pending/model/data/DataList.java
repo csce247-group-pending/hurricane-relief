@@ -93,8 +93,8 @@ public class DataList<T extends Serializable> {
             }
         }
 
-    return output;
-}
+        return output;
+    }
 
     public T getObject(Filter<T> filter) {
         for (T object: objects) {
