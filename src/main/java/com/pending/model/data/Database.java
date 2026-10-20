@@ -97,12 +97,12 @@ public class Database {
         return user == null || !password.equals(user.getPassword()) ? null : user;
     }
 
-    public User createAccount(String firstName, String lastName, String password,
+    public boolean createAccount(String firstName, String lastName, String password,
         Location location, Contact userContact, Contact emergencyContact) {
         
-        //* add code to write an account to the db
-        
-        return null;
+        //* add code to create and account and write it to the db
+
+        return false;
     }
 
     public ArrayList<User> getUsers() {

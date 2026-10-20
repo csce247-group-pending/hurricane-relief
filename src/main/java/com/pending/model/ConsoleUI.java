@@ -14,13 +14,14 @@ public class ConsoleUI {
     }
 
     public void run() {
-        readAndPrintSheltersScenario();
-        loginScenario();
+        // readAndPrintSheltersScenario();
+        // loginScenario();
+        createAccountAndLoginScenario();
     }
 
     public void loginScenario() {
-        System.out.println("\nPlease enter your email and password:\nemail> heisenberg@aol.com");
-        System.out.println("password> !mTh3Cook");
+        System.out.println("\nPlease enter your email and password:\n\temail> heisenberg@aol.com");
+        System.out.println("\tpassword> !mTh3Cook");
         if(!app.attemptLogin("heisenberg@aol.com", "!mTh3Cook")) {
             System.out.println("Login Failed");
             return;
@@ -28,7 +29,7 @@ public class ConsoleUI {
         System.out.println(app.getUserFullName() + "is now logged in");
     }
 
-    public void createAccountScenario() {
+    public void createAccountAndLoginScenario() {
         System.out.println("Create an account. Please enter the following information:");
         System.out.println("Contact Infomation");
         System.out.println("\temail> newestemail@gmail.com");
@@ -52,6 +53,13 @@ public class ConsoleUI {
             return;
         }
         System.out.println("Account successsfully created");
+
+        System.out.println("\nLogin.\nPlease enter your email and password:\n\temail> newestemail@gmail.com");
+        System.out.println("\tpassword> strong_p@ssword");
+        if(!app.attemptLogin("newestemail@gmail.com", "strong_p@ssword")) {
+            System.out.println("Login Failed");
+            return;
+        }
         System.out.println(app.getUserFullName() + " is now logged in");
     }
 

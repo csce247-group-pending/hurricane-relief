@@ -47,9 +47,8 @@ public class Application {
         Contact userContact = new Contact(userContactEmail, userContactPhone, ContactPreference.valueOf(userContactPreference));
         Contact emergencyContact = new Contact(emergencyContactEmail, emergencyContactPhone, ContactPreference.valueOf(emergencyContactPreference));
 
-        currentUser = database.createAccount(firstName, lastName, password,
+        return database.createAccount(firstName, lastName, password,
                             location, userContact, emergencyContact);
-        return currentUser != null;
     }
 
     //? Should this be switched from return User to return boolean?
