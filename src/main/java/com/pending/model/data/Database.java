@@ -60,6 +60,12 @@ public class Database {
         }
     }
 
+    public void write() {
+        for (DataList<?> dataList: dataLists.values()) {
+            dataList.write();
+        }
+    }
+
     public static Database getInstance() {
         if (database == null) {
             database = new Database();
