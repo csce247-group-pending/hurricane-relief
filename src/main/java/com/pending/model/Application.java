@@ -10,6 +10,7 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Resource;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
+import com.pending.model.enums.ContactPreference;
 
 public class Application {
     private static Application application;

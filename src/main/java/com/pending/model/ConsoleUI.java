@@ -52,12 +52,9 @@ public class ConsoleUI {
             return;
         }
         System.out.println("Account successsfully created");
-        System.out.println(app.getUserFullName() + "is now logged in");
-
-        // return requestCreateAccount(firstName, lastName, password, location, userContact, emergencyContact);
+        System.out.println(app.getUserFullName() + " is now logged in");
     }
 
-    // Landon
     public void readAndPrintSheltersScenario() {
         ArrayList<Shelter> shelters = app.getShelters();
 
@@ -75,9 +72,8 @@ public class ConsoleUI {
             System.out.println("Status: " + shelter.getStatus());
             System.out.println();
         }
-}
+    }
     
-
     public static void main(String[] args) {
         ConsoleUI ui = new ConsoleUI();
         ui.run();
