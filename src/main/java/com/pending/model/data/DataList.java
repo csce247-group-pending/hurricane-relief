@@ -27,6 +27,18 @@ public class DataList<T extends Serializable> {
 
     }
 
+    public void read() {
+        try {
+            objects = new ArrayList<>();
+            objectsById = new HashMap<>();
+            this.cls = cls;
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
         if (!dataLists.containsKey(cls)) {
             dataLists.put(cls, new DataList<T>(cls));
