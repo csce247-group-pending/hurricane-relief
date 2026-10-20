@@ -1,6 +1,10 @@
 module com.pending.hurricanerelief {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
+    requires jdk.jsobject;
+    requires javafx.web;
     requires json.simple;
     requires jdk.jshell;
 
