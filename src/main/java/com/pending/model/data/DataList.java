@@ -16,20 +16,26 @@ public class DataList<T extends Serializable> {
 
     private DataList(Class<T> cls) {
         try {
-            dataManager = new DataManager((String) cls.getField("file").get(null));
-            this.cls = cls;
-
             objects = new ArrayList<>();
+            this.cls = cls;
+            dataManager = new DataManager((String) cls.getField("file").get(null));
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
+        if (!dataLists.containsKey(cls)) {
+            dataLists.put(cls, new DataList<T>(cls));
+        }
+
+        return (DataList<T>) dataLists.get(cls);
     }
 
     public void read() {
         try {
-            dataManager = new DataManager((String) cls.getField("file").get(null));
-
-            objects = new ArrayList<>();
+            objects.clear();
             ArrayList<?> dataObjects = dataManager.read();
             for (Object dataObject: dataObjects) {
                 Serializable serializable = cls.getDeclaredConstructor().newInstance();
@@ -54,14 +60,6 @@ public class DataList<T extends Serializable> {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
-        if (!dataLists.containsKey(cls)) {
-            dataLists.put(cls, new DataList<T>(cls));
-        }
-
-        return (DataList<T>) dataLists.get(cls);
     }
 
     public void resolveReferences() {

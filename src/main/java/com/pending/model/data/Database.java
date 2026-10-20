@@ -2,7 +2,6 @@ package com.pending.model.data;
 
 import com.pending.model.data.serializables.*;
 
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -61,6 +60,12 @@ public class Database {
     public static Database getInstance() {
         if (database == null) return database = new Database();
         return database;
+    }
+
+    public void readDataLists() {
+        for (DataList<? extends Serializable> dataList: dataLists.values()) {
+            dataList.read();
+        }
     }
 
     public static void main(String[] args) {

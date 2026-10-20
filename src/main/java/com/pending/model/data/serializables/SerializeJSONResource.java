@@ -22,8 +22,8 @@ public class SerializeJSONResource extends SerializeJSON<Resource> {
 
     @Override
     public void deserialize(JSONObject jsonObject) {
-        serializable.setType(ResourceType.values()[(int) jsonObject.get("type")]);
-        serializable.setQuantity((int) jsonObject.get("quantity"));
+        serializable.setType(ResourceType.valueOf((String) jsonObject.get("type")));
+        serializable.setQuantity(((Long) jsonObject.get("quantity")).intValue());
         serializable.setDescription((String) jsonObject.get("description"));
         serializable.setRestockDate(LocalDateTime.parse((String) jsonObject.get("restock_date")));
     }
