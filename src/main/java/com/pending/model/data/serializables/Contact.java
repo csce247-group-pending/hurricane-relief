@@ -64,4 +64,9 @@ public class Contact extends Serializable {
     public boolean contactPhoneText() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return String.format("{%s, %s, %s}", email, phone, contactPreference.name());
+    }
 }

@@ -3,9 +3,10 @@ package com.pending.model.data.serializables;
 import com.pending.model.enums.HurricaneStatus;
 import com.pending.model.enums.JSONFile;
 
+import com.pending.model.Observer;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Observer;
 import java.util.UUID;
 
 public class Hurricane extends Serializable {
@@ -15,8 +16,10 @@ public class Hurricane extends Serializable {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private ArrayList<Location> locations;
+    private ArrayList<UUID> locationsUUIDReference;
     private HurricaneStatus status;
-    private ArrayList<Observer> observers;
+    private ArrayList<Admin> observers;
+    private ArrayList<UUID> observersUUIDReference;
 
     public Hurricane(String name, int category, LocalDateTime startDate, LocalDateTime endDate,
                      ArrayList<Location> locations, HurricaneStatus status) {
@@ -26,6 +29,11 @@ public class Hurricane extends Serializable {
         this.endDate = endDate;
         this.locations = locations;
         this.status = status;
+
+        observers = new ArrayList<>();
+
+        locationsUUIDReference = new ArrayList<>();
+        observersUUIDReference = new ArrayList<>();
 
         serializeBehavior = new SerializeJSONHurricane(this);
     }
@@ -40,11 +48,11 @@ public class Hurricane extends Serializable {
         this("", 5, LocalDateTime.now(), LocalDateTime.now(), new ArrayList<>(), HurricaneStatus.PASSED);
     }
 
-    public void addObserver(Observer observer) {
+    public void addObserver(Admin observer) {
         observers.add(observer);
     }
 
-    public void removeObserver(Observer observer) {
+    public void removeObserver(Admin observer) {
         observers.remove(observer);
     }
 
@@ -72,6 +80,10 @@ public class Hurricane extends Serializable {
         return startDate;
     }
 
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
     public LocalDateTime getEndDate() {
         return endDate;
     }
@@ -92,11 +104,35 @@ public class Hurricane extends Serializable {
         locations.remove(location);
     }
 
+    public ArrayList<UUID> getLocationsUUIDReference() {
+        return locationsUUIDReference;
+    }
+
+    public void setLocationsUUIDReference(ArrayList<UUID> locationsUUIDReference) {
+        this.locationsUUIDReference = locationsUUIDReference;
+    }
+
     public HurricaneStatus getStatus() {
         return status;
     }
 
     public void setStatus(HurricaneStatus status) {
         this.status = status;
+    }
+
+    public ArrayList<Admin> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(ArrayList<Admin> observers) {
+        this.observers = observers;
+    }
+
+    public ArrayList<UUID> getObserversUUIDReference() {
+        return observersUUIDReference;
+    }
+
+    public void setObserversUUIDReference(ArrayList<UUID> observersUUIDReference) {
+        this.observersUUIDReference = observersUUIDReference;
     }
 }

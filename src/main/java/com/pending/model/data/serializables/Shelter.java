@@ -13,6 +13,7 @@ public class Shelter extends Serializable {
 
     private String name;
     private Location location;
+    private UUID locationUUIDReference;
     private Contact contactInfo;
     private int capacity;
     private int occupancy;
@@ -78,6 +79,14 @@ public class Shelter extends Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public UUID getLocationUUIDReference() {
+        return locationUUIDReference;
+    }
+
+    public void setLocationUUIDReference(UUID locationUUIDReference) {
+        this.locationUUIDReference = locationUUIDReference;
     }
 
     public Contact getContactInfo() {

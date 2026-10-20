@@ -49,14 +49,13 @@ public class Database {
 
         locations = DataList.getInstance(Location.class);
         dataLists.put(Location.class, locations);
-
-        resolveReferences();
     }
 
     public void read() {
         for (DataList<?> dataList: dataLists.values()) {
             dataList.read();
         }
+        resolveReferences();
     }
 
     public void write() {
@@ -92,6 +91,8 @@ public class Database {
         User user = users.getObject(
                 (u) -> email.equals(u.getUserContact().getEmail())
         );
+
+        System.out.println(user.getUserContact());
 
         return user == null || !password.equals(user.getPassword()) ? null : user;
     }

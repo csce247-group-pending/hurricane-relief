@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.Database;
 import com.pending.model.enums.Priority;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
@@ -44,7 +45,7 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
         serializable.setPriority(Priority.valueOf((String) jsonObject.get("priority")));
         serializable.setStatus(ReliefStatus.valueOf((String) jsonObject.get("status")));
         serializable.setDescription((String) jsonObject.get("description"));
-        serializable.getLocation().deserialize(jsonObject.get("location"));
+        serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setSubmittedAt(LocalDateTime.parse((String) jsonObject.get("submitted_at")));
 
         ArrayList<Resource> neededResources = serializable.getNeededResources();
@@ -58,5 +59,12 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
 
         serializable.setAttachedPhoto(new File((String) jsonObject.get("attached_photo")));
         serializable.setType(ReliefType.valueOf((String) jsonObject.get("type")));
+    }
+
+    @Override
+    public void resolveReferences() {
+        Database database = Database.getInstance();
+
+        serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
     }
 }

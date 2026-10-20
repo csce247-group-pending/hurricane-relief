@@ -18,6 +18,7 @@ public class DataList<T extends Serializable> {
     private DataList(Class<T> cls) {
         try {
             objects = new ArrayList<>();
+            objectsById = new HashMap<>();
             this.cls = cls;
             dataManager = new DataManager((String) cls.getField("file").get(null));
         } catch (Exception e) {
@@ -42,6 +43,7 @@ public class DataList<T extends Serializable> {
                 Serializable serializable = cls.getDeclaredConstructor().newInstance();
                 serializable.deserialize(dataObject);
                 objects.add((T) serializable);
+                objectsById.put(serializable.getId(), (T) serializable);
             }
         } catch (Exception e) {
             e.printStackTrace();
