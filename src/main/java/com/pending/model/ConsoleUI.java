@@ -25,7 +25,7 @@ public class ConsoleUI {
             System.out.println("Login Failed");
             return;
         }
-        System.out.println(app.getUserFullName() + "is now logged in");
+        System.out.println(app.getUserFullName() + " is now logged in");
     }
 
     public void createAccountScenario() {

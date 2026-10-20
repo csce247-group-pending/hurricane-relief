@@ -50,14 +50,13 @@ public class Database {
 
         locations = DataList.getInstance(Location.class);
         dataLists.put(Location.class, locations);
-
-        resolveReferences();
     }
 
     public void write() {
         for (DataList<?> dataList: dataLists.values()) {
             dataList.write();
         }
+        resolveReferences();
     }
 
     public void write() {
