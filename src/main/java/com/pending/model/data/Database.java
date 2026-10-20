@@ -14,6 +14,7 @@ public class Database {
     private final DataList<Hurricane> hurricanes;
     private final DataList<Shelter> shelters;
     private final DataList<Contact> contacts;
+    private final DataList<Location> locations;
 
     private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
 
@@ -38,6 +39,9 @@ public class Database {
 
         contacts = DataList.getInstance(Contact.class);
         dataLists.put(Contact.class, contacts);
+
+        locations = DataList.getInstance(Location.class);
+        dataLists.put(Location.class, locations);
 
         resolveReferences();
     }
@@ -105,6 +109,14 @@ public class Database {
         return contacts.filterByAttribute(filter);
     }
 
+    public ArrayList<Location> getLocations() {
+        return locations.getAll();
+    }
+
+    public ArrayList<Location> getLocations(Filter<Location> filter) {
+        return locations.filterByAttribute(filter);
+    }
+
     public User getUserByUUID(UUID id) {
         return users.getObjectByUUID(id);
     }
@@ -123,6 +135,10 @@ public class Database {
 
     public Contact getContactByUUID(UUID id) {
         return contacts.getObjectByUUID(id);
+    }
+
+    public Location getLocationByUUID(UUID id) {
+        return locations.getObjectByUUID(id);
     }
 
     public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {

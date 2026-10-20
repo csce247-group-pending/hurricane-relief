@@ -3,6 +3,8 @@ package com.pending.model.data.serializables;
 import java.util.UUID;
 
 public class Location extends Serializable {
+    public static final String file = "json/locations.json";
+
     private String state;
     private String city;
     private String county;

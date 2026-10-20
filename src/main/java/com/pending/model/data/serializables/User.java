@@ -10,6 +10,8 @@ public class User extends Serializable {
     private String firstName;
     private String lastName;
     private String password;
+
+    private UUID locationUUIDReference;
     private Location location;
 
     private UUID userContactUUIDReference;
@@ -81,6 +83,14 @@ public class User extends Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public UUID getLocationUUIDReference() {
+        return locationUUIDReference;
+    }
+
+    public void setLocationUUIDReference(UUID id) {
+        locationUUIDReference = id;
     }
 
     public Contact getUserContact() {
