@@ -16,12 +16,12 @@ public class SerializeJSONUser extends SerializeJSON<User> {
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", serializable.getId().toString());
-        jsonObject.put("firstName", serializable.getFirstName());
-        jsonObject.put("lastName", serializable.getLastName());
+        jsonObject.put("first_name", serializable.getFirstName());
+        jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
         jsonObject.put("location", serializable.getLocation().getId());
-        jsonObject.put("userContact", serializable.getUserContact().getId().toString());
-        jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
+        jsonObject.put("user_contact", serializable.getUserContact().getId().toString());
+        jsonObject.put("emergency_contact", serializable.getUserContact().getId().toString());
 
         JSONArray userReliefRequests = new JSONArray();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
@@ -36,8 +36,8 @@ public class SerializeJSONUser extends SerializeJSON<User> {
     @Override
     public void deserialize(JSONObject jsonObject) {
         serializable.setId(UUID.fromString((String) jsonObject.get("id")));
-        serializable.setFirstName((String) jsonObject.get("firstName"));
-        serializable.setLastName((String) jsonObject.get("lastName"));
+        serializable.setFirstName((String) jsonObject.get("first_name"));
+        serializable.setLastName((String) jsonObject.get("last_name"));
         serializable.setPassword((String) jsonObject.get("password"));
 
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
@@ -46,7 +46,8 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setEmergencyContactUUIDReference(UUID.fromString((String) jsonObject.get("emergency_contact")));
 
         ArrayList<UUID> userReliefRequestsByUUID = serializable.getUserReliefRequestsUUIDReference();
-        for (Object jsonReliefRequestUUID: userReliefRequestsByUUID) {
+        userReliefRequestsByUUID.clear();
+        for (Object jsonReliefRequestUUID: (JSONArray) jsonObject.get("user_relief_requests")) {
             userReliefRequestsByUUID.add(UUID.fromString((String) jsonReliefRequestUUID));
         }
     }
@@ -59,6 +60,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
 
         ArrayList<ReliefRequest> userReliefRequests = serializable.getUserReliefRequests();
+        userReliefRequests.clear();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
             userReliefRequests.add(database.getReliefRequestByUUID(id));
         }

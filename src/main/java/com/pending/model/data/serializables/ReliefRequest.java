@@ -16,6 +16,7 @@ public class ReliefRequest extends Serializable {
     private ReliefStatus status;
     private String description;
     private Location location;
+    private UUID locationUUIDReference;
     private LocalDateTime submittedAt;
     private ArrayList<Resource> neededResources;
     private File attachedPhoto;
@@ -71,6 +72,14 @@ public class ReliefRequest extends Serializable {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public UUID getLocationUUIDReference() {
+        return locationUUIDReference;
+    }
+
+    public void setLocationUUIDReference(UUID locationUUIDReference) {
+        this.locationUUIDReference = locationUUIDReference;
     }
 
     public LocalDateTime getSubmittedAt() {

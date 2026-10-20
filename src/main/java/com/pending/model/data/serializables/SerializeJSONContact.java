@@ -15,7 +15,7 @@ public class SerializeJSONContact extends SerializeJSON<Contact> {
         jsonObject.put("id", serializable.getId().toString());
         jsonObject.put("email", serializable.getEmail());
         jsonObject.put("phone", serializable.getPhone());
-        jsonObject.put("contactPreference", serializable.getContactPreference().name());
+        jsonObject.put("contact_preference", serializable.getContactPreference().name());
         return jsonObject;
     }
 

@@ -14,6 +14,7 @@ public class ConsoleUI {
 
     public void run() {
         readAndPrintSheltersScenario();
+        loginScenario();
     }
 
     // Josh
@@ -24,27 +25,27 @@ public class ConsoleUI {
             System.out.println("Login Failed");
             return;
         }
-        System.out.println(app.getUserFullName() + "is now logged in");
+        System.out.println(app.getUserFullName() + " is now logged in");
     }
 
     // Landon
     public void readAndPrintSheltersScenario() {
-    ArrayList<Shelter> shelters = app.getShelters();
+        ArrayList<Shelter> shelters = app.getShelters();
 
-    System.out.println("\nShelters loaded from JSON:");
+        System.out.println("\nShelters loaded from JSON:");
 
-    if (shelters.isEmpty()) {
-        System.out.println("No shelters found.");
-        return;
-    }
+        if (shelters.isEmpty()) {
+            System.out.println("No shelters found.");
+            return;
+        }
 
-    for (Shelter shelter : shelters) {
-        System.out.println("Name: " + shelter.getName());
-        System.out.println("Capacity: " + shelter.getOccupancy()
-                + "/" + shelter.getCapacity());
-        System.out.println("Status: " + shelter.getStatus());
-        System.out.println();
-    }
+        for (Shelter shelter : shelters) {
+            System.out.println("Name: " + shelter.getName());
+            System.out.println("Capacity: " + shelter.getOccupancy()
+                    + "/" + shelter.getCapacity());
+            System.out.println("Status: " + shelter.getStatus());
+            System.out.println();
+        }
 }
     
 
