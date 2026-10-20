@@ -37,6 +37,21 @@ public class DataList<T extends Serializable> {
                 objects.add((T) serializable);
             }
         } catch (Exception e) {
+            System.out.println("Problematic class: " +cls);
+            e.printStackTrace();
+        }
+    }
+
+    public void write() {
+        try {
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+
+            ArrayList<Object> dataObjects = new ArrayList<>();
+            for (T object: objects) {
+                dataObjects.add(object.serialize());
+            }
+            dataManager.write(dataObjects);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
