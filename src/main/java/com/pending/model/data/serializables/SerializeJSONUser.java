@@ -22,6 +22,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("id", serializable.getId().toString());
         jsonObject.put("first_name", serializable.getFirstName());
         jsonObject.put("last_name", serializable.getLastName());
+<<<<<<< HEAD
         jsonObject.put("first_name", serializable.getFirstName());
         jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
@@ -33,6 +34,12 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("userContact", serializable.getUserContact().getId().toString());
         jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
 >>>>>>> c6de537 (Fix more bugs)
+=======
+        jsonObject.put("password", serializable.getPassword());
+        jsonObject.put("location", serializable.getLocation().getId());
+        jsonObject.put("user_contact", serializable.getUserContact().getId().toString());
+        jsonObject.put("emergency_contact", serializable.getUserContact().getId().toString());
+>>>>>>> 5fa5441 (Fix more bugs and complete serialize behaviors)
 
         JSONArray userReliefRequests = new JSONArray();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {

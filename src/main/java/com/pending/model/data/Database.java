@@ -49,6 +49,7 @@ public class Database {
 
         locations = DataList.getInstance(Location.class);
         dataLists.put(Location.class, locations);
+<<<<<<< HEAD
 
         locations = DataList.getInstance(Location.class);
         dataLists.put(Location.class, locations);
@@ -59,6 +60,8 @@ public class Database {
             dataList.write();
         }
         resolveReferences();
+=======
+>>>>>>> 5fa5441 (Fix more bugs and complete serialize behaviors)
     }
 
 <<<<<<< HEAD
@@ -71,6 +74,7 @@ public class Database {
             dataList.read();
 >>>>>>> 1fece38 (Fix more bugs)
         }
+        resolveReferences();
     }
 
     public void write() {

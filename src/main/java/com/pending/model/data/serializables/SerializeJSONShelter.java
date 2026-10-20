@@ -1,7 +1,13 @@
 package com.pending.model.data.serializables;
 
+<<<<<<< HEAD
 import java.util.UUID;
 
+=======
+import com.pending.model.data.DataList;
+import com.pending.model.data.Database;
+import com.pending.model.enums.ShelterStatus;
+>>>>>>> 5fa5441 (Fix more bugs and complete serialize behaviors)
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -43,11 +49,15 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setId(UUID.fromString((String) jsonObject.get("id")));
         serializable.setName((String) jsonObject.get("name"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
 =======
         System.out.println(jsonObject.get("location").getClass());
         serializable.getLocation().deserialize(jsonObject.get("location"));
 >>>>>>> 7dd33f2 (Fix more bugs)
+=======
+        serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
+>>>>>>> 5fa5441 (Fix more bugs and complete serialize behaviors)
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
         serializable.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
 

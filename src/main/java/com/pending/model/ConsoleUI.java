@@ -25,7 +25,7 @@ public class ConsoleUI {
             System.out.println("Login Failed");
             return;
         }
-        System.out.println(app.getUserFullName() + "is now logged in");
+        System.out.println(app.getUserFullName() + " is now logged in");
     }
 
     public void createAccountScenario() {
@@ -101,7 +101,11 @@ public class ConsoleUI {
             System.out.println("Status: " + shelter.getStatus());
             System.out.println();
         }
+<<<<<<< HEAD
     }
+=======
+}
+>>>>>>> 5fa5441 (Fix more bugs and complete serialize behaviors)
     
     public static void main(String[] args) {
         ConsoleUI ui = new ConsoleUI();
