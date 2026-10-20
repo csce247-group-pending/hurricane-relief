@@ -13,10 +13,29 @@ public class DataList<T extends Serializable> {
     private String fileName;
     private DataManager dataManager;
     private Class<T> cls;
+<<<<<<< HEAD
     private Class<T> cls;
 
     private DataList(Class<T> cls) {
         try {
+=======
+
+    private DataList(Class<T> cls) {
+        try {
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+            this.cls = cls;
+
+            objects = new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void read() {
+        try {
+            dataManager = new DataManager((String) cls.getField("file").get(null));
+
+>>>>>>> 1fece38 (Fix more bugs)
             objects = new ArrayList<>();
             objectsById = new HashMap<>();
             this.cls = cls;

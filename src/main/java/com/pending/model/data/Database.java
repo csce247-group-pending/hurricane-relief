@@ -61,9 +61,15 @@ public class Database {
         resolveReferences();
     }
 
+<<<<<<< HEAD
     public void write() {
         for (DataList<?> dataList: dataLists.values()) {
             dataList.write();
+=======
+    public void read() {
+        for (DataList<?> dataList: dataLists.values()) {
+            dataList.read();
+>>>>>>> 1fece38 (Fix more bugs)
         }
     }
 
@@ -81,7 +87,11 @@ public class Database {
     }
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         getInstance().readDataLists();
+=======
+        getInstance().read();
+>>>>>>> 1fece38 (Fix more bugs)
     }
 
     private void resolveReferences() {
