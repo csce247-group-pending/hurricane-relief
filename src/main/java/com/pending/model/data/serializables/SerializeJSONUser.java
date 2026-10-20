@@ -26,8 +26,13 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
         jsonObject.put("location", serializable.getLocation().getId());
+<<<<<<< HEAD
         jsonObject.put("user_contact", serializable.getUserContact().getId().toString());
         jsonObject.put("emergency_contact", serializable.getUserContact().getId().toString());
+=======
+        jsonObject.put("userContact", serializable.getUserContact().getId().toString());
+        jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
+>>>>>>> c6de537 (Fix more bugs)
 
         JSONArray userReliefRequests = new JSONArray();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
