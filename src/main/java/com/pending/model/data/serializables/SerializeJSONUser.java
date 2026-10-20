@@ -17,19 +17,19 @@ public class SerializeJSONUser extends SerializeJSON<User> {
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", serializable.getId().toString());
-        jsonObject.put("firstName", serializable.getFirstName());
-        jsonObject.put("lastName", serializable.getLastName());
+        jsonObject.put("first_name", serializable.getFirstName());
+        jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
         jsonObject.put("location", serializable.getLocation().serialize());
-        jsonObject.put("userContact", serializable.getUserContact().getId().toString());
-        jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
+        jsonObject.put("user_contact", serializable.getUserContact().getId().toString());
+        jsonObject.put("emergency_contact", serializable.getUserContact().getId().toString());
 
         JSONArray userReliefRequests = new JSONArray();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
             userReliefRequests.add(id.toString());
         }
 
-        jsonObject.put("userReliefRequests", userReliefRequests);
+        jsonObject.put("user_relief_requests", userReliefRequests);
 
         return jsonObject;
     }

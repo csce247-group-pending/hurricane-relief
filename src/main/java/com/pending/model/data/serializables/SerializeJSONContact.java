@@ -1,9 +1,10 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.ContactPreference;
+import java.util.UUID;
+
 import org.json.simple.JSONObject;
 
-import java.util.UUID;
+import com.pending.model.enums.ContactPreference;
 
 public class SerializeJSONContact extends SerializeJSON<Contact> {
     public SerializeJSONContact(Contact serializable) {
@@ -15,7 +16,7 @@ public class SerializeJSONContact extends SerializeJSON<Contact> {
         jsonObject.put("id", serializable.getId().toString());
         jsonObject.put("email", serializable.getEmail());
         jsonObject.put("phone", serializable.getPhone());
-        jsonObject.put("contactPreference", serializable.getContactPreference().name());
+        jsonObject.put("contact_preference", serializable.getContactPreference().name());
         return jsonObject;
     }
 

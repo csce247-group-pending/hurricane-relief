@@ -74,28 +74,28 @@ public class Application {
     }
 
     public ArrayList<Shelter> getShelters() {
-    ArrayList<Shelter> shelters = new ArrayList<>();
+        ArrayList<Shelter> shelters = new ArrayList<>();
 
-    DataManager dataManager = new DataManager(JSONFile.SHELTERS.getFilename());
-    ArrayList<JSONObject> shelterData = dataManager.readJSON();
+        DataManager dataManager = new DataManager(JSONFile.SHELTERS.getFilename());
+        ArrayList<JSONObject> shelterData = dataManager.readJSON();
 
-    if (shelterData == null) {
+        if (shelterData == null) {
+            return shelters;
+        }
+
+        for (JSONObject jsonObject : shelterData) {
+            String name = (String) jsonObject.get("name");
+            int capacity = ((Long) jsonObject.get("capacity")).intValue();
+
+            Shelter shelter = new Shelter(name, null, capacity, null);
+            shelter.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
+            shelter.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
+
+            shelters.add(shelter);
+        }
+
         return shelters;
     }
-
-    for (JSONObject jsonObject : shelterData) {
-        String name = (String) jsonObject.get("name");
-        int capacity = ((Long) jsonObject.get("capacity")).intValue();
-
-        Shelter shelter = new Shelter(name, null, capacity, null);
-        shelter.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
-        shelter.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
-
-        shelters.add(shelter);
-    }
-
-    return shelters;
-}
 
     public ArrayList<Shelter> findNearbyResource(Location location, Resource resource) {
         return null;
