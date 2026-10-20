@@ -21,9 +21,9 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         jsonObject.put("first_name", serializable.getFirstName());
         jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
-        jsonObject.put("location", serializable.getLocation().serialize());
-        jsonObject.put("user_contact", serializable.getUserContact().getId().toString());
-        jsonObject.put("emergency_contact", serializable.getUserContact().getId().toString());
+        jsonObject.put("location", serializable.getLocation().getId());
+        jsonObject.put("userContact", serializable.getUserContact().getId().toString());
+        jsonObject.put("emergencyContact", serializable.getUserContact().getId().toString());
 
         JSONArray userReliefRequests = new JSONArray();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
@@ -43,8 +43,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         serializable.setLastName((String) jsonObject.get("lastName"));
         serializable.setPassword((String) jsonObject.get("password"));
 
-        String locationJsonObject = (String) jsonObject.get("location");
-        serializable.getLocation().deserialize(locationJsonObject);
+        serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
 
         serializable.setUserContactUUIDReference(UUID.fromString((String) jsonObject.get("user_contact")));
         serializable.setEmergencyContactUUIDReference(UUID.fromString((String) jsonObject.get("emergency_contact")));
@@ -61,6 +60,7 @@ public class SerializeJSONUser extends SerializeJSON<User> {
         Database database = Database.getInstance();
         serializable.setUserContact(database.getContactByUUID(serializable.getUserContactUUIDReference()));
         serializable.setEmergencyContact(database.getContactByUUID(serializable.getEmergencyContactUUIDReference()));
+        serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
 
         ArrayList<ReliefRequest> userReliefRequests = serializable.getUserReliefRequests();
         for (UUID id: serializable.getUserReliefRequestsUUIDReference()) {
