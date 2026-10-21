@@ -1,9 +1,8 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.ResourceType;
 import org.json.simple.JSONObject;
 
-import java.time.LocalDateTime;
+import com.pending.model.enums.ResourceType;
 
 public class SerializeJSONResource extends SerializeJSON<Resource> {
     public SerializeJSONResource(Resource serializable) {
@@ -16,7 +15,6 @@ public class SerializeJSONResource extends SerializeJSON<Resource> {
         jsonObject.put("type", serializable.getType().name());
         jsonObject.put("quantity", serializable.getQuantity());
         jsonObject.put("description", serializable.getDescription());
-        jsonObject.put("restock_date", serializable.getRestockDate().toString());
         return jsonObject;
     }
 
@@ -25,6 +23,5 @@ public class SerializeJSONResource extends SerializeJSON<Resource> {
         serializable.setType(ResourceType.valueOf((String) jsonObject.get("type")));
         serializable.setQuantity(((Long) jsonObject.get("quantity")).intValue());
         serializable.setDescription((String) jsonObject.get("description"));
-        serializable.setRestockDate(LocalDateTime.parse((String) jsonObject.get("restock_date")));
     }
 }

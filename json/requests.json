@@ -10,14 +10,12 @@
         {
         "type": "FOOD",
         "quantity": 1,
-        "description": "canned black beans",
-        "restock_date": "2026-09-25T14:30:00"
+        "description": "canned black beans"
       },
       {
         "type": "FOOD",
         "quantity": 1,
-        "description": "watermelon",
-        "restock_date": "2026-09-25T15:30:00"
+        "description": "watermelon"
       }
     ],
     "attached_photo": "imgs/empty_pantry.png",
@@ -34,8 +32,7 @@
         {
         "type": "WATER",
         "quantity": 1,
-        "description": "1 gallon of water",
-        "restock_date": "2026-09-25T14:30:00"
+        "description": "1 gallon of water"
       }
     ],
     "attached_photo": "imgs/empty_water_bottle.png",

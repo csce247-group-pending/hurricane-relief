@@ -2,19 +2,15 @@ package com.pending.model.data.serializables;
 
 import com.pending.model.enums.ResourceType;
 
-import java.time.LocalDateTime;
-
 public class Resource extends Serializable {
     private ResourceType type;
     private int quantity;
     private String description;
-    private LocalDateTime restockDate;
 
     public Resource(ResourceType type, int quantity, String description) {
         this.type = type;
         this.quantity = quantity;
         this.description = description;
-        this.restockDate = null;
         serializeBehavior = new SerializeJSONResource(this);
     }
 
@@ -45,12 +41,5 @@ public class Resource extends Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public LocalDateTime getRestockDate() {
-        return restockDate;
-    }
-
-    public void setRestockDate(LocalDateTime restockDate) {
-        this.restockDate = restockDate;
-    }
+    
 }
