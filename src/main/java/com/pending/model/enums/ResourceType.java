@@ -6,5 +6,6 @@ public enum ResourceType {
     MEDICINE,
     CLOTHING,
     EMERGENCY_EQUIPMENT,
+    PET_ACCOMMODATION,
     OTHER
 }
