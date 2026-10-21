@@ -13,7 +13,6 @@ import com.pending.model.data.serializables.Serializable;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 
-
 public class Database {
     private final DataList<User> users;
     private final DataList<ReliefRequest> requests;
@@ -52,14 +51,14 @@ public class Database {
     }
 
     public void read() {
-        for (DataList<?> dataList: dataLists.values()) {
+        for (DataList<?> dataList : dataLists.values()) {
             dataList.read();
         }
         resolveReferences();
     }
 
     public void write() {
-        for (DataList<?> dataList: dataLists.values()) {
+        for (DataList<?> dataList : dataLists.values()) {
             dataList.write();
         }
     }
@@ -72,7 +71,7 @@ public class Database {
     }
 
     public void readDataLists() {
-        for (DataList<? extends Serializable> dataList: dataLists.values()) {
+        for (DataList<? extends Serializable> dataList : dataLists.values()) {
             dataList.read();
         }
     }
@@ -82,27 +81,47 @@ public class Database {
     }
 
     private void resolveReferences() {
-        for (DataList<?> dataList: dataLists.values()) {
+        for (DataList<?> dataList : dataLists.values()) {
             dataList.resolveReferences();
         }
     }
 
     public User attemptLogin(String email, String password) {
         User user = users.getObject(
-                (u) -> email.equals(u.getUserContact().getEmail())
+                u -> email.equals(u.getUserContact().getEmail())
         );
-
-        System.out.println(user.getUserContact());
 
         return user == null || !password.equals(user.getPassword()) ? null : user;
     }
 
     public boolean createAccount(String firstName, String lastName, String password,
-        Location location, Contact userContact, Contact emergencyContact) {
-        
-        //* add code to create and account and write it to the db
+            Location location, Contact userContact, Contact emergencyContact) {
 
-        return false;
+        User existingUser = users.getObject(
+                user -> userContact.getEmail().equals(user.getUserContact().getEmail())
+        );
+
+        if (existingUser != null) {
+            return false;
+        }
+
+        User newUser = new User(firstName, lastName, password,
+                location, userContact, emergencyContact);
+
+        boolean locationAdded = locations.add(location);
+        boolean userContactAdded = contacts.add(userContact);
+        boolean emergencyContactAdded = contacts.add(emergencyContact);
+        boolean userAdded = users.add(newUser);
+
+        if (!locationAdded || !userContactAdded || !emergencyContactAdded || !userAdded) {
+            return false;
+        }
+
+        locations.write();
+        contacts.write();
+        users.write();
+
+        return true;
     }
 
     public ArrayList<User> getUsers() {
@@ -180,5 +199,4 @@ public class Database {
     public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {
         return dataLists.get(cls);
     }
-
 }
