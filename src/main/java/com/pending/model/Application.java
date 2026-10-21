@@ -42,7 +42,7 @@ public class Application {
         String city = locationInformation[1];
         String street = locationInformation[0];
         String zip = locationInformation[3];
-        Location location = new Location(state, city, "", street, zip);
+        Location location = new Location(state, city, street, zip);
 
         Contact userContact = new Contact(userContactEmail, userContactPhone, ContactPreference.valueOf(userContactPreference));
         Contact emergencyContact = new Contact(emergencyContactEmail, emergencyContactPhone, ContactPreference.valueOf(emergencyContactPreference));

@@ -1,21 +1,23 @@
 package com.pending.location;
 
+import com.pending.model.data.serializables.Location;
+
 /*
- * Represents one address after it has been converted
+ * Represents one location after it has been converted
  * into latitude and longitude coordinates.
  */
 public class MapLocation {
 
-    private final Address address;
+    private final Location location;
     private final Coordinates coordinates;
 
-    public MapLocation(Address address, Coordinates coordinates) {
-        this.address = address;
+    public MapLocation(Location location, Coordinates coordinates) {
+        this.location = location;
         this.coordinates = coordinates;
     }
 
-    public Address getAddress() {
-        return address;
+    public Location getLocation() {
+        return location;
     }
 
     public Coordinates getCoordinates() {
@@ -24,6 +26,6 @@ public class MapLocation {
 
     @Override
     public String toString() {
-        return address.toString();
+        return location.toString();
     }
 }

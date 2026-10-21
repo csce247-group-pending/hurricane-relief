@@ -3,7 +3,6 @@
     "id": "c2b47624-88e1-474d-8482-762f9379a445",
     "state": "SC",
     "city": "Columbia",
-    "county": "Richland",
     "street": "211 Main St",
     "zipcode": "29208"
   },
@@ -11,15 +10,13 @@
     "id": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
     "state": "SC",
     "city": "Charleston",
-    "county": "Charleston",
     "street": "145 King St",
     "zipcode": "29401"
-  }, 
+  },
   {
     "id": "3b29c1e4-8f7a-4d29-a16e-57c28f419b02",
     "state": "SC",
     "city": "Columbia",
-    "county": "Richland",
     "street": "550 Assembly St",
     "zip": "29201"
   },
@@ -27,7 +24,6 @@
     "id": "f84a1d63-2c9e-4a7b-b830-9e63d41f75c8",
     "state": "NM",
     "city": "Albuquerque",
-    "county": "Bernalillo",
     "street": "308 Negra Arroyo Ln",
     "zip": "87104"
   },
@@ -35,7 +31,6 @@
     "id": "7d5e9b10-63a2-41f8-9a4c-0d82e174b593",
     "state": "NC",
     "city": "Waxhaw",
-    "county": "Union",
     "street": "119 Brevard St",
     "zip": "28173"
   },
@@ -43,39 +38,34 @@
     "id": "a904e5f2-1b8d-4e63-8f52-4c317d98a06e",
     "state": "SC",
     "city": "Columbia",
-    "county": "Richland",
     "street": "1215 Blossom St",
     "zip": "29201"
   },
   {
     "id": "2d8f619b-c40e-4375-9e67-5d07a1b41e8c",
     "state": "SC",
-    "city": "",
-    "county": "Richland",
+    "city": "Richland",
     "street": "",
     "zipcode": "29201"
   },
   {
     "id": "6a91c348-18e4-4a27-89bb-72d0ee13f8c5",
     "state": "SC",
-    "city": "",
-    "county": "Richland",
+    "city": "Richland",
     "street": "",
     "zipcode": "29208"
   },
   {
     "id": "c5304b72-f2de-4ec9-b4cf-81c0029b47e2",
     "state": "SC",
-    "city": "",
-    "county": "Central",
+    "city": "Central",
     "street": "",
     "zipcode": "29630"
   },
   {
     "id": "41e976f3-a8c5-4dc7-8ea3-3e1986427db9",
     "state": "SC",
-    "city": "",
-    "county": "Clemson",
+    "city": "Clemson",
     "street": "",
     "zipcode": "29631"
   }

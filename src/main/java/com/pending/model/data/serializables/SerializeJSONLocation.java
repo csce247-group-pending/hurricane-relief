@@ -12,7 +12,6 @@ public class SerializeJSONLocation extends SerializeJSON<Location> {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("state", serializable.getState());
         jsonObject.put("city", serializable.getCity());
-        jsonObject.put("county", serializable.getCounty());
         jsonObject.put("street", serializable.getStreet());
         jsonObject.put("zip", serializable.getZip());
         return jsonObject;
@@ -22,7 +21,6 @@ public class SerializeJSONLocation extends SerializeJSON<Location> {
     public void deserialize(JSONObject jsonObject) {
         serializable.setState((String) jsonObject.get("state"));
         serializable.setCity((String) jsonObject.get("city"));
-        serializable.setCounty((String) jsonObject.get("county"));
         serializable.setStreet((String) jsonObject.get("street"));
         serializable.setZip((String) jsonObject.get("zip"));
     }

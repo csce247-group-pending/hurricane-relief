@@ -30,14 +30,14 @@ public class Address {
         return zip;
     }
 
-    public Coordinates getCoordinates() {
-        try {
-            return MapTools.getInstance().getCoordinates(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    // public Coordinates getCoordinates() {
+    //     try {
+    //         // return MapTools.getInstance().getCoordinates(this);
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return null;
+    //     }
+    // }
 
     public String toString() {
         return String.format("%s, %s, %s %s", street, city, state, zip);

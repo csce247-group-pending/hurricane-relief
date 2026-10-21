@@ -1,8 +1,5 @@
 package com.pending.location;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -11,6 +8,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pending.model.data.serializables.Location;
 
 /**
  * 
@@ -47,29 +49,29 @@ public class MapTools {
 
     /**
      * Converts a street address into latitude and longitude.
-     * @param address Street address
+     * @param location Street address
      * @return Coordinates in latitude and longitude
      * @throws IOException
      * @throws InterruptedException
      */
-    public Coordinates getCoordinates(Address address)
+    public Coordinates getCoordinates(Location location)
             throws IOException, InterruptedException {
 
         checkForApiKey();
 
-        String encodedAddress = URLEncoder.encode(
-                address.toString(),
+        String encodedLocation = URLEncoder.encode(
+                location.toString(),
                 StandardCharsets.UTF_8
         );
 
         URI uri = URI.create(
                 GEOCODING_URL
                         + "?api_key=" + apiKey
-                        + "&text=" + encodedAddress
+                        + "&text=" + encodedLocation
                         + "&boundary.country=USA"
                         + "&size=10"
         );
-
+ 
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(15))
@@ -83,7 +85,7 @@ public class MapTools {
 
         if (response.statusCode() != 200) {
             throw new IOException(
-                    "Could not convert: " + address
+                    "Could not convert: " + location
                             + " (HTTP " + response.statusCode() + ")"
                             + "\n" + response.body()
             );
@@ -106,15 +108,15 @@ public class MapTools {
      * @throws IOException
      * @throws InterruptedException
      */
-    public Address findClosestAddress(Address startingAddress, Address[] shelters)
+    public Location findClosestAddress(Location startingAddress, Location[] shelters)
             throws IOException, InterruptedException {
 
         Coordinates startingCoordinates = getCoordinates(startingAddress);
 
-        Address closestShelter = null;
+        Location closestShelter = null;
         double shortestTime = Double.MAX_VALUE;
 
-        for (Address shelter : shelters) {
+        for (Location shelter : shelters) {
             Coordinates shelterCoordinates = getCoordinates(shelter);
 
             double drivingTime = getDrivingTime(
@@ -140,8 +142,8 @@ public class MapTools {
      * @throws InterruptedException
      */
     public String[] getDrivingDirections(
-            Address startingAddress,
-            Address endingAddress
+            Location startingAddress,
+            Location endingAddress
     ) throws IOException, InterruptedException {
 
         Coordinates start = getCoordinates(startingAddress);
@@ -268,7 +270,7 @@ public class MapTools {
      * @throws IOException
      * @throws InterruptedException
      */
-    public DrivingRoute getDrivingRoute(Address startingAddress, Address endingAddress) 
+    public DrivingRoute getDrivingRoute(Location startingAddress, Location endingAddress) 
         throws IOException, InterruptedException {
 
         Coordinates startCoordinates = getCoordinates(startingAddress);
