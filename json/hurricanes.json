@@ -9,11 +9,7 @@
       "2d8f619b-c40e-4375-9e67-5d07a1b41e8c",
       "6a91c348-18e4-4a27-89bb-72d0ee13f8c5"
     ],
-    "status": "PASSED",
-    "observers": [
-      "ace00e95-9f57-4b63-86e6-0530a92c011b",
-      "d1d8dc85-e69f-42bf-af84-7be5a65878ee"
-    ]
+    "status": "PASSED"
   },
   {
     "id": "a4cd3831-d3b2-4cc5-a654-6b1ce2484162",
@@ -25,10 +21,6 @@
       "c5304b72-f2de-4ec9-b4cf-81c0029b47e2",
       "41e976f3-a8c5-4dc7-8ea3-3e1986427db9"
     ],
-    "status": "APPROACHING",
-    "observers": [
-      "ace00e95-9f57-4b63-86e6-0530a92c011b",
-      "d1d8dc85-e69f-42bf-af84-7be5a65878ee"
-    ]
+    "status": "APPROACHING"
   }
 ]

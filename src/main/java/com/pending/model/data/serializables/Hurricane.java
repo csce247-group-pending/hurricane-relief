@@ -1,13 +1,11 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.HurricaneStatus;
-import com.pending.model.enums.JSONFile;
-
-import com.pending.model.Observer;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import com.pending.model.enums.HurricaneStatus;
+import com.pending.model.enums.JSONFile;
 
 public class Hurricane extends Serializable {
     public static String file = JSONFile.HURRICANES.getFilename();
@@ -18,8 +16,6 @@ public class Hurricane extends Serializable {
     private ArrayList<Location> locations;
     private ArrayList<UUID> locationsUUIDReference;
     private HurricaneStatus status;
-    private ArrayList<Admin> observers;
-    private ArrayList<UUID> observersUUIDReference;
 
     public Hurricane(String name, int category, LocalDateTime startDate, LocalDateTime endDate,
                      ArrayList<Location> locations, HurricaneStatus status) {
@@ -30,10 +26,7 @@ public class Hurricane extends Serializable {
         this.locations = locations;
         this.status = status;
 
-        observers = new ArrayList<>();
-
         locationsUUIDReference = new ArrayList<>();
-        observersUUIDReference = new ArrayList<>();
 
         serializeBehavior = new SerializeJSONHurricane(this);
     }
@@ -46,18 +39,6 @@ public class Hurricane extends Serializable {
 
     public Hurricane() {
         this("", 5, LocalDateTime.now(), LocalDateTime.now(), new ArrayList<>(), HurricaneStatus.PASSED);
-    }
-
-    public void addObserver(Admin observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(Admin observer) {
-        observers.remove(observer);
-    }
-
-    public void notifyObservers() {
-        
     }
 
     public String getName() {
@@ -119,20 +100,5 @@ public class Hurricane extends Serializable {
     public void setStatus(HurricaneStatus status) {
         this.status = status;
     }
-
-    public ArrayList<Admin> getObservers() {
-        return observers;
-    }
-
-    public void setObservers(ArrayList<Admin> observers) {
-        this.observers = observers;
-    }
-
-    public ArrayList<UUID> getObserversUUIDReference() {
-        return observersUUIDReference;
-    }
-
-    public void setObserversUUIDReference(ArrayList<UUID> observersUUIDReference) {
-        this.observersUUIDReference = observersUUIDReference;
-    }
 }
+
