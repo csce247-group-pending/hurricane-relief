@@ -51,7 +51,6 @@ public class Application {
                             location, userContact, emergencyContact);
     }
 
-    //? Should this be switched from return User to return boolean?
     public boolean attemptLogin(String email, String password) {
         return (currentUser = database.attemptLogin(email, password)) != null;
     }
@@ -87,11 +86,7 @@ public class Application {
     public ArrayList<Contact> getContacts() {
         return null;
     }
-
-    public void run() {
-
-    }
-
+    
     private Location getLocation() {
         return location;
     }

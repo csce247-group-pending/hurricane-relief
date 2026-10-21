@@ -1,16 +1,16 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.data.Database;
-import com.pending.model.enums.Priority;
-import com.pending.model.enums.ReliefStatus;
-import com.pending.model.enums.ReliefType;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.pending.model.data.Database;
+import com.pending.model.enums.ReliefStatus;
+import com.pending.model.enums.ReliefType;
 
 public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
     public SerializeJSONReliefRequest(ReliefRequest serializable) {
@@ -21,7 +21,6 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", serializable.getId());
-        jsonObject.put("priority", serializable.getPriority().name());
         jsonObject.put("status", serializable.getStatus().name());
         jsonObject.put("description", serializable.getDescription());
         jsonObject.put("location", serializable.getLocation().serialize());
@@ -42,7 +41,6 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
     @Override
     public void deserialize(JSONObject jsonObject) {
         serializable.setId(UUID.fromString((String) jsonObject.get("id")));
-        serializable.setPriority(Priority.valueOf((String) jsonObject.get("priority")));
         serializable.setStatus(ReliefStatus.valueOf((String) jsonObject.get("status")));
         serializable.setDescription((String) jsonObject.get("description"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));

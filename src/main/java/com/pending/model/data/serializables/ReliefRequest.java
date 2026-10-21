@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.enums.JSONFile;
-import com.pending.model.enums.Priority;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
 public class ReliefRequest extends Serializable {
     public static String file = JSONFile.REQUESTS.getFilename();
-    private Priority priority;
     private ReliefStatus status;
     private String description;
     private Location location;
@@ -22,24 +20,23 @@ public class ReliefRequest extends Serializable {
     private File attachedPhoto;
     private ReliefType type;
 
-    public ReliefRequest(Priority priority, String description, Location location,
+    public ReliefRequest(String description, Location location,
         ArrayList<Resource> neededResources) {
         super();
-        this.priority = priority;
         this.description = description;
         this.location = location;
         this.neededResources = neededResources;
         serializeBehavior = new SerializeJSONReliefRequest(this);
     }
 
-    public ReliefRequest(UUID id, Priority priority, String description, Location location,
+    public ReliefRequest(UUID id, String description, Location location,
         ArrayList<Resource> neededResources) {
-        this(priority, description, location, neededResources);
+        this(description, location, neededResources);
         this.id = id;
     }
 
     public ReliefRequest() {
-        this(Priority.MEDIUM, "", new Location(), new ArrayList<>());
+        this("", new Location(), new ArrayList<>());
     }
 
     public ReliefStatus getStatus() {
@@ -48,14 +45,6 @@ public class ReliefRequest extends Serializable {
 
     public void setStatus(ReliefStatus status) {
         this.status = status;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
     }
 
     public String getDescription() {

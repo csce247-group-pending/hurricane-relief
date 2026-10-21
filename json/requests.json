@@ -1,7 +1,6 @@
 [
   {
     "id": "2ce1ccde-886a-45f2-9d5a-9d74f399df73",
-    "priority": "HIGH",
     "status": "ASSIGNED",
     "description": "Need food.",
     "location": "c2b47624-88e1-474d-8482-762f9379a445",
@@ -26,7 +25,6 @@
   },
   {
     "id": "d03bdc30-aeb7-450b-b8aa-031e14dbe916",
-    "priority": "LOW",
     "status": "REQUESTED",
     "description": "Need water.",
     "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",

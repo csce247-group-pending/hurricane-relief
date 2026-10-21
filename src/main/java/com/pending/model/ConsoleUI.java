@@ -14,9 +14,9 @@ public class ConsoleUI {
     }
 
     public void run() {
-        // readAndPrintSheltersScenario();
+        readAndPrintSheltersScenario();
         // loginScenario("heisenberg@aol.com", "!mTh3Cook");
-        createAccountAndLoginScenario();
+        // createAccountAndLoginScenario();
     }
 
     public void loginScenario(String email, String password) {
