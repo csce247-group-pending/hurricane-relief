@@ -1,37 +1,32 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.Skill;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.Skill;
+
 public class Volunteer extends User {
     private boolean isAvailable;
     private ArrayList<Skill> skills;
-    private ArrayList<ReliefRequest> tasks;
+    private ReliefRequest task;
 
     public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth, String password,
                      Location location, Contact userContact, Contact emergencyContact,
-                     boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
+                     boolean isAvailable, ArrayList<Skill> skills, ReliefRequest task) {
         super(id, firstName, lastName, dateOfBirth, password,
             location, userContact, emergencyContact);
+        
+        this.isAvailable = isAvailable;
+        this.skills = skills;
+        this.task = task;
     }
 
     public Volunteer() {
         super();
-    }
-
-    public void startRequest(ReliefRequest reliefRequest) {
-
-    }
-
-    public void completeRequest(ReliefRequest reliefRequest) {
-
-    }
-
-    public void viewRequests(ArrayList<ReliefRequest> tasks) {
-        
+        this.isAvailable = true;
+        this.skills = new ArrayList<>();
+        this.task = new ReliefRequest();
     }
 
     public boolean isAvailable() {
@@ -54,15 +49,11 @@ public class Volunteer extends User {
         skills.remove(skill);
     }
 
-    public ArrayList<ReliefRequest> getTasks() {
-        return tasks;
+    public ReliefRequest getTask() {
+        return task;
     }
 
-    public void addReliefRequest(ReliefRequest reliefRequest) {
-        tasks.add(reliefRequest);
-    }
-
-    public void removeReliefRequest(ReliefRequest reliefRequest) {
-        tasks.remove(reliefRequest);
+    public void setTask(ReliefRequest task) {
+        this.task = task;
     }
 }
