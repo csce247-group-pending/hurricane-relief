@@ -71,8 +71,14 @@ public class Application {
         return database.getShelters();
     }   
 
-    public ArrayList<ReliefRequest> getRequests() {
-        return null;
+    public String getRequests() {
+        ArrayList<ReliefRequest> reliefRequests = database.getRequests();
+        String printString = "Relief Requests: \n";
+        for (int i = 0; i < reliefRequests.size(); ++i) {
+            printString += "#" + (i+1) + " " + reliefRequests.get(i) + "\n";
+        }
+
+        return printString;
     }
 
     public ArrayList<Hurricane> getHurricaneData() {

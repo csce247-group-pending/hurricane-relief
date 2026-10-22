@@ -4,13 +4,20 @@
     "status": "ASSIGNED",
     "description": "Need food.",
     "location": "c2b47624-88e1-474d-8482-762f9379a445",
-    "type": "FOOD"
+    "types": [
+      "FOOD"
+    ],
+    "contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3"
   },
   {
     "id": "d03bdc30-aeb7-450b-b8aa-031e14dbe916",
     "status": "REQUESTED",
-    "description": "Need water.",
+    "description": "Need water and shelter",
     "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
-    "type": "WATER"
+    "types": [
+      "WATER",
+      "SHELTER"
+    ],
+    "contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712"
   }
 ]

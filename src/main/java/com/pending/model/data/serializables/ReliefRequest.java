@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONReliefRequest;
@@ -9,26 +10,39 @@ import com.pending.model.enums.ReliefType;
 
 public class ReliefRequest extends Serializable {
     public static String file = JSONFile.REQUESTS.getFilename();
-    private ReliefStatus status;
     private String description;
     private Location location;
-    private UUID locationUUIDReference;
-    private ReliefType type;
+    private ArrayList<ReliefType> types;
+    private ReliefStatus status;
+    private Contact contactInfo;
+    // private ArrayList<LivingBeing> livingBeings;
 
-    public ReliefRequest(String description, Location location) {
+    private UUID contactUUIDReference;
+    private UUID locationUUIDReference;
+
+    public ReliefRequest(String description, Location location,
+        ReliefStatus status) {
         super();
         this.description = description;
         this.location = location;
+        this.types = new ArrayList<>();
+        this.status = status;
+        this.contactInfo = new Contact();
+        
+        locationUUIDReference = UUID.randomUUID();
+        contactUUIDReference = UUID.randomUUID();
+
         serializeBehavior = new SerializeJSONReliefRequest(this);
     }
 
-    public ReliefRequest(UUID id, String description, Location location) {
-        this(description, location);
+    public ReliefRequest(UUID id, String description, Location location,
+        ReliefStatus status) {
+        this(description, location, status);
         this.id = id;
     }
 
     public ReliefRequest() {
-        this("", new Location());
+        this("", new Location(), ReliefStatus.REQUESTED);
     }
 
     public ReliefStatus getStatus() {
@@ -63,12 +77,43 @@ public class ReliefRequest extends Serializable {
         this.locationUUIDReference = locationUUIDReference;
     }
 
-    public ReliefType getType() {
-        return type;
+    public UUID getContactUUIDReference() {
+        return contactUUIDReference;
     }
 
-    public void setType(ReliefType type) {
-        this.type = type;
+    public void setContactUUIDReference(UUID contactUUIDReference) {
+        this.contactUUIDReference = contactUUIDReference;
     }
+
+    public ArrayList<ReliefType> getTypes() {
+        return types;
+    }
+
+    public void setTypes(ArrayList<ReliefType> types) {
+        this.types = types;
+    }
+
+    public String toString() {
+        String reliefTypesString = types.get(0).toString();
+        for (int i = 1; i < types.size(); ++i) {
+            reliefTypesString += ", " + types.get(i);
+        }
+
+        return "Relief Request"
+            + "\n\tDescription: " + description
+            + "\n\tRelief Status:" + status
+            + "\n\tRelief Needs: " + reliefTypesString
+            + "\n\tLocation: " + location
+            + "\n\tContact Info: " + contactInfo;
+    }
+
+    public Contact getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(Contact contactInfo) {
+        this.contactInfo = contactInfo;
+    }
+
 }
 
