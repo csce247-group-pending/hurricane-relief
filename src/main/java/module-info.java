@@ -19,4 +19,6 @@ module com.pending.hurricanerelief {
     opens com.pending.model.data.serializables to javafx.fxml;
     exports com.pending.model.enums;
     opens com.pending.model.enums to javafx.fxml;
+    exports com.pending.model.data.serializables.behaviors;
+    opens com.pending.model.data.serializables.behaviors to javafx.fxml;
 }

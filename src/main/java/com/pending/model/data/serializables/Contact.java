@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONContact;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.JSONFile;
 

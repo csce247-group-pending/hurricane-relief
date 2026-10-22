@@ -1,4 +1,4 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -7,6 +7,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.Location;
 import com.pending.model.enums.HurricaneStatus;
 
 public class SerializeJSONHurricane extends SerializeJSON<Hurricane> {

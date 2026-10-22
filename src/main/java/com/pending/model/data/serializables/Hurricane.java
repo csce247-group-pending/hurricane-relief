@@ -1,5 +1,9 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONHurricane;
+import com.pending.model.enums.HurricaneStatus;
+import com.pending.model.enums.JSONFile;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;

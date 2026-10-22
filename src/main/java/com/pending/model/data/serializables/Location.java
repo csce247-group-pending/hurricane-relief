@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.pending.location.Coordinates;
 import com.pending.location.MapTools;
+import com.pending.model.data.serializables.behaviors.SerializeJSONLocation;
 
 public class Location extends Serializable {
     public static final String file = "json/locations.json";

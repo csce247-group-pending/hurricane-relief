@@ -3,6 +3,7 @@ package com.pending.model.data.serializables;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONReliefRequest;
 import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;

@@ -3,6 +3,7 @@ package com.pending.model.data.serializables;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONUser;
 import com.pending.model.enums.JSONFile;
 
 public class User extends Serializable {

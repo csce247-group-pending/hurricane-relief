@@ -1,5 +1,6 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
+import com.pending.model.data.serializables.Serializable;
 import org.json.simple.JSONObject;
 
 public abstract class SerializeJSON<T extends Serializable> extends SerializeBehavior<T> {

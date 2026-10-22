@@ -1,8 +1,10 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
 import java.util.UUID;
 
 import org.json.simple.JSONObject;
+
+import com.pending.model.data.serializables.Location;
 
 public class SerializeJSONLocation extends SerializeJSON<Location> {
     public SerializeJSONLocation(Location serializable) {
@@ -15,8 +17,8 @@ public class SerializeJSONLocation extends SerializeJSON<Location> {
         jsonObject.put("id", serializable.getId().toString());
         jsonObject.put("state", serializable.getState());
         jsonObject.put("city", serializable.getCity());
-        jsonObject.put("street", serializable.getStreet());
-        jsonObject.put("zip", serializable.getZip());
+        jsonObject.put("street", serializable.getStreet() == null? "" : serializable.getStreet());
+        jsonObject.put("zip", serializable.getZip() == null? "00000" : serializable.getZip());
         return jsonObject;
     }
 
@@ -26,6 +28,6 @@ public class SerializeJSONLocation extends SerializeJSON<Location> {
         serializable.setState((String) jsonObject.get("state"));
         serializable.setCity((String) jsonObject.get("city"));
         serializable.setStreet((String) jsonObject.get("street"));
-        serializable.setZip((String) jsonObject.get("zip"));
+        serializable.setZip((String) (jsonObject.get("zip") == null? "00000" : jsonObject.get("zip")));
     }
 }
