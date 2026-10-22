@@ -1,9 +1,6 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.Observer;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class Admin extends User implements Observer {
