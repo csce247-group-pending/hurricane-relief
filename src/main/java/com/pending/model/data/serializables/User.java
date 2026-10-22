@@ -1,9 +1,9 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.JSONFile;
-
 import java.util.ArrayList;
 import java.util.UUID;
+
+import com.pending.model.enums.JSONFile;
 
 public class User extends Serializable {
     public static String file = JSONFile.USERS.getFilename();
@@ -36,6 +36,7 @@ public class User extends Serializable {
 
         userContactUUIDReference = UUID.randomUUID();
         emergencyContactUUIDReference = UUID.randomUUID();
+        locationUUIDReference = UUID.randomUUID();
 
         userReliefRequestsUUIDReference = new ArrayList<>();
 

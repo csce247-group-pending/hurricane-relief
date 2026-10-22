@@ -15,8 +15,13 @@ public class ConsoleUI {
 
     public void run() {
         readAndPrintSheltersScenario();
-        // loginScenario("heisenberg@aol.com", "!mTh3Cook");
+        loginScenario("heisenberg@aol.com", "!mTh3Cook");
         // createAccountAndLoginScenario();
+        readAndPrintReliefRequests();
+    }
+
+    public void readAndPrintReliefRequests() {
+        System.out.println(app.getRequests());
     }
 
     public void loginScenario(String email, String password) {
@@ -74,6 +79,7 @@ public class ConsoleUI {
             System.out.println("Name: " + shelter.getName());
             System.out.println("Capacity: " + shelter.getOccupancy()
                     + "/" + shelter.getCapacity());
+            System.out.println("Location: " + shelter.getLocation());
             System.out.println("Status: " + shelter.getStatus());
             System.out.println();
         }

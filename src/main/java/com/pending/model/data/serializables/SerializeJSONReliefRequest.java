@@ -1,7 +1,9 @@
 package com.pending.model.data.serializables;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
@@ -20,8 +22,14 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
         jsonObject.put("status", serializable.getStatus().name());
         jsonObject.put("description", serializable.getDescription());
         jsonObject.put("location", serializable.getLocation().serialize());
-        jsonObject.put("type", serializable.getType().name());
 
+        JSONArray reliefTypes = new JSONArray();
+        for (ReliefType type : serializable.getTypes()) {
+            reliefTypes.add(type.name());
+        }
+
+        jsonObject.put("types", reliefTypes);
+        jsonObject.put("contact", serializable.getContactInfo().serialize());
         return jsonObject;
     }
 
@@ -31,7 +39,15 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
         serializable.setStatus(ReliefStatus.valueOf((String) jsonObject.get("status")));
         serializable.setDescription((String) jsonObject.get("description"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
-        serializable.setType(ReliefType.valueOf((String) jsonObject.get("type")));
+        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
+
+        ArrayList<ReliefType> reliefTypes =
+                serializable.getTypes();
+
+        for (Object reliefType :
+                (JSONArray) jsonObject.get("types")) {
+            reliefTypes.add(ReliefType.valueOf((String) reliefType));
+        }
     }
 
     @Override
@@ -39,5 +55,6 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
         Database database = Database.getInstance();
 
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
+        serializable.setContactInfo(database.getContactByUUID(serializable.getContactUUIDReference()));
     }
 }
