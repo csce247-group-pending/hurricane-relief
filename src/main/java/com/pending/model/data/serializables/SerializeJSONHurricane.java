@@ -1,6 +1,5 @@
 package com.pending.model.data.serializables;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -21,8 +20,6 @@ public class SerializeJSONHurricane extends SerializeJSON<Hurricane> {
         jsonObject.put("id", serializable.getId());
         jsonObject.put("name", serializable.getName());
         jsonObject.put("category", serializable.getCategory());
-        jsonObject.put("start_date", serializable.getStartDate().toString());
-        jsonObject.put("end_date", serializable.getEndDate().toString());
         JSONArray locations = new JSONArray();
         for (Location location: serializable.getLocations()) {
             locations.add(location.getId().toString());
@@ -37,8 +34,6 @@ public class SerializeJSONHurricane extends SerializeJSON<Hurricane> {
         serializable.setId(UUID.fromString((String) jsonObject.get("id")));
         serializable.setName((String) jsonObject.get("name"));
         serializable.setCategory(((Long) jsonObject.get("category")).intValue());
-        serializable.setStartDate(LocalDateTime.parse((String) jsonObject.get("start_date")));
-        serializable.setEndDate(LocalDateTime.parse((String) jsonObject.get("end_date")));
         serializable.getLocationsUUIDReference().clear();
         ArrayList<UUID> locations = serializable.getLocationsUUIDReference();
         locations.clear();
