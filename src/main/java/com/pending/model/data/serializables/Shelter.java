@@ -156,4 +156,13 @@ public class Shelter extends Serializable {
     public void setManagerUUIDReference(UUID managerUUIDReference) {
         this.managerUUIDReference = managerUUIDReference;
     }
+
+    @Override
+    public String toString() {
+        return "Shelter '" + name + "'"
+        + "\n\tStatus: " + status
+        + "\n\tCapacity: " + occupancy + "/" + capacity
+        + "\n\tLocation: " + location
+        + "\n\tContact Info: " + contactInfo;
+    }
 }

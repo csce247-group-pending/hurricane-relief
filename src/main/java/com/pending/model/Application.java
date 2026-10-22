@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.Hurricane;
 import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
@@ -67,34 +66,51 @@ public class Application {
 
     }
 
-    public ArrayList<Shelter> getShelters() {
-        return database.getShelters();
-    }   
-
-    public String getRequests() {
-        ArrayList<ReliefRequest> reliefRequests = database.getRequests();
-        String printString = "Relief Requests: \n";
-        for (int i = 0; i < reliefRequests.size(); ++i) {
-            printString += "#" + (i+1) + " " + reliefRequests.get(i) + "\n";
+    public ArrayList<String> getShelters() {
+        ArrayList<String> shelterStrings = new ArrayList<>();
+        for (Shelter shelter: database.getShelters()) {
+            shelterStrings.add(shelter.toString());
         }
 
-        return printString;
+        return shelterStrings;
+    }   
+
+    public ArrayList<String> getRequests() {
+        ArrayList<String> requestStrings = new ArrayList<>();
+        for (ReliefRequest request: database.getRequests()) {
+            requestStrings.add(request.toString());
+        }
+        return requestStrings;
     }
 
-    public ArrayList<Hurricane> getHurricaneData() {
+    public ArrayList<String> getHurricaneData() {
         return null;
     }
 
-    public ArrayList<Contact> getContacts() {
-        return null;
+    public ArrayList<String> getContacts() {
+        ArrayList<String> contactStrings = new ArrayList<>();
+        
+        for(Contact contact: database.getContacts()) {
+            contactStrings.add(contact.toString());
+        }
+
+        return contactStrings;
     }
     
-    private Location getLocation() {
-        return location;
+    public String getLocation() {
+        return location.toString();
     }
 
-    private void updateLocation(Location location) {
+    public void updateLocation(Location location) {
         this.location = location;
+    }
+
+    public void completeRequest() {
+        // must role check for Shelter Manager
+    }
+
+    public void startRequest() {
+        // must role check for Volunteer
     }
 }
 

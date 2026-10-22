@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.pending.model.data.serializables.Shelter;
-
 public class ConsoleUI {
     private Scanner scanner;
     private Application app;
@@ -22,11 +20,21 @@ public class ConsoleUI {
     }
 
     public void readAndPrintReliefRequests() {
-        System.out.println(app.getRequests());
+        System.out.println();
+        
+        ArrayList<String> requests = app.getRequests();
+        if (requests.isEmpty()) {
+            System.out.println("No relief requests found");
+        }
+
+        System.out.println("Printing All Relief Requests:");
+        for(String request: app.getRequests()) {
+            System.out.println(request);
+        }
     }
 
     public void loginScenario(String email, String password) {
-        System.out.println("\nLogin: Please enter your email and password:\n\temail> " + email);
+        System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
         System.out.println("\tpassword> " + password);
         if(!app.attemptLogin(email, password)) {
             System.out.println("Login Failed");
@@ -67,22 +75,17 @@ public class ConsoleUI {
     }
 
     public void readAndPrintSheltersScenario() {
-        ArrayList<Shelter> shelters = app.getShelters();
-
-        System.out.println("\nShelters loaded from JSON:");
+        System.out.println();
+        ArrayList<String> shelters = app.getShelters();
 
         if (shelters.isEmpty()) {
             System.out.println("No shelters found.");
             return;
         }
 
-        for (Shelter shelter : shelters) {
-            System.out.println("Name: " + shelter.getName());
-            System.out.println("Capacity: " + shelter.getOccupancy()
-                    + "/" + shelter.getCapacity());
-            System.out.println("Location: " + shelter.getLocation());
-            System.out.println("Status: " + shelter.getStatus());
-            System.out.println();
+        System.out.println("Printing all Shelters:");
+        for (String shelter : shelters) {
+            System.out.println(shelter);
         }
     }
     
