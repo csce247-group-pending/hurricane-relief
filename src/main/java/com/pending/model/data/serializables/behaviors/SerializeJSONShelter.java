@@ -3,6 +3,7 @@ package com.pending.model.data.serializables.behaviors;
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Resource;
 import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
 import org.json.simple.JSONArray;
@@ -80,7 +81,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         }
 
         if (serializable.getManagerUUIDReference() != null) {
-            serializable.setManager(database.getUserByUUID(serializable.getManagerUUIDReference()));
+            serializable.setManager((ShelterManager) database.getUserByUUID(serializable.getManagerUUIDReference()));
         }
     }
 }
