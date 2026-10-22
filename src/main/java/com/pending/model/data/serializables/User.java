@@ -123,4 +123,11 @@ public class User extends Person {
     public void setEmergencyContactUUIDReference(UUID emergencyContactUUIDReference) {
         this.emergencyContactUUIDReference = emergencyContactUUIDReference;
     }
+
+    public String toString() {
+        return "User " + getFirstName() + " " + getLastName() + ": "
+            + "\n\tAge: TO BE DETERMINED"
+            + "\n\tContact Info: " + getUserContact()
+            + "\n\tLocation: " + getLocation();
+    }
 }
