@@ -15,25 +15,28 @@ public class ConsoleUI {
     }
 
     public void run() {
-        // readAndPrintSheltersScenario();
-        // loginScenario();
-        createAccountAndLoginScenario();
+        readAndPrintSheltersScenario();
+        // loginScenario("heisenberg@aol.com", "!mTh3Cook");
+        // createAccountAndLoginScenario();
     }
 
-    public void loginScenario() {
-        System.out.println("\nPlease enter your email and password:\n\temail> heisenberg@aol.com");
-        System.out.println("\tpassword> !mTh3Cook");
-        if(!app.attemptLogin("heisenberg@aol.com", "!mTh3Cook")) {
+    public void loginScenario(String email, String password) {
+        System.out.println("\nLogin: Please enter your email and password:\n\temail> " + email);
+        System.out.println("\tpassword> " + password);
+        if(!app.attemptLogin(email, password)) {
             System.out.println("Login Failed");
             return;
         }
-        System.out.println(app.getUserFullName() + "is now logged in");
+        System.out.println(app.getUserFullName() + " is now logged in");
     }
 
     public void createAccountAndLoginScenario() {
+        String email = "newestemail@gmail.com";
+        String password = "strong_p@ssword";
+
         System.out.println("Create an account. Please enter the following information:");
         System.out.println("Contact Infomation");
-        System.out.println("\temail> newestemail@gmail.com");
+        System.out.println("\temail> " + email);
         System.out.println("\tphone> *skipped*");
         System.out.println("\tcontact_preference> email");
         System.out.println("Emergency Contact Information");
@@ -43,25 +46,19 @@ public class ConsoleUI {
         System.out.println("Personal Infomation");
         System.out.println("\tfirst_name> Joe");
         System.out.println("\tlast_name> Smith");
-        System.out.println("\tpassword> strong_p@ssword");
+        System.out.println("\tpassword> " + password);
         System.out.println("\tlocation> 300 Main St, Columbia, SC, 29208");
 
-        if(!app.requestCreateAccount("Joe", "Smith", LocalDate.of(1997, 12, 10), "strong_p@ssword",
+        if(!app.requestCreateAccount("Joe", "Smith", LocalDate.of(1997, 12, 10), password,
             "300 Main St, Columbia, SC, 29208",
-            "newestemail@gmail.com", "", "EMAIL",
+            email, "", "EMAIL",
             "bestfriend@gmail.com", "8033448978", "CALL")) {
             System.out.println("Create Account Failed");
             return;
         }
         System.out.println("Account successfully created");
 
-        System.out.println("\nLogin.\nPlease enter your email and password:\n\temail> newestemail@gmail.com");
-        System.out.println("\tpassword> strong_p@ssword");
-        if(!app.attemptLogin("newestemail@gmail.com", "strong_p@ssword")) {
-            System.out.println("Login Failed");
-            return;
-        }
-        System.out.println(app.getUserFullName() + " is now logged in");
+        loginScenario(email, password);
     }
 
     public void readAndPrintSheltersScenario() {

@@ -1,15 +1,17 @@
 package com.pending.model.data.serializables.behaviors;
 
 import com.pending.model.data.Database;
-import com.pending.model.data.serializables.Resource;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.ShelterManager;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.util.UUID;
+import com.pending.model.data.Database;
+import com.pending.model.enums.ShelterStatus;
 
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public SerializeJSONShelter(Shelter serializable) {
@@ -31,12 +33,6 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         }
         jsonObject.put("volunteers", volunteers);
 
-        JSONArray resources = new JSONArray();
-        for (Resource resource: serializable.getResources()) {
-            resources.add(resource.serialize());
-        }
-        jsonObject.put("resources", resources);
-
         jsonObject.put("status", serializable.getStatus().name());
 
         return jsonObject;
@@ -54,14 +50,6 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         for (Object jsonId: volunteersByUUID) {
             UUID id = UUID.fromString((String) jsonId);
             serializable.getVolunteersUUIDReferecne().add(id);
-        }
-
-        serializable.getResources().clear();
-        JSONArray resources = (JSONArray) jsonObject.get("resources");
-        for (Object jsonResource: resources) {
-            Resource resource = new Resource();
-            resource.deserialize(jsonResource);
-            serializable.getResources().add(resource);
         }
 
         serializable.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
