@@ -1,7 +1,10 @@
 package com.pending.model.data.serializables.behaviors;
 
-import com.pending.model.data.serializables.Location;
+import java.util.UUID;
+
 import org.json.simple.JSONObject;
+
+import com.pending.model.data.serializables.Location;
 
 public class SerializeJSONLocation extends SerializeJSON<Location> {
     public SerializeJSONLocation(Location serializable) {
