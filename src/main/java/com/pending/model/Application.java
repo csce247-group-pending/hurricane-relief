@@ -1,5 +1,6 @@
 package com.pending.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import com.pending.model.data.Database;
@@ -32,10 +33,10 @@ public class Application {
         return application;
     }
 
-    public boolean requestCreateAccount(String firstName, String lastName, String password,
-            String address, 
-            String userContactEmail, String userContactPhone, String userContactPreference,
-            String emergencyContactEmail, String emergencyContactPhone, String emergencyContactPreference) {
+    public boolean requestCreateAccount(String firstName, String lastName, LocalDate dateOfBirth, String password,
+                                        String address,
+                                        String userContactEmail, String userContactPhone, String userContactPreference,
+                                        String emergencyContactEmail, String emergencyContactPhone, String emergencyContactPreference) {
 
         String[] locationInformation = address.split(", ");
         String state = locationInformation[2];
@@ -47,7 +48,7 @@ public class Application {
         Contact userContact = new Contact(userContactEmail, userContactPhone, ContactPreference.valueOf(userContactPreference));
         Contact emergencyContact = new Contact(emergencyContactEmail, emergencyContactPhone, ContactPreference.valueOf(emergencyContactPreference));
 
-        return database.createAccount(firstName, lastName, password,
+        return database.createAccount(firstName, lastName, dateOfBirth, password,
                             location, userContact, emergencyContact);
     }
 
@@ -57,7 +58,7 @@ public class Application {
     }
 
     public void logout() {
-
+        currentUser = null;
     }
 
     public String getUserFullName() {

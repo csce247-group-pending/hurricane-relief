@@ -1,5 +1,6 @@
 package com.pending.model.data;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -94,8 +95,8 @@ public class Database {
         return user == null || !password.equals(user.getPassword()) ? null : user;
     }
 
-    public boolean createAccount(String firstName, String lastName, String password,
-            Location location, Contact userContact, Contact emergencyContact) {
+    public boolean createAccount(String firstName, String lastName, LocalDate dateOfBirth, String password,
+                                 Location location, Contact userContact, Contact emergencyContact) {
 
         User existingUser = users.getObject(
                 user -> userContact.getEmail().equals(user.getUserContact().getEmail())
@@ -105,7 +106,7 @@ public class Database {
             return false;
         }
 
-        User newUser = new User(firstName, lastName, password,
+        User newUser = new User(firstName, lastName, dateOfBirth, password,
                 location, userContact, emergencyContact);
 
         boolean locationAdded = locations.add(location);

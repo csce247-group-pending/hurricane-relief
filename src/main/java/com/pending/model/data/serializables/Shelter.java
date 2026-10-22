@@ -25,6 +25,9 @@ public class Shelter extends Serializable {
 
     private ShelterStatus status;
 
+    private ShelterManager manager;
+    private UUID managerUUIDReference;
+
     public Shelter(String name, Location location,
             int capacity, ArrayList<Resource> resources) {
         this(name, location, capacity, new ArrayList<>(), resources == null
@@ -162,5 +165,21 @@ public class Shelter extends Serializable {
 
     public void setStatus(ShelterStatus status) {
         this.status = status;
+    }
+
+    public ShelterManager getManager() {
+        return manager;
+    }
+
+    public void setManager(ShelterManager manager) {
+        this.manager = manager;
+    }
+
+    public UUID getManagerUUIDReference() {
+        return managerUUIDReference;
+    }
+
+    public void setManagerUUIDReference(UUID managerUUIDReference) {
+        this.managerUUIDReference = managerUUIDReference;
     }
 }
