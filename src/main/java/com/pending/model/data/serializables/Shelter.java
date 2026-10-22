@@ -21,28 +21,23 @@ public class Shelter extends Serializable {
     private ArrayList<Volunteer> volunteers;
     private ArrayList<UUID> volunteersByUUID;
 
-    private ArrayList<Resource> resources;
     private ArrayList<UUID> resourcesByUUID;
 
     private ShelterStatus status;
 
     public Shelter(String name, Location location,
-            int capacity, ArrayList<Resource> resources) {
-        this(name, location, capacity, new ArrayList<>(), resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources), ShelterStatus.OPEN);
+            int capacity) {
+        this(name, location, capacity, new ArrayList<>(), ShelterStatus.OPEN);
     }
 
     public Shelter(UUID id, String name, Location location,
-        int capacity, ArrayList<Volunteer > volunteers,
-                ArrayList < Resource> resources, ShelterStatus status) {
-        this(name, location, capacity, volunteers, resources, status);
+        int capacity, ArrayList<Volunteer > volunteers, ShelterStatus status) {
+        this(name, location, capacity, volunteers, status);
         this.id = id;
     }
 
     public Shelter(String name, Location location,
-            int capacity, ArrayList<Volunteer> volunteers,
-            ArrayList<Resource> resources, ShelterStatus status) {
+            int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status) {
         super();
         this.name = name;
         this.location = location;
@@ -51,9 +46,6 @@ public class Shelter extends Serializable {
         this.volunteers = volunteers == null
                 ? new ArrayList<Volunteer>()
                 : new ArrayList<Volunteer>(volunteers);
-        this.resources = resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
         this.status = status;
 
         volunteersByUUID = new ArrayList<>();
@@ -62,7 +54,7 @@ public class Shelter extends Serializable {
     }
 
     public Shelter() {
-        this("", new Location(), 0, new ArrayList<>(), new ArrayList<>(), ShelterStatus.OPEN);
+        this("", new Location(), 0, new ArrayList<>(), ShelterStatus.OPEN);
     }
 
     public String getName() {
@@ -133,24 +125,6 @@ public class Shelter extends Serializable {
 
     public void removeVolunteer(Volunteer volunteer) {
         volunteers.remove(volunteer);
-    }
-
-    public ArrayList<Resource> getResources() {
-        return resources;
-    }
-
-    public void setResources(ArrayList<Resource> resources) {
-        this.resources = resources == null
-                ? new ArrayList<Resource>()
-                : new ArrayList<Resource>(resources);
-    }
-
-    public void addResource(Resource resource) {
-        resources.add(resource);
-    }
-
-    public void removeResource(Resource resource) {
-        resources.remove(resource);
     }
 
     public ArrayList<UUID> getResourcesUUIDReference() {

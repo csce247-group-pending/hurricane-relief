@@ -1,8 +1,5 @@
 package com.pending.model.data.serializables;
 
-import java.io.File;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.enums.JSONFile;
@@ -15,28 +12,22 @@ public class ReliefRequest extends Serializable {
     private String description;
     private Location location;
     private UUID locationUUIDReference;
-    private LocalDateTime submittedAt;
-    private ArrayList<Resource> neededResources;
-    private File attachedPhoto;
     private ReliefType type;
 
-    public ReliefRequest(String description, Location location,
-        ArrayList<Resource> neededResources) {
+    public ReliefRequest(String description, Location location) {
         super();
         this.description = description;
         this.location = location;
-        this.neededResources = neededResources;
         serializeBehavior = new SerializeJSONReliefRequest(this);
     }
 
-    public ReliefRequest(UUID id, String description, Location location,
-        ArrayList<Resource> neededResources) {
-        this(description, location, neededResources);
+    public ReliefRequest(UUID id, String description, Location location) {
+        this(description, location);
         this.id = id;
     }
 
     public ReliefRequest() {
-        this("", new Location(), new ArrayList<>());
+        this("", new Location());
     }
 
     public ReliefStatus getStatus() {
@@ -69,30 +60,6 @@ public class ReliefRequest extends Serializable {
 
     public void setLocationUUIDReference(UUID locationUUIDReference) {
         this.locationUUIDReference = locationUUIDReference;
-    }
-
-    public LocalDateTime getSubmittedAt() {
-        return submittedAt;
-    }
-
-    public void setSubmittedAt(LocalDateTime submittedAt) {
-        this.submittedAt = submittedAt;
-    }
-
-    public ArrayList<Resource> getNeededResources() {
-        return neededResources;
-    }
-
-    public void addNeededResources(Resource addResource) {
-        neededResources.add(addResource);
-    }
-
-    public File getAttachedPhoto() {
-        return attachedPhoto;
-    }
-
-    public void setAttachedPhoto(File attachedPhoto) {
-        this.attachedPhoto = attachedPhoto;
     }
 
     public ReliefType getType() {

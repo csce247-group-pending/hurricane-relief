@@ -4,21 +4,6 @@
     "status": "ASSIGNED",
     "description": "Need food.",
     "location": "c2b47624-88e1-474d-8482-762f9379a445",
-    "submitted_at": "2026-09-24T10:30:21",
-    "completion_time": "null",
-    "needed_resources": [
-        {
-        "type": "FOOD",
-        "quantity": 1,
-        "description": "canned black beans"
-      },
-      {
-        "type": "FOOD",
-        "quantity": 1,
-        "description": "watermelon"
-      }
-    ],
-    "attached_photo": "imgs/empty_pantry.png",
     "type": "FOOD"
   },
   {
@@ -26,16 +11,6 @@
     "status": "REQUESTED",
     "description": "Need water.",
     "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
-    "submitted_at": "2026-08-22T10:30:21",
-    "completion_time": "null",
-    "needed_resources": [
-        {
-        "type": "WATER",
-        "quantity": 1,
-        "description": "1 gallon of water"
-      }
-    ],
-    "attached_photo": "imgs/empty_water_bottle.png",
     "type": "WATER"
   }
 ]
