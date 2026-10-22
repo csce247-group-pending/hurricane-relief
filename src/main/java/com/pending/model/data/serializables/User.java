@@ -1,15 +1,14 @@
 package com.pending.model.data.serializables;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONUser;
 import com.pending.model.enums.JSONFile;
 
-public class User extends Serializable {
+public class User extends Person {
     public static String file = JSONFile.USERS.getFilename();
-    private String firstName;
-    private String lastName;
     private String password;
 
     private UUID locationUUIDReference;
@@ -24,11 +23,9 @@ public class User extends Serializable {
     private ArrayList<UUID> userReliefRequestsUUIDReference;
     private final ArrayList<ReliefRequest> userReliefRequests;
 
-    public User(String firstName, String lastName, String password,
+    public User(String firstName, String lastName, LocalDate dateOfBirth, String password,
                 Location location, Contact userContact, Contact emergencyContact) {
-        super();
-        this.firstName = firstName;
-        this.lastName = lastName;
+        super(firstName, lastName, dateOfBirth);
         this.password = password;
         this.location = location;
         this.userContact = userContact;
@@ -44,31 +41,15 @@ public class User extends Serializable {
         serializeBehavior = new SerializeJSONUser(this);
     }
 
-    public User(UUID id, String firstName, String lastName,
+    public User(UUID id, String firstName, String lastName, LocalDate dateOfBirth,
                 String password, Location location, Contact userContact,
                 Contact emergencyContact) {
-        this(firstName, lastName, password, location, userContact, emergencyContact);
+        this(firstName, lastName, dateOfBirth, password, location, userContact, emergencyContact);
         this.id = id;
     }
 
     public User() {
-        this("", "", "", new Location(), new Contact(), new Contact());
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this("", "", LocalDate.now(), "", new Location(), new Contact(), new Contact());
     }
 
     public String getPassword() {

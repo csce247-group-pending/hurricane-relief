@@ -1,5 +1,6 @@
 package com.pending.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -53,14 +54,14 @@ public class ConsoleUI {
         System.out.println("\tpassword> " + password);
         System.out.println("\tlocation> 300 Main St, Columbia, SC, 29208");
 
-        if(!app.requestCreateAccount("Joe", "Smith", password,
+        if(!app.requestCreateAccount("Joe", "Smith", LocalDate.of(1997, 12, 10), "strong_p@ssword",
             "300 Main St, Columbia, SC, 29208",
             email, "", "EMAIL",
             "bestfriend@gmail.com", "8033448978", "CALL")) {
             System.out.println("Create Account Failed");
             return;
         }
-        System.out.println("Account successsfully created");
+        System.out.println("Account successfully created");
 
         loginScenario(email, password);
     }

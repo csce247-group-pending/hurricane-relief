@@ -37,7 +37,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     }
 
     public void deserialize(JSONObject jsonObject) {
-        serializable.setId(UUID.fromString((String) jsonObject.get("id")));
+        serializable.setId(UUID.fromString((String) (jsonObject.get("id") == null? "" : jsonObject.get("id"))));
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
@@ -51,6 +51,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         }
 
         serializable.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
+        serializable.setManagerUUIDReference(jsonObject.get("manager") == null? null : UUID.fromString((String) jsonObject.get("manger")));
     }
 
     @Override
@@ -63,6 +64,10 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         for (UUID id: serializable.getVolunteersUUIDReferecne()) {
             Volunteer volunteer = (Volunteer) database.getUserByUUID(id);
             serializable.getVolunteers().add(volunteer);
+        }
+
+        if (serializable.getManagerUUIDReference() != null) {
+            serializable.setManager(database.getUserByUUID(serializable.getManagerUUIDReference()));
         }
     }
 }

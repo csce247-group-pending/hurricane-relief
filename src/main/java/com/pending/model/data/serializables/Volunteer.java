@@ -2,6 +2,7 @@ package com.pending.model.data.serializables;
 
 import com.pending.model.enums.Skill;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -10,11 +11,15 @@ public class Volunteer extends User {
     private ArrayList<Skill> skills;
     private ArrayList<ReliefRequest> tasks;
 
-    public Volunteer(UUID id, String firstName, String lastName, String password,
+    public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth, String password,
                      Location location, Contact userContact, Contact emergencyContact,
                      boolean isAvailable, ArrayList<Skill> skills, ArrayList<ReliefRequest> tasks) {
-        super(id, firstName, lastName, password,
+        super(id, firstName, lastName, dateOfBirth, password,
             location, userContact, emergencyContact);
+    }
+
+    public Volunteer() {
+        super();
     }
 
     public void startRequest(ReliefRequest reliefRequest) {
