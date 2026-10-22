@@ -1,6 +1,8 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Resource;
 import com.pending.model.enums.Priority;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;

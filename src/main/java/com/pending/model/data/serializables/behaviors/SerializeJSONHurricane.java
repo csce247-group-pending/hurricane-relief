@@ -1,11 +1,12 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Admin;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.Location;
 import com.pending.model.enums.HurricaneStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import com.pending.model.Observer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

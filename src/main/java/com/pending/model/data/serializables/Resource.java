@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONResource;
 import com.pending.model.enums.ResourceType;
 
 import java.time.LocalDateTime;

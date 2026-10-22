@@ -1,7 +1,9 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
-import com.pending.model.data.DataList;
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Resource;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

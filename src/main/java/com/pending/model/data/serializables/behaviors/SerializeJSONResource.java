@@ -1,5 +1,6 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
+import com.pending.model.data.serializables.Resource;
 import com.pending.model.enums.ResourceType;
 import org.json.simple.JSONObject;
 

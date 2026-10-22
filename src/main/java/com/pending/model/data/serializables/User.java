@@ -1,5 +1,6 @@
 package com.pending.model.data.serializables;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONUser;
 import com.pending.model.enums.JSONFile;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package com.pending.model.data.serializables;
+package com.pending.model.data.serializables.behaviors;
 
-import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Serializable;
 
 public abstract class SerializeBehavior<T extends Serializable> {
     protected T serializable;

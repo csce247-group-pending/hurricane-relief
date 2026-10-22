@@ -1,7 +1,6 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.data.Database;
-import org.json.simple.JSONObject;
+import com.pending.model.data.serializables.behaviors.SerializeBehavior;
 
 import java.util.UUID;
 
