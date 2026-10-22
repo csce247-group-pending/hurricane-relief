@@ -1,1 +1,48 @@
-[{"password":"P3ND1NG_1S_TH3_B35T_GR0UP","last_name":"Plante","location":"3b29c1e4-8f7a-4d29-a16e-57c28f419b02","user_contact":"42355785-2e10-4df8-a497-16c8af5c5a1c","id":"ace00e95-9f57-4b63-86e6-0530a92c011b","first_name":"Portia","user_relief_requests":[],"emergency_contact":"f340bd1e-ac2d-465d-9dae-eadff3aea712"},{"password":"!mTh3Cook","last_name":"White","location":"f84a1d63-2c9e-4a7b-b830-9e63d41f75c8","user_contact":"6c4f57ba-80e6-4e20-89ab-b99406b6a9cb","id":"c389344a-c65b-4f0f-b084-62dd42886b08","first_name":"Walter","user_relief_requests":[],"emergency_contact":"991ec306-98dc-4dbb-bbdc-225e99b356f3"},{"password":"12345QWERty*","last_name":"Twoshoes","location":"7d5e9b10-63a2-41f8-9a4c-0d82e174b593","user_contact":"716e2075-5d56-482f-b109-c3068b50528d","id":"d1d8dc85-e69f-42bf-af84-7be5a65878ee","first_name":"Goody","user_relief_requests":[],"emergency_contact":"1d70cd7d-7b6f-4363-b3d2-6b94eae75815"},{"password":"password1","last_name":"Joe","location":"a904e5f2-1b8d-4e63-8f52-4c317d98a06e","user_contact":"0108660c-72df-41af-8ada-397bd344ef27","id":"9097baea-66ad-43fe-9970-0aa7afe1ac10","first_name":"Average","user_relief_requests":["2ce1ccde-886a-45f2-9d5a-9d74f399df73","d03bdc30-aeb7-450b-b8aa-031e14dbe916"],"emergency_contact":"c2bb4710-f6bf-4b2a-bb57-75b254a80d50"},{"password":"strong_p@ssword","last_name":"Smith","location":"0e9878d4-777b-42fb-bb79-053555a11424","user_contact":"f3ba3894-e6bf-4b4e-9085-674a29c73eb4","id":"c2f46888-562c-45bf-9acb-e43138112adb","first_name":"Joe","user_relief_requests":[],"emergency_contact":"f8dee4fa-17e2-408c-837c-b89d2954431d"}]
+[
+  {
+    "id": "ace00e95-9f57-4b63-86e6-0530a92c011b",
+    "first_name": "Portia",
+    "last_name": "Plante",
+    "password": "P3ND1NG_1S_TH3_B35T_GR0UP",
+    "location": "3b29c1e4-8f7a-4d29-a16e-57c28f419b02",
+    "user_contact": "42355785-2e10-4df8-a497-16c8af5c5a1c",
+    "emergency_contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "c389344a-c65b-4f0f-b084-62dd42886b08",
+    "first_name": "Walter",
+    "last_name": "White",
+    "password": "!mTh3Cook",
+    "location": "f84a1d63-2c9e-4a7b-b830-9e63d41f75c8",
+    "user_contact": "6c4f57ba-80e6-4e20-89ab-b99406b6a9cb",
+    "emergency_contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "d1d8dc85-e69f-42bf-af84-7be5a65878ee",
+    "first_name": "Goody",
+    "last_name": "Twoshoes",
+    "password": "12345QWERty*",
+    "location": "7d5e9b10-63a2-41f8-9a4c-0d82e174b593",
+    "user_contact": "716e2075-5d56-482f-b109-c3068b50528d",
+    "emergency_contact": "1d70cd7d-7b6f-4363-b3d2-6b94eae75815",
+    "user_relief_requests": []
+  },
+
+  {
+    "id": "9097baea-66ad-43fe-9970-0aa7afe1ac10",
+    "first_name": "Average",
+    "last_name": "Joe",
+    "password": "password1",
+    "location": "a904e5f2-1b8d-4e63-8f52-4c317d98a06e",
+    "user_contact": "0108660c-72df-41af-8ada-397bd344ef27",
+    "emergency_contact": "c2bb4710-f6bf-4b2a-bb57-75b254a80d50",
+    "user_relief_requests": [
+      "2ce1ccde-886a-45f2-9d5a-9d74f399df73",
+      "d03bdc30-aeb7-450b-b8aa-031e14dbe916"
+    ]
+  }
+]
