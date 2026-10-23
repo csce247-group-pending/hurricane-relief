@@ -40,7 +40,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue());
+//        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue()); //TODO: fix this
 
 
         JSONArray volunteersByUUID = (JSONArray) jsonObject.get("volunteers");
