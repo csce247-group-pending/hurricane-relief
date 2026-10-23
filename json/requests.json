@@ -19,5 +19,16 @@
       "SHELTER"
     ],
     "contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712"
-  }
+  },
+  {
+  "id": "a8b27341-945e-4c28-8742-1e9b253b8f1c",
+  "status": "REQUESTED", 
+  "description": "Needs evacuation assistance and medical care due to flooding.",
+  "location": "1f2a3489-0e42-4917-b715-e24395641755",
+  "types": [
+    "MEDICAL_CARE", 
+    "EVACUATION" 
+  ],
+  "contact": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
+}
 ]

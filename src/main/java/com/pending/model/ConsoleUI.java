@@ -24,9 +24,10 @@ public class ConsoleUI {
      */
     public void run() {
         readAndPrintSheltersScenario();
-        loginScenario("heisenberg@aol.com", "!mTh3Cook");
+        // loginScenario("heisenberg@aol.com", "!mTh3Cook");
         // createAccountAndLoginScenario();
-        readAndPrintReliefRequests();
+        // readAndPrintReliefRequests();
+        getShelterTimes();
     }
 
     /**
@@ -119,6 +120,37 @@ public class ConsoleUI {
         for (String shelter : shelters) {
             System.out.println(shelter);
         }
+    }
+
+    public void getShelterTimes() {
+        System.out.println();
+
+        System.out.println("Getting Shelters");
+        ArrayList<String> shelters = app.getShelters();
+        if (shelters.isEmpty()) {
+            System.out.println("No shelters found.");
+            return;
+        }
+
+        System.out.println("Printing Shelters and Times");
+
+        loginScenario("jane.doe.chs@gmail.com", "SecurePassword123!");
+
+        ArrayList<Double> shelterTimes = app.getShelterTimes();
+        if(shelterTimes == null) {
+            System.out.println("[Error] Shelters not loaded");
+            return;
+        }
+
+        if(shelters.size() != shelterTimes.size()) {
+            System.out.println("[Error] Not all shelters and times loaded");
+            return;
+        }
+
+        for(int i = 0; i < shelters.size(); ++i) {
+            System.out.print(shelters.get(i));
+            System.out.println("\n\tEst Time: " + (shelterTimes.get(i)/60) + "m");
+        } 
     }
 
     /**

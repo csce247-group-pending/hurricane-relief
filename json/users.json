@@ -9,7 +9,6 @@
     "emergency_contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712",
     "user_relief_requests": []
   },
-
   {
     "id": "c389344a-c65b-4f0f-b084-62dd42886b08",
     "first_name": "Walter",
@@ -20,7 +19,6 @@
     "emergency_contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
     "user_relief_requests": []
   },
-
   {
     "id": "d1d8dc85-e69f-42bf-af84-7be5a65878ee",
     "first_name": "Goody",
@@ -31,7 +29,6 @@
     "emergency_contact": "1d70cd7d-7b6f-4363-b3d2-6b94eae75815",
     "user_relief_requests": []
   },
-
   {
     "id": "9097baea-66ad-43fe-9970-0aa7afe1ac10",
     "first_name": "Average",
@@ -43,6 +40,18 @@
     "user_relief_requests": [
       "2ce1ccde-886a-45f2-9d5a-9d74f399df73",
       "d03bdc30-aeb7-450b-b8aa-031e14dbe916"
+    ]
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "first_name": "Jane",
+    "last_name": "Doe",
+    "password": "SecurePassword123!",
+    "location": "1f2a3489-0e42-4917-b715-e24395641755",
+    "user_contact": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    "emergency_contact": "63b8417c-e631-4171-a4b8-db16b8b5490a",
+    "user_relief_requests": [
+      "a8b27341-945e-4c28-8742-1e9b253b8f1c"
     ]
   }
 ]

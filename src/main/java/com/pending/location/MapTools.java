@@ -221,6 +221,17 @@ public class MapTools {
         return route.path("summary").path("duration").asDouble();
     }
 
+    public double getDrivingTime(Location startingAddress, Location endingAddress) 
+            throws IOException, InterruptedException {
+        
+        Coordinates start = getCoordinates(startingAddress);
+        Coordinates end = getCoordinates(endingAddress);
+
+        JsonNode route = getRoute(start, end);
+
+        return route.path("summary").path("duration").asDouble();
+    }
+
     /**
      * Calculates the route information from one location to the next
      * @param start Starting location
