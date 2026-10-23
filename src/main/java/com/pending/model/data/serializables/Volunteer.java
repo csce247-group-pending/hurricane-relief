@@ -4,17 +4,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.ReliefType;
 import com.pending.model.enums.Skill;
+
 
 public class Volunteer extends User {
     private boolean isAvailable;
     private ArrayList<Skill> skills;
     private ReliefRequest task;
 
-    public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth, String password,
+    public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth, 
+        ArrayList<ReliefType> reliefNeeds, String password,
                      Location location, Contact userContact, Contact emergencyContact,
                      boolean isAvailable, ArrayList<Skill> skills, ReliefRequest task) {
-        super(id, firstName, lastName, dateOfBirth, password,
+        super(id, firstName, lastName, dateOfBirth, reliefNeeds, password,
             location, userContact, emergencyContact);
         
         this.isAvailable = isAvailable;
