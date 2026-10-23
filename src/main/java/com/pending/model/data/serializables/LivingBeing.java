@@ -58,4 +58,12 @@ public class LivingBeing extends Serializable {
              this.reliefNeeds = reliefNeeds;
         }
     }
+
+    public boolean addReliefNeed(ReliefType need) {
+        return reliefNeeds.add(need);
+    }
+
+    public boolean removeReliefNeed(ReliefType need) {
+        return reliefNeeds.remove(need);
+    }
 }
