@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONUser;
 import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.ReliefType;
 
 public class User extends Person {
     public static String file = JSONFile.USERS.getFilename();
@@ -23,9 +24,9 @@ public class User extends Person {
     private ArrayList<UUID> userReliefRequestsUUIDReference;
     private final ArrayList<ReliefRequest> userReliefRequests;
 
-    public User(String firstName, String lastName, LocalDate dateOfBirth, String password,
-                Location location, Contact userContact, Contact emergencyContact) {
-        super(firstName, lastName, dateOfBirth);
+    public User(String firstName, String lastName, LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds, 
+                String password, Location location, Contact userContact, Contact emergencyContact) {
+        super(firstName, lastName, dateOfBirth, reliefNeeds);
         this.password = password;
         this.location = location;
         this.userContact = userContact;
@@ -42,14 +43,16 @@ public class User extends Person {
     }
 
     public User(UUID id, String firstName, String lastName, LocalDate dateOfBirth,
-                String password, Location location, Contact userContact,
-                Contact emergencyContact) {
-        this(firstName, lastName, dateOfBirth, password, location, userContact, emergencyContact);
+                ArrayList<ReliefType> reliefNeeds, String password,
+                Location location, Contact userContact, Contact emergencyContact) {
+        this(firstName, lastName, dateOfBirth, reliefNeeds,
+            password, location, userContact, emergencyContact);
         this.id = id;
     }
 
     public User() {
-        this("", "", LocalDate.now(), "", new Location(), new Contact(), new Contact());
+        this("", "", LocalDate.now(), 
+        new ArrayList<>(),"",  new Location(), new Contact(), new Contact());
     }
 
     public String getPassword() {

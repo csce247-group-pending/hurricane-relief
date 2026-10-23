@@ -20,8 +20,6 @@ public class Shelter extends Serializable {
     private ArrayList<Volunteer> volunteers;
     private ArrayList<UUID> volunteersByUUID;
 
-    private ArrayList<UUID> resourcesByUUID;
-
     private ShelterStatus status;
 
     private ShelterManager manager;
@@ -127,10 +125,6 @@ public class Shelter extends Serializable {
 
     public void removeVolunteer(Volunteer volunteer) {
         volunteers.remove(volunteer);
-    }
-
-    public ArrayList<UUID> getResourcesUUIDReference() {
-        return resourcesByUUID;
     }
 
     public ShelterStatus getStatus() {

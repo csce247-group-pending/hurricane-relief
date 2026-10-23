@@ -1,28 +1,28 @@
 package com.pending.model.data.serializables;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import com.pending.model.enums.ReliefType;
 
 public class Person extends LivingBeing {
-    private String firstName;
     private String lastName;
 
-
-    public Person(String firstName, String lastName, LocalDate dateOfBirth) {
-        super(dateOfBirth, "human");
-        this.firstName = firstName;
+    public Person(String firstName, String lastName, LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds) {
+        super(firstName, dateOfBirth, "human", reliefNeeds);
         this.lastName = lastName;
     }
 
     public Person() {
-        this("", "", LocalDate.now());
+        this("", "", LocalDate.now(), new ArrayList<>());
     }
 
     public String getFirstName() {
-        return firstName;
+        return getPrimaryName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        setPrimaryName(firstName);
     }
 
     public String getLastName() {

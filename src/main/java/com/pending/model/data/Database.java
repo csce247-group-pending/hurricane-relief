@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.pending.model.data.serializables.Admin;
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.Hurricane;
 import com.pending.model.data.serializables.Location;
@@ -13,6 +12,7 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Serializable;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Stores and manages all application data lists.
@@ -30,7 +30,6 @@ public class Database {
 
     private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
 
-    private ArrayList<Admin> admins;
 
     private static Database database;
 
@@ -145,7 +144,8 @@ public class Database {
      * @return true if the account was created successfully; otherwise false
      */
     public boolean createAccount(String firstName, String lastName,
-                                 LocalDate dateOfBirth, String password,
+                                 LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds,
+                                 String password,
                                  Location location, Contact userContact,
                                  Contact emergencyContact) {
 
@@ -157,7 +157,7 @@ public class Database {
             return false;
         }
 
-        User newUser = new User(firstName, lastName, dateOfBirth, password,
+        User newUser = new User(firstName, lastName, dateOfBirth, reliefNeeds, password,
                 location, userContact, emergencyContact);
 
         boolean locationAdded = locations.add(location);

@@ -10,6 +10,7 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Controls application actions and stores the currently logged-in user.
@@ -83,8 +84,8 @@ public class Application {
                 emergencyContactPhone,
                 ContactPreference.valueOf(emergencyContactPreference));
 
-        return database.createAccount(firstName, lastName, dateOfBirth, password,
-                location, userContact, emergencyContact);
+        return database.createAccount(firstName, lastName, dateOfBirth,  new ArrayList<ReliefType>(), 
+                password, location, userContact, emergencyContact);
     }
 
     /**
