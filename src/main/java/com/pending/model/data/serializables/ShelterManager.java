@@ -4,19 +4,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.ReliefType;
 import com.pending.model.enums.Skill;
 
 public class ShelterManager extends Volunteer {
     private Shelter shelter;
     private UUID shelterUUIDReference;
 
-    public ShelterManager(UUID id, String firstName, String lastName, 
-        LocalDate dateOfBirth, String password, Location location, 
-        Contact userContact, Contact emergencyContact, 
-        boolean isAvailable, ArrayList<Skill> skills, ReliefRequest task) {
+    public ShelterManager(UUID id, String firstName, String lastName,
+                          LocalDate dateOfBirth, String password, Location location,
+                          Contact userContact, Contact emergencyContact,
+                          boolean isAvailable, ArrayList<ReliefType> reliefTypes, ReliefRequest task) {
         super(id, firstName, lastName, dateOfBirth, 
             password, location, userContact, emergencyContact, 
-            isAvailable, skills, task);
+            isAvailable, reliefTypes, task);
     }
 
     public ShelterManager(Volunteer volunteer) {
@@ -30,7 +31,7 @@ public class ShelterManager extends Volunteer {
                 volunteer.getUserContact(),
                 volunteer.getEmergencyContact(),
                 volunteer.isAvailable(),
-                new ArrayList<>(volunteer.getSkills()),
+                new ArrayList<>(volunteer.getReliefTypes()),
                 volunteer.getTask()
         );
     }

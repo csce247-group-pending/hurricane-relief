@@ -211,7 +211,8 @@ public class Database {
     }
 
     public ArrayList<ReliefRequest> getSortedReliefRequests(PriorityFilter<ReliefRequest> filter) {
-        ArrayList<ReliefRequest> output = new ArrayList<>();
-        output.sort(Comparator.comparing());
+        ArrayList<ReliefRequest> output = getRequests();
+        output.sort(Comparator.comparing(filter::filter));
+        return output;
     }
 }

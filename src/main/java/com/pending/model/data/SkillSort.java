@@ -3,7 +3,8 @@ package com.pending.model.data;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefType;
-import com.pending.model.enums.Skill;
+
+import java.time.LocalDateTime;
 
 public class SkillSort implements PriorityFilter<ReliefRequest> {
     private Volunteer volunteer;
@@ -13,9 +14,12 @@ public class SkillSort implements PriorityFilter<ReliefRequest> {
     }
 
     @Override
-    public int filter(ReliefRequest object) {
-        for (ReliefType volunteerSkill: volunteer.getSkills()) {
-            for (requestedSkill: object.getTypes())
+    public double filter(ReliefRequest object) {
+        double relevance = 0;
+        for (ReliefType volunteerReliefType: volunteer.getReliefTypes()) {
+            if (object.getTypes().contains(volunteerReliefType)) {
+                relevance += 10;
+            }
         }
         return 0;
     }
