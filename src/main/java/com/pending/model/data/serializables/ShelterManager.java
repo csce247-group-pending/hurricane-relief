@@ -11,13 +11,13 @@ public class ShelterManager extends Volunteer {
     private Shelter shelter;
     private UUID shelterUUIDReference;
 
-    public ShelterManager(UUID id, String firstName, String lastName, 
-        LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds, String password, Location location, 
-        Contact userContact, Contact emergencyContact, 
-        boolean isAvailable, ArrayList<Skill> skills, ReliefRequest task) {
-        super(id, firstName, lastName, dateOfBirth, reliefNeeds,
+    public ShelterManager(UUID id, String firstName, String lastName,
+                          LocalDate dateOfBirth, String password, Location location,
+                          Contact userContact, Contact emergencyContact,
+                          boolean isAvailable, ArrayList<ReliefType> reliefTypes, ReliefRequest task) {
+        super(id, firstName, lastName, dateOfBirth, 
             password, location, userContact, emergencyContact, 
-            isAvailable, skills, task);
+            isAvailable, reliefTypes, task);
     }
 
     public ShelterManager(Volunteer volunteer) {
@@ -32,7 +32,7 @@ public class ShelterManager extends Volunteer {
                 volunteer.getUserContact(),
                 volunteer.getEmergencyContact(),
                 volunteer.isAvailable(),
-                new ArrayList<>(volunteer.getSkills()),
+                new ArrayList<>(volunteer.getReliefTypes()),
                 volunteer.getTask()
         );
     }

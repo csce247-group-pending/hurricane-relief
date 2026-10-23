@@ -10,7 +10,7 @@ import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
 
-public class SerializeJSONUser<T extends User> extends SerializeJSON<T> {
+public class SerializeJSONUser<T extends User> extends SerializeJSONLivingBeing<T> {
     public SerializeJSONUser(T serializable) {
         super(serializable);
     }

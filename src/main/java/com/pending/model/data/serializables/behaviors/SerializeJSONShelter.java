@@ -10,9 +10,6 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.pending.model.data.Database;
-import com.pending.model.enums.ShelterStatus;
-
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public SerializeJSONShelter(Shelter serializable) {
         super(serializable);
@@ -25,7 +22,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         jsonObject.put("name", serializable.getName());
         jsonObject.put("location", serializable.getLocation().serialize());
         jsonObject.put("capacity", serializable.getCapacity());
-        jsonObject.put("occupancy", serializable.getOccupancy());
+        jsonObject.put("occupancy", serializable.getOccupants());
 
         JSONArray volunteers = new JSONArray();
         for (Volunteer volunteer: serializable.getVolunteers()) {
@@ -43,13 +40,13 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-        serializable.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
+        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue());
 
         JSONArray volunteersByUUID = (JSONArray) jsonObject.get("volunteers");
-        serializable.getVolunteersUUIDReferecne().clear();
+        serializable.getVolunteersUUIDReference().clear();
         for (Object jsonId: volunteersByUUID) {
             UUID id = UUID.fromString((String) jsonId);
-            serializable.getVolunteersUUIDReferecne().add(id);
+            serializable.getVolunteersUUIDReference().add(id);
         }
 
         serializable.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
@@ -62,8 +59,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
 
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
 
-        serializable.getVolunteersUUIDReferecne().clear();
-        for (UUID id: serializable.getVolunteersUUIDReferecne()) {
+        serializable.getVolunteersUUIDReference().clear();
+        for (UUID id: serializable.getVolunteersUUIDReference()) {
             Volunteer volunteer = (Volunteer) database.getUserByUUID(id);
             serializable.getVolunteers().add(volunteer);
         }
