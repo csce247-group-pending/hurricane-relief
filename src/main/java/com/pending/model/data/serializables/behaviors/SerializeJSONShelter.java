@@ -1,16 +1,14 @@
 package com.pending.model.data.serializables.behaviors;
 
-import com.pending.model.data.Database;
-import com.pending.model.data.serializables.Shelter;
-import com.pending.model.data.serializables.ShelterManager;
-import com.pending.model.data.serializables.Volunteer;
-import com.pending.model.enums.ShelterStatus;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
 
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
@@ -63,8 +61,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
 
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
 
-        serializable.getVolunteersUUIDReferecne().clear();
-        for (UUID id: serializable.getVolunteersUUIDReferecne()) {
+        serializable.getVolunteersUUIDReference().clear();
+        for (UUID id: serializable.getVolunteersUUIDReference()) {
             Volunteer volunteer = (Volunteer) database.getUserByUUID(id);
             serializable.getVolunteers().add(volunteer);
         }

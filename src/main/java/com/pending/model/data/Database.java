@@ -1,6 +1,5 @@
 package com.pending.model.data;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,6 +14,7 @@ import com.pending.model.data.serializables.Serializable;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ReliefStatus;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Stores and manages all application data lists.
