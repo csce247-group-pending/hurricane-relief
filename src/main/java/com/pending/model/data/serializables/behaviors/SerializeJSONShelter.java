@@ -17,7 +17,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         jsonObject.put("name", serializable.getName());
         jsonObject.put("location", serializable.getLocation().serialize());
         jsonObject.put("capacity", serializable.getCapacity());
-        jsonObject.put("occupancy", serializable.getOccupancy());
+        jsonObject.put("occupancy", serializable.getOccupants());
 
         JSONArray volunteers = new JSONArray();
         for (Volunteer volunteer: serializable.getVolunteers()) {
@@ -37,7 +37,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-        serializable.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
+        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue());
 
         JSONArray volunteersByUUID = (JSONArray) jsonObject.get("volunteers");
         serializable.getVolunteersUUIDReference().clear();

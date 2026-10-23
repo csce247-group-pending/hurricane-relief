@@ -15,7 +15,8 @@ public class Shelter extends Serializable {
     private UUID locationUUIDReference;
     private Contact contactInfo;
     private int capacity;
-    private int occupancy;
+    private ArrayList<LivingBeing> occupants;
+    private
 
     private ArrayList<Volunteer> volunteers;
     private ArrayList<UUID> volunteersByUUID;
@@ -41,7 +42,7 @@ public class Shelter extends Serializable {
         this.name = name;
         this.location = location;
         this.capacity = capacity;
-        this.occupancy = 0;
+        this.occupants = 0;
         this.volunteers = volunteers == null
                 ? new ArrayList<Volunteer>()
                 : new ArrayList<Volunteer>(volunteers);
@@ -99,12 +100,16 @@ public class Shelter extends Serializable {
         this.capacity = capacity;
     }
 
-    public int getOccupancy() {
-        return occupancy;
+    public ArrayList<LivingBeing> getOccupants() {
+        return occupants;
     }
 
-    public void setOccupancy(int occupancy) {
-        this.occupancy = occupancy;
+    public boolean addOccupant(LivingBeing occupant) {
+        return occupants.add(occupant);
+    }
+
+    public boolean removeOccupant(LivingBeing occupant) {
+        return occupants.remove(occupant);
     }
 
     public ArrayList<UUID> getVolunteersUUIDReference() {
@@ -153,11 +158,15 @@ public class Shelter extends Serializable {
         this.managerUUIDReference = managerUUIDReference;
     }
 
+    public void checkIn(ArrayList<LivingBeing> livingBeings) {
+
+    }
+
     @Override
     public String toString() {
         return "Shelter '" + name + "'"
         + "\n\tStatus: " + status
-        + "\n\tCapacity: " + occupancy + "/" + capacity
+        + "\n\tCapacity: " + occupants + "/" + capacity
         + "\n\tLocation: " + location
         + "\n\tContact Info: " + contactInfo;
     }

@@ -15,7 +15,7 @@ public class ReliefRequest extends Serializable {
     private ArrayList<ReliefType> types;
     private ReliefStatus status;
     private Contact contactInfo;
-    // private ArrayList<LivingBeing> livingBeings;
+    private ArrayList<LivingBeing> livingBeings;
 
     private UUID contactUUIDReference;
     private UUID locationUUIDReference;
@@ -115,5 +115,12 @@ public class ReliefRequest extends Serializable {
         this.contactInfo = contactInfo;
     }
 
+    public ArrayList<LivingBeing> getLivingBeings() {
+        return livingBeings;
+    }
+
+    public boolean addLivingBeing(LivingBeing livingBeing) {
+        return livingBeings.add(livingBeing);
+    }
 }
 

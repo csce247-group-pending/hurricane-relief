@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.data.SkillSort;
-import com.pending.model.enums.Skill;
-
+import com.pending.model.enums.ReliefType;
 
 public class Volunteer extends User {
     private boolean isAvailable;
-    private ArrayList<Skill> skills;
+    private ArrayList<ReliefType> reliefTypes;
     private ReliefRequest task;
     private SkillSort sorter;
 
@@ -22,7 +21,7 @@ public class Volunteer extends User {
             location, userContact, emergencyContact);
         
         this.isAvailable = isAvailable;
-        this.skills = skills;
+        this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
     }
@@ -30,7 +29,7 @@ public class Volunteer extends User {
     public Volunteer() {
         super();
         this.isAvailable = true;
-        this.skills = new ArrayList<>();
+        this.reliefTypes = new ArrayList<>();
         this.task = new ReliefRequest();
     }
 
@@ -42,16 +41,16 @@ public class Volunteer extends User {
         this.isAvailable = isAvailable;
     }
 
-    public ArrayList<Skill> getSkills() {
-        return skills;
+    public ArrayList<ReliefType> getReliefTypes() {
+        return reliefTypes;
     }
 
-    public void addSkill(Skill skill) {
-        skills.add(skill);
+    public void addReliefType(ReliefType reliefType) {
+        reliefTypes.add(reliefType);
     }
 
-    public void removeSkill(Skill skill) {
-        skills.remove(skill);
+    public void removeReliefType(ReliefType reliefType) {
+        reliefTypes.remove(reliefType);
     }
 
     public ReliefRequest getTask() {

@@ -3,15 +3,16 @@ package com.pending.model.data.serializables;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
 public class LivingBeing extends Serializable {
     private String primaryName;
     private LocalDate dateOfBirth;
-    private String type;
+    private LivingBeingType type;
     private ArrayList<ReliefType> reliefNeeds;
 
-    public LivingBeing(String primaryName, LocalDate dateOfBirth, String type, ArrayList<ReliefType> reliefNeeds) {
+    public LivingBeing(String primaryName, LocalDate dateOfBirth, LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
         this.primaryName = primaryName;
         this.dateOfBirth = dateOfBirth;
         this.type = type;
@@ -19,7 +20,7 @@ public class LivingBeing extends Serializable {
     }
 
     public LivingBeing() {
-        this("", LocalDate.now(), "", new ArrayList<>());
+        this("", LocalDate.now(), LivingBeingType.PET, new ArrayList<>());
     }
 
     public LocalDate getDateOfBirth() {
@@ -30,11 +31,11 @@ public class LivingBeing extends Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getType() {
+    public LivingBeingType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(LivingBeingType type) {
         this.type = type;
     }
 

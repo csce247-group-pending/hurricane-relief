@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.enums.ReliefType;
+import com.pending.model.enums.ReliefType;
 import com.pending.model.enums.Skill;
 
 public class ShelterManager extends Volunteer {
@@ -17,7 +18,7 @@ public class ShelterManager extends Volunteer {
         boolean isAvailable, ArrayList<Skill> skills, ReliefRequest task) {
         super(id, firstName, lastName, dateOfBirth, reliefNeeds,
             password, location, userContact, emergencyContact, 
-            isAvailable, skills, task);
+            isAvailable, reliefTypes, task);
     }
 
     public ShelterManager(Volunteer volunteer) {
@@ -32,7 +33,7 @@ public class ShelterManager extends Volunteer {
                 volunteer.getUserContact(),
                 volunteer.getEmergencyContact(),
                 volunteer.isAvailable(),
-                new ArrayList<>(volunteer.getSkills()),
+                new ArrayList<>(volunteer.getReliefTypes()),
                 volunteer.getTask()
         );
     }
