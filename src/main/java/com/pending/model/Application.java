@@ -98,7 +98,9 @@ public class Application {
      * @return true if login succeeds; otherwise false
      */
     public boolean attemptLogin(String email, String password) {
-        return (currentUser = database.attemptLogin(email, password)) != null;
+        currentUser = database.attemptLogin(email, password);
+        this.location = currentUser.getLocation();
+        return currentUser != null;
     }
 
     /**
@@ -203,8 +205,8 @@ public class Application {
      * @return ArrayList<Double> of the times in order that shelters are read
      */
     public ArrayList<Double> getShelterTimes() {
-        if (currentUser == null) {
-            System.out.println("[Error] There is no current user logged in");
+        if (location == null) {
+            System.out.println("[Error] There is no current location");
             return null;
         }
 
@@ -212,7 +214,7 @@ public class Application {
         ArrayList<Double> shelterTimes = new ArrayList<>();
         try {
             for(Shelter shelter: shelters) {
-                shelterTimes.add(MapTools.getInstance().getDrivingTime(currentUser.getLocation(), shelter.getLocation()));
+                shelterTimes.add(MapTools.getInstance().getDrivingTime(location, shelter.getLocation()));
             }
         } catch (Exception e) {
             System.out.println("There was a problem finding time to Shelter.");

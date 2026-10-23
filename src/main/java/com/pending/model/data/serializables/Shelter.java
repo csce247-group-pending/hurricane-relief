@@ -168,11 +168,18 @@ public class Shelter extends Serializable {
 
     @Override
     public String toString() {
+        String formattedOccupants = "";
+        for (LivingBeing occupant: occupants) {
+            formattedOccupants += "\t\t" + occupant + "\n";
+        }
+
         return "Shelter '" + name + "'"
         + "\n\tStatus: " + status
-        + "\n\tCapacity: " + occupants + "/" + capacity
+        + "\n\tCapacity: " + occupants.size() + "/" + capacity
         + "\n\tLocation: " + location
-        + "\n\tContact Info: " + contactInfo;
+        + "\n\tContact Info: " + contactInfo
+        + (accomodatesPets ? "\n\tAccomdates Pets" : "")
+        + "\n\tOccupants: " + (formattedOccupants.isEmpty() ? "None" : "\n" + formattedOccupants);
     }
 
     public UUID getContactUUIDReference() {

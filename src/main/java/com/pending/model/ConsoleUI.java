@@ -149,7 +149,7 @@ public class ConsoleUI {
 
         for(int i = 0; i < shelters.size(); ++i) {
             System.out.print(shelters.get(i));
-            System.out.println("\n\tEst Time: " + (shelterTimes.get(i)/60) + "m");
+            System.out.println("\n\tEst Time: " + (int) (shelterTimes.get(i)/60) + "m");
         } 
     }
 

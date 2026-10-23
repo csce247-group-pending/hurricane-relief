@@ -1,6 +1,7 @@
 package com.pending.model.data.serializables;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 import com.pending.model.enums.LivingBeingType;
@@ -65,5 +66,17 @@ public class LivingBeing extends Serializable {
 
     public boolean removeReliefNeed(ReliefType need) {
         return reliefNeeds.remove(need);
+    }
+
+    public int getAge() {
+        LocalDate birthDate = LocalDate.of(2000, 4, 15);
+        LocalDate currentDate = LocalDate.now();
+        
+        return Period.between(birthDate, currentDate).getYears();
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + primaryName + " is a " + type + " Age: " + getAge() ;
     }
 }
