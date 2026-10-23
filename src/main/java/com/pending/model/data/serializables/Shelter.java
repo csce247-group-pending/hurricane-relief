@@ -7,6 +7,8 @@ import com.pending.model.enums.ShelterStatus;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.ReliefType;
+
 public class Shelter extends Serializable {
     public static String file = JSONFile.SHELTERS.getFilename();
 
@@ -22,20 +24,23 @@ public class Shelter extends Serializable {
 
     private ShelterStatus status;
 
+    private boolean accomodatesPets;
+
     private ShelterManager manager;
     private UUID managerUUIDReference;
 
     private UUID contactUUIDReference;
 
     public Shelter(UUID id, String name, Location location,
-        int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status, Contact contactInfo) {
-        this(name, location, capacity, volunteers, status, contactInfo);
+        int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status, Contact contactInfo,
+        boolean accomodatesPets) {
+        this(name, location, capacity, volunteers, status, contactInfo, accomodatesPets);
         this.id = id;
     }
 
     public Shelter(String name, Location location,
             int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status,
-            Contact contactInfo) {
+            Contact contactInfo, boolean accomodatesPets) {
         super();
         this.name = name;
         this.location = location;
@@ -46,6 +51,7 @@ public class Shelter extends Serializable {
                 : new ArrayList<Volunteer>(volunteers);
         this.status = status;
         this.contactInfo = contactInfo;
+        this.accomodatesPets = accomodatesPets;
 
         contactUUIDReference = UUID.randomUUID();
 
@@ -55,7 +61,7 @@ public class Shelter extends Serializable {
     }
 
     public Shelter() {
-        this("", new Location(), 0, new ArrayList<>(), ShelterStatus.OPEN, new Contact());
+        this("", new Location(), 0, new ArrayList<>(), ShelterStatus.OPEN, new Contact(), false);
     }
 
     public String getName() {
@@ -175,5 +181,24 @@ public class Shelter extends Serializable {
 
     public void setContactUUIDReference(UUID contactUUIDReference) {
         this.contactUUIDReference = contactUUIDReference;
+    }
+
+    public boolean hasMedicalStaff() {
+        for(Volunteer volunteer: volunteers) {
+            for(ReliefType reliefSkill: volunteer.getReliefTypes()) {
+                if (reliefSkill.equals(ReliefType.MEDICAL_CARE)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean accomodatesPets() {
+        return accomodatesPets;
+    }
+
+    public void setAccomodatesPets(boolean accomodatesPets) {
+        this.accomodatesPets = accomodatesPets;
     }
 }
