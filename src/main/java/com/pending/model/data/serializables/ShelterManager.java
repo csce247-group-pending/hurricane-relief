@@ -15,7 +15,7 @@ public class ShelterManager extends Volunteer {
                           LocalDate dateOfBirth, String password, Location location,
                           Contact userContact, Contact emergencyContact,
                           boolean isAvailable, ArrayList<ReliefType> reliefTypes, ReliefRequest task) {
-        super(id, firstName, lastName, dateOfBirth, 
+        super(id, firstName, lastName, dateOfBirth, new ArrayList<>(),
             password, location, userContact, emergencyContact, 
             isAvailable, reliefTypes, task);
     }

@@ -20,7 +20,7 @@ public class Volunteer extends User {
                      ArrayList<ReliefType> reliefNeeds, String password,
                      Location location, Contact userContact, Contact emergencyContact,
                      boolean isAvailable, ArrayList<ReliefType> reliefTypes, ReliefRequest task) {
-        super(id, firstName, lastName, dateOfBirth, password,
+        super(id, firstName, lastName, dateOfBirth, reliefNeeds, password,
             location, userContact, emergencyContact);
         
         this.isAvailable = isAvailable;
