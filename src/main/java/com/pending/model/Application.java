@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.pending.location.MapTools;
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
@@ -121,7 +122,7 @@ public class Application {
      * This method is not implemented yet.
      */
     public void createReliefRequest(String description) {
-        database.createReliefRequest(description, currentUser.getLocation(), ReliefStatus.REQUESTED);
+        database.createReliefRequest(description, currentUser.getLocation(), ReliefStatus.REQUESTED, new ArrayList<LivingBeing>());
     }
 
     /**

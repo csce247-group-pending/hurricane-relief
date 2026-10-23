@@ -21,13 +21,14 @@ public class ReliefRequest extends Serializable {
     private UUID locationUUIDReference;
 
     public ReliefRequest(String description, Location location,
-        ReliefStatus status) {
+        ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
         super();
         this.description = description;
         this.location = location;
         this.types = new ArrayList<>();
         this.status = status;
         this.contactInfo = new Contact();
+        this.livingBeings = livingBeings;
         
         locationUUIDReference = UUID.randomUUID();
         contactUUIDReference = UUID.randomUUID();
@@ -36,13 +37,13 @@ public class ReliefRequest extends Serializable {
     }
 
     public ReliefRequest(UUID id, String description, Location location,
-        ReliefStatus status) {
-        this(description, location, status);
+        ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
+        this(description, location, status, livingBeings);
         this.id = id;
     }
 
     public ReliefRequest() {
-        this("", new Location(), ReliefStatus.REQUESTED);
+        this("", new Location(), ReliefStatus.REQUESTED, new ArrayList<>());
     }
 
     public ReliefStatus getStatus() {

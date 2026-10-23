@@ -1,6 +1,5 @@
 package com.pending.model.data;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,6 +8,7 @@ import java.util.UUID;
 
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Serializable;
@@ -180,8 +180,8 @@ public class Database {
     }
 
     public void createReliefRequest(String description, Location location,
-                                    ReliefStatus status) {
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, status);
+                                    ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, status, livingBeings);
         requests.add(reliefRequest);
     }
 
