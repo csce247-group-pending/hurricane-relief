@@ -5,12 +5,6 @@ import java.util.UUID;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.pending.model.data.Database;
-import com.pending.model.data.serializables.Shelter;
-import com.pending.model.data.serializables.ShelterManager;
-import com.pending.model.data.serializables.Volunteer;
-import com.pending.model.enums.ShelterStatus;
-
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public SerializeJSONShelter(Shelter serializable) {
         super(serializable);
@@ -46,10 +40,10 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setOccupancy(((Long) jsonObject.get("occupancy")).intValue());
 
         JSONArray volunteersByUUID = (JSONArray) jsonObject.get("volunteers");
-        serializable.getVolunteersUUIDReferecne().clear();
+        serializable.getVolunteersUUIDReference().clear();
         for (Object jsonId: volunteersByUUID) {
             UUID id = UUID.fromString((String) jsonId);
-            serializable.getVolunteersUUIDReferecne().add(id);
+            serializable.getVolunteersUUIDReference().add(id);
         }
 
         serializable.setStatus(ShelterStatus.valueOf((String) jsonObject.get("status")));
@@ -64,8 +58,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setContactInfo(database.getContactByUUID(serializable.getContactUUIDReference()));
 
 
-        serializable.getVolunteersUUIDReferecne().clear();
-        for (UUID id: serializable.getVolunteersUUIDReferecne()) {
+        serializable.getVolunteersUUIDReference().clear();
+        for (UUID id: serializable.getVolunteersUUIDReference()) {
             Volunteer volunteer = (Volunteer) database.getUserByUUID(id);
             serializable.getVolunteers().add(volunteer);
         }
