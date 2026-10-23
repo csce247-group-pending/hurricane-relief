@@ -11,7 +11,10 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ContactPreference;
+<<<<<<< HEAD
 import com.pending.model.enums.ReliefStatus;
+=======
+>>>>>>> e5fb8f3 (Removing Admin class and Adding attributes to LivingBeing class. progresses #130,  #107.)
 import com.pending.model.enums.ReliefType;
 
 /**
