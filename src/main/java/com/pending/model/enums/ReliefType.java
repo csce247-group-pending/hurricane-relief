@@ -1,10 +1,18 @@
 package com.pending.model.enums;
 
 public enum ReliefType {
-    FOOD,
-    WATER,
-    MEDICAL_CARE,
-    SHELTER,
-    EVACUATION,
-    OTHER
+    FOOD("Food"),
+    WATER("Water"),
+    MEDICAL_CARE("Medical Care"),
+    SHELTER("Shelter"),
+    PET_SHELTER("Pet shelter"),
+    EVACUATION("Evacuation"),
+    TRANSPORTATION("Transportation"),
+    OTHER("Other");
+
+    private String name;
+
+    private ReliefType(String name) {
+        this.name = name;
+    }
 }

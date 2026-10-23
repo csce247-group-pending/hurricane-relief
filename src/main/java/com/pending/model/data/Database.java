@@ -1,7 +1,9 @@
 package com.pending.model.data;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -13,6 +15,7 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Serializable;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
+import com.pending.model.enums.ReliefStatus;
 
 public class Database {
     private final DataList<User> users;
@@ -125,6 +128,12 @@ public class Database {
         return true;
     }
 
+    public void createReliefRequest(String description, Location location,
+                                    ReliefStatus status) {
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, status);
+        requests.add(reliefRequest);
+    }
+
     public ArrayList<User> getUsers() {
         return users.getAll();
     }
@@ -199,5 +208,10 @@ public class Database {
 
     public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {
         return dataLists.get(cls);
+    }
+
+    public ArrayList<ReliefRequest> getSortedReliefRequests(PriorityFilter<ReliefRequest> filter) {
+        ArrayList<ReliefRequest> output = new ArrayList<>();
+        output.sort(Comparator.comparing());
     }
 }

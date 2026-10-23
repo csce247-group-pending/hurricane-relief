@@ -4,12 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.data.SkillSort;
 import com.pending.model.enums.Skill;
 
 public class Volunteer extends User {
     private boolean isAvailable;
     private ArrayList<Skill> skills;
     private ReliefRequest task;
+    private SkillSort sorter;
 
     public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth, String password,
                      Location location, Contact userContact, Contact emergencyContact,
@@ -20,6 +22,7 @@ public class Volunteer extends User {
         this.isAvailable = isAvailable;
         this.skills = skills;
         this.task = task;
+        sorter = new SkillSort(this);
     }
 
     public Volunteer() {
@@ -55,5 +58,9 @@ public class Volunteer extends User {
 
     public void setTask(ReliefRequest task) {
         this.task = task;
+    }
+
+    public SkillSort getSorter() {
+        return sorter;
     }
 }

@@ -10,6 +10,7 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.ReliefStatus;
 
 public class Application {
     private static Application application;
@@ -62,8 +63,8 @@ public class Application {
         return currentUser.getFirstName() + " " + currentUser.getLastName();
     }
 
-    public void createReliefRequest() {
-
+    public void createReliefRequest(String description) {
+        database.createReliefRequest(description, currentUser.getLocation(), ReliefStatus.REQUESTED);
     }
 
     public ArrayList<String> getShelters() {

@@ -107,7 +107,7 @@ public class Shelter extends Serializable {
         this.occupancy = occupancy;
     }
 
-    public ArrayList<UUID> getVolunteersUUIDReferecne() {
+    public ArrayList<UUID> getVolunteersUUIDReference() {
         return volunteersByUUID;
     }
 
