@@ -1,9 +1,17 @@
 package com.pending.model.data.serializables.behaviors;
 
+import com.pending.model.data.Database;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
+import com.pending.model.data.serializables.Volunteer;
+import com.pending.model.enums.ShelterStatus;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.pending.model.data.Database;
+import com.pending.model.enums.ShelterStatus;
 
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
     public SerializeJSONShelter(Shelter serializable) {
@@ -26,7 +34,6 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         jsonObject.put("volunteers", volunteers);
 
         jsonObject.put("status", serializable.getStatus().name());
-        jsonObject.put("contact", serializable.getContactInfo().serialize());
 
         return jsonObject;
     }
@@ -35,7 +42,6 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setId(UUID.fromString((String) (jsonObject.get("id") == null? "" : jsonObject.get("id"))));
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
-        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
 //        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue()); //TODO: fix this
 
@@ -56,11 +62,9 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         Database database = Database.getInstance();
 
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
-        serializable.setContactInfo(database.getContactByUUID(serializable.getContactUUIDReference()));
 
-
-        serializable.getVolunteersUUIDReference().clear();
-        for (UUID id: serializable.getVolunteersUUIDReference()) {
+        serializable.getVolunteersUUIDReferecne().clear();
+        for (UUID id: serializable.getVolunteersUUIDReferecne()) {
             Volunteer volunteer = (Volunteer) database.getUserByUUID(id);
             serializable.getVolunteers().add(volunteer);
         }

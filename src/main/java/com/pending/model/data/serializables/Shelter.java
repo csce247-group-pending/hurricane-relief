@@ -25,18 +25,19 @@ public class Shelter extends Serializable {
     private ShelterManager manager;
     private UUID managerUUIDReference;
 
-    private UUID contactUUIDReference;
+    public Shelter(String name, Location location,
+            int capacity) {
+        this(name, location, capacity, new ArrayList<>(), ShelterStatus.OPEN);
+    }
 
     public Shelter(UUID id, String name, Location location,
-        int capacity, ArrayList<Volunteer > volunteers, ShelterStatus status,
-        Contact contactInfo) {
-        this(name, location, capacity, volunteers, status, contactInfo);
+        int capacity, ArrayList<Volunteer > volunteers, ShelterStatus status) {
+        this(name, location, capacity, volunteers, status);
         this.id = id;
     }
 
     public Shelter(String name, Location location,
-            int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status,
-            Contact contactInfo) {
+            int capacity, ArrayList<Volunteer> volunteers, ShelterStatus status) {
         super();
         this.name = name;
         this.location = location;
@@ -46,9 +47,6 @@ public class Shelter extends Serializable {
                 ? new ArrayList<Volunteer>()
                 : new ArrayList<Volunteer>(volunteers);
         this.status = status;
-        this.contactInfo = contactInfo;
-
-        contactUUIDReference = UUID.randomUUID();
 
         volunteersByUUID = new ArrayList<>();
 
@@ -56,7 +54,7 @@ public class Shelter extends Serializable {
     }
 
     public Shelter() {
-        this("", new Location(), 0, new ArrayList<>(), ShelterStatus.OPEN, new Contact());
+        this("", new Location(), 0, new ArrayList<>(), ShelterStatus.OPEN);
     }
 
     public String getName() {
@@ -168,13 +166,5 @@ public class Shelter extends Serializable {
         + "\n\tCapacity: " + occupants + "/" + capacity
         + "\n\tLocation: " + location
         + "\n\tContact Info: " + contactInfo;
-    }
-
-    public UUID getContactUUIDReference() {
-        return contactUUIDReference;
-    }
-
-    public void setContactUUIDReference(UUID contactUUIDReference) {
-        this.contactUUIDReference = contactUUIDReference;
     }
 }

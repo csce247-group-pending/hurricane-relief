@@ -3,7 +3,6 @@ package com.pending.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import com.pending.location.MapTools;
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.Location;
@@ -11,10 +10,6 @@ import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ContactPreference;
-<<<<<<< HEAD
-import com.pending.model.enums.ReliefStatus;
-=======
->>>>>>> e5fb8f3 (Removing Admin class and Adding attributes to LivingBeing class. progresses #130,  #107.)
 import com.pending.model.enums.ReliefType;
 
 /**
@@ -196,32 +191,6 @@ public class Application {
         this.location = location;
     }
 
-    /**
-     * Gets the time to all of the nearest shelters to the User
-     * 
-     * @return ArrayList<Double> of the times in order that shelters are read
-     */
-    public ArrayList<Double> getShelterTimes() {
-        if (currentUser == null) {
-            System.out.println("[Error] There is no current user logged in");
-            return null;
-        }
-
-        ArrayList<Shelter> shelters = database.getShelters();
-        ArrayList<Double> shelterTimes = new ArrayList<>();
-        try {
-            for(Shelter shelter: shelters) {
-                shelterTimes.add(MapTools.getInstance().getDrivingTime(currentUser.getLocation(), shelter.getLocation()));
-            }
-        } catch (Exception e) {
-            System.out.println("There was a problem finding time to Shelter.");
-            e.printStackTrace();
-        }
-       
-
-        return shelterTimes;
-    }
- 
     /**
      * Completes a relief request.
      * This action will require a Shelter Manager role check.

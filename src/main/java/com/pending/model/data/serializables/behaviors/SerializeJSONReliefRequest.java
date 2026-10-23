@@ -42,7 +42,8 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
 
-        ArrayList<ReliefType> reliefTypes = serializable.getTypes();
+        ArrayList<ReliefType> reliefTypes =
+                serializable.getTypes();
 
         for (Object reliefType :
                 (JSONArray) jsonObject.get("types")) {

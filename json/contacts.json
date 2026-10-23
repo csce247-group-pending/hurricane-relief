@@ -59,17 +59,5 @@
     "email": "worstshelter@gmail.com",
     "phone": "8035550198",
     "contact_preference": "EMAIL"
-  },
-  {
-    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "email": "jane.doe.chs@gmail.com",
-    "phone": "8435551234",
-    "contact_preference": "TEXT" 
-  },
-  {
-    "id": "63b8417c-e631-4171-a4b8-db16b8b5490a",
-    "email": "emergency.contact@gmail.com",
-    "phone": "8435559876",
-    "contact_preference": "CALL" 
   }
 ]
