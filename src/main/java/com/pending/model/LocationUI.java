@@ -6,59 +6,56 @@ import com.pending.model.data.serializables.Location;
 public class LocationUI {
 
     public void run() {
-        // A Charleston address near the waterfront
         Location userAddress = new Location(
-                "1 Vendue Range",
-                "Charleston",
                 "SC",
+                "Charleston",
+                "1 Vendue Range",
                 "29401"
         );
+
         Location closestShelter;
 
-        // Example hurricane-shelter locations
         Location[] shelters = {
-                new Location("2950 Carner Avenue",
-                        "North Charleston", "SC", "29405"), // Military Magnet
-                
-                new Location("5200 Lackawanna Boulevard",
-                        "North Charleston", "SC", "29405"), // North Charleston CAES
-                
-                new Location("3841 Leeds Avenue",
-                        "North Charleston", "SC", "29405"), // Bond Court
-                
-                new Location("3625 Ashley Phosphate Road",
-                        "North Charleston", "SC", "29418"), // Stall High School
-                
-                new Location("6401 Dorchester Road",
-                        "North Charleston", "SC", "29418"), // Zucker Middle School
-                
-                new Location("1624 State Road",
-                        "Summerville", "SC", "29483"), // Cane Bay High School
-                
-                new Location("1053 Russellville Road",
-                        "St. Stephen", "SC", "29479"), // St. Stephen Elementary
-                
-                new Location("200 Macedonia Foxes Circle",
-                        "St. Stephen", "SC", "29479"), // Macedonia Middle School
-                
-                new Location("101 Westview Boulevard",
-                        "Goose Creek", "SC", "29445"), // Westview Middle School
-                
-                new Location("1101 Boone Hill Road",
-                        "Summerville", "SC", "29483") // Summerville High School
+                new Location("SC", "North Charleston",
+                        "2950 Carner Avenue", "29405"),
+
+                new Location("SC", "North Charleston",
+                        "5200 Lackawanna Boulevard", "29405"),
+
+                new Location("SC", "North Charleston",
+                        "3841 Leeds Avenue", "29405"),
+
+                new Location("SC", "North Charleston",
+                        "3625 Ashley Phosphate Road", "29418"),
+
+                new Location("SC", "North Charleston",
+                        "6401 Dorchester Road", "29418"),
+
+                new Location("SC", "Summerville",
+                        "1624 State Road", "29483"),
+
+                new Location("SC", "St. Stephen",
+                        "1053 Russellville Road", "29479"),
+
+                new Location("SC", "St. Stephen",
+                        "200 Macedonia Foxes Circle", "29479"),
+
+                new Location("SC", "Goose Creek",
+                        "101 Westview Boulevard", "29445"),
+
+                new Location("SC", "Summerville",
+                        "1101 Boone Hill Road", "29483")
         };
 
         try {
             closestShelter = MapTools.getInstance()
                     .findClosestAddress(userAddress, shelters);
 
-            System.out.println("User address: "
-                    + userAddress);
+            System.out.println("User address: " + userAddress);
+            System.out.println("Closest shelter: " + closestShelter);
 
-            System.out.println("Closest shelter: "
-                    + closestShelter);
-
-            String[] directions = MapTools.getInstance().getDrivingDirections(userAddress, closestShelter);
+            String[] directions = MapTools.getInstance()
+                    .getDrivingDirections(userAddress, closestShelter);
 
             for (String direction : directions) {
                 System.out.println(direction);
