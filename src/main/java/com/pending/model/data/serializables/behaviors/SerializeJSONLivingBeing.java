@@ -11,13 +11,30 @@ import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
+/**
+ * Provides JSON serialization behavior for LivingBeing objects.
+ * This class stores and restores identity, date of birth, type,
+ * and relief-need information.
+ *
+ * @param <T> the LivingBeing type handled by this behavior
+ */
 public class SerializeJSONLivingBeing<T extends LivingBeing>
         extends SerializeJSON<T> {
 
+    /**
+     * Creates JSON serialization behavior for a living being.
+     *
+     * @param serializable the living being managed by this behavior
+     */
     public SerializeJSONLivingBeing(T serializable) {
         super(serializable);
     }
 
+    /**
+     * Converts the living being into a JSON object.
+     *
+     * @return the JSON representation of the living being
+     */
     @Override
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
@@ -30,6 +47,7 @@ public class SerializeJSONLivingBeing<T extends LivingBeing>
         jsonObject.put("type", serializable.getType().name());
 
         JSONArray reliefNeeds = new JSONArray();
+
         for (ReliefType reliefType : serializable.getReliefNeeds()) {
             reliefNeeds.add(reliefType.name());
         }
@@ -38,6 +56,11 @@ public class SerializeJSONLivingBeing<T extends LivingBeing>
         return jsonObject;
     }
 
+    /**
+     * Loads living-being fields from a JSON object.
+     *
+     * @param jsonObject the JSON object containing living-being data
+     */
     @Override
     public void deserialize(JSONObject jsonObject) {
         serializable.setId(
@@ -51,6 +74,7 @@ public class SerializeJSONLivingBeing<T extends LivingBeing>
 
         ArrayList<ReliefType> reliefNeeds =
                 serializable.getReliefNeeds();
+
         reliefNeeds.clear();
 
         JSONArray jsonReliefNeeds =
