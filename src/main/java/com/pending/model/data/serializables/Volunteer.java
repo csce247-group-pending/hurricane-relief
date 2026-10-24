@@ -18,6 +18,17 @@ public class Volunteer extends User {
     private ReliefRequest task;
     private SkillSort sorter;
 
+    public Volunteer(String firstName, String lastName, LocalDate dateOfBirth,
+                     ArrayList<ReliefType> reliefNeeds, String password,
+                     Location location, Contact userContact, Contact emergencyContact,
+                     boolean isAvailable, ArrayList<ReliefType> reliefTypes, ReliefRequest task) {
+        super(firstName, lastName, dateOfBirth, reliefNeeds, password,
+                location, userContact, emergencyContact);
+        this.isAvailable = isAvailable;
+        this.reliefTypes = reliefTypes;
+        this.task = task;
+        sorter = new SkillSort(this);
+    }
     public Volunteer(UUID id, String firstName, String lastName, LocalDate dateOfBirth,
                      ArrayList<ReliefType> reliefNeeds, String password,
                      Location location, Contact userContact, Contact emergencyContact,
@@ -35,7 +46,8 @@ public class Volunteer extends User {
         super();
         this.isAvailable = true;
         this.reliefTypes = new ArrayList<>();
-        this.task = new ReliefRequest();
+        this.task = null;
+        sorter = new SkillSort(this);
     }
 
     public boolean isAvailable() {
@@ -72,6 +84,7 @@ public class Volunteer extends User {
 
     @Override
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        task = reliefRequest;
         reliefRequest.setAssignedTo(this);
         reliefRequest.setStatus(ReliefStatus.ASSIGNED);
         return true;

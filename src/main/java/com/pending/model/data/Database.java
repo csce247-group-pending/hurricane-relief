@@ -23,6 +23,7 @@ public class Database {
     private final DataList<Location> locations;
     private final DataList<LivingBeing> livingBeings;
     private final DataList<Volunteer> volunteers;
+    private final DataList<ShelterManager> shelterManagers;
 
     private HashMap<Class<? extends Serializable>,
             DataList<? extends Serializable>> dataLists;
@@ -58,6 +59,9 @@ public class Database {
 
         volunteers = DataList.getInstance(Volunteer.class);
         dataLists.put(Volunteer.class, volunteers);
+
+        shelterManagers = DataList.getInstance(ShelterManager.class);
+        dataLists.put(ShelterManager.class, shelterManagers);
     }
 
     /**
@@ -69,21 +73,39 @@ public class Database {
         }
         resolveReferences();
         users.getAll().addAll(volunteers.getAll());
+        users.getAll().addAll(shelterManagers.getAll());
     }
 
     /**
      * Writes every data list to its JSON file.
      */
     public void write() {
-        for (Volunteer volunteer: volunteers.getAll()) {
-            if (users.getAll().contains(volunteer)) {
-                users.remove(volunteer);
+        for (Class<? extends Serializable> key: dataLists.keySet()) {
+            write(key);
+        }
+    }
+
+    public void write(Class<? extends Serializable> key) {
+        if (key == User.class) {
+            for (Volunteer volunteer: volunteers.getAll()) {
+                if (users.getAll().contains(volunteer)) {
+                    users.remove(volunteer);
+                }
             }
+            for (ShelterManager shelterManager: shelterManagers.getAll()) {
+                if (users.getAll().contains(shelterManager)) {
+                    users.remove(shelterManager);
+                }
+            }
+            for (DataList<?> dataList : dataLists.values()) {
+                dataList.write();
+            }
+            users.write();
+            users.getAll().addAll(volunteers.getAll());
+            users.getAll().addAll(shelterManagers.getAll());
+        } else if (dataLists.containsKey(key)) {
+            dataLists.get(key).write();
         }
-        for (DataList<?> dataList : dataLists.values()) {
-            dataList.write();
-        }
-        users.getAll().addAll(volunteers.getAll());
     }
 
     /**
@@ -136,6 +158,8 @@ public class Database {
         User user = users.getObject(
                 u -> email.equals(u.getUserContact().getEmail())
         );
+
+        System.out.println(users.getAll());
 
         return user == null || !password.equals(user.getPassword())
                 ? null : user;
@@ -196,7 +220,9 @@ public class Database {
         }
         ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes));
         if (author != null) author.getUserReliefRequests().add(reliefRequest);
-        return requests.add(reliefRequest);
+        boolean returnValue = requests.add(reliefRequest);
+        requests.write();
+        return returnValue;
     }
 
     public ArrayList<LivingBeing> getLivingBeings() {

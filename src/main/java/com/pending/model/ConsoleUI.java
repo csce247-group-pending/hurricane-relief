@@ -35,6 +35,7 @@ public class ConsoleUI {
     public void run() {
         createReliefRequestScenario();
         readAndPrintReliefRequests();
+        acceptReliefRequestAndCheckIntoShelterScenario();
     }
 
     /**
@@ -198,7 +199,7 @@ public class ConsoleUI {
         family.add(new LivingBeing(
                 "Sophie",
                 "Carter",
-                LocalDate.parse("1954-05-23"),
+                LocalDate.parse("2014-08-20"),
                 LivingBeingType.HUMAN,
                 new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
         ));
@@ -214,22 +215,27 @@ public class ConsoleUI {
         app.logout();
     }
 
-    public void acceptReliefRequestScenario() {
+    public void acceptReliefRequestAndCheckIntoShelterScenario() {
         String email = "rosa.delgado@example.com";
         String password = "RosaStrong2026!";
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
 
-        if (!app.attemptLogin("jimmycarter@gmail.com", password)) {
-            System.out.println("Login failed");
-            return;
-        }
+        loginScenario(email, password);
 
-        ArrayList<ReliefRequest> reliefRequests = app.getReliefRequests();
-        app.acceptReliefRequest(reliefRequests.getFirst());
+        ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
+        app.acceptReliefRequest(reliefRequest);
         app.logout();
-    }
 
-    public void checkIntoShelterScenario() {
+        email = "pianoboiii1809@pigeonmail.old";
+        password = "S@xUndV10lins";
 
+        loginScenario(email, password);
+
+        app.checkIntoShelter(reliefRequest.getLivingBeings());
+        app.completeRequest(reliefRequest);
+
+        app.logout();
     }
 
     /**

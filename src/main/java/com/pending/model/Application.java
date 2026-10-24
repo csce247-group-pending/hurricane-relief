@@ -262,8 +262,8 @@ public class Application {
      * Completes a relief request.
      * This action will require a Shelter Manager role check.
      */
-    public void completeRequest() {
-        // must role check for Shelter Manager
+    public boolean completeRequest(ReliefRequest reliefRequest) {
+        return currentUser != null && currentUser.closeReliefRequest(reliefRequest);
     }
 
     /**
@@ -275,7 +275,7 @@ public class Application {
     }
 
     public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
-        return currentUser.checkIntoShelter(livingBeings);
+        return currentUser != null && currentUser.checkIntoShelter(livingBeings);
     }
 
     public ArrayList<ReliefRequest> getReliefRequests() {
