@@ -1,5 +1,6 @@
 [
   {
+    "id": "5462113a-3ad7-4a0f-9250-8470da6b142d",
     "first_name": "Maria",
     "last_name": "Gonzalez",
     "date_of_birth": "1985-03-14",
@@ -7,6 +8,7 @@
     "relief_needs": ["FOOD", "WATER", "SHELTER"]
   },
   {
+    "id": "4805036d-0577-40c2-87ae-78f8f8bbaac1",
     "first_name": "James",
     "last_name": "Carter",
     "date_of_birth": "1952-11-02",
@@ -14,6 +16,7 @@
     "relief_needs": ["MEDICAL_CARE", "EVACUATION", "TRANSPORTATION"]
   },
   {
+    "id": "2a24793a-294a-46e7-a125-4f357c439ae0",
     "first_name": "Aaliyah",
     "last_name": "Johnson",
     "date_of_birth": "2015-07-21",
@@ -21,6 +24,7 @@
     "relief_needs": ["FOOD", "WATER"]
   },
   {
+    "id": "f1ef0296-1145-4456-afa5-4e5b4251df7d",
     "first_name": "Robert",
     "last_name": "Nguyen",
     "date_of_birth": "1978-01-30",
@@ -28,6 +32,7 @@
     "relief_needs": ["TRANSPORTATION", "SHELTER"]
   },
   {
+    "id": "e708a081-eac5-4902-b5a8-b01b9bc67b05",
     "first_name": "Linda",
     "last_name": "Whitaker",
     "date_of_birth": "1944-09-09",
@@ -35,6 +40,7 @@
     "relief_needs": ["MEDICAL_CARE", "EVACUATION", "WATER"]
   },
   {
+    "id": "0fd7bbb3-c3ee-4a57-a2b9-0acd4133e9cb",
     "first_name": "Buddy",
     "last_name": "Gonzalez",
     "date_of_birth": "2018-05-12",
@@ -42,6 +48,7 @@
     "relief_needs": ["PET_SHELTER", "FOOD", "WATER"]
   },
   {
+    "id": "c9a87381-0bb2-4b54-a293-c1fe17ab8f30",
     "first_name": "Luna",
     "last_name": "Carter",
     "date_of_birth": "2020-10-03",
@@ -49,6 +56,7 @@
     "relief_needs": ["PET_SHELTER", "EVACUATION"]
   },
   {
+    "id": "2245bf1b-3557-43ca-be63-ab373a3b482f",
     "first_name": "Daniel",
     "last_name": "Okafor",
     "date_of_birth": "1992-06-18",
@@ -56,6 +64,7 @@
     "relief_needs": ["OTHER"]
   },
   {
+    "id": "095cf4c9-af88-4bdb-8a81-47bd09d004b7",
     "first_name": "Max",
     "last_name": "Nguyen",
     "date_of_birth": "2016-12-25",
@@ -63,6 +72,7 @@
     "relief_needs": ["PET_SHELTER", "MEDICAL_CARE", "TRANSPORTATION"]
   },
   {
+    "id": "badb7377-a046-4f4a-bb52-c35dc38805a2",
     "first_name": "Evelyn",
     "last_name": "Brooks",
     "date_of_birth": "2001-04-07",
