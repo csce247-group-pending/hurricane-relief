@@ -1,36 +1,112 @@
 [
   {
-    "id": "b6332649-0695-402f-9006-12ddd2277128",
-    "name": "TheBestShelter",
-    "location": "c2b47624-88e1-474d-8482-762f9379a445",
+    "id": "b0000001-1111-4111-8111-111111111111",
+    "name": "Military Magnet Academy Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000001",
     "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
-    "capacity": 100,
+    "capacity": 250,
     "status": "OPEN",
-    "accommodates_pets": true,
-    "occupants": [
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000001",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000003",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000006",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000010"
-    ],
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000001"],
     "volunteers": []
   },
   {
-    "id": "abc977ab-0e7e-47d7-930e-4adb0aa8a519",
-    "name": "TheWorstShelter",
-    "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
-    "contact": "d769cf63-7be4-4c9a-a741-2a987b123402",
-    "capacity": 6,
-    "status": "FULL",
+    "id": "b0000002-2222-4222-8222-222222222222",
+    "name": "North Charleston CAES Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000002",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 180,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000002"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000003-3333-4333-8333-333333333333",
+    "name": "Bond Court Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000003",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 100,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000003"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000004-4444-4444-8444-444444444444",
+    "name": "Stall High School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000004",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 500,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000004"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000005-5555-4555-8555-555555555555",
+    "name": "Zucker Middle School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000005",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 300,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000005"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000006-6666-4666-8666-666666666666",
+    "name": "Cane Bay High School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000006",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 600,
+    "status": "OPEN",
     "accommodates_pets": true,
-    "occupants": [
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000002",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000004",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000005",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000007",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000008",
-      "0e91b1a0-3f5b-4b5a-ae86-501a0f000009"
-    ],
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000006"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000007-7777-4777-8777-777777777777",
+    "name": "St. Stephen Elementary Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000007",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 200,
+    "status": "OPEN",
+    "accommodates_pets": true,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000007"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000008-8888-4888-8888-888888888888",
+    "name": "Macedonia Middle School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000008",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 350,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000008"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000009-9999-4999-8999-999999999999",
+    "name": "Westview Middle School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000009",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 300,
+    "status": "OPEN",
+    "accommodates_pets": true,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000009"],
+    "volunteers": []
+  },
+  {
+    "id": "b0000010-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+    "name": "Summerville High School Shelter",
+    "location": "c7a1d800-52fe-4d33-9ca1-4f5d8e000010",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "capacity": 700,
+    "status": "OPEN",
+    "accommodates_pets": false,
+    "occupants": ["0e91b1a0-3f5b-4b5a-ae86-501a0f000010"],
     "volunteers": []
   }
 ]

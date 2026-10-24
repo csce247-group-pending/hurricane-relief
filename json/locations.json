@@ -82,5 +82,75 @@
     "city": "Columbia",
     "street": "225 Gervais St",
     "zip": "29201"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000001",
+    "state": "SC",
+    "city": "North Charleston",
+    "street": "2950 Carner Avenue",
+    "zip": "29405"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000002",
+    "state": "SC",
+    "city": "North Charleston",
+    "street": "5200 Lackawanna Boulevard",
+    "zip": "29405"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000003",
+    "state": "SC",
+    "city": "North Charleston",
+    "street": "3841 Leeds Avenue",
+    "zip": "29405"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000004",
+    "state": "SC",
+    "city": "North Charleston",
+    "street": "3625 Ashley Phosphate Road",
+    "zip": "29418"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000005",
+    "state": "SC",
+    "city": "North Charleston",
+    "street": "6401 Dorchester Road",
+    "zip": "29418"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000006",
+    "state": "SC",
+    "city": "Summerville",
+    "street": "1624 State Road",
+    "zip": "29483"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000007",
+    "state": "SC",
+    "city": "St. Stephen",
+    "street": "1053 Russellville Road",
+    "zip": "29479"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000008",
+    "state": "SC",
+    "city": "St. Stephen",
+    "street": "200 Macedonia Foxes Circle",
+    "zip": "29479"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000009",
+    "state": "SC",
+    "city": "Goose Creek",
+    "street": "101 Westview Boulevard",
+    "zip": "29445"
+  },
+  {
+    "id": "c7a1d800-52fe-4d33-9ca1-4f5d8e000010",
+    "state": "SC",
+    "city": "Summerville",
+    "street": "1101 Boone Hill Road",
+    "zip": "29483"
   }
 ]
