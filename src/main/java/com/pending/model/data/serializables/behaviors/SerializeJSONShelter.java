@@ -1,10 +1,13 @@
 package com.pending.model.data.serializables.behaviors;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.ShelterManager;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
+
+import java.util.ArrayList;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
@@ -40,8 +43,20 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-//        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue()); //TODO: fix this
-
+        JSONArray occupants = (JSONArray) jsonObject.get("occupants");
+        serializable.getOccupants().clear();
+        if (occupants == null) {
+            int occupancy = ((Long) jsonObject.get("occupancy")).intValue();
+            for (int i = 0; i < occupancy; i++) {
+                serializable.addOccupant(null);
+            }
+        } else {
+            for (Object occupantJson: occupants) {
+                LivingBeing occupant = new LivingBeing();
+                occupant.deserialize(occupantJson);
+                serializable.addOccupant(occupant);
+            }
+        }
 
         JSONArray volunteersByUUID = (JSONArray) jsonObject.get("volunteers");
         serializable.getVolunteersUUIDReference().clear();
