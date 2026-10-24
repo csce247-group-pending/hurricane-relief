@@ -3,24 +3,34 @@
     "id": "b6332649-0695-402f-9006-12ddd2277128",
     "name": "TheBestShelter",
     "location": "c2b47624-88e1-474d-8482-762f9379a445",
-    "contact_info": "7f8b91a2-3c4d-4e5f-9a01-2b3c4d5e6f7a",
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123401",
     "capacity": 100,
-    "occupancy": 70,
-    "volunteers": [
-      "ace00e95-9f57-4b63-86e6-0530a92c011b"
+    "status": "OPEN",
+    "accommodates_pets": true,
+    "occupants": [
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000001",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000003",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000006",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000010"
     ],
-    "status": "OPEN"
+    "volunteers": []
   },
   {
     "id": "abc977ab-0e7e-47d7-930e-4adb0aa8a519",
     "name": "TheWorstShelter",
     "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
-    "contact_info": "9b1c2d3e-4f5a-4b6c-8d7e-1a2b3c4d5e6f",
-    "capacity": 20,
-    "occupancy": 20,
-    "volunteers": [
-      "d1d8dc85-e69f-42bf-af84-7be5a65878ee"
+    "contact": "d769cf63-7be4-4c9a-a741-2a987b123402",
+    "capacity": 6,
+    "status": "FULL",
+    "accommodates_pets": true,
+    "occupants": [
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000002",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000004",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000005",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000007",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000008",
+      "0e91b1a0-3f5b-4b5a-ae86-501a0f000009"
     ],
-    "status": "FULL"
+    "volunteers": []
   }
 ]

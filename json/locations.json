@@ -70,10 +70,17 @@
     "zip": "29631"
   },
   {
-  "id": "1f2a3489-0e42-4917-b715-e24395641755",
-  "state": "SC",
-  "city": "Charleston",
-  "street": "100 Broad St",
-  "zip": "29401"
+    "id": "1f2a3489-0e42-4917-b715-e24395641755",
+    "state": "SC",
+    "city": "Charleston",
+    "street": "100 Broad St",
+    "zip": "29401"
+  },
+  {
+    "id": "f623cfd7-c8c8-4b53-9f2d-b196ea124133",
+    "state": "SC",
+    "city": "Columbia",
+    "street": "225 Gervais St",
+    "zip": "29201"
   }
 ]

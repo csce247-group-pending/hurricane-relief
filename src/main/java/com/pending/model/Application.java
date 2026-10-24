@@ -98,10 +98,15 @@ public class Application {
      * @return true if login succeeds; otherwise false
      */
     public boolean attemptLogin(String email, String password) {
-        currentUser = database.attemptLogin(email, password);
-        this.location = currentUser.getLocation();
-        return currentUser != null;
+    currentUser = database.attemptLogin(email, password);
+
+    if (currentUser == null) {
+        return false;
     }
+
+    updateLocation(currentUser.getLocation());
+    return true;
+}
 
     /**
      * Logs out the currently logged-in user.
