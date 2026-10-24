@@ -180,4 +180,19 @@ public class Volunteer extends User {
         reliefRequest.setStatus(ReliefStatus.ASSIGNED);
         return true;
     }
+
+    public String exportTripInformation() {
+        String toWrite = "Relief Request Trip Information:";
+        toWrite += "\n" + task.toString();
+        // add directions to Carter home
+        toWrite += "\nDirections to Task from Current Location:";
+
+        // add directions to shelter + shelter informations
+        toWrite += "\nShelter Information:";
+
+        toWrite += "\nDirections to Shelter from Task:";
+
+        
+        return toWrite;
+    }
 }

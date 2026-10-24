@@ -317,4 +317,10 @@ public class Database {
         output.sort(Comparator.comparing(filter::filter));
         return output;
     }
+
+    public boolean exportTripInformation(Volunteer volunteer) {
+        String outputFile = volunteer.getFirstName() + "_relief_task.txt";
+        return volunteers.exportTripInformation(volunteer.exportTripInformation(), outputFile);
+    }
+    
 }

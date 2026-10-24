@@ -302,6 +302,10 @@ public class User extends LivingBeing {
         return false;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     /**
      * Returns a readable summary of the user.
      *
@@ -310,7 +314,7 @@ public class User extends LivingBeing {
     @Override
     public String toString() {
         return "User " + getFirstName() + " " + getLastName() + ": "
-                + "\n\tAge: TO BE DETERMINED"
+                + "\n\tAge: " + getAge()
                 + "\n\tContact Info: " + getUserContact()
                 + "\n\tLocation: " + getLocation();
     }

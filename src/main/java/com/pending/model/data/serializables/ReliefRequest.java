@@ -218,6 +218,8 @@ public class ReliefRequest extends Serializable {
         return "Relief Request"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status:" + status
+                + (status != ReliefStatus.REQUESTED ? 
+                "\n\tAssigned To: " + assignedTo.getFullName() : "")
                 + "\n\tRelief Needs: " + reliefTypesString
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
