@@ -87,6 +87,6 @@ public class LivingBeing extends Serializable {
 
     @Override
     public String toString() {
-        return "Name: " + primaryName + " is a " + type + " Age: " + getAge() ;
+        return "Name: " + firstName + " is a " + type + " Age: " + getAge() ;
     }
 }
