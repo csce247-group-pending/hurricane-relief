@@ -1,0 +1,72 @@
+[
+  {
+    "first_name": "Maria",
+    "last_name": "Gonzalez",
+    "date_of_birth": "1985-03-14",
+    "type": "HUMAN",
+    "relief_needs": ["FOOD", "WATER", "SHELTER"]
+  },
+  {
+    "first_name": "James",
+    "last_name": "Carter",
+    "date_of_birth": "1952-11-02",
+    "type": "HUMAN",
+    "relief_needs": ["MEDICAL_CARE", "EVACUATION", "TRANSPORTATION"]
+  },
+  {
+    "first_name": "Aaliyah",
+    "last_name": "Johnson",
+    "date_of_birth": "2015-07-21",
+    "type": "HUMAN",
+    "relief_needs": ["FOOD", "WATER"]
+  },
+  {
+    "first_name": "Robert",
+    "last_name": "Nguyen",
+    "date_of_birth": "1978-01-30",
+    "type": "HUMAN",
+    "relief_needs": ["TRANSPORTATION", "SHELTER"]
+  },
+  {
+    "first_name": "Linda",
+    "last_name": "Whitaker",
+    "date_of_birth": "1944-09-09",
+    "type": "HUMAN",
+    "relief_needs": ["MEDICAL_CARE", "EVACUATION", "WATER"]
+  },
+  {
+    "first_name": "Buddy",
+    "last_name": "Gonzalez",
+    "date_of_birth": "2018-05-12",
+    "type": "PET",
+    "relief_needs": ["PET_SHELTER", "FOOD", "WATER"]
+  },
+  {
+    "first_name": "Luna",
+    "last_name": "Carter",
+    "date_of_birth": "2020-10-03",
+    "type": "PET",
+    "relief_needs": ["PET_SHELTER", "EVACUATION"]
+  },
+  {
+    "first_name": "Daniel",
+    "last_name": "Okafor",
+    "date_of_birth": "1992-06-18",
+    "type": "HUMAN",
+    "relief_needs": ["OTHER"]
+  },
+  {
+    "first_name": "Max",
+    "last_name": "Nguyen",
+    "date_of_birth": "2016-12-25",
+    "type": "PET",
+    "relief_needs": ["PET_SHELTER", "MEDICAL_CARE", "TRANSPORTATION"]
+  },
+  {
+    "first_name": "Evelyn",
+    "last_name": "Brooks",
+    "date_of_birth": "2001-04-07",
+    "type": "HUMAN",
+    "relief_needs": []
+  }
+]

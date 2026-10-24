@@ -6,14 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.Hurricane;
-import com.pending.model.data.serializables.LivingBeing;
-import com.pending.model.data.serializables.Location;
-import com.pending.model.data.serializables.ReliefRequest;
-import com.pending.model.data.serializables.Serializable;
-import com.pending.model.data.serializables.Shelter;
-import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.*;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -30,6 +23,7 @@ public class Database {
     private final DataList<Shelter> shelters;
     private final DataList<Contact> contacts;
     private final DataList<Location> locations;
+    private final DataList<LivingBeing> livingBeings;
 
     private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
 
@@ -59,6 +53,9 @@ public class Database {
 
         locations = DataList.getInstance(Location.class);
         dataLists.put(Location.class, locations);
+
+        livingBeings = DataList.getInstance(LivingBeing.class);
+
     }
 
     /**

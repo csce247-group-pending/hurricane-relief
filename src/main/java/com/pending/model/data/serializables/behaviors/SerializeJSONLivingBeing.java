@@ -17,6 +17,8 @@ public class SerializeJSONLivingBeing<T extends LivingBeing> extends SerializeJS
     @Override
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("first_name", serializable.getFirstName());
+        jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("date_of_birth", serializable.getDateOfBirth().toString());
         jsonObject.put("type", serializable.getType().name());
         JSONArray reliefNeeds = new JSONArray();
@@ -29,6 +31,8 @@ public class SerializeJSONLivingBeing<T extends LivingBeing> extends SerializeJS
 
     @Override
     public void deserialize(JSONObject jsonObject) {
+        serializable.setFirstName((String) jsonObject.get("first_name"));
+        serializable.setLastName((String) jsonObject.get("last_name"));
         serializable.setDateOfBirth(LocalDate.parse((String) jsonObject.get("date_of_birth")));
         serializable.setType(LivingBeingType.valueOf((String) jsonObject.get("type")));
         serializable.getReliefNeeds().clear();
