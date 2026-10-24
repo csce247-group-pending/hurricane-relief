@@ -100,12 +100,19 @@ public class ReliefRequest extends Serializable {
             reliefTypesString += ", " + types.get(i);
         }
 
+        String formattedBeings = "";
+        for (LivingBeing livingBeing: livingBeings) {
+            formattedBeings += "\t\t" + livingBeing + "\n";
+        }
+
         return "Relief Request"
             + "\n\tDescription: " + description
             + "\n\tRelief Status:" + status
             + "\n\tRelief Needs: " + reliefTypesString
             + "\n\tLocation: " + location
-            + "\n\tContact Info: " + contactInfo;
+            + "\n\tContact Info: " + contactInfo
+            + "\n\tMembers("+ livingBeings.size() +"): " 
+            + (formattedBeings.isEmpty() ? "None" : "\n" + formattedBeings);
     }
 
     public Contact getContactInfo() {
