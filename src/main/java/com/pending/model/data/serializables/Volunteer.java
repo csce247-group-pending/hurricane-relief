@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 import com.pending.model.data.SkillSort;
 import com.pending.model.enums.ReliefType;
@@ -69,8 +70,10 @@ public class Volunteer extends User {
         return sorter;
     }
 
-    public void closeReliefRequest(ReliefRequest reliefRequest) {
-        System.out.println("Permission denied");
-        System.out.printf("Reason: you're a chud and your mom's a chud");
+    @Override
+    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        reliefRequest.setAssignedTo(this);
+        reliefRequest.setStatus(ReliefStatus.ASSIGNED);
+        return true;
     }
 }

@@ -1,16 +1,15 @@
 package com.pending.model;
 
+import java.awt.image.DataBuffer;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.pending.location.MapTools;
+import com.pending.model.data.DataList;
 import com.pending.model.data.Database;
-import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.LivingBeing;
-import com.pending.model.data.serializables.Location;
-import com.pending.model.data.serializables.ReliefRequest;
-import com.pending.model.data.serializables.Shelter;
-import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.*;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
@@ -134,8 +133,28 @@ public class Application {
      * Creates a new relief request.
      * This method is not implemented yet.
      */
-    public void createReliefRequest(String description, ArrayList<ReliefType> reliefTypes) {
-        database.createReliefRequest(description, currentUser.getLocation(), new ArrayList<LivingBeing>(), reliefTypes);
+    public boolean createReliefRequest(String description) {
+        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
+    }
+
+    public boolean createReliefRequest(String description, ArrayList<LivingBeing> livingBeings) {
+        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), livingBeings);
+    }
+
+    public boolean createReliefRequest(User author, String description) {
+        return database.createReliefRequest(author, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
+    }
+
+    public boolean createReliefRequest(User author, String description, ArrayList<LivingBeing> livingBeings) {
+        return database.createReliefRequest(author, description, currentUser.getLocation(), livingBeings);
+    }
+
+    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        if (currentUser == null) {
+            return false;
+        } else {
+            return currentUser.acceptReliefRequest(reliefRequest);
+        }
     }
 
     /**
@@ -201,6 +220,10 @@ public class Application {
         return location.toString();
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     /**
      * Updates the current location.
      *
@@ -249,5 +272,17 @@ public class Application {
      */
     public void startRequest() {
         // must role check for Volunteer
+    }
+
+    public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
+        return currentUser.checkIntoShelter(livingBeings);
+    }
+
+    public ArrayList<ReliefRequest> getReliefRequests() {
+        if (currentUser instanceof Volunteer) {
+            return database.getSortedReliefRequests(((Volunteer) currentUser).getSorter());
+        } else {
+            return database.getRequests();
+        }
     }
 }

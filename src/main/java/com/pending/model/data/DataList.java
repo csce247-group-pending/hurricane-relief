@@ -190,6 +190,9 @@ public class DataList<T extends Serializable> {
      * @return true if the object was added; otherwise false
      */
     public boolean add(T object) {
+        if (object == null) {
+            return false;
+        }
         UUID id = object.getId();
 
         if (objectsById.containsKey(id)) {

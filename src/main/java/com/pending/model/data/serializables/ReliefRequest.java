@@ -2,6 +2,7 @@ package com.pending.model.data.serializables;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONReliefRequest;
 import com.pending.model.enums.JSONFile;
@@ -24,11 +25,11 @@ public class ReliefRequest extends Serializable {
     private UUID assignedToUUIDReference;
 
     public ReliefRequest(String description, Location location,
-        ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
+        ReliefStatus status, ArrayList<LivingBeing> livingBeings, ArrayList<ReliefType> reliefTypes) {
         super();
         this.description = description;
         this.location = location;
-        this.types = new ArrayList<>();
+        this.types = reliefTypes;
         this.status = status;
         this.contactInfo = new Contact();
         this.livingBeings = livingBeings;
@@ -42,13 +43,13 @@ public class ReliefRequest extends Serializable {
     }
 
     public ReliefRequest(UUID id, String description, Location location,
-        ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
-        this(description, location, status, livingBeings);
+        ReliefStatus status, ArrayList<LivingBeing> livingBeings, ArrayList<ReliefType> reliefTypes) {
+        this(description, location, status, livingBeings, reliefTypes);
         this.id = id;
     }
 
     public ReliefRequest() {
-        this("", new Location(), ReliefStatus.REQUESTED, new ArrayList<>());
+        this("", new Location(), ReliefStatus.REQUESTED, new ArrayList<>(), new ArrayList<>());
     }
 
     public ReliefStatus getStatus() {
@@ -100,10 +101,8 @@ public class ReliefRequest extends Serializable {
     }
 
     public String toString() {
-        String reliefTypesString = types.get(0).toString();
-        for (int i = 1; i < types.size(); ++i) {
-            reliefTypesString += ", " + types.get(i);
-        }
+        String reliefTypesString = types.stream().map(Enum::name).collect(Collectors.joining(", "));
+        reliefTypesString = reliefTypesString.isEmpty() ? "N/A" : reliefTypesString;
 
         String formattedBeings = "";
         for (LivingBeing livingBeing: livingBeings) {
