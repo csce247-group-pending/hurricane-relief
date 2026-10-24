@@ -1,10 +1,7 @@
 package com.pending.model.data;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 import com.pending.model.data.serializables.*;
 import com.pending.model.enums.ReliefStatus;
@@ -71,21 +68,22 @@ public class Database {
             dataList.read();
         }
         resolveReferences();
+        users.getAll().addAll(volunteers.getAll());
     }
 
     /**
      * Writes every data list to its JSON file.
      */
     public void write() {
-        for (DataList<?> dataList : dataLists.values()) {
-            for (Volunteer volunteer: volunteers.getAll()) {
-                if (users.getAll().contains(volunteer)) {
-                    users.remove(volunteer);
-                }
+        for (Volunteer volunteer: volunteers.getAll()) {
+            if (users.getAll().contains(volunteer)) {
+                users.remove(volunteer);
             }
-            dataList.write();
-            users.getAll().addAll(volunteers.getAll());
         }
+        for (DataList<?> dataList : dataLists.values()) {
+            dataList.write();
+        }
+        users.getAll().addAll(volunteers.getAll());
     }
 
     /**
@@ -179,8 +177,8 @@ public class Database {
         boolean emergencyContactAdded = contacts.add(emergencyContact);
         boolean userAdded = users.add(newUser);
 
-        if (!locationAdded || !userContactAdded
-                || !emergencyContactAdded || !userAdded) {
+        if (!((location == null || locationAdded) && (userContact == null || userContactAdded)
+                && (emergencyContact == null || emergencyContactAdded) && userAdded)) {
             return false;
         }
 
@@ -191,9 +189,14 @@ public class Database {
         return true;
     }
 
-    public void createReliefRequest(String description, Location location, ArrayList<LivingBeing> livingBeings, ArrayList<ReliefType> reliefTypes) {
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings);
-        requests.add(reliefRequest);
+    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings) {
+        HashSet<ReliefType> reliefTypes = new HashSet<>();
+        for (LivingBeing livingBeing: livingBeings) {
+            reliefTypes.addAll(livingBeing.getReliefNeeds());
+        }
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes));
+        if (author != null) author.getUserReliefRequests().add(reliefRequest);
+        return requests.add(reliefRequest);
     }
 
     public ArrayList<LivingBeing> getLivingBeings() {

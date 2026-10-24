@@ -7,6 +7,7 @@ module com.pending.hurricanerelief {
     requires javafx.web;
     requires json.simple;
     requires jdk.jshell;
+    requires java.desktop;
 
 
     opens com.pending.hurricanerelief to javafx.fxml;

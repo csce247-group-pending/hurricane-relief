@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 import com.pending.model.enums.Skill;
 
@@ -55,5 +56,16 @@ public class ShelterManager extends Volunteer {
 
     public void setShelterUUIDReference(UUID shelterUUIDReference) {
         this.shelterUUIDReference = shelterUUIDReference;
+    }
+
+    @Override
+    public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
+        return shelter.checkIn(livingBeings);
+    }
+
+    @Override
+    public boolean closeReliefRequest(ReliefRequest reliefRequest) {
+        reliefRequest.setStatus(ReliefStatus.COMPLETED);
+        return true;
     }
 }

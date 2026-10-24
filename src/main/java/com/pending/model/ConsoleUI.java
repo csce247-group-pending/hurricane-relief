@@ -1,13 +1,17 @@
 package com.pending.model;
 
 import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -29,11 +33,8 @@ public class ConsoleUI {
      * Runs the current terminal scenarios.
      */
     public void run() {
-        readAndPrintSheltersScenario();
-        loginScenario("heisenberg@aol.com", "!mTh3Cook");
-        // createAccountAndLoginScenario();
+        createReliefRequestScenario();
         readAndPrintReliefRequests();
-        getShelterTimes();
     }
 
     /**
@@ -165,17 +166,70 @@ public class ConsoleUI {
         LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
         String password = "Buddy1&";
 
-        boolean accountCreationSuccess = app.requestCreateAccount(firstName, lastName, dateOfBirth, password, new Location("SC", "Charleston", "32 Legare St", "29401"), new Contact("jimmycarter@gmail.comm", "8439847569", ContactPreference.CALL), null);
+        boolean accountCreationSuccess = app.requestCreateAccount(
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                new Location("SC", "Charleston", "32 Legare St", "29401"),
+                new Contact("jimmycarter@gmail.com", "8439847569", ContactPreference.CALL),
+                new Contact("doriscarter@gmail.com", "8433458910", ContactPreference.TEXT)
+        );
         if (!accountCreationSuccess) {
+            System.out.println("Account creation failed");
+        }
+
+        if (!app.attemptLogin("jimmycarter@gmail.com", password)) {
+            System.out.println("Login failed");
             return;
         }
 
-        ArrayList<ReliefType> reliefTypes = new ArrayList<>();
-        reliefTypes.add(ReliefType.MEDICAL_CARE);
-        reliefTypes.add(ReliefType.TRANSPORTATION);
-        reliefTypes.add(ReliefType.SHELTER);
-        reliefTypes.add(ReliefType.PET_SHELTER);
-        app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", reliefTypes);
+        app.getCurrentUser().setReliefNeeds(new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER)));
+
+        ArrayList<LivingBeing> family = new ArrayList<>();
+        family.add((LivingBeing) app.getCurrentUser());
+        family.add(new LivingBeing(
+                "Doris",
+                "Carter",
+                LocalDate.parse("1954-05-23"),
+                LivingBeingType.HUMAN,
+                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
+        ));
+        family.add(new LivingBeing(
+                "Sophie",
+                "Carter",
+                LocalDate.parse("1954-05-23"),
+                LivingBeingType.HUMAN,
+                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
+        ));
+        family.add(new LivingBeing(
+                "Buddy",
+                "Carter",
+                LocalDate.parse("2021-01-15"),
+                LivingBeingType.PET,
+                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
+        ));
+        System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
+                "Request posted successfully." : "Request upload failed.");
+        app.logout();
+    }
+
+    public void acceptReliefRequestScenario() {
+        String email = "rosa.delgado@example.com";
+        String password = "RosaStrong2026!";
+
+        if (!app.attemptLogin("jimmycarter@gmail.com", password)) {
+            System.out.println("Login failed");
+            return;
+        }
+
+        ArrayList<ReliefRequest> reliefRequests = app.getReliefRequests();
+        app.acceptReliefRequest(reliefRequests.getFirst());
+        app.logout();
+    }
+
+    public void checkIntoShelterScenario() {
+
     }
 
     /**

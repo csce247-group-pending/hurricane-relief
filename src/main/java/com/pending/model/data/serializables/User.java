@@ -34,9 +34,9 @@ public class User extends LivingBeing {
         this.emergencyContact = emergencyContact;
         this.userReliefRequests = new ArrayList<>();
 
-        userContactUUIDReference = UUID.randomUUID();
-        emergencyContactUUIDReference = UUID.randomUUID();
-        locationUUIDReference = UUID.randomUUID();
+        userContactUUIDReference = userContact.getId();
+        emergencyContactUUIDReference = emergencyContact == null? null : emergencyContact.getId();
+        locationUUIDReference = location.getId();
 
         userReliefRequestsUUIDReference = new ArrayList<>();
 
@@ -126,6 +126,18 @@ public class User extends LivingBeing {
 
     public void setEmergencyContactUUIDReference(UUID emergencyContactUUIDReference) {
         this.emergencyContactUUIDReference = emergencyContactUUIDReference;
+    }
+
+    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        return false;
+    }
+
+    public boolean closeReliefRequest(ReliefRequest reliefRequest) {
+        return false;
+    }
+
+    public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
+        return false;
     }
 
     public String toString() {

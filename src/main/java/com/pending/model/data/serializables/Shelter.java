@@ -2,8 +2,10 @@ package com.pending.model.data.serializables;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONShelter;
 import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ShelterStatus;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -168,8 +170,17 @@ public class Shelter extends Serializable {
         this.managerUUIDReference = managerUUIDReference;
     }
 
-    public void checkIn(ArrayList<LivingBeing> livingBeings) {
-
+    public boolean checkIn(ArrayList<LivingBeing> livingBeings) {
+        ArrayList<LivingBeing> occupantsToAdd = new ArrayList<>();
+        for (LivingBeing livingBeing: livingBeings) {
+            if (livingBeing.getType() == LivingBeingType.PET && !accomodatesPets) {
+                return false;
+            } else {
+                occupantsToAdd.add(livingBeing);
+            }
+        }
+        occupants.addAll(occupantsToAdd);
+        return true;
     }
 
     @Override

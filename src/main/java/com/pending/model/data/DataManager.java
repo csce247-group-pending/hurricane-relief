@@ -130,7 +130,8 @@ public class DataManager {
      *
      * @param object the JSON object to write
      */
-    public void write(JSONObject object) {
+    public void write(JSONObject object) throws ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("Not implemented");
     }
 
     /**
