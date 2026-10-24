@@ -1,15 +1,15 @@
 package com.pending.model.data;
 
-import jdk.jshell.spi.ExecutionControl;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
+import jdk.jshell.spi.ExecutionControl;
 
 /**
  * Reads and writes application data files.
@@ -20,6 +20,7 @@ public class DataManager {
     private JSONParser parser;
     private String filename;
     private FileMode mode = FileMode.JSON;
+    private static final String TXT_DESTINATION = "./out/export_files/";
 
     /**
      * Creates a DataManager for a specific data file.
@@ -131,6 +132,22 @@ public class DataManager {
      * @param object the JSON object to write
      */
     public void write(JSONObject object) {
+    }
+
+    public boolean writeTxt(String toWrite, String outputFileName) {
+        outputFileName += TXT_DESTINATION + outputFileName;
+
+        System.out.println("[LOG] Attempting to Write: " + outputFileName);
+
+        try(FileWriter writer = new FileWriter(outputFileName)) {
+            writer.write(toWrite);
+
+        } catch (Exception e) {
+            System.out.println("[ERROR] Error exporting files");
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     /**

@@ -128,9 +128,13 @@ public class User extends LivingBeing {
         this.emergencyContactUUIDReference = emergencyContactUUIDReference;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public String toString() {
         return "User " + getFirstName() + " " + getLastName() + ": "
-            + "\n\tAge: TO BE DETERMINED"
+            + "\n\tAge: " + getAge()
             + "\n\tContact Info: " + getUserContact()
             + "\n\tLocation: " + getLocation();
     }

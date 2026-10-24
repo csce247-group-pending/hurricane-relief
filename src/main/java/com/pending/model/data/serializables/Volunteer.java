@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.pending.model.enums.JSONFile;
-import com.pending.model.enums.ReliefType;
 import com.pending.model.data.SkillSort;
+import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.ReliefType;
 
 
@@ -72,5 +71,26 @@ public class Volunteer extends User {
     public void closeReliefRequest(ReliefRequest reliefRequest) {
         System.out.println("Permission denied");
         System.out.printf("Reason: you're a chud and your mom's a chud");
+    }
+
+    /**
+     * Takes task and exports it to a txt file that has
+     * directions to the relief request and to the shelter
+     * 
+     * @return boolean of whether the file was successfully made
+     */
+    public String exportTripInformation() {
+        String toWrite = "Relief Request Trip Information:";
+        toWrite += "\n" + task.toString();
+        // add directions to Carter home
+        toWrite += "\nDirections to Task from Current Location:";
+
+        // add directions to shelter + shelter informations
+        toWrite += "\nShelter Information:";
+
+        toWrite += "\nDirections to Shelter from Task:";
+
+        
+        return toWrite;
     }
 }

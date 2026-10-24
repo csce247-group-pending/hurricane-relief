@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.pending.model.data.serializables.Volunteer;
+
 /**
  * Stores objects of one Serializable type and connects them to a data file.
  *
@@ -222,5 +224,9 @@ public class DataList<T extends Serializable> {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean exportTripInformation(String toWrite, String outputFileName) {
+        return dataManager.writeTxt(toWrite, outputFileName);
     }
 }

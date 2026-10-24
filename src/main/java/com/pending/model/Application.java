@@ -11,6 +11,7 @@ import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
@@ -127,7 +128,7 @@ public class Application {
      * @return the user's first and last name
      */
     public String getUserFullName() {
-        return currentUser.getFirstName() + " " + currentUser.getLastName();
+        return currentUser.getFullName();
     }
 
     /**
@@ -249,5 +250,17 @@ public class Application {
      */
     public void startRequest() {
         // must role check for Volunteer
+        if (currentUser instanceof Volunteer volunteer) {
+
+        }
+    }
+
+    public boolean exportTripInformation() {
+        
+        if (currentUser instanceof Volunteer volunteer) {
+            return database.exportTripInformation(volunteer);
+        }
+
+        return false;
     }
 }

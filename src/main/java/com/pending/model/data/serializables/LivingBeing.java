@@ -8,7 +8,6 @@ import com.pending.model.data.serializables.behaviors.SerializeJSONLivingBeing;
 import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
-import org.json.simple.JSONArray;
 
 public class LivingBeing extends Serializable {
     public static final String file = JSONFile.LIVING_BEINGS.getFilename();
@@ -93,7 +92,14 @@ public class LivingBeing extends Serializable {
 
     @Override
     public String toString() {
+
+        String reliefNeedsString = "Relief Needs:";
+        for(ReliefType need: reliefNeeds) {
+            reliefNeedsString += " " + need;
+        }
+
         return "Name: " + firstName + " " + lastName
-                + " is a " + type + " Age: " + getAge();
+                + " is a " + type + " Age: " + getAge()
+                + (!reliefNeeds.isEmpty() ? "\n\t" + reliefNeedsString : "");
     }
 }

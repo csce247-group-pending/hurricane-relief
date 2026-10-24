@@ -6,7 +6,15 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.UUID;
 
-import com.pending.model.data.serializables.*;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.LivingBeing;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -287,5 +295,10 @@ public class Database {
         ArrayList<ReliefRequest> output = getRequests();
         output.sort(Comparator.comparing(filter::filter));
         return output;
+    }
+
+    public boolean exportTripInformation(Volunteer volunteer) {
+        String outputFile = volunteer.getFirstName() + "_relief_task.txt";
+        return volunteers.exportTripInformation(volunteer.exportTripInformation(), outputFile);
     }
 }
