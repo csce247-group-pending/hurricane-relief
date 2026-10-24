@@ -18,6 +18,7 @@ public class Shelter extends Serializable {
     private Contact contactInfo;
     private int capacity;
     private ArrayList<LivingBeing> occupants;
+    private ArrayList<UUID> occupantsByUUID;
 
     private ArrayList<Volunteer> volunteers;
     private ArrayList<UUID> volunteersByUUID;
@@ -46,6 +47,7 @@ public class Shelter extends Serializable {
         this.location = location;
         this.capacity = capacity;
         this.occupants = new ArrayList<>();
+        this.occupantsByUUID = new ArrayList<>();
         this.volunteers = volunteers == null
                 ? new ArrayList<Volunteer>()
                 : new ArrayList<Volunteer>(volunteers);
@@ -106,6 +108,10 @@ public class Shelter extends Serializable {
 
     public ArrayList<LivingBeing> getOccupants() {
         return occupants;
+    }
+
+    public ArrayList<UUID> getOccupantsUUIDReference() {
+    return occupantsByUUID;
     }
 
     public boolean addOccupant(LivingBeing occupant) {

@@ -4,26 +4,36 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 
+import com.pending.model.data.serializables.behaviors.SerializeJSONLivingBeing;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
 public class LivingBeing extends Serializable {
+    public static final String file = "json/livingbeings.json";
+
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private LivingBeingType type;
     private ArrayList<ReliefType> reliefNeeds;
 
-    public LivingBeing(String firstName, String lastName, LocalDate dateOfBirth, LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
+    public LivingBeing(String firstName, String lastName,
+            LocalDate dateOfBirth, LivingBeingType type,
+            ArrayList<ReliefType> reliefNeeds) {
+
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.type = type;
         setReliefNeeds(reliefNeeds);
+
+        serializeBehavior = new SerializeJSONLivingBeing<>(this);
     }
 
     public LivingBeing() {
-        this("", "", LocalDate.now(), LivingBeingType.PET, new ArrayList<>());
+        this("", "", LocalDate.now(), LivingBeingType.PET,
+                new ArrayList<>());
     }
 
     public LocalDate getDateOfBirth() {
@@ -63,11 +73,9 @@ public class LivingBeing extends Serializable {
     }
 
     public void setReliefNeeds(ArrayList<ReliefType> reliefNeeds) {
-        if(reliefNeeds == null) {
-            this.reliefNeeds = new ArrayList<>();
-        } else {
-             this.reliefNeeds = reliefNeeds;
-        }
+        this.reliefNeeds = reliefNeeds == null
+                ? new ArrayList<>()
+                : reliefNeeds;
     }
 
     public boolean addReliefNeed(ReliefType need) {
@@ -79,14 +87,12 @@ public class LivingBeing extends Serializable {
     }
 
     public int getAge() {
-        LocalDate birthDate = LocalDate.of(2000, 4, 15);
-        LocalDate currentDate = LocalDate.now();
-        
-        return Period.between(birthDate, currentDate).getYears();
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
     @Override
     public String toString() {
-        return "Name: " + firstName + " is a " + type + " Age: " + getAge() ;
+        return "Name: " + firstName + " " + lastName
+                + " is a " + type + " Age: " + getAge();
     }
 }

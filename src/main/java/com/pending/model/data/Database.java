@@ -24,7 +24,8 @@ import com.pending.model.enums.ReliefType;
 /**
  * Stores and manages all application data lists.
  * This class reads data from JSON files and provides access to users,
- * contacts, locations, shelters, relief requests, and hurricanes.
+ * contacts, locations, shelters, relief requests, hurricanes, and
+ * living beings.
  */
 public class Database {
     private final DataList<User> users;
@@ -36,8 +37,8 @@ public class Database {
     private final DataList<Location> locations;
     private final DataList<LivingBeing> livingBeings;
 
-    private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
-
+    private HashMap<Class<? extends Serializable>,
+            DataList<? extends Serializable>> dataLists;
 
     private static Database database;
 
@@ -66,7 +67,7 @@ public class Database {
         dataLists.put(Location.class, locations);
 
         livingBeings = DataList.getInstance(LivingBeing.class);
-
+        dataLists.put(LivingBeing.class, livingBeings);
     }
 
     /**
@@ -139,7 +140,8 @@ public class Database {
                 u -> email.equals(u.getUserContact().getEmail())
         );
 
-        return user == null || !password.equals(user.getPassword()) ? null : user;
+        return user == null || !password.equals(user.getPassword())
+                ? null : user;
     }
 
     /**
@@ -148,6 +150,7 @@ public class Database {
      * @param firstName the user's first name
      * @param lastName the user's last name
      * @param dateOfBirth the user's date of birth
+     * @param reliefNeeds the user's relief needs
      * @param password the user's password
      * @param location the user's location
      * @param userContact the user's primary contact information
@@ -155,28 +158,30 @@ public class Database {
      * @return true if the account was created successfully; otherwise false
      */
     public boolean createAccount(String firstName, String lastName,
-                                 LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds,
-                                 String password,
-                                 Location location, Contact userContact,
-                                 Contact emergencyContact) {
+            LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds,
+            String password, Location location, Contact userContact,
+            Contact emergencyContact) {
 
         User existingUser = users.getObject(
-                user -> userContact.getEmail().equals(user.getUserContact().getEmail())
+                user -> userContact.getEmail()
+                        .equals(user.getUserContact().getEmail())
         );
 
         if (existingUser != null) {
             return false;
         }
 
-        User newUser = new User(firstName, lastName, dateOfBirth, reliefNeeds, password,
-                location, userContact, emergencyContact);
+        User newUser = new User(firstName, lastName, dateOfBirth,
+                reliefNeeds, password, location, userContact,
+                emergencyContact);
 
         boolean locationAdded = locations.add(location);
         boolean userContactAdded = contacts.add(userContact);
         boolean emergencyContactAdded = contacts.add(emergencyContact);
         boolean userAdded = users.add(newUser);
 
-        if (!locationAdded || !userContactAdded || !emergencyContactAdded || !userAdded) {
+        if (!locationAdded || !userContactAdded
+                || !emergencyContactAdded || !userAdded) {
             return false;
         }
 
@@ -188,196 +193,100 @@ public class Database {
     }
 
     public void createReliefRequest(String description, Location location,
-                                    ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, status, livingBeings);
+            ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
+        ReliefRequest reliefRequest = new ReliefRequest(
+                description, location, status, livingBeings);
         requests.add(reliefRequest);
     }
 
-    /**
-     * Gets all users.
-     *
-     * @return a list of all users
-     */
+    public ArrayList<LivingBeing> getLivingBeings() {
+        return livingBeings.getAll();
+    }
+
     public ArrayList<User> getUsers() {
         return users.getAll();
     }
 
-    /**
-     * Gets users that match a filter.
-     *
-     * @param filter the filter used to select users
-     * @return a list of matching users
-     */
     public ArrayList<User> getUsers(Filter<User> filter) {
         return users.filterByAttribute(filter);
     }
 
-    /**
-     * Gets all relief requests.
-     *
-     * @return a list of all relief requests
-     */
     public ArrayList<ReliefRequest> getRequests() {
         return requests.getAll();
     }
 
-    /**
-     * Gets relief requests that match a filter.
-     *
-     * @param filter the filter used to select relief requests
-     * @return a list of matching relief requests
-     */
-    public ArrayList<ReliefRequest> getRequests(Filter<ReliefRequest> filter) {
+    public ArrayList<ReliefRequest> getRequests(
+            Filter<ReliefRequest> filter) {
         return requests.filterByAttribute(filter);
     }
 
-    /**
-     * Gets all hurricanes.
-     *
-     * @return a list of all hurricanes
-     */
     public ArrayList<Hurricane> getHurricanes() {
         return hurricanes.getAll();
     }
 
-    /**
-     * Gets hurricanes that match a filter.
-     *
-     * @param filter the filter used to select hurricanes
-     * @return a list of matching hurricanes
-     */
     public ArrayList<Hurricane> getHurricanes(Filter<Hurricane> filter) {
         return hurricanes.filterByAttribute(filter);
     }
 
-    /**
-     * Gets all shelters.
-     *
-     * @return a list of all shelters
-     */
     public ArrayList<Shelter> getShelters() {
         return shelters.getAll();
     }
 
-    /**
-     * Gets shelters that match a filter.
-     *
-     * @param filter the filter used to select shelters
-     * @return a list of matching shelters
-     */
     public ArrayList<Shelter> getShelters(Filter<Shelter> filter) {
         return shelters.filterByAttribute(filter);
     }
 
-    /**
-     * Gets all contacts.
-     *
-     * @return a list of all contacts
-     */
     public ArrayList<Contact> getContacts() {
         return contacts.getAll();
     }
 
-    /**
-     * Gets contacts that match a filter.
-     *
-     * @param filter the filter used to select contacts
-     * @return a list of matching contacts
-     */
     public ArrayList<Contact> getContacts(Filter<Contact> filter) {
         return contacts.filterByAttribute(filter);
     }
 
-    /**
-     * Gets all locations.
-     *
-     * @return a list of all locations
-     */
     public ArrayList<Location> getLocations() {
         return locations.getAll();
     }
 
-    /**
-     * Gets locations that match a filter.
-     *
-     * @param filter the filter used to select locations
-     * @return a list of matching locations
-     */
     public ArrayList<Location> getLocations(Filter<Location> filter) {
         return locations.filterByAttribute(filter);
     }
 
-    /**
-     * Finds a user by UUID.
-     *
-     * @param id the user's UUID
-     * @return the matching user, or null if not found
-     */
+    public LivingBeing getLivingBeingByUUID(UUID id) {
+        return livingBeings.getObjectByUUID(id);
+    }
+
     public User getUserByUUID(UUID id) {
         return users.getObjectByUUID(id);
     }
 
-    /**
-     * Finds a relief request by UUID.
-     *
-     * @param id the relief request UUID
-     * @return the matching relief request, or null if not found
-     */
     public ReliefRequest getReliefRequestByUUID(UUID id) {
         return requests.getObjectByUUID(id);
     }
 
-    /**
-     * Finds a hurricane by UUID.
-     *
-     * @param id the hurricane UUID
-     * @return the matching hurricane, or null if not found
-     */
     public Hurricane getHurricaneByUUID(UUID id) {
         return hurricanes.getObjectByUUID(id);
     }
 
-    /**
-     * Finds a shelter by UUID.
-     *
-     * @param id the shelter UUID
-     * @return the matching shelter, or null if not found
-     */
     public Shelter getShelterByUUID(UUID id) {
         return shelters.getObjectByUUID(id);
     }
 
-    /**
-     * Finds a contact by UUID.
-     *
-     * @param id the contact UUID
-     * @return the matching contact, or null if not found
-     */
     public Contact getContactByUUID(UUID id) {
         return contacts.getObjectByUUID(id);
     }
 
-    /**
-     * Finds a location by UUID.
-     *
-     * @param id the location UUID
-     * @return the matching location, or null if not found
-     */
     public Location getLocationByUUID(UUID id) {
         return locations.getObjectByUUID(id);
     }
 
-    /**
-     * Gets the data list associated with a Serializable class.
-     *
-     * @param cls the Serializable class
-     * @return the matching data list
-     */
-    public DataList<? extends Serializable> get(Class<? extends Serializable> cls) {
+    public DataList<? extends Serializable> get(
+            Class<? extends Serializable> cls) {
         return dataLists.get(cls);
     }
 
-    public ArrayList<ReliefRequest> getSortedReliefRequests(PriorityFilter<ReliefRequest> filter) {
+    public ArrayList<ReliefRequest> getSortedReliefRequests(
+            PriorityFilter<ReliefRequest> filter) {
         ArrayList<ReliefRequest> output = getRequests();
         output.sort(Comparator.comparing(filter::filter));
         return output;
