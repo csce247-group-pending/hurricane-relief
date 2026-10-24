@@ -1,6 +1,10 @@
 [
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000001",
+=======
+    "id": "5462113a-3ad7-4a0f-9250-8470da6b142d",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Maria",
     "last_name": "Gonzalez",
     "date_of_birth": "1985-03-14",
@@ -8,7 +12,11 @@
     "relief_needs": ["FOOD", "WATER", "SHELTER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000002",
+=======
+    "id": "4805036d-0577-40c2-87ae-78f8f8bbaac1",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "James",
     "last_name": "Carter",
     "date_of_birth": "1952-11-02",
@@ -16,7 +24,11 @@
     "relief_needs": ["MEDICAL_CARE", "EVACUATION", "TRANSPORTATION"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000003",
+=======
+    "id": "2a24793a-294a-46e7-a125-4f357c439ae0",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Aaliyah",
     "last_name": "Johnson",
     "date_of_birth": "2015-07-21",
@@ -24,7 +36,11 @@
     "relief_needs": ["FOOD", "WATER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000004",
+=======
+    "id": "f1ef0296-1145-4456-afa5-4e5b4251df7d",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Robert",
     "last_name": "Nguyen",
     "date_of_birth": "1978-01-30",
@@ -32,7 +48,11 @@
     "relief_needs": ["TRANSPORTATION", "SHELTER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000005",
+=======
+    "id": "e708a081-eac5-4902-b5a8-b01b9bc67b05",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Linda",
     "last_name": "Whitaker",
     "date_of_birth": "1944-09-09",
@@ -40,7 +60,11 @@
     "relief_needs": ["MEDICAL_CARE", "EVACUATION", "WATER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000006",
+=======
+    "id": "0fd7bbb3-c3ee-4a57-a2b9-0acd4133e9cb",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Buddy",
     "last_name": "Gonzalez",
     "date_of_birth": "2018-05-12",
@@ -48,7 +72,11 @@
     "relief_needs": ["PET_SHELTER", "FOOD", "WATER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000007",
+=======
+    "id": "c9a87381-0bb2-4b54-a293-c1fe17ab8f30",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Luna",
     "last_name": "Carter",
     "date_of_birth": "2020-10-03",
@@ -56,7 +84,11 @@
     "relief_needs": ["PET_SHELTER", "EVACUATION"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000008",
+=======
+    "id": "2245bf1b-3557-43ca-be63-ab373a3b482f",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Daniel",
     "last_name": "Okafor",
     "date_of_birth": "1992-06-18",
@@ -64,7 +96,11 @@
     "relief_needs": ["OTHER"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000009",
+=======
+    "id": "095cf4c9-af88-4bdb-8a81-47bd09d004b7",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Max",
     "last_name": "Nguyen",
     "date_of_birth": "2016-12-25",
@@ -72,7 +108,11 @@
     "relief_needs": ["PET_SHELTER", "MEDICAL_CARE", "TRANSPORTATION"]
   },
   {
+<<<<<<< HEAD
     "id": "0e91b1a0-3f5b-4b5a-ae86-501a0f000010",
+=======
+    "id": "badb7377-a046-4f4a-bb52-c35dc38805a2",
+>>>>>>> 4dd740f (Add UUIDs to livingbeings.json)
     "first_name": "Evelyn",
     "last_name": "Brooks",
     "date_of_birth": "2001-04-07",
