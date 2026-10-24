@@ -81,6 +81,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         if (managerId != null) {
             jsonObject.put("manager", managerId.toString());
         }
+        jsonObject.put("status", serializable.getStatus().name());
+        jsonObject.put("contact_info", serializable.getContactInfo().serialize());
 
         return jsonObject;
     }
@@ -90,10 +92,9 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setId(
                 UUID.fromString((String) jsonObject.get("id")));
         serializable.setName((String) jsonObject.get("name"));
-        serializable.setLocationUUIDReference(
-                UUID.fromString((String) jsonObject.get("location")));
-        serializable.setContactUUIDReference(
-                UUID.fromString((String) jsonObject.get("contact")));
+        serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
+        serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
+        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact_info")));
         serializable.setCapacity(
                 ((Long) jsonObject.get("capacity")).intValue());
         serializable.setStatus(

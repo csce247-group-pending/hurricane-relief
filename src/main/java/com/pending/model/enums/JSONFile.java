@@ -8,7 +8,8 @@ public enum JSONFile {
     REQUESTS("json/requests.json"),
     SHELTERS("json/shelters.json"),
     USERS("json/users.json"),
-    VOLUNTEERS("json/volunteers.json");
+    VOLUNTEERS("json/volunteers.json"),
+    LIVING_BEINGS("json/livingbeings.json");
 
     private String filename;
 

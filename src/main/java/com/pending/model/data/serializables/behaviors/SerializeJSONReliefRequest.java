@@ -3,6 +3,7 @@ package com.pending.model.data.serializables.behaviors;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.data.serializables.Volunteer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -31,6 +32,9 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
 
         jsonObject.put("types", reliefTypes);
         jsonObject.put("contact", serializable.getContactInfo().serialize());
+        if (serializable.getAssignedTo() != null) {
+            jsonObject.put("assigned_to", serializable.getAssignedTo().getId().toString());
+        }
         return jsonObject;
     }
 
@@ -48,6 +52,8 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
                 (JSONArray) jsonObject.get("types")) {
             reliefTypes.add(ReliefType.valueOf((String) reliefType));
         }
+
+        serializable.setAssignedToUUIDReference(jsonObject.get("assigned_to") == null? null : UUID.fromString((String) jsonObject.get("assigned_to")));
     }
 
     @Override
@@ -56,5 +62,6 @@ public class SerializeJSONReliefRequest extends SerializeJSON<ReliefRequest> {
 
         serializable.setLocation(database.getLocationByUUID(serializable.getLocationUUIDReference()));
         serializable.setContactInfo(database.getContactByUUID(serializable.getContactUUIDReference()));
+        if (serializable.getAssignedToUUIDReference() != null) serializable.setAssignedTo((Volunteer) database.getUserByUUID(serializable.getAssignedToUUIDReference()));
     }
 }

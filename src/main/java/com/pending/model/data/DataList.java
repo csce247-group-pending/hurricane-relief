@@ -58,6 +58,7 @@ public class DataList<T extends Serializable> {
     public void read() {
         try {
             objects.clear();
+            objectsById.clear();
 
             ArrayList<?> dataObjects = dataManager.read();
 
@@ -206,6 +207,7 @@ public class DataList<T extends Serializable> {
      * @return true if the object was removed; otherwise false
      */
     public boolean remove(T object) {
+        objectsById.remove(object.getId());
         return objects.remove(object);
     }
 

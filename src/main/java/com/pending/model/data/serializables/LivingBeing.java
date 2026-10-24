@@ -5,12 +5,13 @@ import java.time.Period;
 import java.util.ArrayList;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONLivingBeing;
+import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
+import org.json.simple.JSONArray;
 
 public class LivingBeing extends Serializable {
-    public static final String file = "json/livingbeings.json";
-
+    public static final String file = JSONFile.LIVING_BEINGS.getFilename();
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
