@@ -1,1 +1,140 @@
-[{"contact_preference":"EMAIL","phone":"8035766765","id":"42355785-2e10-4df8-a497-16c8af5c5a1c","email":"pplante@cse.sc.edu"},{"contact_preference":"TEXT","phone":"8037772001","id":"f340bd1e-ac2d-465d-9dae-eadff3aea712","email":"president@email.sc.edu"},{"contact_preference":"CALL","phone":"5051178987","id":"6c4f57ba-80e6-4e20-89ab-b99406b6a9cb","email":"heisenberg@aol.com"},{"contact_preference":"CALL","phone":"5055034455","id":"991ec306-98dc-4dbb-bbdc-225e99b356f3","email":"JamesMcGill312@earthlink.net"},{"contact_preference":"TEXT","phone":"9254206769","id":"716e2075-5d56-482f-b109-c3068b50528d","email":"super.helpful.hurricane.volunteer@protonmail.com"},{"contact_preference":"EMAIL","phone":"2024567041","id":"1d70cd7d-7b6f-4363-b3d2-6b94eae75815","email":"president@whitehouse.gov"},{"contact_preference":"TEXT","phone":"8039999999","id":"0108660c-72df-41af-8ada-397bd344ef27","email":"averagejoe@gmail.com"},{"contact_preference":"CALL","phone":"8030000000","id":"c2bb4710-f6bf-4b2a-bb57-75b254a80d50","email":"exceptionaljoe@outlook.com"},{"contact_preference":"EMAIL","phone":"8035550148","id":"e35df1e1-09d7-4c2c-9c55-b082402d0001","email":"rosa.delgado@example.com"},{"contact_preference":"CALL","phone":"8035550197","id":"e35df1e1-09d7-4c2c-9c55-b082402d0002","email":"elena.delgado@example.com"},{"contact_preference":"CALL","phone":"8035551100","id":"d769cf63-7be4-4c9a-a741-2a987b123401","email":"best.shelter@example.com"},{"contact_preference":"CALL","phone":"8035552200","id":"d769cf63-7be4-4c9a-a741-2a987b123402","email":"worst.shelter@example.com"},{"contact_preference":"TEXT","phone":"8435551234","id":"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d","email":"jane.doe.chs@gmail.com"},{"contact_preference":"CALL","phone":"843-555-0100","id":"b5ed012f-1f6f-42d0-af50-d2d0de8f0a3d","email":"military.magnet.academy@shelters.example.org"},{"contact_preference":"EMAIL","phone":"843-555-0101","id":"f54b5b37-9059-4771-932c-328321db34d2","email":"north.charleston.caes@shelters.example.org"},{"contact_preference":"TEXT","phone":"843-555-0102","id":"fca3671f-4b1a-424b-94f2-67f41eb194ae","email":"bond.court.shelter@shelters.example.org"},{"contact_preference":"CALL","phone":"843-555-0103","id":"b061b16a-db92-4072-8ea9-37ff24c4985a","email":"stall.high.school@shelters.example.org"},{"contact_preference":"EMAIL","phone":"843-555-0104","id":"162654ca-76c6-4e6b-88f9-ec9f8558f60a","email":"zucker.middle.school@shelters.example.org"},{"contact_preference":"CALL","phone":"843-555-0105","id":"c822476c-2d72-4385-aa55-f2bcfe23009d","email":"cane.bay.high.school@shelters.example.org"},{"contact_preference":"TEXT","phone":"843-555-0106","id":"84e18be2-3545-427b-aea2-75a75aeb43e1","email":"st.stephen.elementary@shelters.example.org"},{"contact_preference":"CALL","phone":"843-555-0107","id":"e76068b6-1273-46dc-ba12-9eefb3cf5d80","email":"macedonia.middle.school@shelters.example.org"},{"contact_preference":"EMAIL","phone":"843-555-0108","id":"3ed889a4-6bb3-4b59-9a12-32c64255011e","email":"westview.middle.school@shelters.example.org"},{"contact_preference":"CALL","phone":"843-555-0109","id":"39ad13f4-5f0c-4ba1-89e2-86ac3249352f","email":"summerville.high.school@shelters.example.org"},{"contact_preference":"EMAIL","phone":"843-741-8529","id":"b3bbd75a-43f5-47c4-99ea-510c9760b618","email":"pianoboiii1809@pigeonmail.old"},{"contact_preference":"CALL","phone":"8439847569","id":"9501e70b-7127-4537-bd02-df8eca8219eb","email":"jimmycarter@gmail.com"},{"contact_preference":"TEXT","phone":"8433458910","id":"6a402b11-c9cf-43dd-9e7e-616e65fd98a7","email":"doriscarter@gmail.com"}]
+[
+  {
+    "id": "42355785-2e10-4df8-a497-16c8af5c5a1c",
+    "email": "pplante@cse.sc.edu",
+    "phone": "8035766765",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "f340bd1e-ac2d-465d-9dae-eadff3aea712",
+    "email": "president@email.sc.edu",
+    "phone": "8037772001",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "6c4f57ba-80e6-4e20-89ab-b99406b6a9cb",
+    "email": "heisenberg@aol.com",
+    "phone": "5051178987",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
+    "email": "JamesMcGill312@earthlink.net",
+    "phone": "5055034455",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "716e2075-5d56-482f-b109-c3068b50528d",
+    "email": "super.helpful.hurricane.volunteer@protonmail.com",
+    "phone": "9254206769",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "1d70cd7d-7b6f-4363-b3d2-6b94eae75815",
+    "email": "president@whitehouse.gov",
+    "phone": "2024567041",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "0108660c-72df-41af-8ada-397bd344ef27",
+    "email": "averagejoe@gmail.com",
+    "phone": "8039999999",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "c2bb4710-f6bf-4b2a-bb57-75b254a80d50",
+    "email": "exceptionaljoe@outlook.com",
+    "phone": "8030000000",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "e35df1e1-09d7-4c2c-9c55-b082402d0001",
+    "email": "rosa.delgado@example.com",
+    "phone": "8035550148",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "e35df1e1-09d7-4c2c-9c55-b082402d0002",
+    "email": "elena.delgado@example.com",
+    "phone": "8035550197",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "d769cf63-7be4-4c9a-a741-2a987b123401",
+    "email": "best.shelter@example.com",
+    "phone": "8035551100",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "d769cf63-7be4-4c9a-a741-2a987b123402",
+    "email": "worst.shelter@example.com",
+    "phone": "8035552200",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    "email": "jane.doe.chs@gmail.com",
+    "phone": "8435551234",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "b5ed012f-1f6f-42d0-af50-d2d0de8f0a3d",
+    "email": "military.magnet.academy@shelters.example.org",
+    "phone": "843-555-0100",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "f54b5b37-9059-4771-932c-328321db34d2",
+    "email": "north.charleston.caes@shelters.example.org",
+    "phone": "843-555-0101",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "fca3671f-4b1a-424b-94f2-67f41eb194ae",
+    "email": "bond.court.shelter@shelters.example.org",
+    "phone": "843-555-0102",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "b061b16a-db92-4072-8ea9-37ff24c4985a",
+    "email": "stall.high.school@shelters.example.org",
+    "phone": "843-555-0103",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "162654ca-76c6-4e6b-88f9-ec9f8558f60a",
+    "email": "zucker.middle.school@shelters.example.org",
+    "phone": "843-555-0104",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "c822476c-2d72-4385-aa55-f2bcfe23009d",
+    "email": "cane.bay.high.school@shelters.example.org",
+    "phone": "843-555-0105",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "84e18be2-3545-427b-aea2-75a75aeb43e1",
+    "email": "st.stephen.elementary@shelters.example.org",
+    "phone": "843-555-0106",
+    "contact_preference": "TEXT"
+  },
+  {
+    "id": "e76068b6-1273-46dc-ba12-9eefb3cf5d80",
+    "email": "macedonia.middle.school@shelters.example.org",
+    "phone": "843-555-0107",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "3ed889a4-6bb3-4b59-9a12-32c64255011e",
+    "email": "westview.middle.school@shelters.example.org",
+    "phone": "843-555-0108",
+    "contact_preference": "EMAIL"
+  },
+  {
+    "id": "39ad13f4-5f0c-4ba1-89e2-86ac3249352f",
+    "email": "summerville.high.school@shelters.example.org",
+    "phone": "843-555-0109",
+    "contact_preference": "CALL"
+  }
+]
