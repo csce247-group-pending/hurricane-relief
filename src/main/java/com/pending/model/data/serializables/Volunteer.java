@@ -4,13 +4,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.ReliefType;
-import com.pending.model.enums.Skill;
 import com.pending.model.data.SkillSort;
 import com.pending.model.enums.ReliefType;
 
 
 public class Volunteer extends User {
+    public static final String file = JSONFile.VOLUNTEERS.getFilename();
     private boolean isAvailable;
     private ArrayList<ReliefType> reliefTypes;
     private ReliefRequest task;
@@ -66,5 +67,10 @@ public class Volunteer extends User {
 
     public SkillSort getSorter() {
         return sorter;
+    }
+
+    public void closeReliefRequest(ReliefRequest reliefRequest) {
+        System.out.println("Permission denied");
+        System.out.printf("Reason: you're a chud and your mom's a chud");
     }
 }

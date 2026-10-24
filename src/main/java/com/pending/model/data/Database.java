@@ -36,6 +36,7 @@ public class Database {
     private final DataList<Contact> contacts;
     private final DataList<Location> locations;
     private final DataList<LivingBeing> livingBeings;
+    private final DataList<Volunteer> volunteers;
 
     private HashMap<Class<? extends Serializable>,
             DataList<? extends Serializable>> dataLists;
@@ -68,6 +69,12 @@ public class Database {
 
         livingBeings = DataList.getInstance(LivingBeing.class);
         dataLists.put(LivingBeing.class, livingBeings);
+<<<<<<< HEAD
+=======
+
+        volunteers = DataList.getInstance(Volunteer.class);
+        dataLists.put(Volunteer.class, volunteers);
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
     }
 
     /**
@@ -85,7 +92,13 @@ public class Database {
      */
     public void write() {
         for (DataList<?> dataList : dataLists.values()) {
+            for (Volunteer volunteer: volunteers.getAll()) {
+                if (users.getAll().contains(volunteer)) {
+                    users.remove(volunteer);
+                }
+            }
             dataList.write();
+            users.getAll().addAll(volunteers.getAll());
         }
     }
 
@@ -192,10 +205,15 @@ public class Database {
         return true;
     }
 
+<<<<<<< HEAD
     public void createReliefRequest(String description, Location location,
             ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
         ReliefRequest reliefRequest = new ReliefRequest(
                 description, location, status, livingBeings);
+=======
+    public void createReliefRequest(String description, Location location, ArrayList<LivingBeing> livingBeings, ArrayList<ReliefType> reliefTypes) {
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings);
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
         requests.add(reliefRequest);
     }
 

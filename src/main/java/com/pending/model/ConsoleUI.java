@@ -1,5 +1,11 @@
 package com.pending.model;
 
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.LivingBeingType;
+import com.pending.model.enums.ReliefType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -151,6 +157,25 @@ public class ConsoleUI {
             System.out.print(shelters.get(i));
             System.out.println("\n\tEst Time: " + (int) (shelterTimes.get(i)/60) + "m");
         } 
+    }
+
+    public void createReliefRequestScenario() {
+        String firstName = "James";
+        String lastName = "Carter";
+        LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
+        String password = "Buddy1&";
+
+        boolean accountCreationSuccess = app.requestCreateAccount(firstName, lastName, dateOfBirth, password, new Location("SC", "Charleston", "32 Legare St", "29401"), new Contact("jimmycarter@gmail.comm", "8439847569", ContactPreference.CALL), null);
+        if (!accountCreationSuccess) {
+            return;
+        }
+
+        ArrayList<ReliefType> reliefTypes = new ArrayList<>();
+        reliefTypes.add(ReliefType.MEDICAL_CARE);
+        reliefTypes.add(ReliefType.TRANSPORTATION);
+        reliefTypes.add(ReliefType.SHELTER);
+        reliefTypes.add(ReliefType.PET_SHELTER);
+        app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", reliefTypes);
     }
 
     /**

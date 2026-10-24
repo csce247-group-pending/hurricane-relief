@@ -4,13 +4,22 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 import com.pending.model.data.serializables.behaviors.SerializeJSONLivingBeing;
+=======
+import com.pending.model.enums.JSONFile;
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
+import org.json.simple.JSONArray;
 
 public class LivingBeing extends Serializable {
+<<<<<<< HEAD
     public static final String file = "json/livingbeings.json";
 
+=======
+    public static final String file = JSONFile.LIVING_BEINGS.getFilename();
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;

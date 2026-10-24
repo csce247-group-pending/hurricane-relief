@@ -86,6 +86,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
 
         jsonObject.put("volunteers", volunteers);
 
+<<<<<<< HEAD
         UUID managerId = serializable.getManager() == null
                 ? serializable.getManagerUUIDReference()
                 : serializable.getManager().getId();
@@ -93,6 +94,10 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         if (managerId != null) {
             jsonObject.put("manager", managerId.toString());
         }
+=======
+        jsonObject.put("status", serializable.getStatus().name());
+        jsonObject.put("contact_info", serializable.getContactInfo().serialize());
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
 
         return jsonObject;
     }
@@ -106,8 +111,12 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
 <<<<<<< HEAD
+<<<<<<< HEAD
         serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
 //        serializable.setOccupants(((Long) jsonObject.get("occupancy")).intValue()); //TODO: fix this
+=======
+        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact_info")));
+>>>>>>> eeb4d9b (Continue implementing serialization for new data types)
 
 =======
 =======

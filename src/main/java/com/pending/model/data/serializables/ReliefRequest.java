@@ -20,6 +20,9 @@ public class ReliefRequest extends Serializable {
     private UUID contactUUIDReference;
     private UUID locationUUIDReference;
 
+    private Volunteer assignedTo;
+    private UUID assignedToUUIDReference;
+
     public ReliefRequest(String description, Location location,
         ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
         super();
@@ -29,6 +32,8 @@ public class ReliefRequest extends Serializable {
         this.status = status;
         this.contactInfo = new Contact();
         this.livingBeings = livingBeings;
+        this.assignedTo = null;
+        this.assignedToUUIDReference = null;
         
         locationUUIDReference = UUID.randomUUID();
         contactUUIDReference = UUID.randomUUID();
@@ -129,6 +134,22 @@ public class ReliefRequest extends Serializable {
 
     public boolean addLivingBeing(LivingBeing livingBeing) {
         return livingBeings.add(livingBeing);
+    }
+
+    public Volunteer getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(Volunteer assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public UUID getAssignedToUUIDReference() {
+        return assignedToUUIDReference;
+    }
+
+    public void setAssignedToUUIDReference(UUID assignedToUUIDReference) {
+        this.assignedToUUIDReference = assignedToUUIDReference;
     }
 }
 
