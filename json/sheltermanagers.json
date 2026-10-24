@@ -4,9 +4,9 @@
     "first_name": "Felix",
     "last_name": "Mendelssohn",
     "password": "S@xUndV10lins",
-    "location": "f623cfd7-c8c8-4b53-9f2d-b196ea124133",
-    "user_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0001",
-    "emergency_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0002",
+    "location": "94cd40c6-7ec3-4164-b40c-16d9c9b18402",
+    "user_contact": "b3bbd75a-43f5-47c4-99ea-510c9760b618",
+    "emergency_contact": "b3bbd75a-43f5-47c4-99ea-510c9760b618",
     "user_relief_requests": [],
     "relief_types": ["SHELTER", "PET_SHELTER"],
     "shelter": "3b1a74ac-c17b-460f-a3f6-9f568f697168"
