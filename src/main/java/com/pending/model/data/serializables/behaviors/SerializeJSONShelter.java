@@ -13,12 +13,27 @@ import com.pending.model.data.serializables.User;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ShelterStatus;
 
+/**
+ * Provides JSON serialization behavior for Shelter objects.
+ * Shelter relationships, including locations, contacts, occupants,
+ * volunteers, and managers, are stored as UUID references.
+ */
 public class SerializeJSONShelter extends SerializeJSON<Shelter> {
 
+    /**
+     * Creates JSON serialization behavior for a shelter.
+     *
+     * @param serializable the shelter managed by this behavior
+     */
     public SerializeJSONShelter(Shelter serializable) {
         super(serializable);
     }
 
+    /**
+     * Converts a shelter into a JSON object with UUID references.
+     *
+     * @return the JSON representation of the shelter
+     */
     @Override
     public JSONObject serialize() {
         JSONObject jsonObject = new JSONObject();
@@ -81,20 +96,24 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         if (managerId != null) {
             jsonObject.put("manager", managerId.toString());
         }
-        jsonObject.put("status", serializable.getStatus().name());
-        jsonObject.put("contact", serializable.getContactInfo().serialize());
 
         return jsonObject;
     }
 
+    /**
+     * Loads shelter fields and UUID references from a JSON object.
+     *
+     * @param jsonObject the JSON object containing shelter data
+     */
     @Override
     public void deserialize(JSONObject jsonObject) {
         serializable.setId(
                 UUID.fromString((String) jsonObject.get("id")));
         serializable.setName((String) jsonObject.get("name"));
-        serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
-        serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
+        serializable.setLocationUUIDReference(
+                UUID.fromString((String) jsonObject.get("location")));
+        serializable.setContactUUIDReference(
+                UUID.fromString((String) jsonObject.get("contact")));
         serializable.setCapacity(
                 ((Long) jsonObject.get("capacity")).intValue());
         serializable.setStatus(
@@ -134,6 +153,9 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         }
     }
 
+    /**
+     * Replaces loaded UUID references with their related objects.
+     */
     @Override
     public void resolveReferences() {
         Database database = Database.getInstance();
