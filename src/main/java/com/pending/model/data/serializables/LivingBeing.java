@@ -8,20 +8,22 @@ import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
 public class LivingBeing extends Serializable {
-    private String primaryName;
+    private String firstName;
+    private String lastName;
     private LocalDate dateOfBirth;
     private LivingBeingType type;
     private ArrayList<ReliefType> reliefNeeds;
 
-    public LivingBeing(String primaryName, LocalDate dateOfBirth, LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
-        this.primaryName = primaryName;
+    public LivingBeing(String firstName, String lastName, LocalDate dateOfBirth, LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.type = type;
         setReliefNeeds(reliefNeeds);
     }
 
     public LivingBeing() {
-        this("", LocalDate.now(), LivingBeingType.PET, new ArrayList<>());
+        this("", "", LocalDate.now(), LivingBeingType.PET, new ArrayList<>());
     }
 
     public LocalDate getDateOfBirth() {
@@ -40,12 +42,20 @@ public class LivingBeing extends Serializable {
         this.type = type;
     }
 
-    public String getPrimaryName() {
-        return primaryName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPrimaryName(String primaryName) {
-        this.primaryName = primaryName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public ArrayList<ReliefType> getReliefNeeds() {

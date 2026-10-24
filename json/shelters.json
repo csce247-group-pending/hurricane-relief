@@ -3,7 +3,11 @@
     "id": "b6332649-0695-402f-9006-12ddd2277128",
     "name": "TheBestShelter",
     "location": "c2b47624-88e1-474d-8482-762f9379a445",
+<<<<<<< HEAD
     "contact": "7f8b91a2-3c4d-4e5f-9a01-2b3c4d5e6f7a",
+=======
+    "contact_info": "7f8b91a2-3c4d-4e5f-9a01-2b3c4d5e6f7a",
+>>>>>>> c070dad (Begin storage for living beings)
     "capacity": 100,
     "occupancy": 70,
     "volunteers": [
@@ -15,7 +19,11 @@
     "id": "abc977ab-0e7e-47d7-930e-4adb0aa8a519",
     "name": "TheWorstShelter",
     "location": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
+<<<<<<< HEAD
     "contact": "9b1c2d3e-4f5a-4b6c-8d7e-1a2b3c4d5e6f",
+=======
+    "contact_info": "9b1c2d3e-4f5a-4b6c-8d7e-1a2b3c4d5e6f",
+>>>>>>> c070dad (Begin storage for living beings)
     "capacity": 20,
     "occupancy": 20,
     "volunteers": [

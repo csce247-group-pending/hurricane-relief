@@ -6,9 +6,10 @@ import java.util.UUID;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONUser;
 import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
-public class User extends Person {
+public class User extends LivingBeing {
     public static String file = JSONFile.USERS.getFilename();
     private String password;
 
@@ -26,7 +27,7 @@ public class User extends Person {
 
     public User(String firstName, String lastName, LocalDate dateOfBirth, ArrayList<ReliefType> reliefNeeds, 
                 String password, Location location, Contact userContact, Contact emergencyContact) {
-        super(firstName, lastName, dateOfBirth, reliefNeeds);
+        super(firstName, lastName, dateOfBirth, LivingBeingType.HUMAN, reliefNeeds);
         this.password = password;
         this.location = location;
         this.userContact = userContact;
