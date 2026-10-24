@@ -24,6 +24,7 @@ public class Database {
     private final DataList<Contact> contacts;
     private final DataList<Location> locations;
     private final DataList<LivingBeing> livingBeings;
+    private final DataList<Volunteer> volunteers;
 
     private HashMap<Class<? extends Serializable>, DataList<? extends Serializable>> dataLists;
 
@@ -55,7 +56,10 @@ public class Database {
         dataLists.put(Location.class, locations);
 
         livingBeings = DataList.getInstance(LivingBeing.class);
+        dataLists.put(LivingBeing.class, livingBeings);
 
+        volunteers = DataList.getInstance(Volunteer.class);
+        dataLists.put(Volunteer.class, volunteers);
     }
 
     /**
@@ -73,7 +77,13 @@ public class Database {
      */
     public void write() {
         for (DataList<?> dataList : dataLists.values()) {
+            for (Volunteer volunteer: volunteers.getAll()) {
+                if (users.getAll().contains(volunteer)) {
+                    users.remove(volunteer);
+                }
+            }
             dataList.write();
+            users.getAll().addAll(volunteers.getAll());
         }
     }
 
@@ -176,9 +186,8 @@ public class Database {
         return true;
     }
 
-    public void createReliefRequest(String description, Location location,
-                                    ReliefStatus status, ArrayList<LivingBeing> livingBeings) {
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, status, livingBeings);
+    public void createReliefRequest(String description, Location location, ArrayList<LivingBeing> livingBeings, ArrayList<ReliefType> reliefTypes) {
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings);
         requests.add(reliefRequest);
     }
 

@@ -39,7 +39,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         jsonObject.put("volunteers", volunteers);
 
         jsonObject.put("status", serializable.getStatus().name());
-        jsonObject.put("contact", serializable.getContactInfo().serialize());
+        jsonObject.put("contact_info", serializable.getContactInfo().serialize());
 
         return jsonObject;
     }
@@ -49,7 +49,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.setName((String) jsonObject.get("name"));
         serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
         serializable.setCapacity(((Long) jsonObject.get("capacity")).intValue());
-        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact")));
+        serializable.setContactUUIDReference(UUID.fromString((String) jsonObject.get("contact_info")));
 
         JSONArray occupants = (JSONArray) jsonObject.get("occupants");
         serializable.getOccupants().clear();

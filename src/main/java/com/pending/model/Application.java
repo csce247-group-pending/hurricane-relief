@@ -13,6 +13,7 @@ import com.pending.model.data.serializables.Shelter;
 import com.pending.model.data.serializables.User;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.ReliefStatus;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Controls application actions and stores the currently logged-in user.
@@ -90,6 +91,11 @@ public class Application {
                 password, location, userContact, emergencyContact);
     }
 
+    public boolean requestCreateAccount(String firstName, String lastName, LocalDate dateOfBirth, String password, Location location, Contact userContact, Contact emergencyContact) {
+        return database.createAccount(firstName, lastName, dateOfBirth,  new ArrayList<>(),
+                password, location, userContact, emergencyContact);
+    }
+
     /**
      * Attempts to log in a user with an email address and password.
      *
@@ -123,8 +129,8 @@ public class Application {
      * Creates a new relief request.
      * This method is not implemented yet.
      */
-    public void createReliefRequest(String description) {
-        database.createReliefRequest(description, currentUser.getLocation(), ReliefStatus.REQUESTED, new ArrayList<LivingBeing>());
+    public void createReliefRequest(String description, ArrayList<ReliefType> reliefTypes) {
+        database.createReliefRequest(description, currentUser.getLocation(), new ArrayList<LivingBeing>(), reliefTypes);
     }
 
     /**
