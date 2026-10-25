@@ -186,4 +186,19 @@ public class Volunteer extends User {
         task = reliefRequest;
         return true;
     }
+
+    @Override
+    public String toString() {
+
+        String skillString = "";
+        if(!reliefTypes.isEmpty()) {
+            skillString = "\n\tRelief Skills: " + reliefTypes.get(0);
+            for(int i = 1; i < reliefTypes.size(); ++i) {
+                skillString += ", " + reliefTypes.get(i);
+            }
+        }
+        return super.toString()
+            + skillString
+            + "\n\tCurrent Task: " + (task != null ? task : "None");
+    }
 }

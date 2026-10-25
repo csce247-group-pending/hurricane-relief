@@ -36,7 +36,7 @@ public class SerializeJSONUser<T extends User>
      */
     @Override
     public JSONObject serialize() {
-        JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = super.serialize();
 
         UUID locationId = serializable.getLocation() == null
                 ? serializable.getLocationUUIDReference()
@@ -50,9 +50,6 @@ public class SerializeJSONUser<T extends User>
                 ? serializable.getEmergencyContactUUIDReference()
                 : serializable.getEmergencyContact().getId();
 
-        jsonObject.put("id", serializable.getId().toString());
-        jsonObject.put("first_name", serializable.getFirstName());
-        jsonObject.put("last_name", serializable.getLastName());
         jsonObject.put("password", serializable.getPassword());
         jsonObject.put("location", locationId.toString());
         jsonObject.put("user_contact", userContactId.toString());
@@ -75,10 +72,8 @@ public class SerializeJSONUser<T extends User>
      */
     @Override
     public void deserialize(JSONObject jsonObject) {
-        serializable.setId(
-                UUID.fromString((String) jsonObject.get("id")));
-        serializable.setFirstName((String) jsonObject.get("first_name"));
-        serializable.setLastName((String) jsonObject.get("last_name"));
+        super.deserialize(jsonObject);
+
         serializable.setPassword((String) jsonObject.get("password"));
 
         serializable.setLocationUUIDReference(

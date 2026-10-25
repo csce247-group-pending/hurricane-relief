@@ -36,11 +36,12 @@ public class ConsoleUI {
     public void run() {
         // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
-        createReliefRequestScenario();
+        // createReliefRequestScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        findShelterAndAssignRequest();
-        exportTripInformation();
-        rolePermissionScenario();
+        // findShelterAndAssignRequest();
+        // exportTripInformation();
+        // rolePermissionScenario();
+        openAndMatchRequestScenario();
     }
 
     public void close() {
@@ -76,12 +77,14 @@ public class ConsoleUI {
         System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
         System.out.println("\tpassword> " + password);
 
-        if (!app.attemptLogin(email, password)) {
+        String loginResult = app.attemptLogin(email, password);
+        if (loginResult == null) {
             System.out.println("Login Failed");
             return;
         }
 
-        System.out.println(app.getUserFullName() + " is now logged in");
+        System.out.println("\n" + app.getUserFullName() + " is now logged in.");
+        System.out.println("Profile: " + loginResult);
     }
 
     /**
@@ -106,7 +109,8 @@ public class ConsoleUI {
         System.out.println("\tpassword> " + password);
         System.out.println("\tlocation> 300 Main St, Columbia, SC, 29208");
 
-        if (!app.requestCreateAccount("Joe", "Smith", LocalDate.of(1997, 12, 10), password,
+        if (!app.requestCreateAccount("Joe", "Smith", 
+                LocalDate.of(1997, 12, 10), password,
                 "300 Main St, Columbia, SC, 29208",
                 email, "", "EMAIL",
                 "bestfriend@gmail.com", "8033448978", "CALL")) {
@@ -223,6 +227,7 @@ public class ConsoleUI {
         System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
                 "Request posted successfully:" : "Request upload failed.");
         readAndPrintReliefRequests();
+
         app.logout();
     }
 
@@ -249,8 +254,17 @@ public class ConsoleUI {
         app.logout();
     }
 
-    public void openAndMatchRequestScneario() {
+    public void openAndMatchRequestScenario() {
         // Rosa logs in
+        String email = "rosa.delgado@example.com";
+        String password = "RosaStrong2026!";
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+
+        login(email, password);
+
+        // Show Rosa's profile
+
 
         // Rosa sees 7 relief requests sorted based on ReliefType and proximity
 
