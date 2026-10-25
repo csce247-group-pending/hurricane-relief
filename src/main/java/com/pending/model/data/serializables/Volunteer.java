@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import com.pending.model.data.SkillSort;
+import com.pending.model.data.serializables.behaviors.SerializeJSONVolunteer;
 import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
@@ -51,6 +52,8 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
+
     }
 
     /**
@@ -82,6 +85,8 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
+
     }
 
     /**
@@ -93,6 +98,7 @@ public class Volunteer extends User {
         this.reliefTypes = new ArrayList<>();
         this.task = null;
         sorter = new SkillSort(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
     }
 
     /**
@@ -178,6 +184,7 @@ public class Volunteer extends User {
         task = reliefRequest;
         task.setAssignedTo(this);
         task.setStatus(ReliefStatus.ASSIGNED);
+        setAvailable(false);
         
         return true;
     }
