@@ -347,7 +347,7 @@ public class Database {
             PriorityFilter<ReliefRequest> filter) {
 
         ArrayList<ReliefRequest> output = getRequests();
-        output.sort(Comparator.comparing(filter::filter));
+        output.sort(Comparator.comparing(filter::filter).reversed());
         return output;
     }
 

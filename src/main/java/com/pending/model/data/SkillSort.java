@@ -21,6 +21,6 @@ public class SkillSort implements PriorityFilter<ReliefRequest> {
                 relevance += 10;
             }
         }
-        return 0;
+        return relevance;
     }
 }
