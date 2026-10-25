@@ -15,6 +15,7 @@ import com.pending.model.data.DataList;
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.*;
 import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -25,9 +26,14 @@ import com.pending.model.enums.ReliefType;
 public class Application {
     private static Application application;
     private Database database;
+
+    // Session Variables
     private User currentUser;
     private Location location;
     private Shelter currShelter;
+    private ArrayList<LivingBeing> pendingGroupMembers;
+
+
 
     /**
      * Creates the application and loads saved database information.
@@ -38,6 +44,7 @@ public class Application {
         currentUser = null;
         location = null;
         currShelter = null;
+        pendingGroupMembers = null;
     }
 
     /**
@@ -116,6 +123,14 @@ public class Application {
         }
 
         updateSessionLocation(currentUser.getLocation());
+        return getUserString();
+    }
+
+    public String getUserString() {
+        if (currentUser == null) {
+            return null;
+        }
+
         return currentUser.toString();
     }
 
@@ -150,19 +165,24 @@ public class Application {
      * Creates a new relief request.
      */
     public boolean createReliefRequest(String description) {
-        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
+        return database.createReliefRequest(currentUser, description,
+            currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)),
+            currentUser.getUserContact());
     }
 
     public boolean createReliefRequest(String description, ArrayList<LivingBeing> livingBeings) {
-        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), livingBeings);
+        return database.createReliefRequest(currentUser, description,
+             currentUser.getLocation(), livingBeings, currentUser.getUserContact());
     }
 
     public boolean createReliefRequest(User author, String description) {
-        return database.createReliefRequest(author, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
+        return database.createReliefRequest(author, description,
+            currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)), author.getUserContact());
     }
 
     public boolean createReliefRequest(User author, String description, ArrayList<LivingBeing> livingBeings) {
-        return database.createReliefRequest(author, description, currentUser.getLocation(), livingBeings);
+        return database.createReliefRequest(author, description,
+            currentUser.getLocation(), livingBeings, author.getUserContact());
     }
 
     /**
@@ -374,4 +394,56 @@ public class Application {
         return false;
 
     }
+
+    /**
+     * Sets the relief needs for the currently logged-in user.
+     */
+    public boolean setCurrentUserReliefNeeds(ArrayList<ReliefType> reliefNeeds) {
+        if (currentUser == null) {
+            return false;
+        }
+        currentUser.setReliefNeeds(reliefNeeds);
+        return true;
+    }
+
+    /**
+     * Starts a new family/group list for a relief request and automatically includes currentUser.
+     */
+    public void startNewReliefGroup() {
+        pendingGroupMembers = new ArrayList<>();
+        if (currentUser != null) {
+            pendingGroupMembers.add(currentUser);
+        }
+    }
+
+    /**
+     * Instantiates a LivingBeing inside the Facade and adds it to the pending relief group.
+     */
+    public void addMemberToReliefGroup(String firstName, String lastName, LocalDate dateOfBirth,
+                                    LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
+        LivingBeing member = new LivingBeing(firstName, lastName, dateOfBirth, type, reliefNeeds);
+        pendingGroupMembers.add(member);
+    }
+
+    /**
+     * Submits the relief request using the staged family/group members.
+     */
+    public boolean submitGroupReliefRequest(String description) {
+        if (currentUser == null) {
+            return false;
+        }
+        if (pendingGroupMembers.isEmpty()) {
+            pendingGroupMembers.add(currentUser);
+        }
+        boolean success = database.createReliefRequest(
+                currentUser,
+                description,
+                currentUser.getLocation(),
+                new ArrayList<>(pendingGroupMembers),
+                currentUser.getUserContact()
+        );
+        pendingGroupMembers.clear();
+        return success;
+    }
+
 }

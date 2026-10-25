@@ -213,6 +213,7 @@ public class User extends LivingBeing {
      * @return true if the UUID reference was added
      */
     public boolean addUserReliefRequest(ReliefRequest reliefRequest) {
+        userReliefRequests.add(reliefRequest);
         return userReliefRequestsUUIDReference.add(reliefRequest.getId());
     }
 
@@ -313,10 +314,20 @@ public class User extends LivingBeing {
      */
     @Override
     public String toString() {
+        String reliefRequestsString = "";
+        if(!userReliefRequests.isEmpty()) {
+            reliefRequestsString = "\nRelief Requests:\n1. " 
+                + userReliefRequests.get(0).toStringDetailed();
+            for(int i = 1; i < userReliefRequests.size(); ++i) {
+                reliefRequestsString += "\n" + (i+1) + ". " 
+                + userReliefRequests.get(i).toStringDetailed();
+            }
+        }
+
         return "{User " + getFullName() + "} "
                 + "\n\tAge: " + getAge()
                 + "\n\tContact Info: " + getUserContact()
-                + "\n\tLocation: " + getLocation();
+                + reliefRequestsString;
     }
 
     public String toStringLivingBeing() {

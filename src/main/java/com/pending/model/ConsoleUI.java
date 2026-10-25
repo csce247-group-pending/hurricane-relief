@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.LivingBeing;
-import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
-import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
@@ -36,12 +32,12 @@ public class ConsoleUI {
     public void run() {
         // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
-        // createReliefRequestScenario();
+        createReliefRequestScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
         // findShelterAndAssignRequest();
         // exportTripInformation();
         // rolePermissionScenario();
-        openAndMatchRequestScenario();
+        // openAndMatchRequestScenario();
     }
 
     public void close() {
@@ -179,16 +175,21 @@ public class ConsoleUI {
         String lastName = "Carter";
         LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
         String password = "Buddy1&";
+
         System.out.println("Creating an account for James Carter");
         boolean accountCreationSuccess = app.requestCreateAccount(
-                firstName,
-                lastName,
-                dateOfBirth,
-                password,
-                new Location("SC", "Charleston", "32 Legare St", "29401"),
-                new Contact("jimmycarter@gmail.com", "8439847569", ContactPreference.CALL),
-                new Contact("doriscarter@gmail.com", "8433458910", ContactPreference.TEXT)
-        );
+            firstName,
+            lastName,
+            dateOfBirth,
+            password,
+            "32 Legare St, Charleston, SC, 29401",
+            "jimmycarter@gmail.com",
+            "8439847569",
+            "CALL",
+            "doriscarter@gmail.com",
+            "8433458910",
+            "TEXT"
+    );
         if (!accountCreationSuccess) {
             System.out.println("Account creation failed");
         }
@@ -196,38 +197,47 @@ public class ConsoleUI {
         login("jimmycarter@gmail.com", password);
 
 
-        System.out.println("\nCreating a Relief Request");
-        app.getCurrentUser().setReliefNeeds(new ArrayList<>(
+        System.out.println("\nCreating a Relief Request:");
+        app.setCurrentUserReliefNeeds(new ArrayList<>(
             List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE)
         ));
 
-        ArrayList<LivingBeing> family = new ArrayList<>();
-        family.add((LivingBeing) app.getCurrentUser());
-        family.add(new LivingBeing(
-                "Doris",
-                "Carter",
-                LocalDate.parse("1954-05-23"),
-                LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
-        ));
-        family.add(new LivingBeing(
+        // add family
+        app.startNewReliefGroup();
+
+        System.out.println("\tAdding Doris Carter (HUMAN) to Relief Group");
+        app.addMemberToReliefGroup(
+            "Doris",
+            "Carter",
+            LocalDate.parse("1954-05-23"),
+            LivingBeingType.HUMAN,
+            new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
+        );
+
+        System.out.println("\tAdding Sophie Carter (HUMAN) to Relief Group");
+        app.addMemberToReliefGroup(
                 "Sophie",
                 "Carter",
                 LocalDate.parse("2014-08-20"),
                 LivingBeingType.HUMAN,
                 new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
-        ));
-        family.add(new LivingBeing(
+        );
+
+        System.out.println("\tAdding Buddy Carter (PET) to Relief Group");
+        app.addMemberToReliefGroup(
                 "Buddy",
                 "Carter",
                 LocalDate.parse("2021-01-15"),
                 LivingBeingType.PET,
                 new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
-        ));
-        System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
-                "Request posted successfully:" : "Request upload failed.");
-        readAndPrintReliefRequests();
+        );
 
+        System.out.println(app.submitGroupReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter") ?
+            "\nRequest posted successfully:" : "\nRequest upload failed.");
+
+        System.out.println(app.getUserString());
+
+        System.out.println("Logging out");
         app.logout();
     }
 

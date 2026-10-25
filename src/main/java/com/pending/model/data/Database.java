@@ -226,15 +226,16 @@ public class Database {
         return true;
     }
 
-    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings) {
+    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings, Contact contactInfo) {
         HashSet<ReliefType> reliefTypes = new HashSet<>();
         for (LivingBeing livingBeing: livingBeings) {
             reliefTypes.addAll(livingBeing.getReliefNeeds());
         }
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes));
-        if (author != null) author.getUserReliefRequests().add(reliefRequest);
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes), contactInfo);
+        if (author != null) author.addUserReliefRequest(reliefRequest);
         boolean returnValue = requests.add(reliefRequest);
         requests.write();
+        users.write();
         return returnValue;
     }
 

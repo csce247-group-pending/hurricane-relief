@@ -5,7 +5,7 @@ public enum ReliefType {
     WATER("Water"),
     MEDICAL_CARE("Medical Care"),
     SHELTER("Shelter"),
-    PET_SHELTER("Pet shelter"),
+    PET_SHELTER("Pet Shelter"),
     EVACUATION("Evacuation"),
     TRANSPORTATION("Transportation"),
     OTHER("Other");
