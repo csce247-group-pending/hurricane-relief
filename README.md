@@ -28,6 +28,6 @@ Our hurricane relief project is a software system designed to **connect hurrican
 
 | Name | Role |
 | ----------- | ----------- |
-| Joshua Williams | TBD |
-| Landon Sprouse | TBD |
-| José Felten | TBD |
+| Joshua Williams | SCRUM Master |
+| Landon Sprouse | Documentation Expert |
+| José Felten | Lead Developer |
