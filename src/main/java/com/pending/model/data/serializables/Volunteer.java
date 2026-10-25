@@ -192,9 +192,11 @@ public class Volunteer extends User {
      */
     @Override
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
-        task = reliefRequest;
-        task.setAssignedTo(this);
-        task.setStatus(ReliefStatus.ASSIGNED);
+        setTask(reliefRequest);
+        setTaskUUIDReference(reliefRequest.getId());
+        reliefRequest.setAssignedTo(this);
+        reliefRequest.setAssignedToUUIDReference(this.getId());
+        reliefRequest.setStatus(ReliefStatus.ASSIGNED);
         setAvailable(false);
         
         return true;

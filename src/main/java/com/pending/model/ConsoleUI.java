@@ -39,6 +39,7 @@ public class ConsoleUI {
         // readAndPrintReliefRequests();
         // acceptReliefRequestAndCheckIntoShelterScenario();
         openAndMatchRequestScenario();
+        findShelterAndAssignRequest();
 
         printHeader("DEMONSTRATION COMPLETE");
     }
@@ -335,7 +336,7 @@ public class ConsoleUI {
     }
 
     public void findShelterAndAssignRequest() {
-        printHeader("SCENARIO 3: FIND A SHELTER AND EXPORT TRIP INFORMATION");
+        printHeader("SCENARIO 3: FIND A SHELTER AND ASSIGN REQUEST");
 
         if (!loginScenario("rosa.delgado@example.com",
                 "RosaStrong2026!")) {
@@ -350,14 +351,7 @@ public class ConsoleUI {
             return;
         }
 
-        ReliefRequest reliefRequest = requests.getFirst();
-
-        if (!app.openReliefRequest(reliefRequest)) {
-            System.out.println("[FAILED] Could not open the relief request.");
-            app.logout();
-            return;
-        }
-
+        System.out.println("\nSearching for the nearest Shelters");
         ArrayList<Shelter> shelters = app.getSortedShelters();
 
         if (shelters == null || shelters.isEmpty()) {
@@ -366,14 +360,19 @@ public class ConsoleUI {
             return;
         }
 
-        Shelter selectedShelter = shelters.getFirst();
+        for (int i = 0; i < shelters.size(); i++) {
+            System.out.println((i + 1) + ". " + shelters.get(i));
+        }
 
-        System.out.println("Selected shelter:");
-        System.out.println(selectedShelter);
+        int choice = 0;
 
-        app.setShelter(selectedShelter);
+        System.out.println("\nEnter the number of the shelter you want: ");
+        System.out.println("\tchoice> " + (choice + 1));
 
-        printResult(app.acceptReliefRequest(reliefRequest),
+        app.setShelter(shelters.get(choice));
+        System.out.println("\nSaving Chosen Shelter:\n" + shelters.get(choice));
+
+        printResult(app.acceptReliefRequest(app.getCurrentReliefRequest()),
                 "Volunteer accepted the relief request.",
                 "Volunteer could not accept the relief request.");
     }

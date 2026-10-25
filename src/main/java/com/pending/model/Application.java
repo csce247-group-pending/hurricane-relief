@@ -238,12 +238,21 @@ public class Application {
      * @return true if the request was opened; otherwise false
      */
     public boolean openReliefRequest(int index) {
-        ArrayList<ReliefRequest> requests = getReliefRequests();
-        if (requests == null || index < 0 || index >= requests.size()) {
+        if (currentUser == null) return false;
+
+        if (currentUser instanceof Volunteer volunteer) {
+            ArrayList<ReliefRequest> requests = database.getSortedReliefRequests(volunteer.getSorter());
+            if (requests == null || index < 0 || index >= requests.size()) {
+                return false;
+            }
+
+            return openReliefRequest(requests.get(index));
+        } else {
             return false;
         }
+        
 
-        return openReliefRequest(requests.get(index));
+        
     }
 
     /**
@@ -257,6 +266,7 @@ public class Application {
                 && volunteer.acceptReliefRequest(reliefRequest)) {
 
             database.write(ReliefRequest.class);
+            database.write(Volunteer.class);
             return true;
         }
 
@@ -433,7 +443,7 @@ public class Application {
     }
 
 
-    public String getCurrentReliefRequest() {
+    public String getCurrentReliefRequestString() {
         if (currentUser == null) return "No Current User";
         
         if (currentUser instanceof Volunteer volunteer) {
@@ -444,6 +454,19 @@ public class Application {
         }
 
         return "User is not a Volunteer";
+    }
+
+    public ReliefRequest getCurrentReliefRequest() {
+        if (currentUser == null) return null;
+        
+        if (currentUser instanceof Volunteer volunteer) {
+            ReliefRequest currTask = volunteer.getTask();
+            if (currTask == null) return null;
+
+            return currTask;
+        }
+
+        return null;
     }
 
     /**
