@@ -94,7 +94,7 @@ public class DataManager {
     }
 
     /**
-     * Writes a list of JSON objects to the configured file.
+     * Writes a list of JSON objects to the configured file formatted .
      *
      * @param objects the JSON objects to write
      * @return true if the write succeeds; otherwise false
@@ -104,12 +104,79 @@ public class DataManager {
         jsonFileArray.addAll(objects);
 
         try (FileWriter writer = new FileWriter(filename)) {
-            writer.write(jsonFileArray.toJSONString());
+            String rawJson = jsonFileArray.toJSONString();
+            writer.write(formattedWriteJSON(rawJson));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * Formats a single-line JSON string with 4-space indentation and newlines.
+     * Respects quotes and escaped characters so string contents are never altered.
+     *
+     * @param unformattedJson the raw JSON string from json-simple
+     * @return a human-readable, indented JSON string
+     */
+    private String formattedWriteJSON(String unformattedJson) {
+        StringBuilder formatted = new StringBuilder();
+        int indentLevel = 0;
+        boolean inQuotes = false;
+        boolean isEscaped = false;
+
+        for (char c : unformattedJson.toCharArray()) {
+            if (isEscaped) {
+                formatted.append(c);
+                isEscaped = false;
+                continue;
+            }
+
+            if (c == '\\') {
+                formatted.append(c);
+                isEscaped = true;
+                continue;
+            }
+
+            if (c == '"') {
+                inQuotes = !inQuotes;
+                formatted.append(c);
+                continue;
+            }
+
+            if (!inQuotes) {
+                switch (c) {
+                    case '{':
+                    case '[':
+                        formatted.append(c).append("\n");
+                        indentLevel++;
+                        formatted.append("    ".repeat(indentLevel));
+                        break;
+                    case '}':
+                    case ']':
+                        formatted.append("\n");
+                        indentLevel = Math.max(0, indentLevel - 1);
+                        formatted.append("    ".repeat(indentLevel)).append(c);
+                        break;
+                    case ',':
+                        formatted.append(c).append("\n").append("    ".repeat(indentLevel));
+                        break;
+                    case ':':
+                        formatted.append(": ");
+                        break;
+                    default:
+                        if (!Character.isWhitespace(c)) {
+                            formatted.append(c);
+                        }
+                        break;
+                }
+            } else {
+                formatted.append(c);
+            }
+        }
+
+        return formatted.toString();
     }
 
     /**

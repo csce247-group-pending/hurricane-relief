@@ -80,18 +80,19 @@ public class ConsoleUI {
      * @param email the email address used to log in
      * @param password the password used to log in
      */
-    public void login(String email, String password) {
+    public boolean login(String email, String password) {
         System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
         System.out.println("\tpassword> " + password);
 
         String loginResult = app.attemptLogin(email, password);
         if (loginResult == null) {
             System.out.println("Login Failed");
-            return;
+            return false;
         }
 
         System.out.println("\n" + app.getUserFullName() + " is now logged in.");
         System.out.println("Profile: " + loginResult);
+        return true;
     }
 
     public void readAndPrintReliefRequests() {
@@ -324,12 +325,13 @@ public class ConsoleUI {
         // Rosa logs in
         String email = "rosa.delgado@example.com";
         String password = "RosaStrong2026!";
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + password);
-
-        login(email, password);
 
         // Show Rosa's profile
+        if (!login(email, password)) {
+            return;
+        }
+
+        
         
 
         // Rosa sees 7 relief requests sorted based on ReliefType and proximity
