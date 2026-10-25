@@ -217,27 +217,6 @@ public class ConsoleUI {
         System.out.println("Requesting user logged out.");
     }
 
-    /**
-     * Finds the newest request with the provided description.
-     *
-     * @param reliefRequests the available relief requests
-     * @param description the description to search for
-     * @return the matching request, or null if it does not exist
-     */
-    private ReliefRequest findRequestByDescription(
-            ArrayList<ReliefRequest> reliefRequests, String description) {
-
-        for (int i = reliefRequests.size() - 1; i >= 0; i--) {
-            ReliefRequest request = reliefRequests.get(i);
-
-            if (description.equals(request.getDescription())) {
-                return request;
-            }
-        }
-
-        return null;
-    }
-
     public void openAndMatchRequestScenario() {
         printHeader("SCENARIO 2: OPEN AND MATCH REQUEST");
         // Rosa logs in
@@ -252,13 +231,11 @@ public class ConsoleUI {
         // Rosa sees relief requests sorted based on ReliefType and proximity
         printReliefRequests();
 
-        // TODO implement actual recommendation logic
-        int recommendedRequestNumber = 4;
-        int requestIndex = recommendedRequestNumber - 1;
-        System.out.println("\nChoose a Request, Request " + recommendedRequestNumber
-                + " is Recommended due to Matching needs and proximity");
+        int requestIndex = 0;
+        System.out.println("\nChoose a Request. Requests are sorted by Relief Needs and Proximity.");
+        System.out.println("choice> " + (requestIndex + 1));
 
-        System.out.println("\nOpening Request " + recommendedRequestNumber);
+        System.out.println("\n\nOpening Request " + (requestIndex + 1));
 
         if (!app.openReliefRequest(requestIndex)) {
             System.out.println("Failed Opening Request");
@@ -338,9 +315,10 @@ public class ConsoleUI {
 
         System.out.println();
 
-        printResult(app.closeReliefRequest(),
-                "Relief request was completed.",
-                "Only a shelter manager can complete a relief request."
+        printResult(!app.closeReliefRequest(),
+                "Only a shelter manager can complete a relief request.",
+                "Relief request was completed."
+                
             );
 
         System.out.println("Logging out " + app.getUserFullName());
@@ -366,11 +344,11 @@ public class ConsoleUI {
 
         // Print relief requests to show that other vols can see the changed status
         printReliefRequests();
-        int requestIndex = 3;
+        int requestIndex = 0;
         app.openReliefRequest(requestIndex);
 
         // print shelter info
-        System.out.println(app.getShelter());
+        System.out.println("\n" + app.getShelter());
         
         System.out.println("Attempting Check In");
 

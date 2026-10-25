@@ -532,7 +532,7 @@ public class Application {
         }
 
         if (currentUser != null && currentUser instanceof ShelterManager) {
-            return currShelter.managerToString();
+            return "Here is your shelter:\n" + currShelter.managerToString();
         }
 
         return currShelter.toString();
