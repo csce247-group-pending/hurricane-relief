@@ -1,14 +1,8 @@
 package com.pending.model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.pending.model.data.serializables.ReliefRequest;
-import com.pending.model.data.serializables.Shelter;
-import com.pending.model.enums.LivingBeingType;
-import com.pending.model.enums.ReliefType;
 
 /**
  * Provides terminal-based demonstration scenarios for the Hurricane Relief
@@ -149,23 +143,23 @@ public class ConsoleUI {
         String lastName = "Carter";
         String email = "jimmycarter@gmail.com";
         String password = "Buddy1&";
-        LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
+        String dateOfBirth = "1952-11-02";
 
         System.out.println("Creating an account for James Carter");
         boolean accountCreationSuccess = app.requestCreateAccount(
-            firstName,
-            lastName,
-            dateOfBirth,
-            password,
-            "32 Legare St, Charleston, SC, 29401",
-            email,
-            "8439847569",
-            "CALL",
-            "doriscarter@gmail.com",
-            "8433458910",
-            "TEXT"
+                firstName,
+                lastName,
+                dateOfBirth,
+                password,
+                "32 Legare St, Charleston, SC, 29401",
+                email,
+                "8439847569",
+                "CALL",
+                "doriscarter@gmail.com",
+                "8433458910",
+                "TEXT"
         );
-        
+
         if (!accountCreationSuccess) {
             System.out.println("Account creation failed");
         }
@@ -174,7 +168,7 @@ public class ConsoleUI {
 
         System.out.println("\nCreating a Relief Request:");
         app.setCurrentUserReliefNeeds(new ArrayList<>(
-            List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE)
+                List.of("TRANSPORTATION", "SHELTER", "MEDICAL_CARE")
         ));
 
         // add family
@@ -182,33 +176,33 @@ public class ConsoleUI {
 
         System.out.println("\tAdding Doris Carter (HUMAN) to Relief Group");
         app.addMemberToReliefGroup(
-            "Doris",
-            "Carter",
-            LocalDate.parse("1954-05-23"),
-            LivingBeingType.HUMAN,
-            new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
+                "Doris",
+                "Carter",
+                "1954-05-23",
+                "HUMAN",
+                new ArrayList<>(List.of("TRANSPORTATION", "SHELTER"))
         );
 
         System.out.println("\tAdding Sophie Carter (HUMAN) to Relief Group");
         app.addMemberToReliefGroup(
                 "Sophie",
                 "Carter",
-                LocalDate.parse("2014-08-20"),
-                LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
+                "2014-08-20",
+                "HUMAN",
+                new ArrayList<>(List.of("TRANSPORTATION", "SHELTER", "MEDICAL_CARE"))
         );
 
         System.out.println("\tAdding Buddy Carter (PET) to Relief Group");
         app.addMemberToReliefGroup(
                 "Buddy",
                 "Carter",
-                LocalDate.parse("2021-01-15"),
-                LivingBeingType.PET,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
+                "2021-01-15",
+                "PET",
+                new ArrayList<>(List.of("TRANSPORTATION", "PET_SHELTER"))
         );
 
         System.out.println(app.submitGroupReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter") ?
-            "\nRequest posted successfully:" : "\nRequest upload failed.");
+                "\nRequest posted successfully:" : "\nRequest upload failed.");
 
         System.out.println(app.getUserString());
 
@@ -240,7 +234,7 @@ public class ConsoleUI {
         if (!app.openReliefRequest(requestIndex)) {
             System.out.println("Failed Opening Request");
         }
-        System.out.println(app.getCurrentReliefRequest());
+        System.out.println(app.getCurrentReliefRequestString());
 
         System.out.println("Logging Out " + app.getUserFullName());
 
@@ -255,8 +249,7 @@ public class ConsoleUI {
             return;
         }
 
-        // TODO follow data flow requirements
-        ArrayList<ReliefRequest> requests = app.getReliefRequests();
+        ArrayList<String> requests = app.getReliefRequestStrings();
 
         if (requests.isEmpty()) {
             System.out.println("[FAILED] No requests are available.");
@@ -265,8 +258,7 @@ public class ConsoleUI {
         }
 
         System.out.println("\nSearching for the nearest Shelters matching your request's needs");
-        // TODO follow data flow requirements
-        ArrayList<Shelter> shelters = app.getSortedShelters();
+        ArrayList<String> shelters = app.getSortedShelterStrings();
 
         if (shelters == null || shelters.isEmpty()) {
             System.out.println("[FAILED] No suitable shelters were found.");
@@ -281,24 +273,23 @@ public class ConsoleUI {
         int choice = 0;
 
         System.out.println("\nEnter the number of the shelter you want: ");
-        System.out.println("\tchoice> " + (choice + 1));
+        System.out.println("choice> " + (choice + 1));
 
-        app.setShelter(shelters.get(choice));
-        System.out.println("\nSaving Chosen Shelter:\n" + shelters.get(choice));
+        app.selectShelter(choice);
+        System.out.println("\nSaving Chosen Shelter:\n" + app.getShelter());
 
-        printResult(app.acceptReliefRequest(app.getCurrentReliefRequest()),
+        printResult(app.acceptCurrentReliefRequest(),
                 "Volunteer accepted the relief request.",
                 "Volunteer could not accept the relief request.");
     }
 
-    public void exportTripInformationScenario() {        
+    public void exportTripInformationScenario() {
         printHeader("SCENARIO 4: EXPORT TRIP INFORMATION");
 
         printResult(app.exportTripInformation(),
                 "Trip information was exported successfully.",
                 "Trip information could not be exported.");
 
-        
         app.logout();
     }
 
@@ -318,8 +309,7 @@ public class ConsoleUI {
         printResult(!app.closeReliefRequest(),
                 "Only a shelter manager can complete a relief request.",
                 "Relief request was completed."
-                
-            );
+        );
 
         System.out.println("Logging out " + app.getUserFullName());
         app.logout();
@@ -349,7 +339,7 @@ public class ConsoleUI {
 
         // print shelter info
         System.out.println("\n" + app.getShelter());
-        
+
         System.out.println("Attempting Check In");
 
         boolean checkedIn = app.checkIntoShelter();
@@ -363,9 +353,9 @@ public class ConsoleUI {
         printResult(requestCompleted,
                 "Relief request was marked as completed.",
                 "The relief request could not be completed.");
-        
+
         printReliefRequests();
-        
+
         System.out.println("\nShelter After:\n" + app.getShelter());
 
         app.logout();
@@ -383,7 +373,7 @@ public class ConsoleUI {
         boolean accountCreated = app.requestCreateAccount(
                 "Joe",
                 "Smith",
-                LocalDate.of(1997, 12, 10),
+                "1997-12-10",
                 password,
                 "300 Main St, Columbia, SC, 29208",
                 email,
