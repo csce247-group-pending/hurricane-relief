@@ -35,10 +35,10 @@ public class ConsoleUI {
      */
     public void run() {
         // createReliefRequestScenario();
-        readAndPrintReliefRequests();
+        // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        // findShelterAndAssignRequest();
+        findShelterAndAssignRequest();
     }
 
     public void close() {
@@ -59,7 +59,7 @@ public class ConsoleUI {
 
         System.out.println("Printing All Relief Requests:");
 
-        for (String request : app.getRequests()) {
+        for (String request : requests) {
             System.out.println(request);
         }
     }
@@ -270,26 +270,10 @@ public class ConsoleUI {
             System.out.println((i + 1) + ". " + shelters.get(i));
         }
 
-        int choice = -1;
-        boolean validChoice = false;
+        int choice = 0;
 
-        // interaction to choose a shelter
-        while (!validChoice) {
-            System.out.print("Enter the number of the shelter you want: ");
-            
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                
-                if (choice >= 1 && choice <= shelters.size()) {
-                    validChoice = true;
-                } else {
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + shelters.size() + ".");
-                }
-            } else {
-                String badInput = scanner.next();
-                System.out.println("'" + badInput + "' is not a valid number. Please try again.");
-            }
-        }
+        System.out.print("Enter the number of the shelter you want: ");
+        System.out.println("\tchoice> " + (choice + 1));
 
         app.setShelter(shelters.get(choice));
         System.out.println("Saving Chosen Shelter:\n" + shelters.get(choice));
@@ -298,9 +282,16 @@ public class ConsoleUI {
         System.out.println("Accepting the ReliefRequest:\n" + reliefRequest);
         app.acceptReliefRequest(reliefRequest);
 
+        System.out.println("Logging out");
         app.logout();
 
         loginScenario("vol9@example.com","Password123!");
+
+        System.out.println("Printing All Relief Requests:");
+        for (String request : app.getRequests()) {
+            System.out.println(request);
+        }
+        
     }
 
     /**
