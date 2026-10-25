@@ -121,25 +121,16 @@ public class ShelterManager extends Volunteer {
     }
 
     /**
-     * Checks living beings into this manager's shelter.
-     *
-     * @param livingBeings the people or pets to check in
-     * @return true if the shelter accepts the check-in; otherwise false
-     */
-    @Override
-    public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
-        return shelter.checkIn(livingBeings);
-    }
-
-    /**
      * Marks a relief request as completed and saves the updated request data.
      *
      * @param reliefRequest the request to complete
      * @return true after the request is marked completed
      */
-    @Override
     public boolean closeReliefRequest(ReliefRequest reliefRequest) {
         reliefRequest.setStatus(ReliefStatus.COMPLETED);
+        Volunteer assigned = reliefRequest.getAssignedTo();
+        assigned.setAvailable(true);
+        assigned.setTask(null);
         return true;
     }
 }

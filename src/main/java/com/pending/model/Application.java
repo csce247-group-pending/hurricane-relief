@@ -141,6 +141,11 @@ public class Application {
         }
 
         updateSessionLocation(currentUser.getLocation());
+
+        if(currentUser instanceof ShelterManager shelterManager) {
+            setShelter(shelterManager.getShelter());
+        }
+
         return getUserString();
     }
 
@@ -274,17 +279,6 @@ public class Application {
     }
 
     /**
-     * Completes a specific request using the logged-in shelter manager.
-     *
-     * @param reliefRequest the request to complete
-     * @return true if the request was completed; otherwise false
-     */
-    public boolean completeRequest(ReliefRequest reliefRequest) {
-        return currentUser != null
-                && currentUser.closeReliefRequest(reliefRequest);
-    }
-
-    /**
      * Completes the current shelter manager's assigned request.
      *
      * @return true if the request was completed; otherwise false
@@ -305,6 +299,7 @@ public class Application {
 
         if (completed) {
             database.write(ReliefRequest.class);
+            database.write(Volunteer.class);
         }
 
         return completed;
@@ -421,12 +416,25 @@ public class Application {
     /**
      * Checks living beings into the current shelter manager's shelter.
      *
-     * @param livingBeings the people or pets to check in
      * @return true if check-in succeeds; otherwise false
      */
-    public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
-        return currentUser != null
-                && currentUser.checkIntoShelter(livingBeings);
+    public boolean checkIntoShelter() {
+        if (currentUser == null) return false;
+
+        if (currentUser instanceof ShelterManager shelterManager) {
+            ReliefRequest task = shelterManager.getTask();
+            if(task == null) {
+                return false;
+            }
+
+            boolean success = shelterManager.getShelter().checkIn(task.getLivingBeings());
+            if (success) {
+                database.write(Shelter.class);
+                return true;
+            }
+
+        } 
+        return false;
     }
 
     /**
@@ -517,8 +525,17 @@ public class Application {
      *
      * @return the selected shelter
      */
-    public Shelter getShelter() {
-        return currShelter;
+    public String getShelter() {
+
+        if (currShelter == null) {
+            return "No current shelter selected";
+        }
+
+        if (currentUser != null && currentUser instanceof ShelterManager) {
+            return currShelter.managerToString();
+        }
+
+        return currShelter.toString();
     }
 
     /**

@@ -190,7 +190,6 @@ public class Volunteer extends User {
      * @param reliefRequest the request to accept
      * @return true after the request is assigned
      */
-    @Override
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
         setTask(reliefRequest);
         setTaskUUIDReference(reliefRequest.getId());

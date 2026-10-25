@@ -33,13 +33,12 @@ public class ConsoleUI {
      * Runs the primary presentation scenarios.
      */
     public void run() {
-        // readAndPrintReliefRequests();
-        // readAndPrintSheltersScenario();
         createReliefRequestScenario();
-        // readAndPrintReliefRequests();
-        // acceptReliefRequestAndCheckIntoShelterScenario();
         openAndMatchRequestScenario();
         findShelterAndAssignRequest();
+        exportTripInformationScenario();
+        rolePermissionScenario();
+        checkIntoShelterScenario();
 
         printHeader("DEMONSTRATION COMPLETE");
     }
@@ -101,7 +100,7 @@ public class ConsoleUI {
         return true;
     }
 
-    private void readAndPrintReliefRequests() {
+    private void printReliefRequests() {
         printHeader("CURRENT RELIEF REQUESTS");
 
         ArrayList<String> requests = app.getReliefRequestStrings();
@@ -239,70 +238,6 @@ public class ConsoleUI {
         return null;
     }
 
-    /**
-     * Demonstrates accepting a request, checking family members into a
-     * shelter, and completing the request.
-     */
-    public void acceptReliefRequestAndCheckIntoShelterScenario() {
-        printHeader("SCENARIO 2: ASSIGN AND COMPLETE A RELIEF REQUEST");
-
-        String volunteerEmail = "rosa.delgado@example.com";
-        String volunteerPassword = "RosaStrong2026!";
-
-        System.out.println("Logging in as a volunteer...");
-
-        if (!loginScenario(volunteerEmail, volunteerPassword)) {
-            return;
-        }
-
-        ReliefRequest reliefRequest = findRequestByDescription(
-                app.getReliefRequests(), DEMO_REQUEST_DESCRIPTION);
-
-        if (reliefRequest == null) {
-            System.out.println("[FAILED] The demonstration request was not found.");
-            app.logout();
-            return;
-        }
-
-        System.out.println();
-        System.out.println("Selected request:");
-        System.out.println(reliefRequest);
-
-        boolean requestAccepted = app.acceptReliefRequest(reliefRequest);
-
-        printResult(requestAccepted,
-                "Volunteer accepted the relief request.",
-                "Volunteer could not accept the relief request.");
-
-        app.logout();
-        System.out.println("Volunteer logged out.");
-
-        String managerEmail = "felix.mendelssohn@example.com";
-        String managerPassword = "S@xUndV10lins";
-
-        System.out.println();
-        System.out.println("Logging in as the shelter manager...");
-
-        if (!loginScenario(managerEmail, managerPassword)) {
-            return;
-        }
-
-        boolean checkedIn = app.checkIntoShelter(
-                reliefRequest.getLivingBeings());
-
-        printResult(checkedIn,
-                "Family members were checked into the shelter.",
-                "The family could not be checked into the shelter.");
-
-        boolean requestCompleted = app.completeRequest(reliefRequest);
-
-        printResult(requestCompleted,
-                "Relief request was marked as completed.",
-                "The relief request could not be completed.");
-
-        app.logout();
-    }
-
     public void openAndMatchRequestScenario() {
         printHeader("SCENARIO 2: OPEN AND MATCH REQUEST");
         // Rosa logs in
@@ -315,7 +250,7 @@ public class ConsoleUI {
         }
 
         // Rosa sees relief requests sorted based on ReliefType and proximity
-        readAndPrintReliefRequests();
+        printReliefRequests();
 
         // TODO implement actual recommendation logic
         int recommendedRequestNumber = 4;
@@ -343,6 +278,7 @@ public class ConsoleUI {
             return;
         }
 
+        // TODO follow data flow requirements
         ArrayList<ReliefRequest> requests = app.getReliefRequests();
 
         if (requests.isEmpty()) {
@@ -351,7 +287,8 @@ public class ConsoleUI {
             return;
         }
 
-        System.out.println("\nSearching for the nearest Shelters");
+        System.out.println("\nSearching for the nearest Shelters matching your request's needs");
+        // TODO follow data flow requirements
         ArrayList<Shelter> shelters = app.getSortedShelters();
 
         if (shelters == null || shelters.isEmpty()) {
@@ -384,6 +321,7 @@ public class ConsoleUI {
                 "Trip information was exported successfully.",
                 "Trip information could not be exported.");
 
+        
         app.logout();
     }
 
@@ -398,9 +336,59 @@ public class ConsoleUI {
             return;
         }
 
+        System.out.println();
+
         printResult(app.closeReliefRequest(),
                 "Relief request was completed.",
-                "Only a shelter manager can complete a relief request.");
+                "Only a shelter manager can complete a relief request."
+            );
+
+        System.out.println("Logging out " + app.getUserFullName());
+        app.logout();
+    }
+
+    /**
+     * Demonstrates accepting a request, checking family members into a
+     * shelter, and completing the request.
+     */
+    public void checkIntoShelterScenario() {
+        printHeader("SCENARIO 6: CHECK INTO SHELTER");
+
+        String managerEmail = "felix.mendelssohn@sheltermanager.org";
+        String managerPassword = "S@xUndV10lins";
+
+        System.out.println();
+        System.out.println("Logging in as the shelter manager...");
+
+        if (!loginScenario(managerEmail, managerPassword)) {
+            return;
+        }
+
+        // Print relief requests to show that other vols can see the changed status
+        printReliefRequests();
+        int requestIndex = 3;
+        app.openReliefRequest(requestIndex);
+
+        // print shelter info
+        System.out.println(app.getShelter());
+        
+        System.out.println("Attempting Check In");
+
+        boolean checkedIn = app.checkIntoShelter();
+
+        printResult(checkedIn,
+                "Family members were checked into the shelter.",
+                "The family could not be checked into the shelter.");
+
+        boolean requestCompleted = app.closeReliefRequest();
+
+        printResult(requestCompleted,
+                "Relief request was marked as completed.",
+                "The relief request could not be completed.");
+        
+        printReliefRequests();
+        
+        System.out.println("\nShelter After:\n" + app.getShelter());
 
         app.logout();
     }

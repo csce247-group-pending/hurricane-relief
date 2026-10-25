@@ -272,41 +272,6 @@ public class User extends LivingBeing {
     }
 
     /**
-     * Accepts a relief request.
-     * This behavior is implemented by volunteer subclasses.
-     *
-     * @param reliefRequest the request to accept
-     * @return false because regular users cannot accept requests
-     */
-    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
-        return false;
-    }
-
-    /**
-     * Closes a completed relief request.
-     * This behavior is implemented by shelter-manager subclasses.
-     *
-     * @param reliefRequest the request to close
-     * @return false because regular users cannot close requests
-     */
-    public boolean closeReliefRequest(ReliefRequest reliefRequest) {
-        return false;
-    }
-
-    /**
-     * Checks a group of living beings into a shelter.
-     * This behavior is implemented by shelter-manager subclasses.
-     *
-     * @param livingBeings the people or pets to check in
-     * @return false because regular users cannot check in groups
-     */
-    public boolean checkIntoShelter(
-            ArrayList<LivingBeing> livingBeings) {
-
-        return false;
-    }
-
-    /**
      * Gets the user's full name.
      *
      * @return the user's first and last name
