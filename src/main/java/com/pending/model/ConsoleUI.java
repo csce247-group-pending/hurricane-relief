@@ -264,7 +264,6 @@ public class ConsoleUI {
 
         System.out.println();
 
-
         // Rosa sees relief requests sorted based on ReliefType and proximity
         printReliefRequests();
 
