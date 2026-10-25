@@ -185,11 +185,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         serializable.getVolunteers().clear();
 
         for (UUID id : serializable.getVolunteersUUIDReference()) {
-            User user = database.getUserByUUID(id);
-
-            if (user instanceof Volunteer) {
-                serializable.addVolunteer((Volunteer) user);
-            }
+            Volunteer volunteer = database.getVolunteerByUUID(id);
+            serializable.addVolunteer(volunteer);
         }
 
         if (serializable.getManagerUUIDReference() != null) {

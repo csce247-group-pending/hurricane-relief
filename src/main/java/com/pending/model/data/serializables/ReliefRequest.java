@@ -339,7 +339,6 @@ public class ReliefRequest extends Serializable {
 
     public boolean hasPets() {
         for(LivingBeing being: livingBeings) {
-            System.out.println(being);
             if(being.getType() == LivingBeingType.PET) {
                 return true;
             }
