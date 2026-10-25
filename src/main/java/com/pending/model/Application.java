@@ -4,7 +4,10 @@ import java.awt.image.DataBuffer;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.pending.location.MapTools;
 import com.pending.model.data.DataList;
@@ -23,6 +26,7 @@ public class Application {
     private Database database;
     private User currentUser;
     private Location location;
+    private Shelter currShelter;
 
     /**
      * Creates the application and loads saved database information.
@@ -32,6 +36,7 @@ public class Application {
         database.read();
         currentUser = null;
         location = null;
+        currShelter = null;
     }
 
     /**
@@ -103,21 +108,23 @@ public class Application {
      * @return true if login succeeds; otherwise false
      */
     public boolean attemptLogin(String email, String password) {
-    currentUser = database.attemptLogin(email, password);
+        currentUser = database.attemptLogin(email, password);
 
-    if (currentUser == null) {
-        return false;
+        if (currentUser == null) {
+            return false;
+        }
+
+        updateLocation(currentUser.getLocation());
+        return true;
     }
-
-    updateLocation(currentUser.getLocation());
-    return true;
-}
 
     /**
      * Logs out the currently logged-in user.
      */
     public void logout() {
         currentUser = null;
+        location = null;
+        currShelter = null;
     }
 
     /**
@@ -152,9 +159,27 @@ public class Application {
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
         if (currentUser == null) {
             return false;
-        } else {
-            return currentUser.acceptReliefRequest(reliefRequest);
+        } 
+        if(currentUser instanceof Volunteer volunteer) {
+            return volunteer.acceptReliefRequest(reliefRequest);
         }
+        return false;
+    }
+
+    /**
+     * 
+     * 
+     * @param reliefRequest
+     * @return
+     */
+    public boolean openReliefRequest(ReliefRequest reliefRequest) {
+        if (currentUser == null) {
+            return false;
+        } 
+        if(currentUser instanceof Volunteer volunteer) {
+            return volunteer.openReliefRequest(reliefRequest);
+        }
+        return false;
     }
 
     /**
@@ -263,6 +288,10 @@ public class Application {
      * This action will require a Shelter Manager role check.
      */
     public boolean completeRequest(ReliefRequest reliefRequest) {
+        if (currentUser == null) {
+            return false;
+        }
+
         return currentUser != null && currentUser.closeReliefRequest(reliefRequest);
     }
 
@@ -279,10 +308,42 @@ public class Application {
     }
 
     public ArrayList<ReliefRequest> getReliefRequests() {
-        if (currentUser instanceof Volunteer) {
-            return database.getSortedReliefRequests(((Volunteer) currentUser).getSorter());
+        if (currentUser instanceof Volunteer volunteer) {
+            return database.getSortedReliefRequests(volunteer.getSorter());
         } else {
             return database.getRequests();
         }
+    }
+
+    public ArrayList<Shelter> getSortedShelters() {
+        if (currentUser == null) {
+            System.out.println("No user logged in");
+            return null;
+        }
+
+        // check for volunteer
+        if (currentUser instanceof Volunteer volunteer) {
+            // check for no task on volunteer
+            if (volunteer.getTask() == null) {
+                System.out.println("No Current Task");
+                return null;
+            }
+            // get list of shelters sorted 
+            return database.getSortedShelters(
+                volunteer.getTask()
+            );
+        } else {
+            System.out.println("Not a volunteer");
+            return null;
+        }
+        
+    }
+
+    public Shelter getShelter() {
+        return currShelter;
+    }
+
+    public void setShelter(Shelter shelter) {
+        this.currShelter = shelter;
     }
 }

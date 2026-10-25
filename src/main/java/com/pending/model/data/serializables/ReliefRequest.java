@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.pending.model.data.serializables.behaviors.SerializeJSONReliefRequest;
 import com.pending.model.enums.JSONFile;
+import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -218,12 +219,12 @@ public class ReliefRequest extends Serializable {
         return "Relief Request"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status:" + status
-                + (status != ReliefStatus.REQUESTED ? 
-                "\n\tAssigned To: " + assignedTo.getFullName() : "")
+                + (assignedTo != null && status != ReliefStatus.REQUESTED ? 
+                "\n\tAssigned To: " + assignedTo.getFullName() : "None")
                 + "\n\tRelief Needs: " + reliefTypesString
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
-                + "\n\tMembers(" + livingBeings.size() + "): "
+                + "\n\tMembers(" + getPartySize() + "): "
                 + (formattedBeings.isEmpty()
                         ? "None"
                         : "\n" + formattedBeings);
@@ -302,5 +303,18 @@ public class ReliefRequest extends Serializable {
             UUID assignedToUUIDReference) {
 
         this.assignedToUUIDReference = assignedToUUIDReference;
+    }
+
+    public boolean hasPets() {
+        for(LivingBeing being: livingBeings) {
+            if(being.getType() == LivingBeingType.PET) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getPartySize() {
+        return livingBeings.size();
     }
 }

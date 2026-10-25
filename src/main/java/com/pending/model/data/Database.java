@@ -1,9 +1,24 @@
 package com.pending.model.data;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
 
-import com.pending.model.data.serializables.*;
+import com.pending.location.MapTools;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.LivingBeing;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
+import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -158,8 +173,6 @@ public class Database {
         User user = users.getObject(
                 u -> email.equals(u.getUserContact().getEmail())
         );
-
-        System.out.println(users.getAll());
 
         return user == null || !password.equals(user.getPassword())
                 ? null : user;
@@ -316,6 +329,66 @@ public class Database {
         ArrayList<ReliefRequest> output = getRequests();
         output.sort(Comparator.comparing(filter::filter));
         return output;
+    }
+
+    public ArrayList<Shelter> getSortedShelters(ReliefRequest task) {
+        ArrayList<Shelter> shelters = getShelters();
+
+        try {
+            Map<Shelter, Double> timeMap = new HashMap<>();
+            Map<Shelter, Integer> matchMap = new HashMap<>();
+        
+            for (Shelter shelter : shelters) {
+                timeMap.put(shelter, 
+                    MapTools.getInstance()
+                    .getDrivingTime(task.getLocation(), shelter.getLocation())
+                );
+                
+                // Assume you have a method to count matching attributes
+                int matches = countMatchingAttributes(shelter, task); 
+                matchMap.put(shelter, matches);
+            }
+
+            shelters.sort(
+                Comparator.comparingInt((Shelter shelter) -> matchMap.get(shelter))
+                    .reversed()
+                    .thenComparingDouble(shelter -> timeMap.get(shelter))
+            );
+            return shelters;
+
+        } catch (Exception e) {
+            System.out.println("There was a problem finding a shelter.");
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * count matching attributes:
+     * pet friendly, medical staff, availability
+     * 
+     * @param shelter shelter being looked at
+     * @param task ReliefRequest needing to match attribtues
+     * @return count of matching attributes
+     */
+    private int countMatchingAttributes(Shelter shelter, ReliefRequest task) {
+        int count = 0;
+        if (task.hasPets() 
+            && shelter.isPetFriendly() == task.hasPets()) {
+            ++count;
+        }
+
+        if (task.getTypes().contains(ReliefType.MEDICAL_CARE)
+            && shelter.hasMedicalStaff()) {
+            ++count;
+        } 
+
+        if (shelter.hasCapacity(task.getPartySize())) {
+            ++count;
+        }
+
+        return count;
     }
 
     public boolean exportTripInformation(Volunteer volunteer) {

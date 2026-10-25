@@ -1,18 +1,18 @@
 package com.pending.model;
 
-import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.LivingBeing;
-import com.pending.model.data.serializables.Location;
-import com.pending.model.data.serializables.ReliefRequest;
-import com.pending.model.enums.ContactPreference;
-import com.pending.model.enums.LivingBeingType;
-import com.pending.model.enums.ReliefType;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.LivingBeing;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.LivingBeingType;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Provides terminal-based scenarios for using the Hurricane Relief System.
@@ -27,15 +27,22 @@ public class ConsoleUI {
      */
     public ConsoleUI() {
         app = Application.getInstance();
+        scanner = new Scanner(System.in);
     }
 
     /**
      * Runs the current terminal scenarios.
      */
     public void run() {
-        createReliefRequestScenario();
-        readAndPrintReliefRequests();
-        acceptReliefRequestAndCheckIntoShelterScenario();
+        // createReliefRequestScenario();
+        // readAndPrintReliefRequests();
+        // readAndPrintSheltersScenario();
+        // acceptReliefRequestAndCheckIntoShelterScenario();
+        findShelterAndAssignRequest();
+    }
+
+    public void close() {
+        scanner.close();
     }
 
     /**
@@ -238,6 +245,62 @@ public class ConsoleUI {
         app.logout();
     }
 
+    public void findShelterAndAssignRequest() {
+        String email = "rosa.delgado@example.com";
+        String password = "RosaStrong2026!";
+        System.out.println("Email: " + email);
+        System.out.println("Password: " + password);
+
+        loginScenario(email, password);
+
+        ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
+        app.openReliefRequest(reliefRequest);
+
+
+        System.out.println("Searching for the nearest Shelters");
+        // get list of shelters sorted
+        ArrayList<Shelter> shelters = app.getSortedShelters();
+        
+        if (app.getSortedShelters() == null) {
+            System.out.println("Error getting shelters");
+            return;
+        }
+
+        for (int i = 0; i < shelters.size(); i++) {
+            System.out.println((i + 1) + ". " + shelters.get(i));
+        }
+
+        int choice = -1;
+        boolean validChoice = false;
+
+        // interaction to choose a shelter
+        while (!validChoice) {
+            System.out.print("Enter the number of the shelter you want: ");
+            
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                
+                if (choice >= 1 && choice <= shelters.size()) {
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + shelters.size() + ".");
+                }
+            } else {
+                String badInput = scanner.next();
+                System.out.println("'" + badInput + "' is not a valid number. Please try again.");
+            }
+        }
+
+        app.setShelter(shelters.get(choice));
+        System.out.println("Saving Chosen Shelter");
+
+        // assign task
+        System.out.println("Accepting the ReliefRequest");
+        app.acceptReliefRequest(reliefRequest);
+
+        app.logout();
+    }
+
     /**
      * Starts the terminal user interface.
      *
@@ -246,5 +309,6 @@ public class ConsoleUI {
     public static void main(String[] args) {
         ConsoleUI ui = new ConsoleUI();
         ui.run();
+        ui.close();
     }
 }

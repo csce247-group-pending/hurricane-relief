@@ -44,7 +44,7 @@ public class DataManager {
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
     public ArrayList<?> read() throws ExecutionControl.NotImplementedException {
-        System.out.println("Reading file " + filename);
+        // System.out.println("Reading file " + filename);
 
         switch (mode) {
             case FileMode.JSON:
