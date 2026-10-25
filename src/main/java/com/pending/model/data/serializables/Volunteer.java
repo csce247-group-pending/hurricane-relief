@@ -24,6 +24,8 @@ public class Volunteer extends User {
     private ReliefRequest task;
     private SkillSort sorter;
 
+    private UUID taskUUIDReference;
+
     /**
      * Creates a volunteer with account, skill, and task information.
      *
@@ -52,6 +54,9 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
+        
+        taskUUIDReference = UUID.randomUUID();
+
         serializeBehavior = new SerializeJSONVolunteer(this);
 
     }
@@ -84,6 +89,9 @@ public class Volunteer extends User {
         this.isAvailable = isAvailable;
         this.reliefTypes = reliefTypes;
         this.task = task;
+
+        taskUUIDReference = UUID.randomUUID();
+
         sorter = new SkillSort(this);
         serializeBehavior = new SerializeJSONVolunteer(this);
 
@@ -97,6 +105,9 @@ public class Volunteer extends User {
         this.isAvailable = true;
         this.reliefTypes = new ArrayList<>();
         this.task = null;
+
+        taskUUIDReference = UUID.randomUUID();
+
         sorter = new SkillSort(this);
         serializeBehavior = new SerializeJSONVolunteer(this);
     }
@@ -191,6 +202,7 @@ public class Volunteer extends User {
 
     public boolean openReliefRequest(ReliefRequest reliefRequest) {
         task = reliefRequest;
+        taskUUIDReference = reliefRequest.getId();
         return true;
     }
 
@@ -207,5 +219,13 @@ public class Volunteer extends User {
         return super.toString()
             + skillString
             + "\n\tCurrent Task: " + (task != null ? task : "None");
+    }
+
+    public UUID getTaskUUIDReference() {
+        return taskUUIDReference;
+    }
+
+    public void setTaskUUIDReference(UUID taskUUIDReference) {
+        this.taskUUIDReference = taskUUIDReference;
     }
 }

@@ -222,7 +222,10 @@ public class Application {
      */
     public boolean openReliefRequest(ReliefRequest reliefRequest) {
         if (currentUser instanceof Volunteer volunteer) {
-            return volunteer.openReliefRequest(reliefRequest);
+            if(volunteer.openReliefRequest(reliefRequest)) {
+                database.write(Volunteer.class);
+                return true;
+            }
         }
 
         return false;
@@ -412,6 +415,44 @@ public class Application {
         }
 
         return database.getRequests();
+    }
+
+
+    public String getCurrentReliefRequest() {
+        if (currentUser == null) return "No Current User";
+        
+        if (currentUser instanceof Volunteer volunteer) {
+            ReliefRequest currTask = volunteer.getTask();
+            if (currTask == null) return "No Current Task";
+
+            return currTask.toStringDetailed();
+        }
+
+        return "User is not a Volunteer";
+    }
+
+    /**
+     * Gets relief requests as formatted text strings, sorted for volunteers when appropriate.
+     *
+     * @return a list of relief request descriptions available to the current user
+     */
+    public ArrayList<String> getReliefRequestStrings() {
+        ArrayList<ReliefRequest> requests;
+
+        if (currentUser instanceof Volunteer volunteer) {
+            requests = database.getSortedReliefRequests(volunteer.getSorter());
+        } else {
+            requests = database.getRequests();
+        }
+
+        ArrayList<String> requestStrings = new ArrayList<>();
+        if (requests != null) {
+            for (ReliefRequest request : requests) {
+                requestStrings.add(request.toString());
+            }
+        }
+
+        return requestStrings;
     }
 
     /**

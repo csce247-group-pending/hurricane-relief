@@ -1,8 +1,11 @@
 package com.pending.model.data.serializables.behaviors;
 
+import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.pending.model.data.Database;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefType;
 
@@ -43,6 +46,12 @@ public class SerializeJSONVolunteer<T extends Volunteer>
 
         jsonObject.put("relief_types", reliefTypes);
 
+        if(serializable.getTask() != null) {
+            jsonObject.put("task", serializable.getTaskUUIDReference().toString());
+        } else {
+            jsonObject.put("task", null);
+        }
+
         return jsonObject;
     }
 
@@ -66,6 +75,13 @@ public class SerializeJSONVolunteer<T extends Volunteer>
                         ReliefType.valueOf((String) reliefType));
             }
         }
+
+        if(jsonObject.get("task") != null) {
+            serializable.setTaskUUIDReference(
+                UUID.fromString((String) jsonObject.get("task"))
+            );
+        } 
+        
     }
 
     /**
@@ -74,5 +90,8 @@ public class SerializeJSONVolunteer<T extends Volunteer>
     @Override
     public void resolveReferences() {
         super.resolveReferences();
+        serializable.setTask(
+            Database.getInstance().getReliefRequestByUUID(serializable.getTaskUUIDReference())
+        );
     }
 }

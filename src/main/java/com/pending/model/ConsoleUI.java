@@ -38,6 +38,7 @@ public class ConsoleUI {
         createReliefRequestScenario();
         // readAndPrintReliefRequests();
         // acceptReliefRequestAndCheckIntoShelterScenario();
+        openAndMatchRequestScenario();
 
         printHeader("DEMONSTRATION COMPLETE");
     }
@@ -75,30 +76,34 @@ public class ConsoleUI {
     }
 
     /**
-     * Prints a formatted success or failure message.
+     * Attempts a login and displays an appropriate result.
      *
-     * @param email the email address used to log in
-     * @param password the password used to log in
+     * @param email the account email address
+     * @param password the account password
+     * @return true if login succeeds; otherwise false
      */
-    public boolean login(String email, String password) {
-        System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
-        System.out.println("\tpassword> " + password);
+    public boolean loginScenario(String email, String password) {
+        System.out.println("email> " + email);
+        System.out.println("password> " + password);
 
         String loginResult = app.attemptLogin(email, password);
+
         if (loginResult == null) {
-            System.out.println("Login Failed");
+            System.out.println("[FAILED] Login was unsuccessful.");
             return false;
         }
 
-        System.out.println("\n" + app.getUserFullName() + " is now logged in.");
+        System.out.println("[SUCCESS] " + app.getUserFullName()
+                + " is now logged in.");
         System.out.println("Profile: " + loginResult);
+
         return true;
     }
 
-    public void readAndPrintReliefRequests() {
+    private void readAndPrintReliefRequests() {
         printHeader("CURRENT RELIEF REQUESTS");
 
-        ArrayList<String> requests = app.getRequests();
+        ArrayList<String> requests = app.getReliefRequestStrings();
 
         if (requests.isEmpty()) {
             System.out.println("No relief requests are currently available.");
@@ -135,30 +140,6 @@ public class ConsoleUI {
     }
 
     /**
-     * Attempts a login and displays an appropriate result.
-     *
-     * @param email the account email address
-     * @param password the account password
-     * @return true if login succeeds; otherwise false
-     */
-    public boolean loginScenario(String email, String password) {
-        System.out.println("Email: " + email);
-
-        String loginResult = app.attemptLogin(email, password);
-
-        if (loginResult == null) {
-            System.out.println("[FAILED] Login was unsuccessful.");
-            return false;
-        }
-
-        System.out.println("[SUCCESS] " + app.getUserFullName()
-                + " is now logged in.");
-        System.out.println("Location: " + app.getLocation());
-
-        return true;
-    }
-
-    /**
      * Demonstrates account creation and relief-request submission.
      */
     public void createReliefRequestScenario() {
@@ -189,7 +170,7 @@ public class ConsoleUI {
             System.out.println("Account creation failed");
         }
 
-        login(email, password);
+        loginScenario(email, password);
 
         System.out.println("\nCreating a Relief Request:");
         app.setCurrentUserReliefNeeds(new ArrayList<>(
@@ -327,22 +308,34 @@ public class ConsoleUI {
         String password = "RosaStrong2026!";
 
         // Show Rosa's profile
-        if (!login(email, password)) {
+        if (!loginScenario(email, password)) {
             return;
         }
 
-        
-        
-
         // Rosa sees 7 relief requests sorted based on ReliefType and proximity
+        readAndPrintReliefRequests();
 
         // App recommneds the Request to her
+        // TODO actual logic to determine this
+        System.out.println("Choose a Request, Request 4 is Recommended due to Matching needs and proximity");
+        ReliefRequest currRequest = app.getReliefRequests().get(3);
 
         // Rosa can open the request to see the information on the family
+        System.out.println("Opening Request 4");
+        
+        if(!app.openReliefRequest(currRequest)) {
+            System.out.println("Failed Opening Request");
+        }
+        System.out.println(app.getCurrentReliefRequest());
+
+        System.out.println("Logging Out " + app.getUserFullName());
+
+        app.logout();
+        
     }
 
     public void findShelterAndAssignRequest() {
-        printHeader("OPTIONAL: FIND A SHELTER AND EXPORT TRIP INFORMATION");
+        printHeader("SCENARIO 3: FIND A SHELTER AND EXPORT TRIP INFORMATION");
 
         if (!loginScenario("rosa.delgado@example.com",
                 "RosaStrong2026!")) {
@@ -383,6 +376,10 @@ public class ConsoleUI {
         printResult(app.acceptReliefRequest(reliefRequest),
                 "Volunteer accepted the relief request.",
                 "Volunteer could not accept the relief request.");
+    }
+
+    public void exportTripInformationScenario() {        
+        printHeader("SCENARIO 4: EXPORT TRIP INFORMATION");
 
         printResult(app.exportTripInformation(),
                 "Trip information was exported successfully.",
@@ -395,7 +392,7 @@ public class ConsoleUI {
      * Demonstrates role permissions by attempting a manager-only action.
      */
     public void rolePermissionScenario() {
-        printHeader("OPTIONAL: ROLE PERMISSION CHECK");
+        printHeader("SCENARIO 5: ROLE PERMISSION CHECK");
 
         if (!loginScenario("rosa.delgado@example.com",
                 "RosaStrong2026!")) {
