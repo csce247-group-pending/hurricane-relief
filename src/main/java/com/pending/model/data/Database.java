@@ -154,16 +154,16 @@ public class Database {
      * @param password the user's password
      * @return the matching User, or null if login fails
      */
+    
     public User attemptLogin(String email, String password) {
-        User user = users.getObject(
-                u -> email.equals(u.getUserContact().getEmail())
-        );
+    User user = users.getObject(
+            u -> u.getUserContact() != null
+                    && email.equals(u.getUserContact().getEmail())
+    );
 
-        System.out.println(users.getAll());
-
-        return user == null || !password.equals(user.getPassword())
-                ? null : user;
-    }
+    return user == null || !password.equals(user.getPassword())
+            ? null : user;
+}
 
     /**
      * Creates a user account and saves its user, contacts, and location.
@@ -213,17 +213,36 @@ public class Database {
         return true;
     }
 
-    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings) {
-        HashSet<ReliefType> reliefTypes = new HashSet<>();
-        for (LivingBeing livingBeing: livingBeings) {
-            reliefTypes.addAll(livingBeing.getReliefNeeds());
-        }
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes));
-        if (author != null) author.getUserReliefRequests().add(reliefRequest);
-        boolean returnValue = requests.add(reliefRequest);
-        requests.write();
-        return returnValue;
+    public boolean createReliefRequest(User author, String description,
+        Location location, ArrayList<LivingBeing> livingBeings) {
+
+    HashSet<ReliefType> reliefTypes = new HashSet<>();
+
+    for (LivingBeing livingBeing : livingBeings) {
+        reliefTypes.addAll(livingBeing.getReliefNeeds());
     }
+
+    ReliefRequest reliefRequest = new ReliefRequest(
+            description,
+            location,
+            ReliefStatus.REQUESTED,
+            livingBeings,
+            new ArrayList<>(reliefTypes)
+    );
+
+    if (author != null) {
+        author.getUserReliefRequests().add(reliefRequest);
+
+        reliefRequest.setContactInfo(author.getUserContact());
+        reliefRequest.setContactUUIDReference(
+                author.getUserContact().getId());
+    }
+
+    boolean requestAdded = requests.add(reliefRequest);
+    requests.write();
+
+    return requestAdded;
+}
 
     public ArrayList<LivingBeing> getLivingBeings() {
         return livingBeings.getAll();

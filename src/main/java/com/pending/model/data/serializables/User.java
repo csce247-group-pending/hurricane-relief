@@ -308,10 +308,10 @@ public class User extends LivingBeing {
      * @return a formatted user summary
      */
     @Override
-    public String toString() {
-        return "User " + getFirstName() + " " + getLastName() + ": "
-                + "\n\tAge: TO BE DETERMINED"
-                + "\n\tContact Info: " + getUserContact()
-                + "\n\tLocation: " + getLocation();
+public String toString() {
+    return "User " + getFirstName() + " " + getLastName() + ": "
+            + "\n\tAge: " + getAge()
+            + "\n\tContact Info: " + getUserContact()
+            + "\n\tLocation: " + getLocation();
     }
 }

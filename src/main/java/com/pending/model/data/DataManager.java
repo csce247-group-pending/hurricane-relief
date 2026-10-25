@@ -7,7 +7,6 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,12 +42,10 @@ public class DataManager {
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
     public ArrayList<?> read() throws ExecutionControl.NotImplementedException {
-        System.out.println("Reading file " + filename);
-
         switch (mode) {
-            case FileMode.JSON:
+            case JSON:
                 return readJSON();
-            case FileMode.SQL:
+            case SQL:
                 throw new ExecutionControl.NotImplementedException("SQL");
             default:
                 return null;
@@ -62,13 +59,13 @@ public class DataManager {
      * @return true if the write succeeds; otherwise false
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
-    public boolean write(ArrayList<?> objects) throws ExecutionControl.NotImplementedException {
-        System.out.println("Writing to file " + filename);
+    public boolean write(ArrayList<?> objects)
+            throws ExecutionControl.NotImplementedException {
 
         switch (mode) {
-            case FileMode.JSON:
+            case JSON:
                 return writeJSON((ArrayList<JSONObject>) objects);
-            case FileMode.SQL:
+            case SQL:
                 throw new ExecutionControl.NotImplementedException("SQL");
             default:
                 return false;
@@ -100,13 +97,11 @@ public class DataManager {
      * @return true if the write succeeds; otherwise false
      */
     public boolean writeJSON(ArrayList<JSONObject> objects) {
-        String jsonFileString;
         JSONArray jsonFileArray = new JSONArray();
         jsonFileArray.addAll(objects);
 
         try (FileWriter writer = new FileWriter(filename)) {
-            jsonFileString = jsonFileArray.toJSONString();
-            writer.write(jsonFileString);
+            writer.write(jsonFileArray.toJSONString());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,8 +124,12 @@ public class DataManager {
      * This method is not implemented yet.
      *
      * @param object the JSON object to write
+     * @throws ExecutionControl.NotImplementedException because this method is
+     *         not implemented
      */
-    public void write(JSONObject object) throws ExecutionControl.NotImplementedException {
+    public void write(JSONObject object)
+            throws ExecutionControl.NotImplementedException {
+
         throw new ExecutionControl.NotImplementedException("Not implemented");
     }
 

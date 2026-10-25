@@ -1,5 +1,9 @@
 package com.pending.model;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Location;
@@ -8,238 +12,293 @@ import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
-import java.lang.reflect.Array;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 /**
- * Provides terminal-based scenarios for using the Hurricane Relief System.
- * It displays information and sends user actions to the Application class.
+ * Provides terminal-based demonstration scenarios for the Hurricane Relief
+ * System. It displays user actions and sends requests to the Application.
  */
 public class ConsoleUI {
-    private Scanner scanner;
-    private Application app;
+    private static final String DEMO_REQUEST_DESCRIPTION =
+            "Need transportation to the nearest pet-friendly shelter.";
+
+    private final Application app;
 
     /**
-     * Creates the console user interface and gets the Application instance.
+     * Creates the console user interface.
      */
     public ConsoleUI() {
         app = Application.getInstance();
     }
 
     /**
-     * Runs the current terminal scenarios.
+     * Runs the demonstration scenarios used during the presentation.
      */
     public void run() {
+        printHeader("HURRICANE RELIEF SYSTEM DEMONSTRATION");
+
         createReliefRequestScenario();
         readAndPrintReliefRequests();
         acceptReliefRequestAndCheckIntoShelterScenario();
+
+        printHeader("DEMONSTRATION COMPLETE");
     }
 
     /**
-     * Gets and prints all relief requests in the terminal.
+     * Prints a formatted heading for a console section.
+     *
+     * @param title the heading text to display
+     */
+    private void printHeader(String title) {
+        System.out.println();
+        System.out.println("============================================================");
+        System.out.println(" " + title);
+        System.out.println("============================================================");
+    }
+
+    /**
+     * Prints a formatted success or failure message.
+     *
+     * @param success whether the action succeeded
+     * @param successMessage message displayed when successful
+     * @param failureMessage message displayed when unsuccessful
+     */
+    private void printResult(boolean success, String successMessage,
+            String failureMessage) {
+        System.out.println(success ? "[SUCCESS] " + successMessage
+                : "[FAILED] " + failureMessage);
+    }
+
+    /**
+     * Gets and displays all current relief requests.
      */
     public void readAndPrintReliefRequests() {
-        System.out.println();
+        printHeader("CURRENT RELIEF REQUESTS");
 
         ArrayList<String> requests = app.getRequests();
 
         if (requests.isEmpty()) {
-            System.out.println("No relief requests found");
+            System.out.println("No relief requests are currently available.");
+            return;
         }
 
-        System.out.println("Printing All Relief Requests:");
+        System.out.println("Total requests: " + requests.size());
 
-        for (String request : app.getRequests()) {
-            System.out.println(request);
+        for (int i = 0; i < requests.size(); i++) {
+            System.out.println();
+            System.out.println("Request " + (i + 1) + ":");
+            System.out.println(requests.get(i));
         }
     }
 
     /**
-     * Displays a login scenario and attempts to log in the user.
+     * Attempts a login and displays an appropriate result.
      *
-     * @param email the email address used to log in
-     * @param password the password used to log in
+     * @param email the account email address
+     * @param password the account password
+     * @return true if login succeeds; otherwise false
      */
-    public void loginScenario(String email, String password) {
-        System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
-        System.out.println("\tpassword> " + password);
+    public boolean loginScenario(String email, String password) {
+        System.out.println("Email: " + email);
 
-        if (!app.attemptLogin(email, password)) {
-            System.out.println("Login Failed");
-            return;
+        boolean loginSuccessful = app.attemptLogin(email, password);
+
+        if (!loginSuccessful) {
+            System.out.println("[FAILED] Login was unsuccessful.");
+            return false;
         }
 
-        System.out.println(app.getUserFullName() + " is now logged in");
+        System.out.println("[SUCCESS] " + app.getUserFullName()
+                + " is now logged in.");
+        System.out.println("Location: " + app.getLocation());
+
+        return true;
     }
 
     /**
-     * Displays an account-creation scenario and then logs in the new user.
+     * Creates a sample account and submits a relief request for a family
+     * needing transportation and pet-friendly shelter assistance.
      */
-    public void createAccountAndLoginScenario() {
-        String email = "newestemail@gmail.com";
-        String password = "strong_p@ssword";
-
-        System.out.println("Create an account. Please enter the following information:");
-        System.out.println("Contact Infomation");
-        System.out.println("\temail> " + email);
-        System.out.println("\tphone> *skipped*");
-        System.out.println("\tcontact_preference> email");
-        System.out.println("Emergency Contact Information");
-        System.out.println("\temail> bestfriend@gmail.com");
-        System.out.println("\tphone> 8033448978");
-        System.out.println("\tcontact_preference> CALL");
-        System.out.println("Personal Infomation");
-        System.out.println("\tfirst_name> Joe");
-        System.out.println("\tlast_name> Smith");
-        System.out.println("\tpassword> " + password);
-        System.out.println("\tlocation> 300 Main St, Columbia, SC, 29208");
-
-        if (!app.requestCreateAccount("Joe", "Smith", LocalDate.of(1997, 12, 10), password,
-                "300 Main St, Columbia, SC, 29208",
-                email, "", "EMAIL",
-                "bestfriend@gmail.com", "8033448978", "CALL")) {
-            System.out.println("Create Account Failed");
-            return;
-        }
-
-        System.out.println("Account successfully created");
-
-        loginScenario(email, password);
-    }
-
-    /**
-     * Gets and prints all shelters in the terminal.
-     */
-    public void readAndPrintSheltersScenario() {
-        System.out.println();
-
-        ArrayList<String> shelters = app.getShelters();
-
-        if (shelters.isEmpty()) {
-            System.out.println("No shelters found.");
-            return;
-        }
-
-        System.out.println("Printing all Shelters:");
-
-        for (String shelter : shelters) {
-            System.out.println(shelter);
-        }
-    }
-
-    public void getShelterTimes() {
-        System.out.println();
-
-        System.out.println("Getting Shelters");
-        ArrayList<String> shelters = app.getShelters();
-        if (shelters.isEmpty()) {
-            System.out.println("No shelters found.");
-            return;
-        }
-
-        System.out.println("Printing Shelters and Times");
-
-        loginScenario("jane.doe.chs@gmail.com", "SecurePassword123!");
-
-        ArrayList<Double> shelterTimes = app.getShelterTimes();
-        if(shelterTimes == null) {
-            System.out.println("[Error] Shelters not loaded");
-            return;
-        }
-
-        if(shelters.size() != shelterTimes.size()) {
-            System.out.println("[Error] Not all shelters and times loaded");
-            return;
-        }
-
-        for(int i = 0; i < shelters.size(); ++i) {
-            System.out.print(shelters.get(i));
-            System.out.println("\n\tEst Time: " + (int) (shelterTimes.get(i)/60) + "m");
-        } 
-    }
-
     public void createReliefRequestScenario() {
+        printHeader("SCENARIO 1: CREATE A RELIEF REQUEST");
+
         String firstName = "James";
         String lastName = "Carter";
-        LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
+        String email = "jimmycarter@gmail.com";
         String password = "Buddy1&";
 
-        boolean accountCreationSuccess = app.requestCreateAccount(
+        System.out.println("Creating an account for " + firstName + " "
+                + lastName + "...");
+
+        boolean accountCreated = app.requestCreateAccount(
                 firstName,
                 lastName,
-                dateOfBirth,
+                LocalDate.parse("1952-11-02"),
                 password,
                 new Location("SC", "Charleston", "32 Legare St", "29401"),
-                new Contact("jimmycarter@gmail.com", "8439847569", ContactPreference.CALL),
-                new Contact("doriscarter@gmail.com", "8433458910", ContactPreference.TEXT)
+                new Contact(email, "8439847569", ContactPreference.CALL),
+                new Contact("doriscarter@gmail.com", "8433458910",
+                        ContactPreference.TEXT)
         );
-        if (!accountCreationSuccess) {
-            System.out.println("Account creation failed");
+
+        if (accountCreated) {
+            System.out.println("[SUCCESS] Account created.");
+        } else {
+            System.out.println("[INFO] Account already exists; using the"
+                    + " existing account for this demonstration.");
         }
 
-        if (!app.attemptLogin("jimmycarter@gmail.com", password)) {
-            System.out.println("Login failed");
+        System.out.println();
+        System.out.println("Logging in as the requesting user...");
+
+        if (!loginScenario(email, password)) {
             return;
         }
 
-        app.getCurrentUser().setReliefNeeds(new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER)));
+        app.getCurrentUser().setReliefNeeds(new ArrayList<>(List.of(
+                ReliefType.TRANSPORTATION,
+                ReliefType.SHELTER
+        )));
 
         ArrayList<LivingBeing> family = new ArrayList<>();
-        family.add((LivingBeing) app.getCurrentUser());
+
+        family.add(app.getCurrentUser());
+
         family.add(new LivingBeing(
                 "Doris",
                 "Carter",
                 LocalDate.parse("1954-05-23"),
                 LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
+                new ArrayList<>(List.of(
+                        ReliefType.TRANSPORTATION,
+                        ReliefType.SHELTER
+                ))
         ));
+
         family.add(new LivingBeing(
                 "Sophie",
                 "Carter",
                 LocalDate.parse("2014-08-20"),
                 LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
+                new ArrayList<>(List.of(
+                        ReliefType.TRANSPORTATION,
+                        ReliefType.SHELTER,
+                        ReliefType.MEDICAL_CARE
+                ))
         ));
+
         family.add(new LivingBeing(
                 "Buddy",
                 "Carter",
                 LocalDate.parse("2021-01-15"),
                 LivingBeingType.PET,
-                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
+                new ArrayList<>(List.of(
+                        ReliefType.TRANSPORTATION,
+                        ReliefType.PET_SHELTER
+                ))
         ));
-        System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
-                "Request posted successfully." : "Request upload failed.");
-        app.logout();
-    }
 
-    public void acceptReliefRequestAndCheckIntoShelterScenario() {
-        String email = "rosa.delgado@example.com";
-        String password = "RosaStrong2026!";
-        System.out.println("Email: " + email);
-        System.out.println("Password: " + password);
+        System.out.println();
+        System.out.println("Submitting a request for " + family.size()
+                + " family members, including one pet...");
 
-        loginScenario(email, password);
+        boolean requestCreated = app.createReliefRequest(
+                DEMO_REQUEST_DESCRIPTION, family);
 
-        ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
-        app.acceptReliefRequest(reliefRequest);
-        app.logout();
-
-        email = "pianoboiii1809@pigeonmail.old";
-        password = "S@xUndV10lins";
-
-        loginScenario(email, password);
-
-        app.checkIntoShelter(reliefRequest.getLivingBeings());
-        app.completeRequest(reliefRequest);
+        printResult(requestCreated,
+                "Relief request was submitted successfully.",
+                "The relief request could not be submitted.");
 
         app.logout();
+        System.out.println("Requesting user logged out.");
     }
 
     /**
-     * Starts the terminal user interface.
+     * Finds the newest request with the provided description.
+     *
+     * @param reliefRequests the available relief requests
+     * @param description the description to search for
+     * @return the matching request, or null if it does not exist
+     */
+    private ReliefRequest findRequestByDescription(
+            ArrayList<ReliefRequest> reliefRequests, String description) {
+
+        for (int i = reliefRequests.size() - 1; i >= 0; i--) {
+            ReliefRequest request = reliefRequests.get(i);
+
+            if (description.equals(request.getDescription())) {
+                return request;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Demonstrates accepting a request, checking family members into a
+     * shelter, and completing the request.
+     */
+    public void acceptReliefRequestAndCheckIntoShelterScenario() {
+        printHeader("SCENARIO 2: ASSIGN AND COMPLETE A RELIEF REQUEST");
+
+        String volunteerEmail = "rosa.delgado@example.com";
+        String volunteerPassword = "RosaStrong2026!";
+
+        System.out.println("Logging in as a volunteer...");
+
+        if (!loginScenario(volunteerEmail, volunteerPassword)) {
+            return;
+        }
+
+        ReliefRequest reliefRequest = findRequestByDescription(
+                app.getReliefRequests(), DEMO_REQUEST_DESCRIPTION);
+
+        if (reliefRequest == null) {
+            System.out.println("[FAILED] The demonstration request was not found.");
+            app.logout();
+            return;
+        }
+
+        System.out.println();
+        System.out.println("Selected request:");
+        System.out.println(reliefRequest);
+
+        boolean requestAccepted = app.acceptReliefRequest(reliefRequest);
+
+        printResult(requestAccepted,
+                "Volunteer accepted the relief request.",
+                "Volunteer could not accept the relief request.");
+
+        app.logout();
+        System.out.println("Volunteer logged out.");
+
+        String managerEmail = "felix.mendelssohn@example.com";
+        String managerPassword = "S@xUndV10lins";
+
+        System.out.println();
+        System.out.println("Logging in as the shelter manager...");
+
+        if (!loginScenario(managerEmail, managerPassword)) {
+            return;
+        }
+
+        boolean checkedIn = app.checkIntoShelter(
+                reliefRequest.getLivingBeings());
+
+        printResult(checkedIn,
+                "Family members were checked into the shelter.",
+                "The family could not be checked into the shelter.");
+
+        boolean requestCompleted = app.completeRequest(reliefRequest);
+
+        printResult(requestCompleted,
+                "Relief request was marked as completed.",
+                "The relief request could not be completed.");
+
+        app.logout();
+        System.out.println("Shelter manager logged out.");
+    }
+
+    /**
+     * Starts the terminal demonstration.
      *
      * @param args command-line arguments, which are not used
      */

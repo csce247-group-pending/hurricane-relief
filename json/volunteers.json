@@ -8,6 +8,6 @@
     "user_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0001",
     "emergency_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0002",
     "user_relief_requests": [],
-    "relief_types": "TRANSPORTATION"
+    "relief_types": ["TRANSPORTATION"]
   }
 ]
