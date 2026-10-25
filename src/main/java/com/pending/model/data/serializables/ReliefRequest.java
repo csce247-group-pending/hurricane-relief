@@ -1,6 +1,8 @@
 package com.pending.model.data.serializables;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -195,6 +197,15 @@ public class ReliefRequest extends Serializable {
         this.types = types;
     }
 
+    private void setTypesFromLivingBeings() {
+        Set<ReliefType> uniqueTypes = new LinkedHashSet<>();
+        for(LivingBeing being: livingBeings) {
+            uniqueTypes.addAll(being.getReliefNeeds());
+        }
+
+        types = new ArrayList<ReliefType>(uniqueTypes);
+    }
+
     /**
      * Returns a readable summary of this relief request.
      *
@@ -210,13 +221,34 @@ public class ReliefRequest extends Serializable {
                 ? "N/A"
                 : reliefTypesString;
 
+        return "[Relief Request]"
+                + "\n\tDescription: " + description
+                + "\n\tRelief Status: " + status
+                + "\n\tRelief Needs: " + reliefTypesString
+                + "\n\tLocation: " + location
+                + "\n\tMembers" + getPartySize() + ")";
+    }
+
+    public String toStringDetailed() {
+        String reliefTypesString = types.stream()
+                .map(Enum::name)
+                .collect(Collectors.joining(", "));
+
+        reliefTypesString = reliefTypesString.isEmpty()
+                ? "N/A"
+                : reliefTypesString;
+
         String formattedBeings = "";
 
         for (LivingBeing livingBeing : livingBeings) {
-            formattedBeings += "\t\t" + livingBeing + "\n";
+            if (livingBeing instanceof User user) {
+                formattedBeings += "\t\t" + user.toStringLivingBeing() + "\n";
+            } else {
+                formattedBeings += "\t\t" + livingBeing.toString() + "\n";
+            }
         }
 
-        return "[Relief Request]"
+        return "[Relief Request Detailed]"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status: " + status
                 + "\n\tAssigned To: " + (assignedTo != null && status != ReliefStatus.REQUESTED ? 

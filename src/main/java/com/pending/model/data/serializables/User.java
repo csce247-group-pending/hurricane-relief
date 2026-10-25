@@ -318,4 +318,8 @@ public class User extends LivingBeing {
                 + "\n\tContact Info: " + getUserContact()
                 + "\n\tLocation: " + getLocation();
     }
+
+    public String toStringLivingBeing() {
+        return super.toString();
+    }
 }

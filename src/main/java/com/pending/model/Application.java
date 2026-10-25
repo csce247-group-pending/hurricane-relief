@@ -1,6 +1,7 @@
 package com.pending.model;
 
 import java.awt.image.DataBuffer;
+import java.lang.invoke.VolatileCallSite;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -138,7 +139,6 @@ public class Application {
 
     /**
      * Creates a new relief request.
-     * This method is not implemented yet.
      */
     public boolean createReliefRequest(String description) {
         return database.createReliefRequest(currentUser, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
@@ -306,15 +306,6 @@ public class Application {
         return shelterTimes;
     }
 
-    /**
-     * Starts a relief request.
-     * This action will require a Volunteer role check.
-     */
-    public void startRequest() {
-        // must role check for Volunteer
-
-    }
-
     public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
         return currentUser != null && currentUser.checkIntoShelter(livingBeings);
     }
@@ -357,5 +348,15 @@ public class Application {
 
     public void setShelter(Shelter shelter) {
         this.currShelter = shelter;
+    }
+
+    public String exportTripInformation() {
+        if (currentUser instanceof Volunteer volunteer) {
+            database.exportTripInformation(volunteer, currShelter);
+        } else {
+            System.out.println("Only volunteers can export trip information");
+        }
+        return null;
+
     }
 }

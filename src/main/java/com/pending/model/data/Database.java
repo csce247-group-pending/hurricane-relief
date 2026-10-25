@@ -391,9 +391,10 @@ public class Database {
         return count;
     }
 
-    public boolean exportTripInformation(Volunteer volunteer) {
+    public boolean exportTripInformation(Volunteer volunteer, Shelter shelter) {
         String outputFile = volunteer.getFirstName() + "_relief_task.txt";
-        return volunteers.exportTripInformation(volunteer.exportTripInformation(), outputFile);
+
+        return volunteers.exportTripInformation("", outputFile);
     }
     
 }

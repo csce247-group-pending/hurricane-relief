@@ -34,11 +34,11 @@ public class ConsoleUI {
      * Runs the current terminal scenarios.
      */
     public void run() {
-        // createReliefRequestScenario();
         // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
+        // createReliefRequestScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        findShelterAndAssignRequest();
+        // findShelterAndAssignRequest();
     }
 
     public void close() {
@@ -70,7 +70,7 @@ public class ConsoleUI {
      * @param email the email address used to log in
      * @param password the password used to log in
      */
-    public void loginScenario(String email, String password) {
+    public void login(String email, String password) {
         System.out.println("\nLogin:\nPlease enter your email and password:\n\temail> " + email);
         System.out.println("\tpassword> " + password);
 
@@ -114,7 +114,7 @@ public class ConsoleUI {
 
         System.out.println("Account successfully created");
 
-        loginScenario(email, password);
+        login(email, password);
     }
 
     /**
@@ -149,7 +149,7 @@ public class ConsoleUI {
 
         System.out.println("Printing Shelters and Times");
 
-        loginScenario("jane.doe.chs@gmail.com", "SecurePassword123!");
+        login("jane.doe.chs@gmail.com", "SecurePassword123!");
 
         ArrayList<Double> shelterTimes = app.getShelterTimes();
         if(shelterTimes == null) {
@@ -173,7 +173,7 @@ public class ConsoleUI {
         String lastName = "Carter";
         LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
         String password = "Buddy1&";
-
+        System.out.println("Creating an account for James Carter");
         boolean accountCreationSuccess = app.requestCreateAccount(
                 firstName,
                 lastName,
@@ -187,12 +187,13 @@ public class ConsoleUI {
             System.out.println("Account creation failed");
         }
 
-        if (!app.attemptLogin("jimmycarter@gmail.com", password)) {
-            System.out.println("Login failed");
-            return;
-        }
+        login("jimmycarter@gmail.com", password);
 
-        app.getCurrentUser().setReliefNeeds(new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER)));
+
+        System.out.println("\nCreating a Relief Request");
+        app.getCurrentUser().setReliefNeeds(new ArrayList<>(
+            List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE)
+        ));
 
         ArrayList<LivingBeing> family = new ArrayList<>();
         family.add((LivingBeing) app.getCurrentUser());
@@ -218,7 +219,8 @@ public class ConsoleUI {
                 new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
         ));
         System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
-                "Request posted successfully." : "Request upload failed.");
+                "Request posted successfully:" : "Request upload failed.");
+        readAndPrintReliefRequests();
         app.logout();
     }
 
@@ -228,7 +230,7 @@ public class ConsoleUI {
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
 
-        loginScenario(email, password);
+        login(email, password);
 
         ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
         app.acceptReliefRequest(reliefRequest);
@@ -237,12 +239,22 @@ public class ConsoleUI {
         email = "pianoboiii1809@pigeonmail.old";
         password = "S@xUndV10lins";
 
-        loginScenario(email, password);
+        login(email, password);
 
         app.checkIntoShelter(reliefRequest.getLivingBeings());
         app.closeReliefRequest(reliefRequest);
 
         app.logout();
+    }
+
+    public void openAndMatchRequestScneario() {
+        // Rosa logs in
+
+        // Rosa sees 7 relief requests sorted based on ReliefType and proximity
+
+        // App recommneds the Request to her
+
+        // Rosa can open the request to see the information on the family
     }
 
     public void findShelterAndAssignRequest() {
@@ -251,7 +263,7 @@ public class ConsoleUI {
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
 
-        loginScenario(email, password);
+        login(email, password);
 
         // TODO update relief request to be scenario relief request
         ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
@@ -286,13 +298,22 @@ public class ConsoleUI {
         System.out.println("\nLogging out");
         app.logout();
 
-        loginScenario("vol9@example.com","Password123!");
+        login("vol9@example.com","Password123!");
 
         System.out.println("\nPrinting All Relief Requests:");
         for (String request : app.getRequests()) {
             System.out.println(request);
         }
         
+    }
+
+    public void exportTripInformation() {
+        String result = app.exportTripInformation();
+        if(result == null) {
+            System.out.println("Error exporting trip info: Scenario Failed");
+        } else {
+            System.out.println("Trip Exported Successfully to file: " + result);
+        }
     }
 
     /**
