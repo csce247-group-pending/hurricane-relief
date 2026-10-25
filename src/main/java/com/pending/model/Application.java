@@ -1,21 +1,20 @@
 package com.pending.model;
 
-import java.awt.image.DataBuffer;
-import java.lang.invoke.VolatileCallSite;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.pending.location.MapTools;
-import com.pending.model.data.DataList;
 import com.pending.model.data.Database;
-import com.pending.model.data.serializables.*;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.LivingBeing;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
+import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ContactPreference;
-import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
 /**
@@ -24,6 +23,7 @@ import com.pending.model.enums.ReliefType;
  */
 public class Application {
     private static Application application;
+
     private Database database;
     private User currentUser;
     private Location location;
@@ -49,35 +49,35 @@ public class Application {
         if (application == null) {
             application = new Application();
         }
+
         return application;
     }
 
     /**
-     * Creates a new user account with contact and location information.
+     * Creates a new user account using text-based location and contact data.
      *
      * @param firstName the user's first name
      * @param lastName the user's last name
      * @param dateOfBirth the user's date of birth
      * @param password the user's password
-     * @param address the user's address as a comma-separated string
+     * @param address the user's comma-separated address
      * @param userContactEmail the user's email address
      * @param userContactPhone the user's phone number
      * @param userContactPreference the user's preferred contact method
-     * @param emergencyContactEmail the emergency contact's email address
-     * @param emergencyContactPhone the emergency contact's phone number
-     * @param emergencyContactPreference the emergency contact's preferred contact method
-     * @return true if the account was created successfully; otherwise false
+     * @param emergencyContactEmail the emergency contact email address
+     * @param emergencyContactPhone the emergency contact phone number
+     * @param emergencyContactPreference the emergency contact preference
+     * @return true if the account was created; otherwise false
      */
     public boolean requestCreateAccount(String firstName, String lastName,
-                                        LocalDate dateOfBirth, String password,
-                                        String address,
-                                        String userContactEmail, String userContactPhone,
-                                        String userContactPreference,
-                                        String emergencyContactEmail,
-                                        String emergencyContactPhone,
-                                        String emergencyContactPreference) {
+            LocalDate dateOfBirth, String password, String address,
+            String userContactEmail, String userContactPhone,
+            String userContactPreference, String emergencyContactEmail,
+            String emergencyContactPhone,
+            String emergencyContactPreference) {
 
         String[] locationInformation = address.split(", ");
+
         String state = locationInformation[2];
         String city = locationInformation[1];
         String street = locationInformation[0];
@@ -85,20 +85,38 @@ public class Application {
 
         Location location = new Location(state, city, street, zip);
 
-        Contact userContact = new Contact(userContactEmail, userContactPhone,
+        Contact userContact = new Contact(userContactEmail,
+                userContactPhone,
                 ContactPreference.valueOf(userContactPreference));
 
         Contact emergencyContact = new Contact(emergencyContactEmail,
                 emergencyContactPhone,
                 ContactPreference.valueOf(emergencyContactPreference));
 
-        return database.createAccount(firstName, lastName, dateOfBirth,  new ArrayList<>(),
-                password, location, userContact, emergencyContact);
+        return database.createAccount(firstName, lastName, dateOfBirth,
+                new ArrayList<>(), password, location, userContact,
+                emergencyContact);
     }
 
-    public boolean requestCreateAccount(String firstName, String lastName, LocalDate dateOfBirth, String password, Location location, Contact userContact, Contact emergencyContact) {
-        return database.createAccount(firstName, lastName, dateOfBirth,  new ArrayList<>(),
-                password, location, userContact, emergencyContact);
+    /**
+     * Creates a new user account using Location and Contact objects.
+     *
+     * @param firstName the user's first name
+     * @param lastName the user's last name
+     * @param dateOfBirth the user's date of birth
+     * @param password the user's password
+     * @param location the user's location
+     * @param userContact the user's primary contact information
+     * @param emergencyContact the user's emergency contact information
+     * @return true if the account was created; otherwise false
+     */
+    public boolean requestCreateAccount(String firstName, String lastName,
+            LocalDate dateOfBirth, String password, Location location,
+            Contact userContact, Contact emergencyContact) {
+
+        return database.createAccount(firstName, lastName, dateOfBirth,
+                new ArrayList<>(), password, location, userContact,
+                emergencyContact);
     }
 
     /**
@@ -120,7 +138,7 @@ public class Application {
     }
 
     /**
-     * Logs out the currently logged-in user.
+     * Logs out the current user and clears session information.
      */
     public void logout() {
         currentUser = null;
@@ -129,85 +147,139 @@ public class Application {
     }
 
     /**
-     * Gets the full name of the currently logged-in user.
+     * Gets the logged-in user's full name.
      *
      * @return the user's first and last name
      */
     public String getUserFullName() {
-        return currentUser.getFirstName() + " " + currentUser.getLastName();
+        return currentUser.getFirstName() + " "
+                + currentUser.getLastName();
     }
 
     /**
-     * Creates a new relief request.
+     * Creates a relief request for the current user.
+     *
+     * @param description the request description
+     * @return true if the request was created; otherwise false
      */
     public boolean createReliefRequest(String description) {
-        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
-    }
-
-    public boolean createReliefRequest(String description, ArrayList<LivingBeing> livingBeings) {
-        return database.createReliefRequest(currentUser, description, currentUser.getLocation(), livingBeings);
-    }
-
-    public boolean createReliefRequest(User author, String description) {
-        return database.createReliefRequest(author, description, currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)));
-    }
-
-    public boolean createReliefRequest(User author, String description, ArrayList<LivingBeing> livingBeings) {
-        return database.createReliefRequest(author, description, currentUser.getLocation(), livingBeings);
+        return database.createReliefRequest(currentUser, description,
+                currentUser.getLocation(),
+                new ArrayList<LivingBeing>(List.of(currentUser)));
     }
 
     /**
-     * 
-     * 
-     * @param reliefRequest
-     * @return
+     * Creates a relief request for the current user and family members.
+     *
+     * @param description the request description
+     * @param livingBeings the people or pets needing relief
+     * @return true if the request was created; otherwise false
+     */
+    public boolean createReliefRequest(String description,
+            ArrayList<LivingBeing> livingBeings) {
+
+        return database.createReliefRequest(currentUser, description,
+                currentUser.getLocation(), livingBeings);
+    }
+
+    /**
+     * Creates a relief request for a specified user.
+     *
+     * @param author the user creating the request
+     * @param description the request description
+     * @return true if the request was created; otherwise false
+     */
+    public boolean createReliefRequest(User author, String description) {
+        return database.createReliefRequest(author, description,
+                currentUser.getLocation(),
+                new ArrayList<LivingBeing>(List.of(currentUser)));
+    }
+
+    /**
+     * Creates a relief request for a specified user and group.
+     *
+     * @param author the user creating the request
+     * @param description the request description
+     * @param livingBeings the people or pets needing relief
+     * @return true if the request was created; otherwise false
+     */
+    public boolean createReliefRequest(User author, String description,
+            ArrayList<LivingBeing> livingBeings) {
+
+        return database.createReliefRequest(author, description,
+                currentUser.getLocation(), livingBeings);
+    }
+
+    /**
+     * Opens a relief request when the current user is a volunteer.
+     *
+     * @param reliefRequest the request to open
+     * @return true if the request was opened; otherwise false
      */
     public boolean openReliefRequest(ReliefRequest reliefRequest) {
-        if (currentUser == null) {
-            return false;
-        } 
-        if(currentUser instanceof Volunteer volunteer) {
+        if (currentUser instanceof Volunteer volunteer) {
             return volunteer.openReliefRequest(reliefRequest);
         }
-        return false;
-    }
 
-    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
-        if (currentUser == null) {
-            return false;
-        } 
-        if(currentUser instanceof Volunteer volunteer) {
-            if (volunteer.acceptReliefRequest(reliefRequest)) {
-                database.write(ReliefRequest.class);
-                return true;
-            }
-        }
         return false;
     }
 
     /**
-     * Completes a relief request.
-     * This action will require a Shelter Manager role check.
+     * Assigns a relief request to the logged-in volunteer.
+     *
+     * @param reliefRequest the request to accept
+     * @return true if the volunteer accepted the request; otherwise false
+     */
+    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        if (currentUser instanceof Volunteer volunteer
+                && volunteer.acceptReliefRequest(reliefRequest)) {
+
+            database.write(ReliefRequest.class);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Completes a specific request using the logged-in shelter manager.
+     *
+     * @param reliefRequest the request to complete
+     * @return true if the request was completed; otherwise false
+     */
+    public boolean completeRequest(ReliefRequest reliefRequest) {
+        return currentUser != null
+                && currentUser.closeReliefRequest(reliefRequest);
+    }
+
+    /**
+     * Completes the current shelter manager's assigned request.
+     *
+     * @return true if the request was completed; otherwise false
      */
     public boolean closeReliefRequest() {
-        if (currentUser == null) {
+        if (!(currentUser instanceof ShelterManager shelterManager)) {
+            System.out.println("Only Shelter Managers can complete tasks.");
             return false;
         }
 
-        if (currentUser instanceof ShelterManager shelterManager) {
-            // TODO figure out logic so that the manager claims the specific task
-            if (shelterManager.closeReliefRequest(shelterManager.getTask())) {
-                database.write(ReliefRequest.class);
-                return true;
-            }
-        } else {
-            System.out.println("Only Shelter Managers can complete tasks.");
+        if (shelterManager.getTask() == null) {
+            System.out.println("No relief request is assigned to this manager.");
+            return false;
         }
-        return false;
+
+        boolean completed = shelterManager.closeReliefRequest(
+                shelterManager.getTask());
+
+        if (completed) {
+            database.write(ReliefRequest.class);
+        }
+
+        return completed;
     }
 
     /**
-     * Gets all shelters as text for display in the user interface.
+     * Gets all shelters as display text.
      *
      * @return a list of shelter descriptions
      */
@@ -222,9 +294,9 @@ public class Application {
     }
 
     /**
-     * Gets all relief requests as text for display in the user interface.
+     * Gets all relief requests as display text.
      *
-     * @return a list of relief request descriptions
+     * @return a list of request descriptions
      */
     public ArrayList<String> getRequests() {
         ArrayList<String> requestStrings = new ArrayList<>();
@@ -237,16 +309,16 @@ public class Application {
     }
 
     /**
-     * Gets hurricane data for display in the user interface.
+     * Gets hurricane data for display.
      *
-     * @return a list of hurricane descriptions
+     * @return hurricane data, when implemented
      */
     public ArrayList<String> getHurricaneData() {
         return null;
     }
 
     /**
-     * Gets all contacts as text for display in the user interface.
+     * Gets all contacts as display text.
      *
      * @return a list of contact descriptions
      */
@@ -261,14 +333,19 @@ public class Application {
     }
 
     /**
-     * Gets the current location as text.
+     * Gets the logged-in user's current location.
      *
-     * @return the current location description
+     * @return the location as text
      */
     public String getLocation() {
         return location.toString();
     }
 
+    /**
+     * Gets the currently logged-in user.
+     *
+     * @return the current user, or null if logged out
+     */
     public User getCurrentUser() {
         return currentUser;
     }
@@ -283,9 +360,9 @@ public class Application {
     }
 
     /**
-     * Gets the time to all of the nearest shelters to the User
-     * 
-     * @return ArrayList<Double> of the times in order that shelters are read
+     * Gets driving times from the current user location to each shelter.
+     *
+     * @return shelter driving times, or null if unavailable
      */
     public ArrayList<Double> getShelterTimes() {
         if (location == null) {
@@ -295,62 +372,86 @@ public class Application {
 
         ArrayList<Shelter> shelters = database.getShelters();
         ArrayList<Double> shelterTimes = new ArrayList<>();
+
         try {
-            for(Shelter shelter: shelters) {
-                shelterTimes.add(MapTools.getInstance().getDrivingTime(location, shelter.getLocation()));
+            for (Shelter shelter : shelters) {
+                shelterTimes.add(MapTools.getInstance().getDrivingTime(
+                        location, shelter.getLocation()));
             }
         } catch (Exception e) {
-            System.out.println("There was a problem finding time to Shelter.");
+            System.out.println("There was a problem finding time to shelter.");
             e.printStackTrace();
         }
 
         return shelterTimes;
     }
 
+    /**
+     * Checks living beings into the current shelter manager's shelter.
+     *
+     * @param livingBeings the people or pets to check in
+     * @return true if check-in succeeds; otherwise false
+     */
     public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {
-        return currentUser != null && currentUser.checkIntoShelter(livingBeings);
+        return currentUser != null
+                && currentUser.checkIntoShelter(livingBeings);
     }
 
+    /**
+     * Gets relief requests, sorted for volunteers when appropriate.
+     *
+     * @return relief requests available to the current user
+     */
     public ArrayList<ReliefRequest> getReliefRequests() {
         if (currentUser instanceof Volunteer volunteer) {
             return database.getSortedReliefRequests(volunteer.getSorter());
-        } else {
-            return database.getRequests();
         }
+
+        return database.getRequests();
     }
 
+    /**
+     * Gets shelters sorted for the current volunteer's assigned request.
+     *
+     * @return sorted shelters, or null when unavailable
+     */
     public ArrayList<Shelter> getSortedShelters() {
-        if (currentUser == null) {
-            System.out.println("No user logged in");
+        if (!(currentUser instanceof Volunteer volunteer)) {
+            System.out.println("Only volunteers can view sorted shelters.");
             return null;
         }
 
-        // check for volunteer
-        if (currentUser instanceof Volunteer volunteer) {
-            // check for no task on volunteer
-            if (volunteer.getTask() == null) {
-                System.out.println("No Current Task");
-                return null;
-            }
-            // get list of shelters sorted 
-            return database.getSortedShelters(
-                volunteer.getTask()
-            );
-        } else {
-            System.out.println("Not a volunteer");
+        if (volunteer.getTask() == null) {
+            System.out.println("No current task is assigned.");
             return null;
         }
-        
+
+        return database.getSortedShelters(volunteer.getTask());
     }
 
+    /**
+     * Gets the shelter selected for the current trip.
+     *
+     * @return the selected shelter
+     */
     public Shelter getShelter() {
         return currShelter;
     }
 
+    /**
+     * Sets the shelter selected for the current trip.
+     *
+     * @param shelter the selected shelter
+     */
     public void setShelter(Shelter shelter) {
-        this.currShelter = shelter;
+        currShelter = shelter;
     }
 
+    /**
+     * Exports trip information for the current volunteer and selected shelter.
+     *
+     * @return true if the export succeeds; otherwise false
+     */
     public boolean exportTripInformation() {
         if (currentUser == null || currShelter == null) {
             System.out.println("[Error] Not logged in or no shelter selected");
@@ -359,10 +460,17 @@ public class Application {
 
         if (currentUser instanceof Volunteer volunteer) {
             return database.exportTripInformation(volunteer, currShelter);
-        } else {
-            System.out.println("Only volunteers can export trip information");
         }
-        return false;
 
+        System.out.println("Only volunteers can export trip information.");
+        return false;
+    }
+
+    /**
+     * Starts a relief request workflow.
+     * This method is reserved for future implementation.
+     */
+    public void startRequest() {
+        // Reserved for future implementation.
     }
 }

@@ -8,7 +8,7 @@
     "user_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0001",
     "emergency_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0002",
     "user_relief_requests": [],
-    "relief_types": "TRANSPORTATION"
+    "relief_types": ["TRANSPORTATION"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000010",
@@ -19,7 +19,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000010",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000011",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000011",
@@ -30,7 +30,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000012",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000013",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000012",
@@ -41,7 +41,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000014",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000015",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000013",
@@ -52,7 +52,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000016",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000017",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000014",
@@ -63,7 +63,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000018",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000019",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000015",
@@ -74,7 +74,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000020",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000021",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000016",
@@ -85,7 +85,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000022",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000023",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000017",
@@ -96,7 +96,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000024",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000025",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000018",
@@ -107,7 +107,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000026",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000027",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000019",
@@ -118,7 +118,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000028",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000029",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000020",
@@ -129,7 +129,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000030",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000031",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000021",
@@ -140,7 +140,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000032",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000033",
     "user_relief_requests": [],
-    "relief_types": "MEDICAL_CARE"
+    "relief_types": ["MEDICAL_CARE"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000022",
@@ -151,7 +151,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000034",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000035",
     "user_relief_requests": [],
-    "relief_types": "TRANSPORTATION"
+    "relief_types": ["TRANSPORTATION"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000023",
@@ -162,7 +162,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000036",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000037",
     "user_relief_requests": [],
-    "relief_types": "TRANSPORTATION"
+    "relief_types": ["TRANSPORTATION"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000024",
@@ -173,7 +173,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000038",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000039",
     "user_relief_requests": [],
-    "relief_types": "FOOD"
+    "relief_types": ["FOOD"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000025",
@@ -184,7 +184,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000040",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000041",
     "user_relief_requests": [],
-    "relief_types": "FOOD"
+    "relief_types": ["FOOD"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000026",
@@ -195,7 +195,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000042",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000043",
     "user_relief_requests": [],
-    "relief_types": "WATER"
+    "relief_types": ["WATER"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000027",
@@ -206,7 +206,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000044",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000045",
     "user_relief_requests": [],
-    "relief_types": "WATER"
+    "relief_types": ["WATER"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000028",
@@ -217,7 +217,7 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000046",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000047",
     "user_relief_requests": [],
-    "relief_types": "SHELTER"
+    "relief_types": ["SHELTER"]
   },
   {
     "id": "3a2b1c0d-4e5f-4a6b-8c7d-200000000029",
@@ -228,6 +228,6 @@
     "user_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000048",
     "emergency_contact": "8f7b5a3c-1d2e-4f6a-9b8c-100000000049",
     "user_relief_requests": [],
-    "relief_types": "SHELTER"
+    "relief_types": ["SHELTER"]
   }
 ]
