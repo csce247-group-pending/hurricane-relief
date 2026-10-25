@@ -21,7 +21,6 @@ public class Shelter extends Serializable {
 
     private String name;
     private Location location;
-    private UUID locationUUIDReference;
     private Contact contactInfo;
     private int capacity;
     private ArrayList<LivingBeing> occupants;
@@ -31,11 +30,15 @@ public class Shelter extends Serializable {
     private ArrayList<UUID> volunteersByUUID;
 
     private ShelterStatus status;
-    private boolean accomodatesPets;
+    private boolean isPetFriendly;
 
     private ShelterManager manager;
+    
+    private UUID locationUUIDReference;
     private UUID managerUUIDReference;
     private UUID contactUUIDReference;
+
+    private double timeTo;
 
     /**
      * Creates a shelter with a specified UUID.
@@ -47,15 +50,15 @@ public class Shelter extends Serializable {
      * @param volunteers the volunteers assigned to the shelter
      * @param status the current shelter status
      * @param contactInfo the shelter contact information
-     * @param accomodatesPets whether the shelter accepts pets
+     * @param isPetFriendly whether the shelter accepts pets
      */
     public Shelter(UUID id, String name, Location location,
             int capacity, ArrayList<Volunteer> volunteers,
             ShelterStatus status, Contact contactInfo,
-            boolean accomodatesPets) {
+            boolean isPetFriendly) {
 
         this(name, location, capacity, volunteers, status,
-                contactInfo, accomodatesPets);
+                contactInfo, isPetFriendly);
         this.id = id;
     }
 
@@ -68,12 +71,12 @@ public class Shelter extends Serializable {
      * @param volunteers the volunteers assigned to the shelter
      * @param status the current shelter status
      * @param contactInfo the shelter contact information
-     * @param accomodatesPets whether the shelter accepts pets
+     * @param isPetFriendly whether the shelter accepts pets
      */
     public Shelter(String name, Location location,
             int capacity, ArrayList<Volunteer> volunteers,
             ShelterStatus status, Contact contactInfo,
-            boolean accomodatesPets) {
+            boolean isPetFriendly) {
 
         super();
         this.name = name;
@@ -86,12 +89,16 @@ public class Shelter extends Serializable {
                 : new ArrayList<>(volunteers);
         this.status = status;
         this.contactInfo = contactInfo;
-        this.accomodatesPets = accomodatesPets;
+        this.isPetFriendly = isPetFriendly;
 
         contactUUIDReference = UUID.randomUUID();
+        locationUUIDReference = UUID.randomUUID();
+        managerUUIDReference = UUID.randomUUID();
+
         volunteersByUUID = new ArrayList<>();
 
         serializeBehavior = new SerializeJSONShelter(this);
+        timeTo = -1;
     }
 
     /**
@@ -199,6 +206,25 @@ public class Shelter extends Serializable {
      */
     public ArrayList<LivingBeing> getOccupants() {
         return occupants;
+    }
+
+    public int getNumOccupants() {
+        if (occupants == null) { return 0; }
+
+        int count = 0;
+        for (LivingBeing occupant: occupants) {
+            if (occupant.getType() == LivingBeingType.HUMAN) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    public boolean hasCapacity(int partySize) {
+        if (status != ShelterStatus.OPEN) {
+            return false;
+        }
+        return (capacity - getNumOccupants()) >= partySize;
     }
 
     /**
@@ -342,7 +368,7 @@ public class Shelter extends Serializable {
 
         for (LivingBeing livingBeing : livingBeings) {
             if (livingBeing.getType() == LivingBeingType.PET
-                    && !accomodatesPets) {
+                    && !isPetFriendly) {
                 return false;
             }
 
@@ -369,14 +395,16 @@ public class Shelter extends Serializable {
 
         return "Shelter '" + name + "'"
                 + "\n\tStatus: " + status
-                + "\n\tCapacity: " + occupants.size() + "/" + capacity
+                + "\n\tCapacity: " + getNumOccupants() + "/" + capacity
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
-                + (accomodatesPets ? "\n\tAccomdates Pets" : "")
-                + "\n\tOccupants: "
-                + (formattedOccupants.isEmpty()
-                        ? "None"
-                        : "\n" + formattedOccupants);
+                + (isPetFriendly ? "\n\tPet Friendly" : "")
+                // + "\n\tOccupants: "
+                // + (formattedOccupants.isEmpty()
+                //         ? "None"
+                //         : "\n" + formattedOccupants)
+                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
+                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "");
     }
 
     /**
@@ -419,16 +447,24 @@ public class Shelter extends Serializable {
      *
      * @return true if pets are accepted; otherwise false
      */
-    public boolean accomodatesPets() {
-        return accomodatesPets;
+    public boolean isPetFriendly() {
+        return isPetFriendly;
     }
 
     /**
      * Sets whether the shelter accommodates pets.
      *
-     * @param accomodatesPets true if pets are accepted
+     * @param isPetFriendly true if pets are accepted
      */
-    public void setAccomodatesPets(boolean accomodatesPets) {
-        this.accomodatesPets = accomodatesPets;
+    public void setPetFriendly(boolean isPetFriendly) {
+        this.isPetFriendly = isPetFriendly;
+    }
+
+    public double getTimeTo() {
+        return timeTo;
+    }
+
+    public void setTimeTo(double timeTo) {
+        this.timeTo = timeTo;
     }
 }

@@ -1,9 +1,24 @@
 package com.pending.model.data;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
 
-import com.pending.model.data.serializables.*;
+import com.pending.location.MapTools;
+import com.pending.model.data.serializables.Contact;
+import com.pending.model.data.serializables.Hurricane;
+import com.pending.model.data.serializables.LivingBeing;
+import com.pending.model.data.serializables.Location;
+import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Serializable;
+import com.pending.model.data.serializables.Shelter;
+import com.pending.model.data.serializables.ShelterManager;
+import com.pending.model.data.serializables.User;
+import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
@@ -71,6 +86,7 @@ public class Database {
         for (DataList<?> dataList : dataLists.values()) {
             dataList.read();
         }
+
         resolveReferences();
         users.getAll().addAll(volunteers.getAll());
         users.getAll().addAll(shelterManagers.getAll());
@@ -80,26 +96,34 @@ public class Database {
      * Writes every data list to its JSON file.
      */
     public void write() {
-        for (Class<? extends Serializable> key: dataLists.keySet()) {
+        for (Class<? extends Serializable> key : dataLists.keySet()) {
             write(key);
         }
     }
 
+    /**
+     * Writes a specific data list.
+     *
+     * @param key the Serializable class to write
+     */
     public void write(Class<? extends Serializable> key) {
         if (key == User.class) {
-            for (Volunteer volunteer: volunteers.getAll()) {
+            for (Volunteer volunteer : volunteers.getAll()) {
                 if (users.getAll().contains(volunteer)) {
                     users.remove(volunteer);
                 }
             }
-            for (ShelterManager shelterManager: shelterManagers.getAll()) {
+
+            for (ShelterManager shelterManager : shelterManagers.getAll()) {
                 if (users.getAll().contains(shelterManager)) {
                     users.remove(shelterManager);
                 }
             }
+
             for (DataList<?> dataList : dataLists.values()) {
                 dataList.write();
             }
+
             users.write();
             users.getAll().addAll(volunteers.getAll());
             users.getAll().addAll(shelterManagers.getAll());
@@ -117,6 +141,7 @@ public class Database {
         if (database == null) {
             database = new Database();
         }
+
         return database;
     }
 
@@ -154,16 +179,15 @@ public class Database {
      * @param password the user's password
      * @return the matching User, or null if login fails
      */
-    
     public User attemptLogin(String email, String password) {
-    User user = users.getObject(
-            u -> u.getUserContact() != null
-                    && email.equals(u.getUserContact().getEmail())
-    );
+        User user = users.getObject(
+                u -> u.getUserContact() != null
+                        && email.equals(u.getUserContact().getEmail())
+        );
 
-    return user == null || !password.equals(user.getPassword())
-            ? null : user;
-}
+        return user == null || !password.equals(user.getPassword())
+                ? null : user;
+    }
 
     /**
      * Creates a user account and saves its user, contacts, and location.
@@ -201,8 +225,10 @@ public class Database {
         boolean emergencyContactAdded = contacts.add(emergencyContact);
         boolean userAdded = users.add(newUser);
 
-        if (!((location == null || locationAdded) && (userContact == null || userContactAdded)
-                && (emergencyContact == null || emergencyContactAdded) && userAdded)) {
+        if (!((location == null || locationAdded)
+                && (userContact == null || userContactAdded)
+                && (emergencyContact == null || emergencyContactAdded)
+                && userAdded)) {
             return false;
         }
 
@@ -213,36 +239,45 @@ public class Database {
         return true;
     }
 
+    /**
+     * Creates and saves a relief request.
+     *
+     * @param author the user submitting the request
+     * @param description the request description
+     * @param location the request location
+     * @param livingBeings the people or pets needing help
+     * @return true if the request was added; otherwise false
+     */
     public boolean createReliefRequest(User author, String description,
-        Location location, ArrayList<LivingBeing> livingBeings) {
+            Location location, ArrayList<LivingBeing> livingBeings) {
 
-    HashSet<ReliefType> reliefTypes = new HashSet<>();
+        HashSet<ReliefType> reliefTypes = new HashSet<>();
 
-    for (LivingBeing livingBeing : livingBeings) {
-        reliefTypes.addAll(livingBeing.getReliefNeeds());
+        for (LivingBeing livingBeing : livingBeings) {
+            reliefTypes.addAll(livingBeing.getReliefNeeds());
+        }
+
+        ReliefRequest reliefRequest = new ReliefRequest(
+                description,
+                location,
+                ReliefStatus.REQUESTED,
+                livingBeings,
+                new ArrayList<>(reliefTypes)
+        );
+
+        if (author != null) {
+            author.getUserReliefRequests().add(reliefRequest);
+
+            reliefRequest.setContactInfo(author.getUserContact());
+            reliefRequest.setContactUUIDReference(
+                    author.getUserContact().getId());
+        }
+
+        boolean requestAdded = requests.add(reliefRequest);
+        requests.write();
+
+        return requestAdded;
     }
-
-    ReliefRequest reliefRequest = new ReliefRequest(
-            description,
-            location,
-            ReliefStatus.REQUESTED,
-            livingBeings,
-            new ArrayList<>(reliefTypes)
-    );
-
-    if (author != null) {
-        author.getUserReliefRequests().add(reliefRequest);
-
-        reliefRequest.setContactInfo(author.getUserContact());
-        reliefRequest.setContactUUIDReference(
-                author.getUserContact().getId());
-    }
-
-    boolean requestAdded = requests.add(reliefRequest);
-    requests.write();
-
-    return requestAdded;
-}
 
     public ArrayList<LivingBeing> getLivingBeings() {
         return livingBeings.getAll();
@@ -305,6 +340,10 @@ public class Database {
         return users.getObjectByUUID(id);
     }
 
+    public Volunteer getVolunteerByUUID(UUID id) {
+        return volunteers.getObjectByUUID(id);
+    }
+
     public ReliefRequest getReliefRequestByUUID(UUID id) {
         return requests.getObjectByUUID(id);
     }
@@ -332,8 +371,115 @@ public class Database {
 
     public ArrayList<ReliefRequest> getSortedReliefRequests(
             PriorityFilter<ReliefRequest> filter) {
+
         ArrayList<ReliefRequest> output = getRequests();
         output.sort(Comparator.comparing(filter::filter));
         return output;
+    }
+
+    public ArrayList<Shelter> getSortedShelters(ReliefRequest task) {
+        ArrayList<Shelter> shelterList = getShelters();
+
+        try {
+            Map<Shelter, Integer> matchMap = new HashMap<>();
+
+            for (Shelter shelter : shelterList) {
+                shelter.setTimeTo(
+                        MapTools.getInstance().getDrivingTime(
+                                task.getLocation(),
+                                shelter.getLocation())
+                );
+
+                int matches = countMatchingAttributes(shelter, task);
+                matchMap.put(shelter, matches);
+            }
+
+            shelterList.sort(
+                    Comparator.comparingInt(
+                            (Shelter shelter) -> matchMap.get(shelter))
+                            .reversed()
+                            .thenComparingDouble(
+                                    shelter -> shelter.getTimeTo())
+            );
+
+            return shelterList;
+        } catch (Exception e) {
+            System.out.println("There was a problem finding a shelter.");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Counts how well a shelter matches a relief request.
+     *
+     * @param shelter the shelter being evaluated
+     * @param task the relief request being matched
+     * @return the number of matching shelter attributes
+     */
+    private int countMatchingAttributes(Shelter shelter,
+            ReliefRequest task) {
+
+        int count = 0;
+
+        if (task.hasPets()
+                && shelter.isPetFriendly() == task.hasPets()) {
+            count++;
+        }
+
+        if (task.getTypes().contains(ReliefType.MEDICAL_CARE)
+                && shelter.hasMedicalStaff()) {
+            count++;
+        }
+
+        if (shelter.hasCapacity(task.getPartySize())) {
+            count++;
+        }
+
+        return count;
+    }
+
+    /**
+     * Exports directions and request details for a volunteer trip.
+     *
+     * @param volunteer the volunteer completing the request
+     * @param shelter the shelter selected for the trip
+     * @return true if the export succeeds; otherwise false
+     */
+    public boolean exportTripInformation(Volunteer volunteer,
+            Shelter shelter) {
+
+        String outputFile = volunteer.getFirstName()
+                + "_relief_task.txt";
+
+        String toWrite = "Exporting Trip Information\n\n";
+        toWrite += volunteer.getTask().toStringDetailed() + "\n\n";
+
+        try {
+            toWrite += "Directions From Volunteer To Task:\n";
+
+            for (String direction : MapTools.getInstance()
+                    .getDrivingDirections(
+                            volunteer.getLocation(),
+                            volunteer.getTask().getLocation())) {
+                toWrite += "\t" + direction + "\n";
+            }
+
+            toWrite += "\n\n";
+            toWrite += "Directions From Task to '"
+                    + shelter.getName() + "' Shelter:\n";
+
+            for (String direction : MapTools.getInstance()
+                    .getDrivingDirections(
+                            volunteer.getTask().getLocation(),
+                            shelter.getLocation())) {
+                toWrite += "\t" + direction + "\n";
+            }
+        } catch (Exception e) {
+            System.out.println("Failed getting directions.");
+            return false;
+        }
+
+        return volunteers.exportTripInformation(toWrite, outputFile);
     }
 }

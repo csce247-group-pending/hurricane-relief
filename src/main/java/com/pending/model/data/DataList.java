@@ -226,4 +226,8 @@ public class DataList<T extends Serializable> {
             return false;
         }
     }
+    
+    public boolean exportTripInformation(String toWrite, String outputFileName) {
+        return dataManager.writeTxt(toWrite, outputFileName);
+    }
 }

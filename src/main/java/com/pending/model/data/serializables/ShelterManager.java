@@ -140,7 +140,6 @@ public class ShelterManager extends Volunteer {
     @Override
     public boolean closeReliefRequest(ReliefRequest reliefRequest) {
         reliefRequest.setStatus(ReliefStatus.COMPLETED);
-        Database.getInstance().write(ReliefRequest.class);
         return true;
     }
 }

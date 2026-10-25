@@ -8,7 +8,6 @@ import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
 import com.pending.model.data.serializables.ReliefRequest;
-import com.pending.model.data.serializables.User;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
@@ -123,7 +122,7 @@ public class SerializeJSONReliefRequest
                         serializable.getContactUUIDReference()));
 
         if (serializable.getAssignedToUUIDReference() != null) {
-            User user = database.getUserByUUID(
+            Volunteer user = database.getVolunteerByUUID(
                     serializable.getAssignedToUUIDReference());
 
             if (user instanceof Volunteer) {

@@ -55,7 +55,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
         jsonObject.put("capacity", serializable.getCapacity());
         jsonObject.put("status", serializable.getStatus().name());
         jsonObject.put("pet_friendly",
-                serializable.accomodatesPets());
+                serializable.isPetFriendly());
 
         JSONArray occupants = new JSONArray();
 
@@ -125,7 +125,7 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
             petsValue = jsonObject.get("accommodates_pets");
         }
 
-        serializable.setAccomodatesPets(Boolean.TRUE.equals(petsValue));
+        serializable.setPetFriendly(Boolean.TRUE.equals(petsValue));
 
         serializable.getOccupantsUUIDReference().clear();
         JSONArray occupants = (JSONArray) jsonObject.get("occupants");

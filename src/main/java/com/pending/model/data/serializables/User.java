@@ -269,10 +269,10 @@ public class User extends LivingBeing {
 
     /**
      * Accepts a relief request.
-     * This behavior has not been implemented yet.
+     * This behavior is implemented by volunteer subclasses.
      *
      * @param reliefRequest the request to accept
-     * @return false because this behavior is not implemented
+     * @return false because regular users cannot accept requests
      */
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
         return false;
@@ -280,10 +280,10 @@ public class User extends LivingBeing {
 
     /**
      * Closes a completed relief request.
-     * This behavior has not been implemented yet.
+     * This behavior is implemented by shelter-manager subclasses.
      *
      * @param reliefRequest the request to close
-     * @return false because this behavior is not implemented
+     * @return false because regular users cannot close requests
      */
     public boolean closeReliefRequest(ReliefRequest reliefRequest) {
         return false;
@@ -291,10 +291,10 @@ public class User extends LivingBeing {
 
     /**
      * Checks a group of living beings into a shelter.
-     * This behavior has not been implemented yet.
+     * This behavior is implemented by shelter-manager subclasses.
      *
      * @param livingBeings the people or pets to check in
-     * @return false because this behavior is not implemented
+     * @return false because regular users cannot check in groups
      */
     public boolean checkIntoShelter(
             ArrayList<LivingBeing> livingBeings) {
@@ -303,15 +303,33 @@ public class User extends LivingBeing {
     }
 
     /**
+     * Gets the user's full name.
+     *
+     * @return the user's first and last name
+     */
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
+    /**
      * Returns a readable summary of the user.
      *
      * @return a formatted user summary
      */
     @Override
-public String toString() {
-    return "User " + getFirstName() + " " + getLastName() + ": "
-            + "\n\tAge: " + getAge()
-            + "\n\tContact Info: " + getUserContact()
-            + "\n\tLocation: " + getLocation();
+    public String toString() {
+        return "User " + getFirstName() + " " + getLastName() + ": "
+                + "\n\tAge: " + getAge()
+                + "\n\tContact Info: " + getUserContact()
+                + "\n\tLocation: " + getLocation();
+    }
+
+    /**
+     * Returns the LivingBeing version of this user's description.
+     *
+     * @return the parent class description
+     */
+    public String toStringLivingBeing() {
+        return super.toString();
     }
 }

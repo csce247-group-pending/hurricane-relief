@@ -184,7 +184,14 @@ public class LivingBeing extends Serializable {
      */
     @Override
     public String toString() {
-        return "Name: " + firstName + " " + lastName
-                + " is a " + type + " Age: " + getAge();
+
+        String reliefNeedsString = "Relief Needs: " + reliefNeeds.get(0);
+        for(int i = 1; i < reliefNeeds.size(); ++i) {
+            reliefNeedsString += ", " + reliefNeeds.get(i);
+        }
+
+        return firstName + " " + lastName
+                + " is a " + type + " | Age: " + getAge()
+                + (!reliefNeeds.isEmpty() ? " | "+ reliefNeedsString : "");
     }
 }

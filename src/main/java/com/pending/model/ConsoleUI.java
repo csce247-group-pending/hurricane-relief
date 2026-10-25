@@ -3,11 +3,13 @@ package com.pending.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.pending.model.data.serializables.Contact;
 import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
+import com.pending.model.data.serializables.Shelter;
 import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
@@ -21,16 +23,18 @@ public class ConsoleUI {
             "Need transportation to the nearest pet-friendly shelter.";
 
     private final Application app;
+    private final Scanner scanner;
 
     /**
      * Creates the console user interface.
      */
     public ConsoleUI() {
         app = Application.getInstance();
+        scanner = new Scanner(System.in);
     }
 
     /**
-     * Runs the demonstration scenarios used during the presentation.
+     * Runs the primary presentation scenarios.
      */
     public void run() {
         printHeader("HURRICANE RELIEF SYSTEM DEMONSTRATION");
@@ -40,6 +44,13 @@ public class ConsoleUI {
         acceptReliefRequestAndCheckIntoShelterScenario();
 
         printHeader("DEMONSTRATION COMPLETE");
+    }
+
+    /**
+     * Closes the console scanner.
+     */
+    public void close() {
+        scanner.close();
     }
 
     /**
@@ -90,6 +101,26 @@ public class ConsoleUI {
     }
 
     /**
+     * Gets and prints all shelters.
+     */
+    public void readAndPrintSheltersScenario() {
+        printHeader("AVAILABLE SHELTERS");
+
+        ArrayList<String> shelters = app.getShelters();
+
+        if (shelters.isEmpty()) {
+            System.out.println("No shelters are currently available.");
+            return;
+        }
+
+        for (int i = 0; i < shelters.size(); i++) {
+            System.out.println();
+            System.out.println("Shelter " + (i + 1) + ":");
+            System.out.println(shelters.get(i));
+        }
+    }
+
+    /**
      * Attempts a login and displays an appropriate result.
      *
      * @param email the account email address
@@ -114,8 +145,7 @@ public class ConsoleUI {
     }
 
     /**
-     * Creates a sample account and submits a relief request for a family
-     * needing transportation and pet-friendly shelter assistance.
+     * Demonstrates account creation and relief-request submission.
      */
     public void createReliefRequestScenario() {
         printHeader("SCENARIO 1: CREATE A RELIEF REQUEST");
@@ -298,6 +328,129 @@ public class ConsoleUI {
     }
 
     /**
+     * Demonstrates opening a request, selecting a shelter, and exporting
+     * trip information. This is available for additional team demonstrations.
+     */
+    public void findShelterAndAssignRequest() {
+        printHeader("OPTIONAL: FIND A SHELTER AND EXPORT TRIP INFORMATION");
+
+        if (!loginScenario("rosa.delgado@example.com",
+                "RosaStrong2026!")) {
+            return;
+        }
+
+        ArrayList<ReliefRequest> requests = app.getReliefRequests();
+
+        if (requests.isEmpty()) {
+            System.out.println("[FAILED] No requests are available.");
+            app.logout();
+            return;
+        }
+
+        ReliefRequest reliefRequest = requests.getFirst();
+
+        if (!app.openReliefRequest(reliefRequest)) {
+            System.out.println("[FAILED] Could not open the relief request.");
+            app.logout();
+            return;
+        }
+
+        ArrayList<Shelter> shelters = app.getSortedShelters();
+
+        if (shelters == null || shelters.isEmpty()) {
+            System.out.println("[FAILED] No suitable shelters were found.");
+            app.logout();
+            return;
+        }
+
+        Shelter selectedShelter = shelters.getFirst();
+
+        System.out.println("Selected shelter:");
+        System.out.println(selectedShelter);
+
+        app.setShelter(selectedShelter);
+
+        printResult(app.acceptReliefRequest(reliefRequest),
+                "Volunteer accepted the relief request.",
+                "Volunteer could not accept the relief request.");
+
+        printResult(app.exportTripInformation(),
+                "Trip information was exported successfully.",
+                "Trip information could not be exported.");
+
+        app.logout();
+    }
+
+    /**
+     * Demonstrates role permissions by attempting a manager-only action.
+     */
+    public void rolePermissionScenario() {
+        printHeader("OPTIONAL: ROLE PERMISSION CHECK");
+
+        if (!loginScenario("rosa.delgado@example.com",
+                "RosaStrong2026!")) {
+            return;
+        }
+
+        printResult(app.closeReliefRequest(),
+                "Relief request was completed.",
+                "Only a shelter manager can complete a relief request.");
+
+        app.logout();
+    }
+
+    /**
+     * Demonstrates account creation and login for an additional sample user.
+     */
+    public void createAccountAndLoginScenario() {
+        String email = "newestemail@gmail.com";
+        String password = "strong_p@ssword";
+
+        printHeader("OPTIONAL: CREATE AN ACCOUNT");
+
+        boolean accountCreated = app.requestCreateAccount(
+                "Joe",
+                "Smith",
+                LocalDate.of(1997, 12, 10),
+                password,
+                "300 Main St, Columbia, SC, 29208",
+                email,
+                "",
+                "EMAIL",
+                "bestfriend@gmail.com",
+                "8033448978",
+                "CALL"
+        );
+
+        printResult(accountCreated,
+                "Account created successfully.",
+                "Account already exists or could not be created.");
+
+        loginScenario(email, password);
+        app.logout();
+    }
+
+    /**
+     * Prints estimated driving times to every shelter.
+     * Requires a configured MAP_API_KEY.
+     */
+    public void getShelterTimes() {
+        ArrayList<String> shelters = app.getShelters();
+        ArrayList<Double> shelterTimes = app.getShelterTimes();
+
+        if (shelterTimes == null || shelters.size() != shelterTimes.size()) {
+            System.out.println("[FAILED] Shelter travel times are unavailable.");
+            return;
+        }
+
+        for (int i = 0; i < shelters.size(); i++) {
+            System.out.println(shelters.get(i));
+            System.out.println("\tEstimated driving time: "
+                    + (int) (shelterTimes.get(i) / 60) + " minutes");
+        }
+    }
+
+    /**
      * Starts the terminal demonstration.
      *
      * @param args command-line arguments, which are not used
@@ -305,5 +458,6 @@ public class ConsoleUI {
     public static void main(String[] args) {
         ConsoleUI ui = new ConsoleUI();
         ui.run();
+        ui.close();
     }
 }

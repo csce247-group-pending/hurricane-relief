@@ -1,14 +1,15 @@
 package com.pending.model.data;
 
-import jdk.jshell.spi.ExecutionControl;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import jdk.jshell.spi.ExecutionControl;
 
 /**
  * Reads and writes application data files.
@@ -16,6 +17,8 @@ import java.util.Arrays;
  * for future development.
  */
 public class DataManager {
+    private static final String TXT_DESTINATION = "./out/export_files/";
+
     private JSONParser parser;
     private String filename;
     private FileMode mode = FileMode.JSON;
@@ -131,6 +134,27 @@ public class DataManager {
             throws ExecutionControl.NotImplementedException {
 
         throw new ExecutionControl.NotImplementedException("Not implemented");
+    }
+
+    /**
+     * Writes exported trip information to a text file.
+     *
+     * @param toWrite the text content to export
+     * @param outputFileName the name of the output text file
+     * @return true if the file was written successfully; otherwise false
+     */
+    public boolean writeTxt(String toWrite, String outputFileName) {
+        String outputPath = TXT_DESTINATION + outputFileName;
+
+        try (FileWriter writer = new FileWriter(outputPath)) {
+            writer.write(toWrite);
+        } catch (Exception e) {
+            System.out.println("[ERROR] Error exporting files");
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     /**
