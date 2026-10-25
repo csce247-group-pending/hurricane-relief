@@ -36,13 +36,15 @@ public class ConsoleUI {
         // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
         createReliefRequestScenario();
+        // readAndPrintReliefRequests();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        // findShelterAndAssignRequest();
-        // exportTripInformation();
-        // rolePermissionScenario();
-        // openAndMatchRequestScenario();
+
+        printHeader("DEMONSTRATION COMPLETE");
     }
 
+    /**
+     * Closes the console scanner.
+     */
     public void close() {
         scanner.close();
     }
@@ -79,34 +81,13 @@ public class ConsoleUI {
         System.out.println("Profile: " + loginResult);
     }
 
-    /**
-     * Gets and displays all current relief requests.
-     */
-    public void createAccountAndLoginScenario() {
-        String email = "newestemail@gmail.com";
-        String password = "strong_p@ssword";
+    public void readAndPrintReliefRequests() {
+        printHeader("CURRENT RELIEF REQUESTS");
 
-        System.out.println("Create an account. Please enter the following information:");
-        System.out.println("Contact Infomation");
-        System.out.println("\temail> " + email);
-        System.out.println("\tphone> *skipped*");
-        System.out.println("\tcontact_preference> email");
-        System.out.println("Emergency Contact Information");
-        System.out.println("\temail> bestfriend@gmail.com");
-        System.out.println("\tphone> 8033448978");
-        System.out.println("\tcontact_preference> CALL");
-        System.out.println("Personal Infomation");
-        System.out.println("\tfirst_name> Joe");
-        System.out.println("\tlast_name> Smith");
-        System.out.println("\tpassword> " + password);
-        System.out.println("\tlocation> 300 Main St, Columbia, SC, 29208");
+        ArrayList<String> requests = app.getRequests();
 
-        if (!app.requestCreateAccount("Joe", "Smith", 
-                LocalDate.of(1997, 12, 10), password,
-                "300 Main St, Columbia, SC, 29208",
-                email, "", "EMAIL",
-                "bestfriend@gmail.com", "8033448978", "CALL")) {
-            System.out.println("Create Account Failed");
+        if (requests.isEmpty()) {
+            System.out.println("No relief requests are currently available.");
             return;
         }
 
@@ -149,9 +130,9 @@ public class ConsoleUI {
     public boolean loginScenario(String email, String password) {
         System.out.println("Email: " + email);
 
-        boolean loginSuccessful = app.attemptLogin(email, password);
+        String loginResult = app.attemptLogin(email, password);
 
-        if (!loginSuccessful) {
+        if (loginResult == null) {
             System.out.println("[FAILED] Login was unsuccessful.");
             return false;
         }
@@ -173,6 +154,7 @@ public class ConsoleUI {
         String lastName = "Carter";
         String email = "jimmycarter@gmail.com";
         String password = "Buddy1&";
+        LocalDate dateOfBirth = LocalDate.parse("1952-11-02");
 
         System.out.println("Creating an account for James Carter");
         boolean accountCreationSuccess = app.requestCreateAccount(
@@ -181,19 +163,19 @@ public class ConsoleUI {
             dateOfBirth,
             password,
             "32 Legare St, Charleston, SC, 29401",
-            "jimmycarter@gmail.com",
+            email,
             "8439847569",
             "CALL",
             "doriscarter@gmail.com",
             "8433458910",
             "TEXT"
-    );
+        );
+        
         if (!accountCreationSuccess) {
             System.out.println("Account creation failed");
         }
 
-        login("jimmycarter@gmail.com", password);
-
+        login(email, password);
 
         System.out.println("\nCreating a Relief Request:");
         app.setCurrentUserReliefNeeds(new ArrayList<>(

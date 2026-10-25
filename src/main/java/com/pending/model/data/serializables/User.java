@@ -158,6 +158,9 @@ public class User extends LivingBeing {
      * @return the primary contact
      */
     public Contact getUserContact() {
+        if (userContact == null) {
+            System.out.println(getFullName() + "has null contact");
+        }
         return userContact;
     }
 

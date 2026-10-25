@@ -85,7 +85,6 @@ public class Application {
             String emergencyContactPreference) {
 
         String[] locationInformation = address.split(", ");
-
         String state = locationInformation[2];
         String city = locationInformation[1];
         String street = locationInformation[0];
