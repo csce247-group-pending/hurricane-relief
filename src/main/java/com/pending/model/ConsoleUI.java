@@ -40,6 +40,7 @@ public class ConsoleUI {
         // acceptReliefRequestAndCheckIntoShelterScenario();
         findShelterAndAssignRequest();
         exportTripInformation();
+        rolePermissionScenario();
     }
 
     public void close() {
@@ -243,7 +244,7 @@ public class ConsoleUI {
         login(email, password);
 
         app.checkIntoShelter(reliefRequest.getLivingBeings());
-        app.closeReliefRequest(reliefRequest);
+        app.closeReliefRequest();
 
         app.logout();
     }
@@ -314,6 +315,11 @@ public class ConsoleUI {
         } else {
             System.out.println("Trip Exported Successfully to file");
         }
+    }
+
+    public void rolePermissionScenario() {
+        // Rosa tries to mark request complete
+        app.closeReliefRequest();
     }
 
     /**

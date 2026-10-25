@@ -189,13 +189,14 @@ public class Application {
      * Completes a relief request.
      * This action will require a Shelter Manager role check.
      */
-    public boolean closeReliefRequest(ReliefRequest reliefRequest) {
+    public boolean closeReliefRequest() {
         if (currentUser == null) {
             return false;
         }
 
         if (currentUser instanceof ShelterManager shelterManager) {
-            if (shelterManager.closeReliefRequest(reliefRequest)) {
+            // TODO figure out logic so that the manager claims the specific task
+            if (shelterManager.closeReliefRequest(shelterManager.getTask())) {
                 database.write(ReliefRequest.class);
                 return true;
             }

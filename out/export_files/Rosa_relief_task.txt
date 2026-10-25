@@ -1,0 +1,37 @@
+Exporting Trip Information
+
+[Relief Request Detailed]
+	Description: Need water and shelter
+	Relief Status: ASSIGNED
+	Assigned To: Rosa Delgado
+	Relief Needs: WATER, SHELTER
+	Location: 145 King St, Charleston, SC 29401
+	Contact Info: {president@email.sc.edu, 8037772001, TEXT}
+	Members(0): None
+
+Directions From Volunteer To Task:
+	Head west on Gervais Street, US 1, US 378
+	Turn right onto Marion Street
+	Turn left onto Lady Street
+	Turn right onto Park Street
+	Continue straight onto Park Street, SC 12
+	Turn left onto Taylor Street, SC 12
+	Keep left
+	Turn sharp left onto Augusta Road, US 1
+	Keep right
+	Keep left
+	Turn right onto Meeting Street, US 52
+	Turn right onto Calhoun Street, S-404
+	Turn left onto King Street, S-104
+	Arrive at King Street, S-104, on the right
+
+
+Directions From Task To 'Bond Court Shelter' Shelter:
+	Head south on King Street, S-104
+	Turn left onto Broad Street, S-1015
+	Turn left onto Meeting Street, S-107
+	Turn left onto Spring Street
+	Turn right onto Coming Street, S-553
+	Turn left onto Fishburne Street, L-658
+	Turn right onto Perry Street
+	Arrive at Perry Street, on the right
