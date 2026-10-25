@@ -64,6 +64,19 @@ public class ConsoleUI {
     /**
      * Prints a formatted success or failure message.
      *
+     * @param success whether the action succeeded
+     * @param successMessage message displayed when successful
+     * @param failureMessage message displayed when unsuccessful
+     */
+    private void printResult(boolean success, String successMessage,
+            String failureMessage) {
+        System.out.println(success ? "[SUCCESS] " + successMessage
+                : "[FAILED] " + failureMessage);
+    }
+    
+    /**
+     * Prints a formatted success or failure message.
+     *
      * @param email the email address used to log in
      * @param password the password used to log in
      */
