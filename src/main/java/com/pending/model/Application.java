@@ -232,6 +232,21 @@ public class Application {
     }
 
     /**
+     * Opens a relief request by its 0-based index in the current user's request list.
+     *
+     * @param index the 0-based index of the request to open
+     * @return true if the request was opened; otherwise false
+     */
+    public boolean openReliefRequest(int index) {
+        ArrayList<ReliefRequest> requests = getReliefRequests();
+        if (requests == null || index < 0 || index >= requests.size()) {
+            return false;
+        }
+
+        return openReliefRequest(requests.get(index));
+    }
+
+    /**
      * Assigns a relief request to the logged-in volunteer.
      *
      * @param reliefRequest the request to accept

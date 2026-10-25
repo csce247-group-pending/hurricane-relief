@@ -303,6 +303,7 @@ public class ConsoleUI {
     }
 
     public void openAndMatchRequestScenario() {
+        printHeader("SCENARIO 2: OPEN AND MATCH REQUEST");
         // Rosa logs in
         String email = "rosa.delgado@example.com";
         String password = "RosaStrong2026!";
@@ -312,18 +313,18 @@ public class ConsoleUI {
             return;
         }
 
-        // Rosa sees 7 relief requests sorted based on ReliefType and proximity
+        // Rosa sees relief requests sorted based on ReliefType and proximity
         readAndPrintReliefRequests();
 
-        // App recommneds the Request to her
-        // TODO actual logic to determine this
-        System.out.println("Choose a Request, Request 4 is Recommended due to Matching needs and proximity");
-        ReliefRequest currRequest = app.getReliefRequests().get(3);
+        // TODO implement actual recommendation logic
+        int recommendedRequestNumber = 4;
+        int requestIndex = recommendedRequestNumber - 1;
+        System.out.println("Choose a Request, Request " + recommendedRequestNumber
+                + " is Recommended due to Matching needs and proximity");
 
-        // Rosa can open the request to see the information on the family
-        System.out.println("Opening Request 4");
-        
-        if(!app.openReliefRequest(currRequest)) {
+        System.out.println("Opening Request " + recommendedRequestNumber);
+
+        if (!app.openReliefRequest(requestIndex)) {
             System.out.println("Failed Opening Request");
         }
         System.out.println(app.getCurrentReliefRequest());
@@ -331,7 +332,6 @@ public class ConsoleUI {
         System.out.println("Logging Out " + app.getUserFullName());
 
         app.logout();
-        
     }
 
     public void findShelterAndAssignRequest() {
