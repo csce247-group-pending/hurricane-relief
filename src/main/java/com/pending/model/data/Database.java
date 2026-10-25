@@ -167,9 +167,16 @@ public class Database {
      * Connects objects that reference other objects by UUID.
      */
     private void resolveReferences() {
-        for (DataList<?> dataList : dataLists.values()) {
-            dataList.resolveReferences();
-        }
+        users.resolveReferences();
+        volunteers.resolveReferences();
+        shelterManagers.resolveReferences();
+        shelters.resolveReferences();
+        livingBeings.resolveReferences();
+        requests.resolveReferences();
+
+        // for (DataList<?> dataList : dataLists.values()) {
+        //     dataList.resolveReferences();
+        // }
     }
 
     /**
@@ -398,15 +405,17 @@ public class Database {
 
         if (task.hasPets()
                 && shelter.isPetFriendly() == task.hasPets()) {
+            System.out.println("Has pets");
             count++;
         }
 
         if (task.getTypes().contains(ReliefType.MEDICAL_CARE)
                 && shelter.hasMedicalStaff()) {
+            System.out.println("has Medical staff");
             count++;
         }
 
-        if (shelter.hasCapacity(task.getPartySize())) {
+        if (shelter.hasCapacity(task.getPartySizeHumans())) {
             count++;
         }
 

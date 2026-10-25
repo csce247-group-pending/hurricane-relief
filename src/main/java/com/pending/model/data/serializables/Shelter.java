@@ -432,6 +432,7 @@ public class Shelter extends Serializable {
      */
     public boolean hasMedicalStaff() {
         for (Volunteer volunteer : volunteers) {
+            System.out.println(volunteer);
             for (ReliefType reliefSkill : volunteer.getReliefTypes()) {
                 if (reliefSkill.equals(ReliefType.MEDICAL_CARE)) {
                     return true;

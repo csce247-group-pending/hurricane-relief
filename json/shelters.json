@@ -21,9 +21,7 @@
     "volunteers": [
       "3a2b1c0d-4e5f-4a6b-8c7d-200000000010",
       "3a2b1c0d-4e5f-4a6b-8c7d-200000000011",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000012",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000013",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000014"
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000012"
     ],
     "status": "OPEN",
     "contact": "b5ed012f-1f6f-42d0-af50-d2d0de8f0a3d",
@@ -57,21 +55,18 @@
       "0e3d32ca-54f8-4c12-bc63-c628eef0e272"
     ],
     "volunteers": [
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000015",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000016",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000017",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000018",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000019"
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000013",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000014"
     ],
     "status": "FULL",
     "contact": "f54b5b37-9059-4771-932c-328321db34d2",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "2e70cab4-e2dc-42ae-884a-b8dadf9ee194",
     "name": "Bond Court Shelter",
     "location": "2764efdb-0eb3-4fe4-bf82-c9cdac07e276",
-    "capacity": 25,
+    "capacity": 8,
     "occupants": [
       "4ae21c4b-27fd-48bf-a8f4-76d0e9999207",
       "eeabb010-1324-4077-bb97-33f7b55f62a2",
@@ -82,14 +77,11 @@
     ],
     "volunteers": [
       "3a2b1c0d-4e5f-4a6b-8c7d-200000000020",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000021",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000022",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000023",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000024"
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000021"
     ],
     "status": "OPEN",
     "contact": "fca3671f-4b1a-424b-94f2-67f41eb194ae",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "e41281b8-214f-4e59-9e12-2bef408e1efb",
@@ -98,11 +90,8 @@
     "capacity": 40,
     "occupants": [],
     "volunteers": [
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000025",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000026",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000027",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000028",
-      "3a2b1c0d-4e5f-4a6b-8c7d-200000000029"
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000015",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000016"
     ],
     "status": "OPEN",
     "contact": "b061b16a-db92-4072-8ea9-37ff24c4985a",
@@ -133,10 +122,14 @@
       "002c3334-248b-47e2-b60f-e72901c8dc5d",
       "d995e99a-5993-4277-bbd8-07236b4b3394"
     ],
-    "volunteers": [],
+    "volunteers": [
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000025",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000026",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000027"
+    ],
     "status": "OPEN",
     "contact": "162654ca-76c6-4e6b-88f9-ec9f8558f60a",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "ba4ef860-2ec8-402c-b66d-fc93374da8a2",
@@ -167,7 +160,10 @@
       "ed8f66e9-cd54-4d0c-993c-4d3f563cc75e",
       "b8ee6068-b26a-4906-8458-8e4d0a69a9ac"
     ],
-    "volunteers": [],
+    "volunteers": [
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000028",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000029"
+    ],
     "status": "OPEN",
     "contact": "c822476c-2d72-4385-aa55-f2bcfe23009d",
     "pet_friendly": false
@@ -176,9 +172,11 @@
     "id": "516e2d69-bc01-480e-aa02-c08d340bb7da",
     "name": "St. Stephen Elementary",
     "location": "7c1b32f2-fea0-403c-aace-479cbe73a23e",
-    "capacity": 25,
+    "capacity": 0,
     "occupants": [],
-    "volunteers": [],
+    "volunteers": [
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000017"
+    ],
     "status": "CLOSED",
     "contact": "84e18be2-3545-427b-aea2-75a75aeb43e1",
     "pet_friendly": true
@@ -187,7 +185,7 @@
     "id": "6a02c8a2-235e-4768-b26a-10aeae034dd8",
     "name": "Macedonia Middle School",
     "location": "f7828557-6dd2-4aaf-b7ca-4924064aa23d",
-    "capacity": 30,
+    "capacity": 11,
     "occupants": [
       "a50d6956-72c6-447f-8fd2-b58b49e60561",
       "92487b27-886b-4ea6-b622-9f01105b9882",
@@ -199,7 +197,11 @@
       "86042530-4329-44ba-b1d6-ca0e4b866634",
       "b2aab978-cb93-4682-91e8-e3c6784f68a5"
     ],
-    "volunteers": [],
+    "volunteers": [
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000022",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000023",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000024"
+    ],
     "status": "OPEN",
     "contact": "e76068b6-1273-46dc-ba12-9eefb3cf5d80",
     "pet_friendly": false
@@ -208,7 +210,7 @@
     "id": "fb4cd198-746f-42c0-ba85-3a66063fa14a",
     "name": "Westview Middle School",
     "location": "9430b7de-a60f-4c95-82ea-f0724079335b",
-    "capacity": 30,
+    "capacity": 3,
     "occupants": [],
     "volunteers": [],
     "status": "TEMP_UNAVAILABLE",
@@ -237,7 +239,10 @@
       "eea7c559-8f44-4a8a-9155-781fde1e668c",
       "1d3d971f-21f3-496c-9baf-a80dc8dc75ee"
     ],
-    "volunteers": [],
+    "volunteers": [
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000018",
+      "3a2b1c0d-4e5f-4a6b-8c7d-200000000019"
+    ],
     "status": "OPEN",
     "contact": "39ad13f4-5f0c-4ba1-89e2-86ac3249352f",
     "pet_friendly": true

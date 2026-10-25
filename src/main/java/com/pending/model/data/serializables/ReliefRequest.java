@@ -339,6 +339,7 @@ public class ReliefRequest extends Serializable {
 
     public boolean hasPets() {
         for(LivingBeing being: livingBeings) {
+            System.out.println(being);
             if(being.getType() == LivingBeingType.PET) {
                 return true;
             }
@@ -348,5 +349,15 @@ public class ReliefRequest extends Serializable {
 
     public int getPartySize() {
         return livingBeings.size();
+    }
+
+    public int getPartySizeHumans() {
+        int count = 0;
+        for (LivingBeing being : livingBeings) {
+            if(being.getType() == LivingBeingType.HUMAN) {
+                ++count;
+            }
+        }
+        return count;
     }
 }
