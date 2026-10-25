@@ -7,7 +7,8 @@
     "types": [
       "FOOD"
     ],
-    "contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3"
+    "contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
+    "assigned_to": "3a2b1c0d-4e5f-4a6b-8c7d-200000000017"
   },
   {
     "id": "d03bdc30-aeb7-450b-b8aa-031e14dbe916",
@@ -18,17 +19,19 @@
       "WATER",
       "SHELTER"
     ],
-    "contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712"
+    "contact": "f340bd1e-ac2d-465d-9dae-eadff3aea712",
+    "assigned_to": null
   },
   {
-  "id": "a8b27341-945e-4c28-8742-1e9b253b8f1c",
-  "status": "REQUESTED", 
-  "description": "Needs evacuation assistance and medical care due to flooding.",
-  "location": "1f2a3489-0e42-4917-b715-e24395641755",
-  "types": [
-    "MEDICAL_CARE", 
-    "EVACUATION" 
-  ],
-  "contact": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
-}
+    "id": "a8b27341-945e-4c28-8742-1e9b253b8f1c",
+    "status": "REQUESTED",
+    "description": "Needs evacuation assistance and medical care due to flooding.",
+    "location": "1f2a3489-0e42-4917-b715-e24395641755",
+    "types": [
+      "MEDICAL_CARE",
+      "EVACUATION"
+    ],
+    "contact": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    "assigned_to": null
+  }
 ]

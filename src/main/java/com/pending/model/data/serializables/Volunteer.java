@@ -176,8 +176,9 @@ public class Volunteer extends User {
     @Override
     public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
         task = reliefRequest;
-        reliefRequest.setAssignedTo(this);
-        reliefRequest.setStatus(ReliefStatus.ASSIGNED);
+        task.setAssignedTo(this);
+        task.setStatus(ReliefStatus.ASSIGNED);
+        
         return true;
     }
 

@@ -156,16 +156,6 @@ public class Application {
         return database.createReliefRequest(author, description, currentUser.getLocation(), livingBeings);
     }
 
-    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
-        if (currentUser == null) {
-            return false;
-        } 
-        if(currentUser instanceof Volunteer volunteer) {
-            return volunteer.acceptReliefRequest(reliefRequest);
-        }
-        return false;
-    }
-
     /**
      * 
      * 
@@ -178,6 +168,39 @@ public class Application {
         } 
         if(currentUser instanceof Volunteer volunteer) {
             return volunteer.openReliefRequest(reliefRequest);
+        }
+        return false;
+    }
+
+    public boolean acceptReliefRequest(ReliefRequest reliefRequest) {
+        if (currentUser == null) {
+            return false;
+        } 
+        if(currentUser instanceof Volunteer volunteer) {
+            if (volunteer.acceptReliefRequest(reliefRequest)) {
+                database.write(ReliefRequest.class);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Completes a relief request.
+     * This action will require a Shelter Manager role check.
+     */
+    public boolean closeReliefRequest(ReliefRequest reliefRequest) {
+        if (currentUser == null) {
+            return false;
+        }
+
+        if (currentUser instanceof ShelterManager shelterManager) {
+            if (shelterManager.closeReliefRequest(reliefRequest)) {
+                database.write(ReliefRequest.class);
+                return true;
+            }
+        } else {
+            System.out.println("Only Shelter Managers can complete tasks.");
         }
         return false;
     }
@@ -284,23 +307,12 @@ public class Application {
     }
 
     /**
-     * Completes a relief request.
-     * This action will require a Shelter Manager role check.
-     */
-    public boolean completeRequest(ReliefRequest reliefRequest) {
-        if (currentUser == null) {
-            return false;
-        }
-
-        return currentUser != null && currentUser.closeReliefRequest(reliefRequest);
-    }
-
-    /**
      * Starts a relief request.
      * This action will require a Volunteer role check.
      */
     public void startRequest() {
         // must role check for Volunteer
+
     }
 
     public boolean checkIntoShelter(ArrayList<LivingBeing> livingBeings) {

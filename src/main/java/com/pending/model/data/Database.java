@@ -299,6 +299,10 @@ public class Database {
         return users.getObjectByUUID(id);
     }
 
+    public Volunteer getVolunteerByUUID(UUID id) {
+        return volunteers.getObjectByUUID(id);
+    }
+
     public ReliefRequest getReliefRequestByUUID(UUID id) {
         return requests.getObjectByUUID(id);
     }

@@ -218,9 +218,9 @@ public class ReliefRequest extends Serializable {
 
         return "Relief Request"
                 + "\n\tDescription: " + description
-                + "\n\tRelief Status:" + status
-                + (assignedTo != null && status != ReliefStatus.REQUESTED ? 
-                "\n\tAssigned To: " + assignedTo.getFullName() : "None")
+                + "\n\tRelief Status: " + status
+                + "\n\tAssigned To: " + (assignedTo != null && status != ReliefStatus.REQUESTED ? 
+                assignedTo.getFullName() : "None")
                 + "\n\tRelief Needs: " + reliefTypesString
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo

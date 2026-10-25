@@ -35,10 +35,10 @@ public class ConsoleUI {
      */
     public void run() {
         // createReliefRequestScenario();
-        // readAndPrintReliefRequests();
+        readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        findShelterAndAssignRequest();
+        // findShelterAndAssignRequest();
     }
 
     public void close() {
@@ -240,7 +240,7 @@ public class ConsoleUI {
         loginScenario(email, password);
 
         app.checkIntoShelter(reliefRequest.getLivingBeings());
-        app.completeRequest(reliefRequest);
+        app.closeReliefRequest(reliefRequest);
 
         app.logout();
     }
@@ -292,13 +292,15 @@ public class ConsoleUI {
         }
 
         app.setShelter(shelters.get(choice));
-        System.out.println("Saving Chosen Shelter");
+        System.out.println("Saving Chosen Shelter:\n" + shelters.get(choice));
 
         // assign task
-        System.out.println("Accepting the ReliefRequest");
+        System.out.println("Accepting the ReliefRequest:\n" + reliefRequest);
         app.acceptReliefRequest(reliefRequest);
 
         app.logout();
+
+        loginScenario("vol9@example.com","Password123!");
     }
 
     /**
