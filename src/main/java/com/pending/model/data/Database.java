@@ -394,7 +394,34 @@ public class Database {
     public boolean exportTripInformation(Volunteer volunteer, Shelter shelter) {
         String outputFile = volunteer.getFirstName() + "_relief_task.txt";
 
-        return volunteers.exportTripInformation("", outputFile);
+        String toWrite = "Exporting Trip Information\n\n";
+        // get request info
+        toWrite += volunteer.getTask().toStringDetailed() + "\n\n";
+        
+        try {
+            // get directions from Vol to Task
+            toWrite += "Directions From Volunteer To Task:\n";
+            for(String direction: MapTools.getInstance()
+                .getDrivingDirections(
+                    volunteer.getLocation(), volunteer.getTask().getLocation()
+                )) {
+                toWrite += "\t" + direction + "\n";
+            }
+            toWrite += "\n\n";
+            // get directions from Task to Shelter
+            toWrite += "Directions From Task To '" + shelter.getName() + "' Shelter:\n";
+            for(String direction: MapTools.getInstance()
+                .getDrivingDirections(
+                    volunteer.getTask().getLocation(), shelter.getLocation()
+                )) {
+                toWrite += "\t" + direction + "\n";
+            }
+        } catch (Exception e) {
+            System.out.println("Failed Getting Directions");
+            return false;
+        }
+
+        return volunteers.exportTripInformation(toWrite, outputFile);
     }
     
 }

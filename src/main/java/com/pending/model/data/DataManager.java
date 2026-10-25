@@ -136,7 +136,7 @@ public class DataManager {
     }
 
     public boolean writeTxt(String toWrite, String outputFileName) {
-        outputFileName += TXT_DESTINATION + outputFileName;
+        outputFileName = TXT_DESTINATION + outputFileName;
 
         System.out.println("[LOG] Attempting to Write: " + outputFileName);
 
@@ -146,9 +146,10 @@ public class DataManager {
         } catch (Exception e) {
             System.out.println("[ERROR] Error exporting files");
             e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /**

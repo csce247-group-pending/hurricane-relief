@@ -36,9 +36,10 @@ public class ConsoleUI {
     public void run() {
         // readAndPrintReliefRequests();
         // readAndPrintSheltersScenario();
-        // createReliefRequestScenario();
+        createReliefRequestScenario();
         // acceptReliefRequestAndCheckIntoShelterScenario();
-        // findShelterAndAssignRequest();
+        findShelterAndAssignRequest();
+        exportTripInformation();
     }
 
     public void close() {
@@ -295,24 +296,23 @@ public class ConsoleUI {
         System.out.println("\nAttempt to accept the Relief Request:\n" + reliefRequest);
         app.acceptReliefRequest(reliefRequest);
 
-        System.out.println("\nLogging out");
-        app.logout();
+        // System.out.println("\nLogging out");
+        // app.logout();
 
-        login("vol9@example.com","Password123!");
+        // login("vol9@example.com","Password123!");
 
-        System.out.println("\nPrinting All Relief Requests:");
-        for (String request : app.getRequests()) {
-            System.out.println(request);
-        }
+        // System.out.println("\nPrinting All Relief Requests:");
+        // for (String request : app.getRequests()) {
+        //     System.out.println(request);
+        // }
         
     }
 
     public void exportTripInformation() {
-        String result = app.exportTripInformation();
-        if(result == null) {
+        if(!app.exportTripInformation()) {
             System.out.println("Error exporting trip info: Scenario Failed");
         } else {
-            System.out.println("Trip Exported Successfully to file: " + result);
+            System.out.println("Trip Exported Successfully to file");
         }
     }
 

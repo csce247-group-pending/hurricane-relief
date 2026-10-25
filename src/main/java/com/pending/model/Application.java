@@ -350,13 +350,18 @@ public class Application {
         this.currShelter = shelter;
     }
 
-    public String exportTripInformation() {
+    public boolean exportTripInformation() {
+        if (currentUser == null || currShelter == null) {
+            System.out.println("[Error] Not logged in or no shelter selected");
+            return false;
+        }
+
         if (currentUser instanceof Volunteer volunteer) {
-            database.exportTripInformation(volunteer, currShelter);
+            return database.exportTripInformation(volunteer, currShelter);
         } else {
             System.out.println("Only volunteers can export trip information");
         }
-        return null;
+        return false;
 
     }
 }
