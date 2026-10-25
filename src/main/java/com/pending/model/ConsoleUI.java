@@ -253,11 +253,12 @@ public class ConsoleUI {
 
         loginScenario(email, password);
 
+        // TODO update relief request to be scenario relief request
         ReliefRequest reliefRequest = app.getReliefRequests().getFirst();
         app.openReliefRequest(reliefRequest);
 
 
-        System.out.println("Searching for the nearest Shelters");
+        System.out.println("\nSearching for the nearest Shelters");
         // get list of shelters sorted
         ArrayList<Shelter> shelters = app.getSortedShelters();
         
@@ -272,22 +273,22 @@ public class ConsoleUI {
 
         int choice = 0;
 
-        System.out.print("Enter the number of the shelter you want: ");
+        System.out.println("\nEnter the number of the shelter you want: ");
         System.out.println("\tchoice> " + (choice + 1));
 
         app.setShelter(shelters.get(choice));
-        System.out.println("Saving Chosen Shelter:\n" + shelters.get(choice));
+        System.out.println("\nSaving Chosen Shelter:\n" + shelters.get(choice));
 
         // assign task
-        System.out.println("Accepting the ReliefRequest:\n" + reliefRequest);
+        System.out.println("\nAttempt to accept the Relief Request:\n" + reliefRequest);
         app.acceptReliefRequest(reliefRequest);
 
-        System.out.println("Logging out");
+        System.out.println("\nLogging out");
         app.logout();
 
         loginScenario("vol9@example.com","Password123!");
 
-        System.out.println("Printing All Relief Requests:");
+        System.out.println("\nPrinting All Relief Requests:");
         for (String request : app.getRequests()) {
             System.out.println(request);
         }

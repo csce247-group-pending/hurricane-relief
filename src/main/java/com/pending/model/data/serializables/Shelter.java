@@ -38,6 +38,8 @@ public class Shelter extends Serializable {
     private UUID managerUUIDReference;
     private UUID contactUUIDReference;
 
+    private double timeTo;
+
     /**
      * Creates a shelter with a specified UUID.
      *
@@ -96,6 +98,7 @@ public class Shelter extends Serializable {
         volunteersByUUID = new ArrayList<>();
 
         serializeBehavior = new SerializeJSONShelter(this);
+        timeTo = -1;
     }
 
     /**
@@ -395,12 +398,13 @@ public class Shelter extends Serializable {
                 + "\n\tCapacity: " + getNumOccupants() + "/" + capacity
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
-                + (isPetFriendly ? "\n\tAccomdates Pets" : "")
+                + (isPetFriendly ? "\n\tPet Friendly" : "")
                 // + "\n\tOccupants: "
                 // + (formattedOccupants.isEmpty()
                 //         ? "None"
                 //         : "\n" + formattedOccupants)
-                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "");
+                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
+                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "");
     }
 
     /**
@@ -454,5 +458,13 @@ public class Shelter extends Serializable {
      */
     public void setPetFriendly(boolean isPetFriendly) {
         this.isPetFriendly = isPetFriendly;
+    }
+
+    public double getTimeTo() {
+        return timeTo;
+    }
+
+    public void setTimeTo(double timeTo) {
+        this.timeTo = timeTo;
     }
 }

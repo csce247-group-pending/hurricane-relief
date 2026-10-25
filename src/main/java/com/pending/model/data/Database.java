@@ -339,16 +339,12 @@ public class Database {
         ArrayList<Shelter> shelters = getShelters();
 
         try {
-            Map<Shelter, Double> timeMap = new HashMap<>();
             Map<Shelter, Integer> matchMap = new HashMap<>();
         
             for (Shelter shelter : shelters) {
-                timeMap.put(shelter, 
-                    MapTools.getInstance()
-                    .getDrivingTime(task.getLocation(), shelter.getLocation())
+                shelter.setTimeTo(
+                    MapTools.getInstance().getDrivingTime(task.getLocation(), shelter.getLocation())
                 );
-                
-                // Assume you have a method to count matching attributes
                 int matches = countMatchingAttributes(shelter, task); 
                 matchMap.put(shelter, matches);
             }
@@ -356,7 +352,7 @@ public class Database {
             shelters.sort(
                 Comparator.comparingInt((Shelter shelter) -> matchMap.get(shelter))
                     .reversed()
-                    .thenComparingDouble(shelter -> timeMap.get(shelter))
+                    .thenComparingDouble(shelter -> shelter.getTimeTo())
             );
             return shelters;
 

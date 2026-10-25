@@ -216,7 +216,7 @@ public class ReliefRequest extends Serializable {
             formattedBeings += "\t\t" + livingBeing + "\n";
         }
 
-        return "Relief Request"
+        return "[Relief Request]"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status: " + status
                 + "\n\tAssigned To: " + (assignedTo != null && status != ReliefStatus.REQUESTED ? 

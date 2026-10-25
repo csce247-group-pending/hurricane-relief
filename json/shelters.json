@@ -106,7 +106,7 @@
     ],
     "status": "OPEN",
     "contact": "b061b16a-db92-4072-8ea9-37ff24c4985a",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "05cf8702-bba0-45c1-94d8-39819b520ed3",
@@ -181,7 +181,7 @@
     "volunteers": [],
     "status": "CLOSED",
     "contact": "84e18be2-3545-427b-aea2-75a75aeb43e1",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "6a02c8a2-235e-4768-b26a-10aeae034dd8",
@@ -213,7 +213,7 @@
     "volunteers": [],
     "status": "TEMP_UNAVAILABLE",
     "contact": "3ed889a4-6bb3-4b59-9a12-32c64255011e",
-    "pet_friendly": false
+    "pet_friendly": true
   },
   {
     "id": "3b1a74ac-c17b-460f-a3f6-9f568f697168",
