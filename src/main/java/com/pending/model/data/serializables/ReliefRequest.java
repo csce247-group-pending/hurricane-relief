@@ -45,14 +45,14 @@ public class ReliefRequest extends Serializable {
      */
     public ReliefRequest(String description, Location location,
             ReliefStatus status, ArrayList<LivingBeing> livingBeings,
-            ArrayList<ReliefType> reliefTypes) {
+            ArrayList<ReliefType> reliefTypes, Contact contactInfo) {
 
         super();
         this.description = description;
         this.location = location;
         this.types = reliefTypes;
         this.status = status;
-        this.contactInfo = new Contact();
+        this.contactInfo = contactInfo;
         this.livingBeings = livingBeings;
         this.assignedTo = null;
         this.assignedToUUIDReference = null;
@@ -75,9 +75,9 @@ public class ReliefRequest extends Serializable {
      */
     public ReliefRequest(UUID id, String description, Location location,
             ReliefStatus status, ArrayList<LivingBeing> livingBeings,
-            ArrayList<ReliefType> reliefTypes) {
+            ArrayList<ReliefType> reliefTypes, Contact contactInfo) {
 
-        this(description, location, status, livingBeings, reliefTypes);
+        this(description, location, status, livingBeings, reliefTypes, contactInfo);
         this.id = id;
     }
 
@@ -86,7 +86,7 @@ public class ReliefRequest extends Serializable {
      */
     public ReliefRequest() {
         this("", new Location(), ReliefStatus.REQUESTED,
-                new ArrayList<>(), new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>(), new Contact());
     }
 
     /**
@@ -226,7 +226,7 @@ public class ReliefRequest extends Serializable {
                 + "\n\tRelief Status: " + status
                 + "\n\tRelief Needs: " + reliefTypesString
                 + "\n\tLocation: " + location
-                + "\n\tMembers" + getPartySize() + ")";
+                + "\n\tMembers: " + getPartySize();
     }
 
     public String toStringDetailed() {

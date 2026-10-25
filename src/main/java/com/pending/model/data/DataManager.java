@@ -62,8 +62,8 @@ public class DataManager {
      * @return true if the write succeeds; otherwise false
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
-    public boolean write(ArrayList<?> objects)
-            throws ExecutionControl.NotImplementedException {
+    public boolean write(ArrayList<?> objects) throws ExecutionControl.NotImplementedException {
+        // System.out.println("Writing to file " + filename);
 
         switch (mode) {
             case JSON:

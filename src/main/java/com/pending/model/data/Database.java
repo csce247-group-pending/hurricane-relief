@@ -239,44 +239,18 @@ public class Database {
         return true;
     }
 
-    /**
-     * Creates and saves a relief request.
-     *
-     * @param author the user submitting the request
-     * @param description the request description
-     * @param location the request location
-     * @param livingBeings the people or pets needing help
-     * @return true if the request was added; otherwise false
-     */
-    public boolean createReliefRequest(User author, String description,
-            Location location, ArrayList<LivingBeing> livingBeings) {
-
+    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings, Contact contactInfo) {
         HashSet<ReliefType> reliefTypes = new HashSet<>();
 
         for (LivingBeing livingBeing : livingBeings) {
             reliefTypes.addAll(livingBeing.getReliefNeeds());
         }
-
-        ReliefRequest reliefRequest = new ReliefRequest(
-                description,
-                location,
-                ReliefStatus.REQUESTED,
-                livingBeings,
-                new ArrayList<>(reliefTypes)
-        );
-
-        if (author != null) {
-            author.getUserReliefRequests().add(reliefRequest);
-
-            reliefRequest.setContactInfo(author.getUserContact());
-            reliefRequest.setContactUUIDReference(
-                    author.getUserContact().getId());
-        }
-
-        boolean requestAdded = requests.add(reliefRequest);
+        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes), contactInfo);
+        if (author != null) author.addUserReliefRequest(reliefRequest);
+        boolean returnValue = requests.add(reliefRequest);
         requests.write();
-
-        return requestAdded;
+        users.write();
+        return returnValue;
     }
 
     public ArrayList<LivingBeing> getLivingBeings() {

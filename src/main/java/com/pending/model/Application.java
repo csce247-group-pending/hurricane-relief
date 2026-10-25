@@ -15,6 +15,8 @@ import com.pending.model.data.serializables.ShelterManager;
 import com.pending.model.data.serializables.User;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.LivingBeingType;
+import com.pending.model.enums.ReliefStatus;
 import com.pending.model.enums.ReliefType;
 
 /**
@@ -25,9 +27,14 @@ public class Application {
     private static Application application;
 
     private Database database;
+
+    // Session Variables
     private User currentUser;
     private Location location;
     private Shelter currShelter;
+    private ArrayList<LivingBeing> pendingGroupMembers;
+
+
 
     /**
      * Creates the application and loads saved database information.
@@ -38,6 +45,7 @@ public class Application {
         currentUser = null;
         location = null;
         currShelter = null;
+        pendingGroupMembers = null;
     }
 
     /**
@@ -134,6 +142,14 @@ public class Application {
         }
 
         updateSessionLocation(currentUser.getLocation());
+        return getUserString();
+    }
+
+    public String getUserString() {
+        if (currentUser == null) {
+            return null;
+        }
+
         return currentUser.toString();
     }
 
@@ -173,22 +189,13 @@ public class Application {
      */
     public boolean createReliefRequest(String description) {
         return database.createReliefRequest(currentUser, description,
-                currentUser.getLocation(),
-                new ArrayList<LivingBeing>(List.of(currentUser)));
+            currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)),
+            currentUser.getUserContact());
     }
 
-    /**
-     * Creates a relief request for the current user and family members.
-     *
-     * @param description the request description
-     * @param livingBeings the people or pets needing relief
-     * @return true if the request was created; otherwise false
-     */
-    public boolean createReliefRequest(String description,
-            ArrayList<LivingBeing> livingBeings) {
-
+    public boolean createReliefRequest(String description, ArrayList<LivingBeing> livingBeings) {
         return database.createReliefRequest(currentUser, description,
-                currentUser.getLocation(), livingBeings);
+             currentUser.getLocation(), livingBeings, currentUser.getUserContact());
     }
 
     /**
@@ -200,23 +207,12 @@ public class Application {
      */
     public boolean createReliefRequest(User author, String description) {
         return database.createReliefRequest(author, description,
-                currentUser.getLocation(),
-                new ArrayList<LivingBeing>(List.of(currentUser)));
+            currentUser.getLocation(), new ArrayList<LivingBeing>(List.of(currentUser)), author.getUserContact());
     }
 
-    /**
-     * Creates a relief request for a specified user and group.
-     *
-     * @param author the user creating the request
-     * @param description the request description
-     * @param livingBeings the people or pets needing relief
-     * @return true if the request was created; otherwise false
-     */
-    public boolean createReliefRequest(User author, String description,
-            ArrayList<LivingBeing> livingBeings) {
-
+    public boolean createReliefRequest(User author, String description, ArrayList<LivingBeing> livingBeings) {
         return database.createReliefRequest(author, description,
-                currentUser.getLocation(), livingBeings);
+            currentUser.getLocation(), livingBeings, author.getUserContact());
     }
 
     /**
@@ -473,13 +469,58 @@ public class Application {
 
         System.out.println("Only volunteers can export trip information.");
         return false;
+
     }
 
     /**
-     * Starts a relief request workflow.
-     * This method is reserved for future implementation.
+     * Sets the relief needs for the currently logged-in user.
      */
-    public void startRequest() {
-        // Reserved for future implementation.
+    public boolean setCurrentUserReliefNeeds(ArrayList<ReliefType> reliefNeeds) {
+        if (currentUser == null) {
+            return false;
+        }
+        currentUser.setReliefNeeds(reliefNeeds);
+        return true;
     }
+
+    /**
+     * Starts a new family/group list for a relief request and automatically includes currentUser.
+     */
+    public void startNewReliefGroup() {
+        pendingGroupMembers = new ArrayList<>();
+        if (currentUser != null) {
+            pendingGroupMembers.add(currentUser);
+        }
+    }
+
+    /**
+     * Instantiates a LivingBeing inside the Facade and adds it to the pending relief group.
+     */
+    public void addMemberToReliefGroup(String firstName, String lastName, LocalDate dateOfBirth,
+                                    LivingBeingType type, ArrayList<ReliefType> reliefNeeds) {
+        LivingBeing member = new LivingBeing(firstName, lastName, dateOfBirth, type, reliefNeeds);
+        pendingGroupMembers.add(member);
+    }
+
+    /**
+     * Submits the relief request using the staged family/group members.
+     */
+    public boolean submitGroupReliefRequest(String description) {
+        if (currentUser == null) {
+            return false;
+        }
+        if (pendingGroupMembers.isEmpty()) {
+            pendingGroupMembers.add(currentUser);
+        }
+        boolean success = database.createReliefRequest(
+                currentUser,
+                description,
+                currentUser.getLocation(),
+                new ArrayList<>(pendingGroupMembers),
+                currentUser.getUserContact()
+        );
+        pendingGroupMembers.clear();
+        return success;
+    }
+
 }

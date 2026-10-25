@@ -5,12 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.pending.model.data.serializables.Contact;
-import com.pending.model.data.serializables.LivingBeing;
-import com.pending.model.data.serializables.Location;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Shelter;
-import com.pending.model.enums.ContactPreference;
 import com.pending.model.enums.LivingBeingType;
 import com.pending.model.enums.ReliefType;
 
@@ -37,18 +33,16 @@ public class ConsoleUI {
      * Runs the primary presentation scenarios.
      */
     public void run() {
-        printHeader("HURRICANE RELIEF SYSTEM DEMONSTRATION");
-
+        // readAndPrintReliefRequests();
+        // readAndPrintSheltersScenario();
         createReliefRequestScenario();
-        readAndPrintReliefRequests();
-        acceptReliefRequestAndCheckIntoShelterScenario();
-
-        printHeader("DEMONSTRATION COMPLETE");
+        // acceptReliefRequestAndCheckIntoShelterScenario();
+        // findShelterAndAssignRequest();
+        // exportTripInformation();
+        // rolePermissionScenario();
+        // openAndMatchRequestScenario();
     }
 
-    /**
-     * Closes the console scanner.
-     */
     public void close() {
         scanner.close();
     }
@@ -180,80 +174,68 @@ public class ConsoleUI {
         String email = "jimmycarter@gmail.com";
         String password = "Buddy1&";
 
-        System.out.println("Creating an account for " + firstName + " "
-                + lastName + "...");
-
-        boolean accountCreated = app.requestCreateAccount(
-                firstName,
-                lastName,
-                LocalDate.parse("1952-11-02"),
-                password,
-                new Location("SC", "Charleston", "32 Legare St", "29401"),
-                new Contact(email, "8439847569", ContactPreference.CALL),
-                new Contact("doriscarter@gmail.com", "8433458910",
-                        ContactPreference.TEXT)
-        );
-
-        if (accountCreated) {
-            System.out.println("[SUCCESS] Account created.");
-        } else {
-            System.out.println("[INFO] Account already exists; using the"
-                    + " existing account for this demonstration.");
+        System.out.println("Creating an account for James Carter");
+        boolean accountCreationSuccess = app.requestCreateAccount(
+            firstName,
+            lastName,
+            dateOfBirth,
+            password,
+            "32 Legare St, Charleston, SC, 29401",
+            "jimmycarter@gmail.com",
+            "8439847569",
+            "CALL",
+            "doriscarter@gmail.com",
+            "8433458910",
+            "TEXT"
+    );
+        if (!accountCreationSuccess) {
+            System.out.println("Account creation failed");
         }
 
-        System.out.println();
-        System.out.println("Logging in as the requesting user...");
+        login("jimmycarter@gmail.com", password);
 
-        if (!loginScenario(email, password)) {
-            return;
-        }
 
-        app.getCurrentUser().setReliefNeeds(new ArrayList<>(List.of(
-                ReliefType.TRANSPORTATION,
-                ReliefType.SHELTER
-        )));
-
-        ArrayList<LivingBeing> family = new ArrayList<>();
-
-        family.add(app.getCurrentUser());
-
-        family.add(new LivingBeing(
-                "Doris",
-                "Carter",
-                LocalDate.parse("1954-05-23"),
-                LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(
-                        ReliefType.TRANSPORTATION,
-                        ReliefType.SHELTER
-                ))
+        System.out.println("\nCreating a Relief Request:");
+        app.setCurrentUserReliefNeeds(new ArrayList<>(
+            List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE)
         ));
 
-        family.add(new LivingBeing(
+        // add family
+        app.startNewReliefGroup();
+
+        System.out.println("\tAdding Doris Carter (HUMAN) to Relief Group");
+        app.addMemberToReliefGroup(
+            "Doris",
+            "Carter",
+            LocalDate.parse("1954-05-23"),
+            LivingBeingType.HUMAN,
+            new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER))
+        );
+
+        System.out.println("\tAdding Sophie Carter (HUMAN) to Relief Group");
+        app.addMemberToReliefGroup(
                 "Sophie",
                 "Carter",
                 LocalDate.parse("2014-08-20"),
                 LivingBeingType.HUMAN,
-                new ArrayList<>(List.of(
-                        ReliefType.TRANSPORTATION,
-                        ReliefType.SHELTER,
-                        ReliefType.MEDICAL_CARE
-                ))
-        ));
+                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.SHELTER, ReliefType.MEDICAL_CARE))
+        );
 
-        family.add(new LivingBeing(
+        System.out.println("\tAdding Buddy Carter (PET) to Relief Group");
+        app.addMemberToReliefGroup(
                 "Buddy",
                 "Carter",
                 LocalDate.parse("2021-01-15"),
                 LivingBeingType.PET,
-                new ArrayList<>(List.of(
-                        ReliefType.TRANSPORTATION,
-                        ReliefType.PET_SHELTER
-                ))
-        ));
-        System.out.println(app.createReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter", family)?
-                "Request posted successfully:" : "Request upload failed.");
-        readAndPrintReliefRequests();
+                new ArrayList<>(List.of(ReliefType.TRANSPORTATION, ReliefType.PET_SHELTER))
+        );
 
+        System.out.println(app.submitGroupReliefRequest("Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter") ?
+            "\nRequest posted successfully:" : "\nRequest upload failed.");
+
+        System.out.println(app.getUserString());
+
+        System.out.println("Logging out");
         app.logout();
         System.out.println("Requesting user logged out.");
     }
