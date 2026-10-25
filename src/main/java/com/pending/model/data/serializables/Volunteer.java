@@ -52,8 +52,8 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
 
-        serializeBehavior = new SerializeJSONVolunteer<Volunteer>(this);
     }
 
     /**
@@ -85,8 +85,8 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
 
-        serializeBehavior = new SerializeJSONVolunteer<Volunteer>(this);
     }
 
     /**
@@ -98,8 +98,7 @@ public class Volunteer extends User {
         this.reliefTypes = new ArrayList<>();
         this.task = null;
         sorter = new SkillSort(this);
-
-        serializeBehavior = new SerializeJSONVolunteer<Volunteer>(this);
+        serializeBehavior = new SerializeJSONVolunteer(this);
     }
 
     /**
@@ -185,6 +184,7 @@ public class Volunteer extends User {
         task = reliefRequest;
         task.setAssignedTo(this);
         task.setStatus(ReliefStatus.ASSIGNED);
+        setAvailable(false);
         
         return true;
     }

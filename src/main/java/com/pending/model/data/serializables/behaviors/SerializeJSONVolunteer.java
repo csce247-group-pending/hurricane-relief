@@ -1,10 +1,10 @@
 package com.pending.model.data.serializables.behaviors;
 
-import com.pending.model.data.serializables.Volunteer;
-import com.pending.model.enums.ReliefType;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import com.pending.model.data.serializables.Volunteer;
+import com.pending.model.enums.ReliefType;
 
 /**
  * Provides JSON serialization behavior for volunteer objects.
@@ -62,7 +62,7 @@ public class SerializeJSONVolunteer<T extends Volunteer>
 
         if (reliefTypes != null) {
             for (Object reliefType : reliefTypes) {
-                serializable.getReliefTypes().add(
+                serializable.addReliefType(
                         ReliefType.valueOf((String) reliefType));
             }
         }

@@ -15,4 +15,9 @@ public enum ReliefType {
     private ReliefType(String name) {
         this.name = name;
     }
+
+    @Override 
+    public String toString() {
+        return name;
+    }
 }
