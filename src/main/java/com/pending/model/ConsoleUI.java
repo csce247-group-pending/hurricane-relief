@@ -320,10 +320,10 @@ public class ConsoleUI {
         // TODO implement actual recommendation logic
         int recommendedRequestNumber = 4;
         int requestIndex = recommendedRequestNumber - 1;
-        System.out.println("Choose a Request, Request " + recommendedRequestNumber
+        System.out.println("\nChoose a Request, Request " + recommendedRequestNumber
                 + " is Recommended due to Matching needs and proximity");
 
-        System.out.println("Opening Request " + recommendedRequestNumber);
+        System.out.println("\nOpening Request " + recommendedRequestNumber);
 
         if (!app.openReliefRequest(requestIndex)) {
             System.out.println("Failed Opening Request");

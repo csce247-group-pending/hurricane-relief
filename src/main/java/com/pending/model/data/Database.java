@@ -405,13 +405,11 @@ public class Database {
 
         if (task.hasPets()
                 && shelter.isPetFriendly() == task.hasPets()) {
-            System.out.println("Has pets");
             count++;
         }
 
         if (task.getTypes().contains(ReliefType.MEDICAL_CARE)
                 && shelter.hasMedicalStaff()) {
-            System.out.println("has Medical staff");
             count++;
         }
 
