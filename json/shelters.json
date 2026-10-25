@@ -86,6 +86,7 @@
   {
     "id": "e41281b8-214f-4e59-9e12-2bef408e1efb",
     "name": "Stall High School",
+    "manager": "86da5c6d-c0bf-4d7c-8f24-93dbdcb59f32",
     "location": "1e49896e-b3a2-4095-a733-c515972a7f32",
     "capacity": 40,
     "occupants": [],

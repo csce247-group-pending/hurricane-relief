@@ -193,8 +193,8 @@ public class SerializeJSONShelter extends SerializeJSON<Shelter> {
             User user = database.getUserByUUID(
                     serializable.getManagerUUIDReference());
 
-            if (user instanceof ShelterManager) {
-                serializable.setManager((ShelterManager) user);
+            if (user instanceof ShelterManager shelterManager) {
+                serializable.setManager(shelterManager);
             }
         }
     }

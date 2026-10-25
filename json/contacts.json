@@ -376,5 +376,17 @@
     "email": "emer20@example.com",
     "phone": "8435550040",
     "contact_preference": "CALL"
+  },
+  {
+    "id": "c1a2b3c4-5d6e-4f7a-8b9c-0123456789ab",
+    "email": "felix.mendelssohn@sheltermanager.org",
+    "phone": "8435559001",
+    "contact_preference": "CALL"
+  },
+  {
+    "id": "d2b3c4d5-6e7f-4a8b-9c0d-123456789abc",
+    "email": "emergency.manager@sheltermanager.org",
+    "phone": "8435559002",
+    "contact_preference": "TEXT"
   }
 ]

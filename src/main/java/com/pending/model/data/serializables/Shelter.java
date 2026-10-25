@@ -3,7 +3,6 @@ package com.pending.model.data.serializables;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import com.pending.model.data.Database;
 import com.pending.model.data.serializables.behaviors.SerializeJSONShelter;
 import com.pending.model.enums.JSONFile;
 import com.pending.model.enums.LivingBeingType;
@@ -376,7 +375,6 @@ public class Shelter extends Serializable {
         }
 
         occupants.addAll(occupantsToAdd);
-        Database.getInstance().write(Shelter.class);
         return true;
     }
 
@@ -387,10 +385,25 @@ public class Shelter extends Serializable {
      */
     @Override
     public String toString() {
+        return "{Shelter '" + name + "'}"
+                + "\n\tStatus: " + status
+                + "\n\tCapacity: " + getNumOccupants() + "/" + capacity
+                + "\n\tLocation: " + location
+                + "\n\tContact Info: " + contactInfo
+                + (isPetFriendly ? "\n\tPet Friendly" : "")
+                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
+                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "");
+    }
+
+    public String managerToString() {
         String formattedOccupants = "";
 
         for (LivingBeing occupant : occupants) {
-            formattedOccupants += "\t\t" + occupant + "\n";
+            if (occupant instanceof User user) {
+                formattedOccupants += "\t\t" + user.toStringLivingBeing() + "\n";
+            } else {
+                formattedOccupants += "\t\t" + occupant + "\n";
+            }
         }
 
         return "{Shelter '" + name + "'}"
@@ -399,12 +412,12 @@ public class Shelter extends Serializable {
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
                 + (isPetFriendly ? "\n\tPet Friendly" : "")
-                // + "\n\tOccupants: "
-                // + (formattedOccupants.isEmpty()
-                //         ? "None"
-                //         : "\n" + formattedOccupants)
                 + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
-                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "");
+                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "")
+                + "\n\tOccupants: "
+                + (formattedOccupants.isEmpty()
+                        ? "None"
+                        : "\n" + formattedOccupants);
     }
 
     /**
@@ -467,4 +480,5 @@ public class Shelter extends Serializable {
     public void setTimeTo(double timeTo) {
         this.timeTo = timeTo;
     }
+
 }
