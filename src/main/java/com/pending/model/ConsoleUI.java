@@ -73,7 +73,7 @@ public class ConsoleUI {
         System.out.println(success ? "[SUCCESS] " + successMessage
                 : "[FAILED] " + failureMessage);
     }
-    
+
     /**
      * Prints a formatted success or failure message.
      *
@@ -330,7 +330,7 @@ public class ConsoleUI {
         login(email, password);
 
         // Show Rosa's profile
-
+        
 
         // Rosa sees 7 relief requests sorted based on ReliefType and proximity
 

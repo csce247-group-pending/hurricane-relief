@@ -85,7 +85,9 @@ public class DataList<T extends Serializable> {
             ArrayList<Object> dataObjects = new ArrayList<>();
 
             for (T object : objects) {
-                dataObjects.add(object.serialize());
+                if (object.getClass() == cls) {
+                    dataObjects.add(object.serialize());
+                }
             }
 
             dataManager.write(dataObjects);
