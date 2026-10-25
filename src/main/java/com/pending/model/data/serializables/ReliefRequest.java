@@ -221,7 +221,7 @@ public class ReliefRequest extends Serializable {
                 ? "N/A"
                 : reliefTypesString;
 
-        return "[Relief Request]"
+        return "{Relief Request}"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status: " + status
                 + "\n\tRelief Needs: " + reliefTypesString
@@ -248,7 +248,7 @@ public class ReliefRequest extends Serializable {
             }
         }
 
-        return "[Relief Request Detailed]"
+        return "{Relief Request Detailed}"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status: " + status
                 + "\n\tAssigned To: " + (assignedTo != null && status != ReliefStatus.REQUESTED ? 

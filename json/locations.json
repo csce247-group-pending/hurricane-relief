@@ -1,177 +1,170 @@
 [
-  {
-    "zip": "29208",
-    "city": "Columbia",
-    "street": "211 Main St",
-    "id": "c2b47624-88e1-474d-8482-762f9379a445",
-    "state": "SC"
-  },
-  {
-    "zip": "29401",
-    "city": "Charleston",
-    "street": "145 King St",
-    "id": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
-    "state": "SC"
-  },
-  {
-    "zip": "29201",
-    "city": "Columbia",
-    "street": "550 Assembly St",
-    "id": "3b29c1e4-8f7a-4d29-a16e-57c28f419b02",
-    "state": "SC"
-  },
-  {
-    "zip": "87104",
-    "city": "Albuquerque",
-    "street": "308 Negra Arroyo Ln",
-    "id": "f84a1d63-2c9e-4a7b-b830-9e63d41f75c8",
-    "state": "NM"
-  },
-  {
-    "zip": "28173",
-    "city": "Waxhaw",
-    "street": "119 Brevard St",
-    "id": "7d5e9b10-63a2-41f8-9a4c-0d82e174b593",
-    "state": "NC"
-  },
-  {
-    "zip": "29201",
-    "city": "Columbia",
-    "street": "1215 Blossom St",
-    "id": "a904e5f2-1b8d-4e63-8f52-4c317d98a06e",
-    "state": "SC"
-  },
-  {
-    "zip": "29201",
-    "city": "Richland",
-    "street": "",
-    "id": "2d8f619b-c40e-4375-9e67-5d07a1b41e8c",
-    "state": "SC"
-  },
-  {
-    "zip": "29208",
-    "city": "Richland",
-    "street": "",
-    "id": "6a91c348-18e4-4a27-89bb-72d0ee13f8c5",
-    "state": "SC"
-  },
-  {
-    "zip": "29630",
-    "city": "Central",
-    "street": "",
-    "id": "c5304b72-f2de-4ec9-b4cf-81c0029b47e2",
-    "state": "SC"
-  },
-  {
-    "zip": "29631",
-    "city": "Clemson",
-    "street": "",
-    "id": "41e976f3-a8c5-4dc7-8ea3-3e1986427db9",
-    "state": "SC"
-  },
-  {
-    "zip": "29401",
-    "city": "Charleston",
-    "street": "100 Broad St",
-    "id": "1f2a3489-0e42-4917-b715-e24395641755",
-    "state": "SC"
-  },
-  {
-    "zip": "29201",
-    "city": "Columbia",
-    "street": "225 Gervais St",
-    "id": "f623cfd7-c8c8-4b53-9f2d-b196ea124133",
-    "state": "SC"
-  },
-  {
-    "zip": "29401",
-    "city": "Charleston",
-    "street": "32 Legare St",
-    "id": "15bbffba-79e4-40e5-8123-af76a2707c3f",
-    "state": "SC"
-  },
-  {
-    "zip": "29401",
-    "city": "Charleston",
-    "street": "32 Legare St",
-    "id": "a9450790-e916-4f78-a81d-a22b78c07c56",
-    "state": "SC"
-  },
-  {
-    "zip": "29401",
-    "city": "Charleston",
-    "street": "32 Legare St",
-    "id": "1bda011f-94f1-4c9a-bafe-b0b95cbace94",
-    "state": "SC"
-  },
-  {
-    "id": "73d5b0bf-141c-4f79-8b3a-d6312764f531",
-    "street": "2950 Carner Ave",
-    "city": "North Charleston",
-    "state": "SC",
-    "zip": "29405"
-  },
-  {
-    "id": "25991964-fc58-4ee5-995c-4f68b440cd4f",
-    "street": "1000 Rivers Ave",
-    "city": "North Charleston",
-    "state": "SC",
-    "zip": "29405"
-  },
-  {
-    "id": "2764efdb-0eb3-4fe4-bf82-c9cdac07e276",
-    "street": "14 Bond Court",
-    "city": "Charleston",
-    "state": "SC",
-    "zip": "29401"
-  },
-  {
-    "id": "1e49896e-b3a2-4095-a733-c515972a7f32",
-    "street": "3625 Ashley Phosphate Rd",
-    "city": "North Charleston",
-    "state": "SC",
-    "zip": "29418"
-  },
-  {
-    "id": "8e7ec761-37c0-4d48-ae34-f17f6bcc35a3",
-    "street": "6401 Dorchester Rd",
-    "city": "North Charleston",
-    "state": "SC",
-    "zip": "29418"
-  },
-  {
-    "id": "c4ea0735-01c6-4c4e-93c7-7008d970b749",
-    "street": "1624 State Rd",
-    "city": "Summerville",
-    "state": "SC",
-    "zip": "29486"
-  },
-  {
-    "id": "7c1b32f2-fea0-403c-aace-479cbe73a23e",
-    "street": "1053 Russellville Rd",
-    "city": "St Stephen",
-    "state": "SC",
-    "zip": "29479"
-  },
-  {
-    "id": "f7828557-6dd2-4aaf-b7ca-4924064aa23d",
-    "street": "200 Macedonia Middle School Rd",
-    "city": "Moncks Corner",
-    "state": "SC",
-    "zip": "29461"
-  },
-  {
-    "id": "9430b7de-a60f-4c95-82ea-f0724079335b",
-    "street": "101 Westview Blvd",
-    "city": "Goose Creek",
-    "state": "SC",
-    "zip": "29445"
-  },
-  {
-    "id": "94cd40c6-7ec3-4164-b40c-16d9c9b18402",
-    "street": "1101 Boone Hill Rd",
-    "city": "Summerville",
-    "state": "SC",
-    "zip": "29483"
-  }
+    {
+        "zip": "29208",
+        "city": "Columbia",
+        "street": "211 Main St",
+        "id": "c2b47624-88e1-474d-8482-762f9379a445",
+        "state": "SC"
+    },
+    {
+        "zip": "29401",
+        "city": "Charleston",
+        "street": "145 King St",
+        "id": "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
+        "state": "SC"
+    },
+    {
+        "zip": "29201",
+        "city": "Columbia",
+        "street": "550 Assembly St",
+        "id": "3b29c1e4-8f7a-4d29-a16e-57c28f419b02",
+        "state": "SC"
+    },
+    {
+        "zip": "87104",
+        "city": "Albuquerque",
+        "street": "308 Negra Arroyo Ln",
+        "id": "f84a1d63-2c9e-4a7b-b830-9e63d41f75c8",
+        "state": "NM"
+    },
+    {
+        "zip": "28173",
+        "city": "Waxhaw",
+        "street": "119 Brevard St",
+        "id": "7d5e9b10-63a2-41f8-9a4c-0d82e174b593",
+        "state": "NC"
+    },
+    {
+        "zip": "29201",
+        "city": "Columbia",
+        "street": "1215 Blossom St",
+        "id": "a904e5f2-1b8d-4e63-8f52-4c317d98a06e",
+        "state": "SC"
+    },
+    {
+        "zip": "29201",
+        "city": "Richland",
+        "street": "",
+        "id": "2d8f619b-c40e-4375-9e67-5d07a1b41e8c",
+        "state": "SC"
+    },
+    {
+        "zip": "29208",
+        "city": "Richland",
+        "street": "",
+        "id": "6a91c348-18e4-4a27-89bb-72d0ee13f8c5",
+        "state": "SC"
+    },
+    {
+        "zip": "29630",
+        "city": "Central",
+        "street": "",
+        "id": "c5304b72-f2de-4ec9-b4cf-81c0029b47e2",
+        "state": "SC"
+    },
+    {
+        "zip": "29631",
+        "city": "Clemson",
+        "street": "",
+        "id": "41e976f3-a8c5-4dc7-8ea3-3e1986427db9",
+        "state": "SC"
+    },
+    {
+        "zip": "29401",
+        "city": "Charleston",
+        "street": "100 Broad St",
+        "id": "1f2a3489-0e42-4917-b715-e24395641755",
+        "state": "SC"
+    },
+    {
+        "id": "f623cfd7-c8c8-4b53-9f2d-b196ea124133",
+        "state": "SC",
+        "city": "Charleston",
+        "street": "456 Volunteer Way",
+        "zip": "29401"
+    },
+    {
+        "zip": "29401",
+        "city": "Charleston",
+        "street": "32 Legare St",
+        "id": "15bbffba-79e4-40e5-8123-af76a2707c3f",
+        "state": "SC"
+    },
+    {
+        "zip": "29401",
+        "city": "Charleston",
+        "street": "32 Legare St",
+        "id": "a9450790-e916-4f78-a81d-a22b78c07c56",
+        "state": "SC"
+    },
+    {
+        "id": "73d5b0bf-141c-4f79-8b3a-d6312764f531",
+        "street": "2950 Carner Ave",
+        "city": "North Charleston",
+        "state": "SC",
+        "zip": "29405"
+    },
+    {
+        "id": "25991964-fc58-4ee5-995c-4f68b440cd4f",
+        "street": "1000 Rivers Ave",
+        "city": "North Charleston",
+        "state": "SC",
+        "zip": "29405"
+    },
+    {
+        "id": "2764efdb-0eb3-4fe4-bf82-c9cdac07e276",
+        "street": "14 Bond Court",
+        "city": "Charleston",
+        "state": "SC",
+        "zip": "29401"
+    },
+    {
+        "id": "1e49896e-b3a2-4095-a733-c515972a7f32",
+        "street": "3625 Ashley Phosphate Rd",
+        "city": "North Charleston",
+        "state": "SC",
+        "zip": "29418"
+    },
+    {
+        "id": "8e7ec761-37c0-4d48-ae34-f17f6bcc35a3",
+        "street": "6401 Dorchester Rd",
+        "city": "North Charleston",
+        "state": "SC",
+        "zip": "29418"
+    },
+    {
+        "id": "c4ea0735-01c6-4c4e-93c7-7008d970b749",
+        "street": "1624 State Rd",
+        "city": "Summerville",
+        "state": "SC",
+        "zip": "29486"
+    },
+    {
+        "id": "7c1b32f2-fea0-403c-aace-479cbe73a23e",
+        "street": "1053 Russellville Rd",
+        "city": "St Stephen",
+        "state": "SC",
+        "zip": "29479"
+    },
+    {
+        "id": "f7828557-6dd2-4aaf-b7ca-4924064aa23d",
+        "street": "200 Macedonia Middle School Rd",
+        "city": "Moncks Corner",
+        "state": "SC",
+        "zip": "29461"
+    },
+    {
+        "id": "9430b7de-a60f-4c95-82ea-f0724079335b",
+        "street": "101 Westview Blvd",
+        "city": "Goose Creek",
+        "state": "SC",
+        "zip": "29445"
+    },
+    {
+        "id": "94cd40c6-7ec3-4164-b40c-16d9c9b18402",
+        "street": "1101 Boone Hill Rd",
+        "city": "Summerville",
+        "state": "SC",
+        "zip": "29483"
+    }
 ]

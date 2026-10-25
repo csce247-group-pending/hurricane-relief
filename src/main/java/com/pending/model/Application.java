@@ -126,15 +126,24 @@ public class Application {
      * @param password the user's password
      * @return true if login succeeds; otherwise false
      */
-    public boolean attemptLogin(String email, String password) {
+    public String attemptLogin(String email, String password) {
         currentUser = database.attemptLogin(email, password);
 
         if (currentUser == null) {
-            return false;
+            return null;
         }
 
-        updateLocation(currentUser.getLocation());
-        return true;
+        updateSessionLocation(currentUser.getLocation());
+        return currentUser.toString();
+    }
+
+    public String getVolunteerProfile() {
+        if(currentUser == null) return null;
+        if(currentUser instanceof Volunteer volunteer) {
+            return volunteer.toString();
+        } else {
+            return "Not a volunteer";
+        }
     }
 
     /**
@@ -355,7 +364,7 @@ public class Application {
      *
      * @param location the new current location
      */
-    public void updateLocation(Location location) {
+    public void updateSessionLocation(Location location) {
         this.location = location;
     }
 

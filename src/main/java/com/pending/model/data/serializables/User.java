@@ -318,7 +318,7 @@ public class User extends LivingBeing {
      */
     @Override
     public String toString() {
-        return "User " + getFirstName() + " " + getLastName() + ": "
+        return "{User " + getFullName() + "} "
                 + "\n\tAge: " + getAge()
                 + "\n\tContact Info: " + getUserContact()
                 + "\n\tLocation: " + getLocation();

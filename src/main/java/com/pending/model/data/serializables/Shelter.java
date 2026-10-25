@@ -393,7 +393,7 @@ public class Shelter extends Serializable {
             formattedOccupants += "\t\t" + occupant + "\n";
         }
 
-        return "Shelter '" + name + "'"
+        return "{Shelter '" + name + "'}"
                 + "\n\tStatus: " + status
                 + "\n\tCapacity: " + getNumOccupants() + "/" + capacity
                 + "\n\tLocation: " + location

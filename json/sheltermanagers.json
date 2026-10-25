@@ -9,6 +9,9 @@
     "emergency_contact": "e35df1e1-09d7-4c2c-9c55-b082402d0002",
     "user_relief_requests": [],
     "relief_types": ["SHELTER", "PET_SHELTER"],
-    "shelter": "3b1a74ac-c17b-460f-a3f6-9f568f697168"
+    "shelter": "3b1a74ac-c17b-460f-a3f6-9f568f697168",
+    "date_of_birth": "1980-01-01",
+    "type": "HUMAN",
+    "relief_needs": []
   }
 ]
