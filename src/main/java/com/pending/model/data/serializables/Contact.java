@@ -115,33 +115,6 @@ public class Contact extends Serializable {
     }
 
     /**
-     * Attempts to contact this person through email.
-     *
-     * @return true if the email contact attempt succeeds
-     */
-    public boolean contactEmail() {
-        return false;
-    }
-
-    /**
-     * Attempts to contact this person through a phone call.
-     *
-     * @return true if the phone-call contact attempt succeeds
-     */
-    public boolean contactPhoneCall() {
-        return false;
-    }
-
-    /**
-     * Attempts to contact this person through a text message.
-     *
-     * @return true if the text-message contact attempt succeeds
-     */
-    public boolean contactPhoneText() {
-        return false;
-    }
-
-    /**
      * Returns contact information in a readable format.
      *
      * @return the formatted email, phone number, and preference

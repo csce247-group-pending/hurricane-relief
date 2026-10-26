@@ -4,8 +4,6 @@ package com.pending.model.enums;
  * Lists the JSON data files used by the application.
  */
 public enum JSONFile {
-    /** Stores administrator records. */
-    ADMINS("json/admins.json"),
 
     /** Stores blacklisted-user records. */
     BLACKLIST("json/blacklist.json"),
