@@ -2,6 +2,9 @@ package com.pending.model.data;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -220,11 +223,13 @@ public class DataManager {
 
         try (FileWriter writer = new FileWriter(outputPath)) {
             writer.write(toWrite);
+        } catch (IOException ioe) { try (FileWriter writer = new FileWriter(Files.createFile(Paths.get(outputPath)).toString())) {
+            writer.write(toWrite);
         } catch (Exception e) {
             System.out.println("[ERROR] Error exporting files");
             e.printStackTrace();
             return false;
-        }
+        }}
 
         return true;
     }
