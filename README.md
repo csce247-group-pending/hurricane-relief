@@ -22,7 +22,7 @@ Our hurricane relief project is a software system designed to **connect hurrican
 - pending...
 
 ## Presentation
-- pending...
+- [Presentation](https://youtu.be/SbweRlDeMPQ)
 
 ## Our Team
 
