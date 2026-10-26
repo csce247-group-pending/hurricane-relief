@@ -29,14 +29,16 @@ public class ConsoleUI {
     }
 
     /**
-     * Runs the primary presentation scenarios with interactive pauses in between.
+     * Runs the primary presentation scenarios with interactive pauses
+     * between each scenario.
      */
     public void run() {
         createReliefRequestScenario();
         pauseForNextScenario("Scenario 2: Open and Match Request");
 
         openAndMatchRequestScenario();
-        pauseForNextScenario("Scenario 3: Find a Shelter and Assign Request");
+        pauseForNextScenario(
+                "Scenario 3: Find a Shelter and Assign Request");
 
         findShelterAndAssignRequest();
         pauseForNextScenario("Scenario 4: Export Trip Information");
@@ -53,7 +55,7 @@ public class ConsoleUI {
     }
 
     /**
-     * Buffers between scenarios by waiting for the user to press Enter.
+     * Pauses the demonstration until the user presses Enter.
      *
      * @param nextScenarioName the name of the upcoming scenario
      */
@@ -78,7 +80,7 @@ public class ConsoleUI {
      */
     private void printHeader(String title) {
         System.out.println();
-        System.out.println(TEAL 
+        System.out.println(TEAL
                 + "============================================================"
                 + RESET);
         System.out.println(TEAL + " " + title + RESET);
@@ -96,10 +98,13 @@ public class ConsoleUI {
      */
     private void printResult(boolean success, String successMessage,
             String failureMessage) {
+
         System.out.println();
         System.out.println(success
-                ? GREEN + "[SUCCESS] " + RESET + GREEN + successMessage + RESET
-                : RED + "[FAILED] " + RESET + RED + failureMessage + RESET);
+                ? GREEN + "[SUCCESS] " + RESET
+                        + GREEN + successMessage + RESET
+                : RED + "[FAILED] " + RESET
+                        + RED + failureMessage + RESET);
         System.out.println();
     }
 
@@ -127,13 +132,18 @@ public class ConsoleUI {
         return true;
     }
 
+    /**
+     * Prints all relief requests available to the currently logged-in user.
+     */
     private void printReliefRequests() {
         printHeader("CURRENT RELIEF REQUESTS");
 
         ArrayList<String> requests = app.getReliefRequestStrings();
 
         if (requests.isEmpty()) {
-            System.out.println(YELLOW + "No relief requests are currently available." + RESET);
+            System.out.println(YELLOW
+                    + "No relief requests are currently available."
+                    + RESET);
             return;
         }
 
@@ -155,7 +165,9 @@ public class ConsoleUI {
         ArrayList<String> shelters = app.getShelters();
 
         if (shelters.isEmpty()) {
-            System.out.println(YELLOW + "No shelters are currently available." + RESET);
+            System.out.println(YELLOW
+                    + "No shelters are currently available."
+                    + RESET);
             return;
         }
 
@@ -167,7 +179,8 @@ public class ConsoleUI {
     }
 
     /**
-     * Demonstrates account creation and relief-request submission.
+     * Demonstrates creating an account and submitting a relief request
+     * for a family that includes a pet.
      */
     public void createReliefRequestScenario() {
         printHeader("SCENARIO 1: CREATE A RELIEF REQUEST");
@@ -179,6 +192,7 @@ public class ConsoleUI {
         String dateOfBirth = "1952-11-02";
 
         System.out.println("Creating an account for James Carter..." + RESET);
+
         boolean accountCreationSuccess = app.requestCreateAccount(
                 firstName,
                 lastName,
@@ -200,14 +214,16 @@ public class ConsoleUI {
         loginScenario(email, password);
 
         System.out.println("\nCreating a Relief Request:" + RESET);
+
         app.setCurrentUserReliefNeeds(new ArrayList<>(
                 List.of("TRANSPORTATION", "SHELTER", "MEDICAL_CARE")
         ));
 
-        // add family
         app.startNewReliefGroup();
 
-        System.out.println(TEAL + "\t+ Adding Doris Carter (HUMAN) to Relief Group" + RESET);
+        System.out.println(TEAL
+                + "\t+ Adding Doris Carter (HUMAN) to Relief Group" + RESET);
+
         app.addMemberToReliefGroup(
                 "Doris",
                 "Carter",
@@ -216,16 +232,21 @@ public class ConsoleUI {
                 new ArrayList<>(List.of("TRANSPORTATION", "SHELTER"))
         );
 
-        System.out.println(TEAL + "\t+ Adding Sophie Carter (HUMAN) to Relief Group" + RESET);
+        System.out.println(TEAL
+                + "\t+ Adding Sophie Carter (HUMAN) to Relief Group" + RESET);
+
         app.addMemberToReliefGroup(
                 "Sophie",
                 "Carter",
                 "2014-08-20",
                 "HUMAN",
-                new ArrayList<>(List.of("TRANSPORTATION", "SHELTER", "MEDICAL_CARE"))
+                new ArrayList<>(List.of(
+                        "TRANSPORTATION", "SHELTER", "MEDICAL_CARE"))
         );
 
-        System.out.println(TEAL + "\t+ Adding Buddy Carter (PET) to Relief Group" + RESET);
+        System.out.println(TEAL
+                + "\t+ Adding Buddy Carter (PET) to Relief Group" + RESET);
+
         app.addMemberToReliefGroup(
                 "Buddy",
                 "Carter",
@@ -235,9 +256,12 @@ public class ConsoleUI {
         );
 
         System.out.println();
+
         boolean requestSubmitted = app.submitGroupReliefRequest(
-                "Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter"
+                "Need a Ford F-350 to give us a ride to the nearest "
+                        + "pet-friendly shelter"
         );
+
         printResult(requestSubmitted,
                 "Request posted successfully:",
                 "Request upload failed.");
@@ -249,40 +273,50 @@ public class ConsoleUI {
         System.out.println(GREEN + "Requesting user logged out." + RESET);
     }
 
+    /**
+     * Demonstrates a volunteer opening a relief request that has been
+     * prioritized based on skills and proximity.
+     */
     public void openAndMatchRequestScenario() {
         printHeader("SCENARIO 2: OPEN AND MATCH REQUEST");
-        // Rosa logs in
+
         String email = "rosa.delgado@example.com";
         String password = "RosaStrong2026!";
 
         System.out.println();
 
-        // Show Rosa's profile
         if (!loginScenario(email, password)) {
             return;
         }
 
         System.out.println();
-
-        // Rosa sees relief requests sorted based on ReliefType and proximity
         printReliefRequests();
 
         int requestIndex = 0;
-        System.out.println("\nChoose a Request. Requests are sorted by Relief Needs and Proximity." + RESET);
+
+        System.out.println("\nChoose a Request. Requests are sorted by "
+                + "Relief Needs and Proximity." + RESET);
         System.out.println(YELLOW + "choice> " + RESET + (requestIndex + 1));
 
-        System.out.println(TEAL + "\nOpening Request " + (requestIndex + 1) + "..." + RESET);
+        System.out.println(TEAL + "\nOpening Request "
+                + (requestIndex + 1) + "..." + RESET);
 
         if (!app.openReliefRequest(requestIndex)) {
             printResult(false, "", "Failed Opening Request");
         }
+
         System.out.println(app.getCurrentReliefRequestString());
 
-        System.out.println(YELLOW + "Logging Out " + app.getUserFullName() + "..." + RESET);
+        System.out.println(YELLOW + "Logging Out "
+                + app.getUserFullName() + "..." + RESET);
 
         app.logout();
     }
 
+    /**
+     * Demonstrates finding suitable shelters and assigning a request to a
+     * volunteer.
+     */
     public void findShelterAndAssignRequest() {
         printHeader("SCENARIO 3: FIND A SHELTER AND ASSIGN REQUEST");
 
@@ -292,7 +326,7 @@ public class ConsoleUI {
                 "RosaStrong2026!")) {
             return;
         }
-        
+
         System.out.println();
 
         ArrayList<String> requests = app.getReliefRequestStrings();
@@ -303,7 +337,9 @@ public class ConsoleUI {
             return;
         }
 
-        System.out.println("\nSearching for the nearest Shelters matching your request's needs..." + RESET);
+        System.out.println("\nSearching for the nearest Shelters matching "
+                + "your request's needs..." + RESET);
+
         ArrayList<String> shelters = app.getSortedShelterStrings();
 
         if (shelters == null || shelters.isEmpty()) {
@@ -318,17 +354,24 @@ public class ConsoleUI {
 
         int choice = 0;
 
-        System.out.println("\nEnter the number of the shelter you want: " + RESET);
+        System.out.println("\nEnter the number of the shelter you want: "
+                + RESET);
         System.out.println(YELLOW + "\tchoice> " + RESET + (choice + 1));
 
         app.selectShelter(choice);
-        System.out.println(TEAL + "\nSaving Chosen Shelter:\n" + RESET + app.getShelter());
+
+        System.out.println(TEAL + "\nSaving Chosen Shelter:\n"
+                + RESET + app.getShelter());
 
         printResult(app.acceptCurrentReliefRequest(),
                 "Volunteer accepted the relief request.",
                 "Volunteer could not accept the relief request.");
     }
 
+    /**
+     * Demonstrates exporting trip information for the volunteer's assigned
+     * request and selected shelter.
+     */
     public void exportTripInformationScenario() {
         printHeader("SCENARIO 4: EXPORT TRIP INFORMATION");
 
@@ -340,7 +383,8 @@ public class ConsoleUI {
     }
 
     /**
-     * Demonstrates role permissions by attempting a manager-only action.
+     * Demonstrates role permissions by attempting a shelter-manager-only
+     * action while logged in as a volunteer.
      */
     public void rolePermissionScenario() {
         printHeader("SCENARIO 5: ROLE PERMISSION CHECK");
@@ -354,16 +398,17 @@ public class ConsoleUI {
 
         printResult(!app.closeReliefRequest(),
                 "Only a shelter manager can complete a relief request.",
-                "Relief request was completed."
-        );
+                "Relief request was completed.");
 
-        System.out.println(YELLOW + "Logging out " + app.getUserFullName() + "..." + RESET);
+        System.out.println(YELLOW + "Logging out "
+                + app.getUserFullName() + "..." + RESET);
+
         app.logout();
     }
 
     /**
-     * Demonstrates accepting a request, checking family members into a
-     * shelter, and completing the request.
+     * Demonstrates checking family members into a shelter and completing
+     * their relief request.
      */
     public void checkIntoShelterScenario() {
         printHeader("SCENARIO 6: CHECK INTO SHELTER");
@@ -378,14 +423,12 @@ public class ConsoleUI {
             return;
         }
 
-        // Print relief requests to show that other vols can see the changed status
         printReliefRequests();
+
         int requestIndex = 0;
         app.openReliefRequest(requestIndex);
 
-        // print shelter info
         System.out.println("\n" + app.getShelter());
-
         System.out.println(TEAL + "Attempting Check In..." + RESET);
 
         boolean checkedIn = app.checkIntoShelter();
@@ -402,13 +445,14 @@ public class ConsoleUI {
 
         printReliefRequests();
 
-        System.out.println("\nShelter After:" + RESET + "\n" + app.getShelter());
+        System.out.println("\nShelter After:" + RESET
+                + "\n" + app.getShelter());
 
         app.logout();
     }
 
     /**
-     * Demonstrates account creation and login for an additional sample user.
+     * Demonstrates creating and logging in to an additional sample account.
      */
     public void createAccountAndLoginScenario() {
         String email = "newestemail@gmail.com";
@@ -454,7 +498,8 @@ public class ConsoleUI {
         for (int i = 0; i < shelters.size(); i++) {
             System.out.println(shelters.get(i));
             System.out.println(TEAL + "\tEstimated driving time: "
-                    + (int) (shelterTimes.get(i) / 60) + " minutes" + RESET);
+                    + (int) (shelterTimes.get(i) / 60)
+                    + " minutes" + RESET);
         }
     }
 

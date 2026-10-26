@@ -28,7 +28,8 @@ public class SerializeJSONVolunteer<T extends Volunteer>
 
     /**
      * Converts a volunteer into JSON. User fields are handled by the parent
-     * serializer, while this method adds the volunteer's relief skills.
+     * serializer, while this method adds relief skills and the assigned-task
+     * UUID reference.
      *
      * @return the JSON representation of the volunteer
      */
@@ -46,8 +47,9 @@ public class SerializeJSONVolunteer<T extends Volunteer>
 
         jsonObject.put("relief_types", reliefTypes);
 
-        if(serializable.getTask() != null) {
-            jsonObject.put("task", serializable.getTaskUUIDReference().toString());
+        if (serializable.getTask() != null) {
+            jsonObject.put("task",
+                    serializable.getTaskUUIDReference().toString());
         } else {
             jsonObject.put("task", null);
         }
@@ -56,7 +58,8 @@ public class SerializeJSONVolunteer<T extends Volunteer>
     }
 
     /**
-     * Loads volunteer-specific data from JSON, including relief skills.
+     * Loads volunteer-specific data from JSON, including relief skills and
+     * the UUID reference for an assigned task.
      *
      * @param jsonObject the JSON data for the volunteer
      */
@@ -76,22 +79,22 @@ public class SerializeJSONVolunteer<T extends Volunteer>
             }
         }
 
-        if(jsonObject.get("task") != null) {
+        if (jsonObject.get("task") != null) {
             serializable.setTaskUUIDReference(
-                UUID.fromString((String) jsonObject.get("task"))
-            );
-        } 
-        
+                    UUID.fromString((String) jsonObject.get("task")));
+        }
     }
 
     /**
-     * Resolves the volunteer's inherited user references after loading.
+     * Resolves inherited user references and restores the volunteer's
+     * assigned relief request from its stored UUID reference.
      */
     @Override
     public void resolveReferences() {
         super.resolveReferences();
+
         serializable.setTask(
-            Database.getInstance().getReliefRequestByUUID(serializable.getTaskUUIDReference())
-        );
+                Database.getInstance().getReliefRequestByUUID(
+                        serializable.getTaskUUIDReference()));
     }
 }

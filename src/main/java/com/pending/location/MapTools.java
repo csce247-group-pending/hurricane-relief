@@ -15,23 +15,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pending.model.data.serializables.Location;
 
 /**
- * 
- * MapTools Provides map api tools
+ * Provides map-related tools, including address geocoding, route generation,
+ * driving directions, and travel-time calculations through the map API.
  */
 public class MapTools {
+    /** API endpoint used to convert addresses to coordinates. */
     private static final String GEOCODING_URL =
         "https://api.heigit.org/pelias/v1/search";
 
+    /** API endpoint used to retrieve driving directions. */
     private static final String DIRECTIONS_URL =
         "https://api.heigit.org/openrouteservice/v2/directions/driving-car";
 
+    /** API endpoint used to retrieve route geometry as GeoJSON. */
     private static final String ROUTE_GEOJSON_URL =
         "https://api.heigit.org/openrouteservice/v2/directions/driving-car/geojson";
+
+    /** The single shared MapTools instance. */
     private static MapTools mapTools;
+
+    /** The map API key retrieved from the environment. */
     private final String apiKey = System.getenv("MAP_API_KEY");
+
+    /** Client used to send requests to the map API. */
     private final HttpClient httpClient;
+
+    /** Converts JSON API responses into usable Java objects. */
     private final ObjectMapper objectMapper;
 
+    /**
+     * Creates the map-tools service and configures its HTTP client.
+     */
     private MapTools() {
         httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
@@ -40,19 +54,26 @@ public class MapTools {
         objectMapper = new ObjectMapper();
     }
 
+    /**
+     * Gets the shared MapTools instance.
+     *
+     * @return the application's MapTools instance
+     */
     public static MapTools getInstance() {
-        if(mapTools == null){
+        if (mapTools == null) {
             mapTools = new MapTools();
         }
+
         return mapTools;
     }
 
     /**
-     * Converts a street address into latitude and longitude.
-     * @param location Street address
-     * @return Coordinates in latitude and longitude
-     * @throws IOException
-     * @throws InterruptedException
+     * Converts a street address into latitude and longitude coordinates.
+     *
+     * @param location the address to convert
+     * @return coordinates for the best available address match
+     * @throws IOException if the API cannot find or return the location
+     * @throws InterruptedException if the HTTP request is interrupted
      */
     public Coordinates getCoordinates(Location location)
             throws IOException, InterruptedException {
@@ -71,7 +92,7 @@ public class MapTools {
                         + "&boundary.country=USA"
                         + "&size=10"
         );
- 
+
         HttpRequest request = HttpRequest.newBuilder(uri)
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(15))
@@ -101,15 +122,16 @@ public class MapTools {
     }
 
     /**
-     * Finds the shelter with the shortest driving time.
-     * @param startingAddress The address we are driving from
-     * @param shelters The list of shelters we are choosing from
-     * @return The address of the closest shelter
-     * @throws IOException
-     * @throws InterruptedException
+     * Finds the shelter with the shortest driving time from an address.
+     *
+     * @param startingAddress the address from which to begin traveling
+     * @param shelters the shelters to compare
+     * @return the shelter with the shortest driving time
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
-    public Location findClosestAddress(Location startingAddress, Location[] shelters)
-            throws IOException, InterruptedException {
+    public Location findClosestAddress(Location startingAddress,
+            Location[] shelters) throws IOException, InterruptedException {
 
         Coordinates startingCoordinates = getCoordinates(startingAddress);
 
@@ -134,12 +156,13 @@ public class MapTools {
     }
 
     /**
-     * Collects the driving directions to the shelter
-     * @param startingAddress The address the route starts at
-     * @param endingAddress The address the route ends at
-     * @return A string array where each item represents a direction on the route
-     * @throws IOException
-     * @throws InterruptedException
+     * Gets turn-by-turn driving directions between two addresses.
+     *
+     * @param startingAddress the address where the route begins
+     * @param endingAddress the address where the route ends
+     * @return an array of driving-direction instructions
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
     public String[] getDrivingDirections(
             Location startingAddress,
@@ -164,11 +187,12 @@ public class MapTools {
     }
 
     /**
-     * Finds the best version of a coordinate. Based on the address we might not 
-     * be able to find the exact house, but maybe the city
-     * @param featuresThe information about the street address
-     * @return The node representation of the closest address
-     * @throws IOException
+     * Selects the best available result from geocoding API results.
+     * Address-level results are preferred when available.
+     *
+     * @param features the geocoding results returned by the API
+     * @return the best matching location result
+     * @throws IOException if no location result is available
      */
     private JsonNode findBestResult(JsonNode features) throws IOException {
         if (!features.isArray() || features.isEmpty()) {
@@ -187,10 +211,11 @@ public class MapTools {
     }
 
     /**
-     * Covert a node into a coordinate object
-     * @param result The node representing the location
-     * @return The coordinates of the node in latitude and longitude
-     * @throws IOException
+     * Converts a map API result node into a Coordinates object.
+     *
+     * @param result the API result containing coordinate data
+     * @return the latitude and longitude from the result
+     * @throws IOException if coordinate data is missing
      */
     private Coordinates readCoordinates(JsonNode result) throws IOException {
         JsonNode coordinates = result.path("geometry").path("coordinates");
@@ -206,12 +231,13 @@ public class MapTools {
     }
 
     /**
-     * Calculates the driving time in seconds between two coordinates
-     * @param start Starting location
-     * @param end Ending location
-     * @return The number of seconds
-     * @throws IOException
-     * @throws InterruptedException
+     * Calculates driving time in seconds between two coordinates.
+     *
+     * @param start the route starting coordinates
+     * @param end the route ending coordinates
+     * @return the driving duration in seconds
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
     private double getDrivingTime(Coordinates start, Coordinates end)
             throws IOException, InterruptedException {
@@ -221,9 +247,18 @@ public class MapTools {
         return route.path("summary").path("duration").asDouble();
     }
 
-    public double getDrivingTime(Location startingAddress, Location endingAddress) 
-            throws IOException, InterruptedException {
-        
+    /**
+     * Calculates driving time in seconds between two addresses.
+     *
+     * @param startingAddress the address where the route begins
+     * @param endingAddress the address where the route ends
+     * @return the driving duration in seconds
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
+     */
+    public double getDrivingTime(Location startingAddress,
+            Location endingAddress) throws IOException, InterruptedException {
+
         Coordinates start = getCoordinates(startingAddress);
         Coordinates end = getCoordinates(endingAddress);
 
@@ -233,12 +268,13 @@ public class MapTools {
     }
 
     /**
-     * Calculates the route information from one location to the next
-     * @param start Starting location
-     * @param end Ending location
-     * @return A json node representing the route.
-     * @throws IOException
-     * @throws InterruptedException
+     * Retrieves route information between two coordinates from the map API.
+     *
+     * @param start the route starting coordinates
+     * @param end the route ending coordinates
+     * @return a JSON node representing the route
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
     private JsonNode getRoute(Coordinates start, Coordinates end)
             throws IOException, InterruptedException {
@@ -274,15 +310,17 @@ public class MapTools {
     }
 
     /**
-     * Determines the route from one address to another and returns it to show on a map.
-     * @param startingAddress   The address the route begins at
-     * @param endingAddress The address the route ends on
-     * @return The Driving route to be plotted on a map
-     * @throws IOException
-     * @throws InterruptedException
+     * Creates a driving route, including start and end locations and route
+     * points that can be displayed on a map.
+     *
+     * @param startingAddress the address where the route begins
+     * @param endingAddress the address where the route ends
+     * @return the complete route between the two addresses
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
-    public DrivingRoute getDrivingRoute(Location startingAddress, Location endingAddress) 
-        throws IOException, InterruptedException {
+    public DrivingRoute getDrivingRoute(Location startingAddress,
+            Location endingAddress) throws IOException, InterruptedException {
 
         Coordinates startCoordinates = getCoordinates(startingAddress);
         Coordinates endCoordinates = getCoordinates(endingAddress);
@@ -310,15 +348,16 @@ public class MapTools {
     }
 
     /**
-     * Determines all the points to show on the route to be plotted on a map
-     * @param start The address to begin on as a coordinate
-     * @param end The address to end at as a coordinate
-     * @return A list of all points to be put on the route
-     * @throws IOException
-     * @throws InterruptedException
+     * Gets the coordinate points needed to draw a route on a map.
+     *
+     * @param start the route starting coordinates
+     * @param end the route ending coordinates
+     * @return a list of coordinates that make up the route
+     * @throws IOException if a map request fails
+     * @throws InterruptedException if a map request is interrupted
      */
-    private ArrayList<Coordinates> getRoutePoints(Coordinates start,Coordinates end
-    ) throws IOException, InterruptedException {
+    private ArrayList<Coordinates> getRoutePoints(Coordinates start,
+            Coordinates end) throws IOException, InterruptedException {
 
         String requestBody =
                 "{ \"coordinates\": [[" +
@@ -364,7 +403,9 @@ public class MapTools {
     }
 
     /**
-     * Determine if we have a valid API key in our environment variable.
+     * Confirms that a map API key is available in the environment.
+     *
+     * @throws IllegalStateException if the MAP_API_KEY variable is missing
      */
     private void checkForApiKey() {
         if (apiKey == null || apiKey.isBlank()) {

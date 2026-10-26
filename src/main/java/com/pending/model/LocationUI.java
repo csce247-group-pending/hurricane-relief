@@ -3,8 +3,15 @@ package com.pending.model;
 import com.pending.location.MapTools;
 import com.pending.model.data.serializables.Location;
 
+/**
+ * Demonstrates location-based shelter searching and driving directions.
+ */
 public class LocationUI {
 
+    /**
+     * Creates a sample user location, finds the closest sample shelter,
+     * and prints driving directions to that shelter.
+     */
     public void run() {
         Location userAddress = new Location(
                 "SC",
@@ -67,6 +74,11 @@ public class LocationUI {
         }
     }
 
+    /**
+     * Starts the location demonstration.
+     *
+     * @param args command-line arguments, which are not used
+     */
     public static void main(String[] args) {
         new LocationUI().run();
     }

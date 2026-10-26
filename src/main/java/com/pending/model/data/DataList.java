@@ -31,7 +31,8 @@ public class DataList<T extends Serializable> {
             objects = new ArrayList<>();
             objectsById = new HashMap<>();
             this.cls = cls;
-            dataManager = new DataManager((String) cls.getField("file").get(null));
+            dataManager = new DataManager(
+                    (String) cls.getField("file").get(null));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +45,9 @@ public class DataList<T extends Serializable> {
      * @param <T> the Serializable object type
      * @return the DataList for the requested class
      */
-    public static <T extends Serializable> DataList<T> getInstance(Class<T> cls) {
+    public static <T extends Serializable> DataList<T> getInstance(
+            Class<T> cls) {
+
         if (!dataLists.containsKey(cls)) {
             dataLists.put(cls, new DataList<T>(cls));
         }
@@ -54,6 +57,7 @@ public class DataList<T extends Serializable> {
 
     /**
      * Reads objects from the associated data file.
+     * Existing objects are cleared before the saved data is loaded.
      */
     public void read() {
         try {
@@ -63,7 +67,9 @@ public class DataList<T extends Serializable> {
             ArrayList<?> dataObjects = dataManager.read();
 
             for (Object dataObject : dataObjects) {
-                Serializable serializable = cls.getDeclaredConstructor().newInstance();
+                Serializable serializable =
+                        cls.getDeclaredConstructor().newInstance();
+
                 serializable.deserialize(dataObject);
 
                 objects.add((T) serializable);
@@ -80,7 +86,8 @@ public class DataList<T extends Serializable> {
      */
     public void write() {
         try {
-            dataManager = new DataManager((String) cls.getField("file").get(null));
+            dataManager = new DataManager(
+                    (String) cls.getField("file").get(null));
 
             ArrayList<Object> dataObjects = new ArrayList<>();
 
@@ -195,6 +202,7 @@ public class DataList<T extends Serializable> {
         if (object == null) {
             return false;
         }
+
         UUID id = object.getId();
 
         if (objectsById.containsKey(id)) {
@@ -228,8 +236,17 @@ public class DataList<T extends Serializable> {
             return false;
         }
     }
-    
-    public boolean exportTripInformation(String toWrite, String outputFileName) {
+
+    /**
+     * Exports text information to a file through the DataManager.
+     *
+     * @param toWrite the text content to export
+     * @param outputFileName the name of the output file
+     * @return true if the export succeeds; otherwise false
+     */
+    public boolean exportTripInformation(String toWrite,
+            String outputFileName) {
+
         return dataManager.writeTxt(toWrite, outputFileName);
     }
 }

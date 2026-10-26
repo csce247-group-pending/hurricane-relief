@@ -59,11 +59,12 @@ public class Application {
     }
 
     /**
-     * Creates a new user account using text-based location, date, and contact data.
+     * Creates a new user account using text-based location, date, and
+     * contact data.
      *
      * @param firstName the user's first name
      * @param lastName the user's last name
-     * @param dateOfBirth the user's date of birth (YYYY-MM-DD)
+     * @param dateOfBirth the user's date of birth in YYYY-MM-DD format
      * @param password the user's password
      * @param address the user's comma-separated address
      * @param userContactEmail the user's email address
@@ -107,7 +108,8 @@ public class Application {
      *
      * @param email the user's email address
      * @param password the user's password
-     * @return the logged-in user's profile string if login succeeds; otherwise null
+     * @return the logged-in user's profile string if login succeeds;
+     *         otherwise null
      */
     public String attemptLogin(String email, String password) {
         currentUser = database.attemptLogin(email, password);
@@ -125,6 +127,11 @@ public class Application {
         return getUserString();
     }
 
+    /**
+     * Gets the current user's formatted profile information.
+     *
+     * @return the current user's profile string, or null if no user is logged in
+     */
     public String getUserString() {
         if (currentUser == null) {
             return null;
@@ -133,8 +140,16 @@ public class Application {
         return currentUser.toString();
     }
 
+    /**
+     * Gets a formatted volunteer profile for the current user.
+     *
+     * @return the volunteer profile, a role message, or null if logged out
+     */
     public String getVolunteerProfile() {
-        if (currentUser == null) return null;
+        if (currentUser == null) {
+            return null;
+        }
+
         if (currentUser instanceof Volunteer volunteer) {
             return volunteer.toString();
         } else {
@@ -192,17 +207,21 @@ public class Application {
     }
 
     /**
-     * Opens a relief request by its 0-based index in the current user's request list.
+     * Opens a relief request by its 0-based index in the current user's
+     * request list.
      *
      * @param index the 0-based index of the request to open
      * @return true if the request was opened; otherwise false
      */
     public boolean openReliefRequest(int index) {
-        if (currentUser == null) return false;
+        if (currentUser == null) {
+            return false;
+        }
 
         if (currentUser instanceof Volunteer volunteer) {
             ArrayList<ReliefRequest> requests =
                     database.getSortedReliefRequests(volunteer.getSorter());
+
             if (requests == null || index < 0 || index >= requests.size()) {
                 return false;
             }
@@ -220,9 +239,11 @@ public class Application {
      */
     public boolean acceptCurrentReliefRequest() {
         ReliefRequest currTask = getCurrentReliefRequest();
+
         if (currTask == null) {
             return false;
         }
+
         return acceptReliefRequest(currTask);
     }
 
@@ -234,12 +255,20 @@ public class Application {
      */
     public boolean acceptReliefRequest(int index) {
         ArrayList<ReliefRequest> requests = getReliefRequests();
+
         if (requests == null || index < 0 || index >= requests.size()) {
             return false;
         }
+
         return acceptReliefRequest(requests.get(index));
     }
 
+    /**
+     * Assigns a relief request to the logged-in volunteer.
+     *
+     * @param reliefRequest the request to accept
+     * @return true if the volunteer accepted the request; otherwise false
+     */
     private boolean acceptReliefRequest(ReliefRequest reliefRequest) {
         if (currentUser instanceof Volunteer volunteer
                 && volunteer.acceptReliefRequest(reliefRequest)) {
@@ -343,9 +372,9 @@ public class Application {
     }
 
     /**
-     * Updates the current location.
+     * Updates the location stored for the current user session.
      *
-     * @param location the new current location
+     * @param location the new session location
      */
     private void updateSessionLocation(Location location) {
         this.location = location;
@@ -379,25 +408,31 @@ public class Application {
     }
 
     /**
-     * Checks living beings into the current shelter manager's shelter.
+     * Checks the current shelter manager's assigned group into their shelter.
      *
      * @return true if check-in succeeds; otherwise false
      */
     public boolean checkIntoShelter() {
-        if (currentUser == null) return false;
+        if (currentUser == null) {
+            return false;
+        }
 
         if (currentUser instanceof ShelterManager shelterManager) {
             ReliefRequest task = shelterManager.getTask();
+
             if (task == null) {
                 return false;
             }
 
-            boolean success = shelterManager.getShelter().checkIn(task.getLivingBeings());
+            boolean success = shelterManager.getShelter().checkIn(
+                    task.getLivingBeings());
+
             if (success) {
                 database.write(Shelter.class);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -414,12 +449,22 @@ public class Application {
         return database.getRequests();
     }
 
+    /**
+     * Gets detailed text for the current volunteer's assigned request.
+     *
+     * @return the current request details or an appropriate status message
+     */
     public String getCurrentReliefRequestString() {
-        if (currentUser == null) return "No Current User";
+        if (currentUser == null) {
+            return "No Current User";
+        }
 
         if (currentUser instanceof Volunteer volunteer) {
             ReliefRequest currTask = volunteer.getTask();
-            if (currTask == null) return "No Current Task";
+
+            if (currTask == null) {
+                return "No Current Task";
+            }
 
             return currTask.toStringDetailed();
         }
@@ -427,8 +472,15 @@ public class Application {
         return "User is not a Volunteer";
     }
 
+    /**
+     * Gets the relief request assigned to the current volunteer.
+     *
+     * @return the assigned request, or null when unavailable
+     */
     private ReliefRequest getCurrentReliefRequest() {
-        if (currentUser == null) return null;
+        if (currentUser == null) {
+            return null;
+        }
 
         if (currentUser instanceof Volunteer volunteer) {
             return volunteer.getTask();
@@ -438,14 +490,15 @@ public class Application {
     }
 
     /**
-     * Gets relief requests as formatted text strings, sorted for volunteers when appropriate.
+     * Gets relief requests as formatted text strings, sorted for volunteers
+     * when appropriate.
      *
      * @return a list of relief request descriptions available to the current user
      */
     public ArrayList<String> getReliefRequestStrings() {
         ArrayList<ReliefRequest> requests = getReliefRequests();
-
         ArrayList<String> requestStrings = new ArrayList<>();
+
         if (requests != null) {
             for (ReliefRequest request : requests) {
                 requestStrings.add(request.toString());
@@ -475,17 +528,19 @@ public class Application {
     }
 
     /**
-     * Gets shelters sorted for the current volunteer's assigned request as display strings.
+     * Gets sorted shelters as display strings for the current volunteer.
      *
      * @return sorted shelter descriptions, or null when unavailable
      */
     public ArrayList<String> getSortedShelterStrings() {
         ArrayList<Shelter> shelters = getSortedShelters();
+
         if (shelters == null) {
             return null;
         }
 
         ArrayList<String> shelterStrings = new ArrayList<>();
+
         for (Shelter shelter : shelters) {
             shelterStrings.add(shelter.toString());
         }
@@ -494,13 +549,14 @@ public class Application {
     }
 
     /**
-     * Selects a shelter for the current trip by its 0-based index in the sorted shelter list.
+     * Selects a shelter by its 0-based index in the sorted shelter list.
      *
      * @param index the 0-based index of the shelter
      * @return true if the shelter was selected; otherwise false
      */
     public boolean selectShelter(int index) {
         ArrayList<Shelter> shelters = getSortedShelters();
+
         if (shelters == null || index < 0 || index >= shelters.size()) {
             return false;
         }
@@ -555,14 +611,20 @@ public class Application {
     }
 
     /**
-     * Sets the relief needs for the currently logged-in user from string names.
+     * Sets relief needs for the currently logged-in user using enum names.
+     *
+     * @param reliefNeeds the requested relief-type names
+     * @return true if the needs were updated; otherwise false
      */
-    public boolean setCurrentUserReliefNeeds(ArrayList<String> reliefNeeds) {
+    public boolean setCurrentUserReliefNeeds(
+            ArrayList<String> reliefNeeds) {
+
         if (currentUser == null) {
             return false;
         }
 
         ArrayList<ReliefType> parsedNeeds = new ArrayList<>();
+
         for (String need : reliefNeeds) {
             parsedNeeds.add(ReliefType.valueOf(need));
         }
@@ -572,22 +634,33 @@ public class Application {
     }
 
     /**
-     * Starts a new family/group list for a relief request and automatically includes currentUser.
+     * Starts a new family or group for a relief request.
+     * The current user is automatically included when logged in.
      */
     public void startNewReliefGroup() {
         pendingGroupMembers = new ArrayList<>();
+
         if (currentUser != null) {
             pendingGroupMembers.add(currentUser);
         }
     }
 
     /**
-     * Instantiates a LivingBeing inside the Facade using string values and adds it to the pending relief group.
+     * Creates a living being from text values and adds it to the pending
+     * relief-request group.
+     *
+     * @param firstName the member's first name
+     * @param lastName the member's last name
+     * @param dateOfBirth the member's date of birth in YYYY-MM-DD format
+     * @param type the living-being type name
+     * @param reliefNeeds the member's relief-type names
      */
     public void addMemberToReliefGroup(String firstName, String lastName,
-            String dateOfBirth, String type, ArrayList<String> reliefNeeds) {
+            String dateOfBirth, String type,
+            ArrayList<String> reliefNeeds) {
 
         ArrayList<ReliefType> parsedNeeds = new ArrayList<>();
+
         for (String need : reliefNeeds) {
             parsedNeeds.add(ReliefType.valueOf(need));
         }
@@ -599,19 +672,25 @@ public class Application {
                 LivingBeingType.valueOf(type),
                 parsedNeeds
         );
+
         pendingGroupMembers.add(member);
     }
 
     /**
-     * Submits the relief request using the staged family/group members.
+     * Submits a relief request using the staged family or group members.
+     *
+     * @param description a description of the needed assistance
+     * @return true if the request was submitted; otherwise false
      */
     public boolean submitGroupReliefRequest(String description) {
         if (currentUser == null) {
             return false;
         }
+
         if (pendingGroupMembers.isEmpty()) {
             pendingGroupMembers.add(currentUser);
         }
+
         boolean success = database.createReliefRequest(
                 currentUser,
                 description,
@@ -619,6 +698,7 @@ public class Application {
                 new ArrayList<>(pendingGroupMembers),
                 currentUser.getUserContact()
         );
+
         pendingGroupMembers.clear();
         return success;
     }

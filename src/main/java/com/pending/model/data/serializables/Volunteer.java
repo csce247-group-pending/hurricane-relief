@@ -54,11 +54,9 @@ public class Volunteer extends User {
         this.reliefTypes = reliefTypes;
         this.task = task;
         sorter = new SkillSort(this);
-        
+
         taskUUIDReference = UUID.randomUUID();
-
         serializeBehavior = new SerializeJSONVolunteer(this);
-
     }
 
     /**
@@ -94,7 +92,6 @@ public class Volunteer extends User {
 
         sorter = new SkillSort(this);
         serializeBehavior = new SerializeJSONVolunteer(this);
-
     }
 
     /**
@@ -197,35 +194,60 @@ public class Volunteer extends User {
         reliefRequest.setAssignedToUUIDReference(this.getId());
         reliefRequest.setStatus(ReliefStatus.ASSIGNED);
         setAvailable(false);
-        
+
         return true;
     }
 
+    /**
+     * Opens a relief request as the volunteer's current task without
+     * assigning the request or changing its status.
+     *
+     * @param reliefRequest the request to open
+     * @return true after the request becomes the current task
+     */
     public boolean openReliefRequest(ReliefRequest reliefRequest) {
         task = reliefRequest;
         taskUUIDReference = reliefRequest.getId();
         return true;
     }
 
+    /**
+     * Returns a readable summary of the volunteer, their skills,
+     * and their current task.
+     *
+     * @return a formatted volunteer summary
+     */
     @Override
     public String toString() {
-
         String skillString = "";
-        if(!reliefTypes.isEmpty()) {
+
+        if (!reliefTypes.isEmpty()) {
             skillString = "\n\tRelief Skills: " + reliefTypes.get(0);
-            for(int i = 1; i < reliefTypes.size(); ++i) {
+
+            for (int i = 1; i < reliefTypes.size(); ++i) {
                 skillString += ", " + reliefTypes.get(i);
             }
         }
+
         return super.toString()
-            + skillString
-            + "\n\tCurrent Task: " + (task != null ? task : "None");
+                + skillString
+                + "\n\tCurrent Task: " + (task != null ? task : "None");
     }
 
+    /**
+     * Gets the UUID reference for the volunteer's current task.
+     *
+     * @return the relief-request UUID reference
+     */
     public UUID getTaskUUIDReference() {
         return taskUUIDReference;
     }
 
+    /**
+     * Sets the UUID reference for the volunteer's current task.
+     *
+     * @param taskUUIDReference the relief-request UUID reference
+     */
     public void setTaskUUIDReference(UUID taskUUIDReference) {
         this.taskUUIDReference = taskUUIDReference;
     }

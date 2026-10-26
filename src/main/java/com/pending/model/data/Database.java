@@ -102,9 +102,9 @@ public class Database {
     }
 
     /**
-     * Writes a specific data list.
+     * Writes a specific data list to its related JSON file.
      *
-     * @param key the Serializable class to write
+     * @param key the Serializable class whose data should be written
      */
     public void write(Class<? extends Serializable> key) {
         if (key == User.class) {
@@ -133,7 +133,7 @@ public class Database {
     }
 
     /**
-     * Gets the single Database instance.
+     * Gets the single shared Database instance.
      *
      * @return the Database instance
      */
@@ -146,7 +146,7 @@ public class Database {
     }
 
     /**
-     * Reads every data list from its JSON file.
+     * Reads every registered data list from its JSON file.
      */
     public void readDataLists() {
         for (DataList<? extends Serializable> dataList : dataLists.values()) {
@@ -173,10 +173,6 @@ public class Database {
         shelters.resolveReferences();
         livingBeings.resolveReferences();
         requests.resolveReferences();
-
-        // for (DataList<?> dataList : dataLists.values()) {
-        //     dataList.resolveReferences();
-        // }
     }
 
     /**
@@ -246,118 +242,285 @@ public class Database {
         return true;
     }
 
-    public boolean createReliefRequest(User author, String description, Location location, ArrayList<LivingBeing> livingBeings, Contact contactInfo) {
+    /**
+     * Creates and stores a relief request from a user.
+     * The request's relief types are gathered from every member of the group.
+     *
+     * @param author the user creating the request
+     * @param description a description of the requested assistance
+     * @param location the location where assistance is needed
+     * @param livingBeings the people or pets included in the request
+     * @param contactInfo the contact information for the request
+     * @return true if the request was added successfully; otherwise false
+     */
+    public boolean createReliefRequest(User author, String description,
+            Location location, ArrayList<LivingBeing> livingBeings,
+            Contact contactInfo) {
+
         HashSet<ReliefType> reliefTypes = new HashSet<>();
 
         for (LivingBeing livingBeing : livingBeings) {
             reliefTypes.addAll(livingBeing.getReliefNeeds());
         }
-        ReliefRequest reliefRequest = new ReliefRequest(description, location, ReliefStatus.REQUESTED, livingBeings, new ArrayList<>(reliefTypes), contactInfo);
-        if (author != null) author.addUserReliefRequest(reliefRequest);
+
+        ReliefRequest reliefRequest = new ReliefRequest(
+                description, location, ReliefStatus.REQUESTED,
+                livingBeings, new ArrayList<>(reliefTypes), contactInfo);
+
+        if (author != null) {
+            author.addUserReliefRequest(reliefRequest);
+        }
+
         boolean returnValue = requests.add(reliefRequest);
         requests.write();
         users.write();
+
         return returnValue;
     }
 
+    /**
+     * Gets all living beings stored by the system.
+     *
+     * @return the list of living beings
+     */
     public ArrayList<LivingBeing> getLivingBeings() {
         return livingBeings.getAll();
     }
 
+    /**
+     * Gets all users, volunteers, and shelter managers.
+     *
+     * @return the list of users
+     */
     public ArrayList<User> getUsers() {
         return users.getAll();
     }
 
+    /**
+     * Gets users that match a filter.
+     *
+     * @param filter the user filter to apply
+     * @return a list of matching users
+     */
     public ArrayList<User> getUsers(Filter<User> filter) {
         return users.filterByAttribute(filter);
     }
 
+    /**
+     * Gets all relief requests.
+     *
+     * @return the list of relief requests
+     */
     public ArrayList<ReliefRequest> getRequests() {
         return requests.getAll();
     }
 
+    /**
+     * Gets relief requests that match a filter.
+     *
+     * @param filter the relief-request filter to apply
+     * @return a list of matching relief requests
+     */
     public ArrayList<ReliefRequest> getRequests(
             Filter<ReliefRequest> filter) {
+
         return requests.filterByAttribute(filter);
     }
 
+    /**
+     * Gets all hurricanes.
+     *
+     * @return the list of hurricanes
+     */
     public ArrayList<Hurricane> getHurricanes() {
         return hurricanes.getAll();
     }
 
+    /**
+     * Gets hurricanes that match a filter.
+     *
+     * @param filter the hurricane filter to apply
+     * @return a list of matching hurricanes
+     */
     public ArrayList<Hurricane> getHurricanes(Filter<Hurricane> filter) {
         return hurricanes.filterByAttribute(filter);
     }
 
+    /**
+     * Gets all shelters.
+     *
+     * @return the list of shelters
+     */
     public ArrayList<Shelter> getShelters() {
         return shelters.getAll();
     }
 
+    /**
+     * Gets shelters that match a filter.
+     *
+     * @param filter the shelter filter to apply
+     * @return a list of matching shelters
+     */
     public ArrayList<Shelter> getShelters(Filter<Shelter> filter) {
         return shelters.filterByAttribute(filter);
     }
 
+    /**
+     * Gets all contacts.
+     *
+     * @return the list of contacts
+     */
     public ArrayList<Contact> getContacts() {
         return contacts.getAll();
     }
 
+    /**
+     * Gets contacts that match a filter.
+     *
+     * @param filter the contact filter to apply
+     * @return a list of matching contacts
+     */
     public ArrayList<Contact> getContacts(Filter<Contact> filter) {
         return contacts.filterByAttribute(filter);
     }
 
+    /**
+     * Gets all locations.
+     *
+     * @return the list of locations
+     */
     public ArrayList<Location> getLocations() {
         return locations.getAll();
     }
 
+    /**
+     * Gets locations that match a filter.
+     *
+     * @param filter the location filter to apply
+     * @return a list of matching locations
+     */
     public ArrayList<Location> getLocations(Filter<Location> filter) {
         return locations.filterByAttribute(filter);
     }
 
+    /**
+     * Finds a living being by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching living being, or null if none exists
+     */
     public LivingBeing getLivingBeingByUUID(UUID id) {
         return livingBeings.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a user by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching user, or null if none exists
+     */
     public User getUserByUUID(UUID id) {
         return users.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a volunteer by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching volunteer, or null if none exists
+     */
     public Volunteer getVolunteerByUUID(UUID id) {
         return volunteers.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a relief request by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching relief request, or null if none exists
+     */
     public ReliefRequest getReliefRequestByUUID(UUID id) {
         return requests.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a hurricane by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching hurricane, or null if none exists
+     */
     public Hurricane getHurricaneByUUID(UUID id) {
         return hurricanes.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a shelter by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching shelter, or null if none exists
+     */
     public Shelter getShelterByUUID(UUID id) {
         return shelters.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a contact by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching contact, or null if none exists
+     */
     public Contact getContactByUUID(UUID id) {
         return contacts.getObjectByUUID(id);
     }
 
+    /**
+     * Finds a location by its UUID.
+     *
+     * @param id the UUID to search for
+     * @return the matching location, or null if none exists
+     */
     public Location getLocationByUUID(UUID id) {
         return locations.getObjectByUUID(id);
     }
 
+    /**
+     * Gets the DataList associated with a Serializable class.
+     *
+     * @param cls the Serializable class to look up
+     * @return the matching data list, or null if it is not registered
+     */
     public DataList<? extends Serializable> get(
             Class<? extends Serializable> cls) {
+
         return dataLists.get(cls);
     }
 
+    /**
+     * Returns relief requests ordered from highest to lowest priority.
+     *
+     * @param filter calculates a priority score for each request
+     * @return the relief requests ordered by priority
+     */
     public ArrayList<ReliefRequest> getSortedReliefRequests(
             PriorityFilter<ReliefRequest> filter) {
 
         ArrayList<ReliefRequest> output = getRequests();
-        output.sort(Comparator.comparing(filter::filter).reversed());
+
+        output.sort(
+                Comparator.comparing(filter::filter).reversed()
+        );
+
         return output;
     }
 
+    /**
+     * Returns shelters ranked by how well they match a relief request.
+     * Shelters with more matching attributes are listed first. Shelters
+     * with equal match counts are ordered by driving time.
+     *
+     * @param task the relief request needing a shelter
+     * @return a sorted list of shelters, or null if routing fails
+     */
     public ArrayList<Shelter> getSortedShelters(ReliefRequest task) {
         ArrayList<Shelter> shelterList = getShelters();
 
@@ -421,7 +584,8 @@ public class Database {
     }
 
     /**
-     * Exports directions and request details for a volunteer trip.
+     * Exports a volunteer's assigned relief request and driving directions
+     * to a text file.
      *
      * @param volunteer the volunteer completing the request
      * @param shelter the shelter selected for the trip
@@ -463,5 +627,4 @@ public class Database {
 
         return volunteers.exportTripInformation(toWrite, outputFile);
     }
-
 }

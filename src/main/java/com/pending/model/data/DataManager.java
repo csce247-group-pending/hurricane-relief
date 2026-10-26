@@ -17,6 +17,7 @@ import jdk.jshell.spi.ExecutionControl;
  * for future development.
  */
 public class DataManager {
+    /** Directory used for exported volunteer trip-information text files. */
     private static final String TXT_DESTINATION = "./out/export_files/";
 
     private JSONParser parser;
@@ -44,7 +45,9 @@ public class DataManager {
      * @return a list of objects read from the file
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
-    public ArrayList<?> read() throws ExecutionControl.NotImplementedException {
+    public ArrayList<?> read()
+            throws ExecutionControl.NotImplementedException {
+
         switch (mode) {
             case JSON:
                 return readJSON();
@@ -62,8 +65,8 @@ public class DataManager {
      * @return true if the write succeeds; otherwise false
      * @throws ExecutionControl.NotImplementedException if SQL mode is selected
      */
-    public boolean write(ArrayList<?> objects) throws ExecutionControl.NotImplementedException {
-        // System.out.println("Writing to file " + filename);
+    public boolean write(ArrayList<?> objects)
+            throws ExecutionControl.NotImplementedException {
 
         switch (mode) {
             case JSON:
@@ -94,7 +97,7 @@ public class DataManager {
     }
 
     /**
-     * Writes a list of JSON objects to the configured file formatted .
+     * Writes a formatted list of JSON objects to the configured file.
      *
      * @param objects the JSON objects to write
      * @return true if the write succeeds; otherwise false
@@ -114,8 +117,9 @@ public class DataManager {
     }
 
     /**
-     * Formats a single-line JSON string with 4-space indentation and newlines.
-     * Respects quotes and escaped characters so string contents are never altered.
+     * Formats a single-line JSON string with four-space indentation and
+     * newlines. Quotes and escaped characters are preserved so text values
+     * are not changed.
      *
      * @param unformattedJson the raw JSON string from json-simple
      * @return a human-readable, indented JSON string
@@ -160,7 +164,8 @@ public class DataManager {
                         formatted.append("    ".repeat(indentLevel)).append(c);
                         break;
                     case ',':
-                        formatted.append(c).append("\n").append("    ".repeat(indentLevel));
+                        formatted.append(c).append("\n")
+                                .append("    ".repeat(indentLevel));
                         break;
                     case ':':
                         formatted.append(": ");

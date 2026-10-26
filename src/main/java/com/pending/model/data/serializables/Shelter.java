@@ -32,7 +32,7 @@ public class Shelter extends Serializable {
     private boolean isPetFriendly;
 
     private ShelterManager manager;
-    
+
     private UUID locationUUIDReference;
     private UUID managerUUIDReference;
     private UUID contactUUIDReference;
@@ -207,22 +207,39 @@ public class Shelter extends Serializable {
         return occupants;
     }
 
+    /**
+     * Counts the human occupants currently checked into the shelter.
+     *
+     * @return the number of human occupants
+     */
     public int getNumOccupants() {
-        if (occupants == null) { return 0; }
+        if (occupants == null) {
+            return 0;
+        }
 
         int count = 0;
-        for (LivingBeing occupant: occupants) {
+
+        for (LivingBeing occupant : occupants) {
             if (occupant.getType() == LivingBeingType.HUMAN) {
                 ++count;
             }
         }
+
         return count;
     }
 
+    /**
+     * Checks whether the shelter is open and can hold a requested number
+     * of additional people.
+     *
+     * @param partySize the number of people needing shelter space
+     * @return true if the shelter has enough available capacity
+     */
     public boolean hasCapacity(int partySize) {
         if (status != ShelterStatus.OPEN) {
             return false;
         }
+
         return (capacity - getNumOccupants()) >= partySize;
     }
 
@@ -379,7 +396,7 @@ public class Shelter extends Serializable {
     }
 
     /**
-     * Returns a readable summary of the shelter and its occupants.
+     * Returns a readable summary of the shelter.
      *
      * @return a formatted shelter summary
      */
@@ -391,16 +408,25 @@ public class Shelter extends Serializable {
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
                 + (isPetFriendly ? "\n\tPet Friendly" : "")
-                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
-                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "");
+                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "")
+                + (timeTo >= 0
+                        ? "\n\tTime To: " + (int) (timeTo / 60) + "mins"
+                        : "");
     }
 
+    /**
+     * Returns a detailed shelter summary for a shelter manager.
+     * This version includes the shelter's current occupants.
+     *
+     * @return a formatted shelter-manager summary
+     */
     public String managerToString() {
         String formattedOccupants = "";
 
         for (LivingBeing occupant : occupants) {
             if (occupant instanceof User user) {
-                formattedOccupants += "\t\t" + user.toStringLivingBeing() + "\n";
+                formattedOccupants += "\t\t"
+                        + user.toStringLivingBeing() + "\n";
             } else {
                 formattedOccupants += "\t\t" + occupant + "\n";
             }
@@ -412,8 +438,10 @@ public class Shelter extends Serializable {
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
                 + (isPetFriendly ? "\n\tPet Friendly" : "")
-                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "") 
-                + (timeTo >= 0 ? "\n\tTime To: " + (int) (timeTo/60) + "mins" : "")
+                + (hasMedicalStaff() ? "\n\tHas Medical Staff" : "")
+                + (timeTo >= 0
+                        ? "\n\tTime To: " + (int) (timeTo / 60) + "mins"
+                        : "")
                 + "\n\tOccupants: "
                 + (formattedOccupants.isEmpty()
                         ? "None"
@@ -473,12 +501,21 @@ public class Shelter extends Serializable {
         this.isPetFriendly = isPetFriendly;
     }
 
+    /**
+     * Gets the travel time to this shelter in seconds.
+     *
+     * @return the stored travel time, or -1 when it has not been calculated
+     */
     public double getTimeTo() {
         return timeTo;
     }
 
+    /**
+     * Sets the travel time to this shelter in seconds.
+     *
+     * @param timeTo the travel time in seconds
+     */
     public void setTimeTo(double timeTo) {
         this.timeTo = timeTo;
     }
-
 }

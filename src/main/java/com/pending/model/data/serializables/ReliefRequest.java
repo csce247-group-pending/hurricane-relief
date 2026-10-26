@@ -42,6 +42,7 @@ public class ReliefRequest extends Serializable {
      * @param status the current request status
      * @param livingBeings the people or pets affected by the request
      * @param reliefTypes the needed types of relief
+     * @param contactInfo the request contact information
      */
     public ReliefRequest(String description, Location location,
             ReliefStatus status, ArrayList<LivingBeing> livingBeings,
@@ -72,12 +73,14 @@ public class ReliefRequest extends Serializable {
      * @param status the current request status
      * @param livingBeings the people or pets affected by the request
      * @param reliefTypes the needed types of relief
+     * @param contactInfo the request contact information
      */
     public ReliefRequest(UUID id, String description, Location location,
             ReliefStatus status, ArrayList<LivingBeing> livingBeings,
             ArrayList<ReliefType> reliefTypes, Contact contactInfo) {
 
-        this(description, location, status, livingBeings, reliefTypes, contactInfo);
+        this(description, location, status, livingBeings, reliefTypes,
+                contactInfo);
         this.id = id;
     }
 
@@ -197,9 +200,13 @@ public class ReliefRequest extends Serializable {
         this.types = types;
     }
 
+    /**
+     * Builds a unique list of relief needs using every affected living being.
+     */
     private void setTypesFromLivingBeings() {
         Set<ReliefType> uniqueTypes = new LinkedHashSet<>();
-        for(LivingBeing being: livingBeings) {
+
+        for (LivingBeing being : livingBeings) {
             uniqueTypes.addAll(being.getReliefNeeds());
         }
 
@@ -229,6 +236,13 @@ public class ReliefRequest extends Serializable {
                 + "\n\tMembers: " + getPartySize();
     }
 
+    /**
+     * Returns a detailed summary of this relief request.
+     * The detailed version includes contact information, assigned volunteer,
+     * and each affected person or pet.
+     *
+     * @return a formatted detailed relief-request summary
+     */
     public String toStringDetailed() {
         String reliefTypesString = types.stream()
                 .map(Enum::name)
@@ -242,17 +256,21 @@ public class ReliefRequest extends Serializable {
 
         for (LivingBeing livingBeing : livingBeings) {
             if (livingBeing instanceof User user) {
-                formattedBeings += "\t\t" + user.toStringLivingBeing() + "\n";
+                formattedBeings += "\t\t"
+                        + user.toStringLivingBeing() + "\n";
             } else {
-                formattedBeings += "\t\t" + livingBeing.toString() + "\n";
+                formattedBeings += "\t\t"
+                        + livingBeing.toString() + "\n";
             }
         }
 
         return "{Relief Request Detailed}"
                 + "\n\tDescription: " + description
                 + "\n\tRelief Status: " + status
-                + "\n\tAssigned To: " + (assignedTo != null && status != ReliefStatus.REQUESTED ? 
-                assignedTo.getFullName() : "None")
+                + "\n\tAssigned To: "
+                + (assignedTo != null && status != ReliefStatus.REQUESTED
+                        ? assignedTo.getFullName()
+                        : "None")
                 + "\n\tRelief Needs: " + reliefTypesString
                 + "\n\tLocation: " + location
                 + "\n\tContact Info: " + contactInfo
@@ -337,26 +355,44 @@ public class ReliefRequest extends Serializable {
         this.assignedToUUIDReference = assignedToUUIDReference;
     }
 
+    /**
+     * Checks whether any affected living being is a pet.
+     *
+     * @return true if the request includes at least one pet
+     */
     public boolean hasPets() {
-        for(LivingBeing being: livingBeings) {
-            if(being.getType() == LivingBeingType.PET) {
+        for (LivingBeing being : livingBeings) {
+            if (being.getType() == LivingBeingType.PET) {
                 return true;
             }
         }
+
         return false;
     }
 
+    /**
+     * Gets the total number of people and pets in this request.
+     *
+     * @return the total party size
+     */
     public int getPartySize() {
         return livingBeings.size();
     }
 
+    /**
+     * Gets the number of human members in this request.
+     *
+     * @return the number of human members
+     */
     public int getPartySizeHumans() {
         int count = 0;
+
         for (LivingBeing being : livingBeings) {
-            if(being.getType() == LivingBeingType.HUMAN) {
+            if (being.getType() == LivingBeingType.HUMAN) {
                 ++count;
             }
         }
+
         return count;
     }
 }
