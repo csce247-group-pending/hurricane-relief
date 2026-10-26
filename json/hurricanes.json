@@ -18,5 +18,16 @@
       "41e976f3-a8c5-4dc7-8ea3-3e1986427db9"
     ],
     "status": "APPROACHING"
+  },
+  {
+    "id": "73c41537-83eb-46f4-a0f1-0775d7b5b597",
+    "name": "Scarlett",
+    "category": 4,
+    "locations": [
+      "e7a31b40-9f5c-4c6e-82b1-5e8d7120a399",
+      "1f2a3489-0e42-4917-b715-e24395641755",
+      "2764efdb-0eb3-4fe4-bf82-c9cdac07e276"
+    ],
+    "status": "PASSED"
   }
 ]
