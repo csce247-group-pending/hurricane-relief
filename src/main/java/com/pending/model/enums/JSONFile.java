@@ -1,7 +1,6 @@
 package com.pending.model.enums;
 
 public enum JSONFile {
-    ADMINS("json/admins.json"),
     BLACKLIST("json/blacklist.json"),
     CONTACTS("json/contacts.json"),
     HURRICANES("json/hurricanes.json"),
