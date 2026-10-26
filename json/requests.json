@@ -13,11 +13,11 @@
   {
     "id": "a8b27341-945e-4c28-8742-1e9b253b8f1c",
     "status": "REQUESTED",
-    "description": "Needs evacuation assistance and medical care due to flooding.",
+    "description": "Needs medical care and shelter due to flooding.",
     "location": "1f2a3489-0e42-4917-b715-e24395641755",
     "types": [
       "MEDICAL_CARE",
-      "EVACUATION"
+      "SHELTER"
     ],
     "contact": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"
   },
@@ -31,5 +31,38 @@
     ],
     "contact": "991ec306-98dc-4dbb-bbdc-225e99b356f3",
     "assigned_to": "3a2b1c0d-4e5f-4a6b-8c7d-200000000017"
+  },
+  {
+    "id": "528f413a-a1b2-450c-b930-14e9f78322a1",
+    "status": "REQUESTED",
+    "description": "Family needs food and shelter after a tree fell on their home.",
+    "location": "a904e5f2-1b8d-4e63-8f52-4c317d98a06e",
+    "types": [
+      "FOOD",
+      "SHELTER"
+    ],
+    "contact": "716e2075-5d56-482f-b109-c3068b50528d"
+  },
+  {
+    "id": "19b4e723-8c4d-491a-a021-998f45b736e4",
+    "status": "ASSIGNED",
+    "description": "Diabetic patient requires immediate medical care and fresh drinking water.",
+    "location": "15bbffba-79e4-40e5-8123-af76a2707c3f",
+    "types": [
+      "MEDICAL_CARE",
+      "WATER"
+    ],
+    "contact": "0108660c-72df-41af-8ada-397bd344ef27",
+    "assigned_to": "3a2b1c0d-4e5f-4a6b-8c7d-200000000011"
+  },
+  {
+    "id": "84c9f16d-31b7-46c5-92a0-410d8a69123c",
+    "status": "REQUESTED",
+    "description": "Local neighborhood is cut off and urgently needs food supplies.",
+    "location": "7d5e9b10-63a2-41f8-9a4c-0d82e174b593",
+    "types": [
+      "FOOD"
+    ],
+    "contact": "c2bb4710-f6bf-4b2a-bb57-75b254a80d50"
   }
 ]
