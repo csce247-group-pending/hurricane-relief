@@ -1,0 +1,42 @@
+Exporting Trip Information
+
+{Relief Request Detailed}
+	Description: Need a Ford F-350 to give us a ride to the nearest pet-friendly shelter
+	Relief Status: ASSIGNED
+	Assigned To: Rosa Delgado
+	Relief Needs: TRANSPORTATION, MEDICAL_CARE, PET_SHELTER, SHELTER
+	Location: 32 Legare St, Charleston, SC 29401
+	Contact Info: {jimmycarter@gmail.com, 8439847569, CALL}
+	Members(4): 
+		James Carter is a HUMAN | Age: 73 | Relief Needs: Transportation, Shelter, Medical Care
+		Doris Carter is a HUMAN | Age: 72 | Relief Needs: Transportation, Shelter
+		Sophie Carter is a HUMAN | Age: 12 | Relief Needs: Transportation, Shelter, Medical Care
+		Buddy Carter is a PET | Age: 5 | Relief Needs: Transportation, Pet Shelter
+
+
+Directions From Volunteer To Task:
+	Head southeast on Perry Street
+	Turn right onto Fishburne Street, L-658
+	Turn left onto Rutledge Avenue, S-46
+	Turn left onto Rutledge Avenue, L-46
+	Turn left onto Broad Street, S-1015
+	Turn right onto Legare Street, S-1828
+	Turn left onto Tradd Street, S-876
+	Turn right onto Legare Street, S-1828
+	Arrive at Legare Street, S-1828, on the left
+
+
+Directions From Task to 'Stall High School' Shelter:
+	Head south on Legare Street, S-1828
+	Turn right onto South Battery, S-105
+	Turn left onto Lenwood Boulevard, S-879
+	Turn right onto Murray Boulevard, L-29
+	Turn right onto Ashley Boulevard, S-103
+	Continue straight onto Ashley Avenue, S-103
+	Turn right onto Septima P. Clark Parkway, US 17
+	Keep left onto I-26
+	Keep right
+	Keep right
+	Turn right onto Ashley Phosphate Road, S-10-75
+	Continue straight onto Ashley Phosphate Road
+	Arrive at Ashley Phosphate Road, straight ahead
