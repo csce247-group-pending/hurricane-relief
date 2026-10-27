@@ -8,14 +8,6 @@
     "relief_needs": ["FOOD", "WATER", "SHELTER"]
   },
   {
-    "id": "4805036d-0577-40c2-87ae-78f8f8bbaac1",
-    "first_name": "James",
-    "last_name": "Carter",
-    "date_of_birth": "1952-11-02",
-    "type": "HUMAN",
-    "relief_needs": ["MEDICAL_CARE", "EVACUATION", "TRANSPORTATION"]
-  },
-  {
     "id": "2a24793a-294a-46e7-a125-4f357c439ae0",
     "first_name": "Aaliyah",
     "last_name": "Johnson",
@@ -616,17 +608,6 @@
       "EVACUATION",
       "FOOD",
       "TRANSPORTATION"
-    ]
-  },
-  {
-    "id": "5132e92a-0b53-4a5a-9a69-deea0fc1e86a",
-    "first_name": "Grace",
-    "last_name": "Carter",
-    "date_of_birth": "2006-09-18",
-    "type": "HUMAN",
-    "relief_needs": [
-      "OTHER",
-      "FOOD"
     ]
   },
   {
