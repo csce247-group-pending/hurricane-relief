@@ -260,6 +260,7 @@ public class Database {
         HashSet<ReliefType> reliefTypes = new HashSet<>();
 
         for (LivingBeing livingBeing : livingBeings) {
+            this.livingBeings.add(livingBeing);
             reliefTypes.addAll(livingBeing.getReliefNeeds());
         }
 
@@ -274,6 +275,7 @@ public class Database {
         boolean returnValue = requests.add(reliefRequest);
         requests.write();
         users.write();
+        this.livingBeings.write();
 
         return returnValue;
     }
