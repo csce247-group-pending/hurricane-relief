@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.pending.model.data.Database;
+import com.pending.model.data.serializables.LivingBeing;
 import com.pending.model.data.serializables.ReliefRequest;
 import com.pending.model.data.serializables.Volunteer;
 import com.pending.model.enums.ReliefStatus;
@@ -70,6 +71,22 @@ public class SerializeJSONReliefRequest
             jsonObject.put("assigned_to", assignedToId.toString());
         }
 
+        JSONArray livingBeings = new JSONArray();
+
+        if (serializable.getLivingBeings().isEmpty()) {
+            for (UUID id : serializable.getLivingBeingsUUIDReference()) {
+                livingBeings.add(id.toString());
+            }
+        } else {
+            for (LivingBeing livingBeing : serializable.getLivingBeings()) {
+                if (livingBeing != null) {
+                    livingBeings.add(livingBeing.getId().toString());
+                }
+            }
+        }
+
+        jsonObject.put("living_beings", livingBeings);
+
         return jsonObject;
     }
 
@@ -104,6 +121,15 @@ public class SerializeJSONReliefRequest
         serializable.setAssignedToUUIDReference(assignedToId == null
                 ? null
                 : UUID.fromString((String) assignedToId));
+
+        serializable.getLivingBeingsUUIDReference().clear();
+        JSONArray livingBeings = (JSONArray) jsonObject.get("living_beings");
+
+        if (livingBeings != null) {
+            for (Object livingBeing : livingBeings) {
+                serializable.getLivingBeingsUUIDReference().add(UUID.fromString((String) livingBeing));
+            }
+        }
     }
 
     /**
@@ -127,6 +153,16 @@ public class SerializeJSONReliefRequest
 
             if (user instanceof Volunteer) {
                 serializable.setAssignedTo((Volunteer) user);
+            }
+        }
+
+        serializable.getLivingBeings().clear();
+
+        for (UUID id : serializable.getLivingBeingsUUIDReference()) {
+            LivingBeing livingBeing = database.getLivingBeingByUUID(id);
+
+            if (livingBeing != null) {
+                serializable.addLivingBeing(livingBeing);
             }
         }
     }

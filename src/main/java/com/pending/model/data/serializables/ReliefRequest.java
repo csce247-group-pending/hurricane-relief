@@ -27,6 +27,7 @@ public class ReliefRequest extends Serializable {
     private ReliefStatus status;
     private Contact contactInfo;
     private ArrayList<LivingBeing> livingBeings;
+    private ArrayList<UUID> livingBeingsByUUID;
 
     private UUID contactUUIDReference;
     private UUID locationUUIDReference;
@@ -57,6 +58,7 @@ public class ReliefRequest extends Serializable {
         this.livingBeings = livingBeings;
         this.assignedTo = null;
         this.assignedToUUIDReference = null;
+        this.livingBeingsByUUID = new ArrayList<>();
 
         locationUUIDReference = UUID.randomUUID();
         contactUUIDReference = UUID.randomUUID();
@@ -394,5 +396,14 @@ public class ReliefRequest extends Serializable {
         }
 
         return count;
+    }
+
+    /**
+     * Gets the UUID references for the request Living Beings.
+     *
+     * @return the list of living being UUID references
+     */
+    public ArrayList<UUID> getLivingBeingsUUIDReference() {
+        return livingBeingsByUUID;
     }
 }
