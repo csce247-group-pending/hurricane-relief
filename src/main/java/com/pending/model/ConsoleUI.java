@@ -127,7 +127,7 @@ public class ConsoleUI {
         }
 
         printResult(true, app.getUserFullName() + " is now logged in.", "");
-        System.out.println("Profile: " + RESET + loginResult);
+        System.out.println("Profile: " + loginResult);
 
         return true;
     }
@@ -147,11 +147,11 @@ public class ConsoleUI {
             return;
         }
 
-        System.out.println("Total requests: " + requests.size() + RESET);
+        System.out.println("Total requests: " + requests.size());
 
         for (int i = 0; i < requests.size(); i++) {
             System.out.println();
-            System.out.println("Request " + (i + 1) + ":" + RESET);
+            System.out.println("Request " + (i + 1) + ":");
             System.out.println(requests.get(i));
         }
     }
@@ -173,7 +173,7 @@ public class ConsoleUI {
 
         for (int i = 0; i < shelters.size(); i++) {
             System.out.println();
-            System.out.println("Shelter " + (i + 1) + ":" + RESET);
+            System.out.println("Shelter " + (i + 1) + ":");
             System.out.println(shelters.get(i));
         }
     }
@@ -191,7 +191,7 @@ public class ConsoleUI {
         String password = "Buddy1&";
         String dateOfBirth = "1952-11-02";
 
-        System.out.println("Creating an account for James Carter..." + RESET);
+        System.out.println("Creating an account for James Carter...");
 
         boolean accountCreationSuccess = app.requestCreateAccount(
                 firstName,
@@ -213,7 +213,7 @@ public class ConsoleUI {
 
         loginScenario(email, password);
 
-        System.out.println("\nCreating a Relief Request:" + RESET);
+        System.out.println("\nCreating a Relief Request:");
 
         app.setCurrentUserReliefNeeds(new ArrayList<>(
                 List.of("TRANSPORTATION", "SHELTER", "MEDICAL_CARE")
@@ -295,7 +295,7 @@ public class ConsoleUI {
         int requestIndex = 0;
 
         System.out.println("\nChoose a Request. Requests are sorted by "
-                + "Relief Needs and Proximity." + RESET);
+                + "Relief Needs and Proximity.");
         System.out.println(YELLOW + "choice> " + RESET + (requestIndex + 1));
 
         System.out.println(TEAL + "\nOpening Request "
@@ -338,7 +338,7 @@ public class ConsoleUI {
         }
 
         System.out.println("\nSearching for the nearest Shelters matching "
-                + "your request's needs..." + RESET);
+                + "your request's needs...");
 
         ArrayList<String> shelters = app.getSortedShelterStrings();
 
@@ -349,13 +349,12 @@ public class ConsoleUI {
         }
 
         for (int i = 0; i < shelters.size(); i++) {
-            System.out.println((i + 1) + ". " + RESET + shelters.get(i));
+            System.out.println((i + 1) + ". " + shelters.get(i));
         }
 
         int choice = 0;
 
-        System.out.println("\nEnter the number of the shelter you want: "
-                + RESET);
+        System.out.println("\nEnter the number of the shelter you want: ");
         System.out.println(YELLOW + "\tchoice> " + RESET + (choice + 1));
 
         app.selectShelter(choice);
@@ -417,7 +416,7 @@ public class ConsoleUI {
         String managerPassword = "S@xUndV10lins";
 
         System.out.println();
-        System.out.println("Logging in as the shelter manager..." + RESET);
+        System.out.println("Logging in as the shelter manager...");
 
         if (!loginScenario(managerEmail, managerPassword)) {
             return;
@@ -445,8 +444,7 @@ public class ConsoleUI {
 
         printReliefRequests();
 
-        System.out.println("\nShelter After:" + RESET
-                + "\n" + app.getShelter());
+        System.out.println("\nShelter After:\n" + app.getShelter());
 
         app.logout();
     }
