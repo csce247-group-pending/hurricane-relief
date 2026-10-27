@@ -32,6 +32,7 @@ public class Application {
     private Location location;
     private Shelter currShelter;
     private ArrayList<LivingBeing> pendingGroupMembers;
+    private ArrayList<Shelter> sortedSheltersCache;
 
     /**
      * Creates the application and loads saved database information.
@@ -43,6 +44,7 @@ public class Application {
         location = null;
         currShelter = null;
         pendingGroupMembers = null;
+        sortedSheltersCache = null;
     }
 
     /**
@@ -164,6 +166,8 @@ public class Application {
         currentUser = null;
         location = null;
         currShelter = null;
+        pendingGroupMembers = null;
+        sortedSheltersCache = null;
     }
 
     /**
@@ -524,7 +528,12 @@ public class Application {
             return null;
         }
 
-        return database.getSortedShelters(volunteer.getTask());
+        if(sortedSheltersCache == null) {
+            return sortedSheltersCache = database.getSortedShelters(volunteer.getTask());
+        } else {
+            return sortedSheltersCache;
+        }
+
     }
 
     /**
@@ -562,7 +571,9 @@ public class Application {
         }
 
         setShelter(shelters.get(index));
-        return true;
+        // free up memory
+        sortedSheltersCache = null;
+        return currShelter != null;
     }
 
     /**
