@@ -37,6 +37,7 @@ public class Shelter extends Serializable {
     private UUID managerUUIDReference;
     private UUID contactUUIDReference;
 
+    // not to be serialized
     private double timeTo;
 
     /**
