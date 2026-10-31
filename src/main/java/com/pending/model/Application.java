@@ -200,11 +200,11 @@ public class Application {
      * @return true if the request was opened; otherwise false
      */
     private boolean openReliefRequest(ReliefRequest reliefRequest) {
-        if (currentUser instanceof Volunteer volunteer) {
-            if (volunteer.openReliefRequest(reliefRequest)) {
-                database.write(Volunteer.class);
-                return true;
-            }
+        if (currentUser instanceof Volunteer volunteer 
+            && volunteer.openReliefRequest(reliefRequest)) {
+            
+            database.write(Volunteer.class);
+            return true;
         }
 
         return false;
