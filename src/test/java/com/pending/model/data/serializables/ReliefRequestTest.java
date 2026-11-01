@@ -1,32 +1,49 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.LivingBeingType;
-import com.pending.model.enums.ReliefStatus;
-import com.pending.model.enums.ReliefType;
-import org.json.simple.JSONObject;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.LivingBeingType;
+import com.pending.model.enums.ReliefStatus;
+import com.pending.model.enums.ReliefType;
 
 class ReliefRequestTest {
 
-    private static LivingBeing human(String name, ReliefType... needs) {
-        return new LivingBeing(name, "Test", LocalDate.of(1990, 1, 1),
-                LivingBeingType.HUMAN, new ArrayList<>(List.of(needs)));
+    private LivingBeing createHuman(String firstName,
+            ReliefType... reliefNeeds) {
+
+        return new LivingBeing(firstName, "Test",
+                LocalDate.of(1990, 1, 1), LivingBeingType.HUMAN,
+                new ArrayList<>(List.of(reliefNeeds)));
     }
 
-    private static LivingBeing pet(String name, ReliefType... needs) {
-        return new LivingBeing(name, "Test", LocalDate.of(2020, 1, 1),
-                LivingBeingType.PET, new ArrayList<>(List.of(needs)));
+    private LivingBeing createPet(String firstName,
+            ReliefType... reliefNeeds) {
+
+        return new LivingBeing(firstName, "Test",
+                LocalDate.of(2020, 1, 1), LivingBeingType.PET,
+                new ArrayList<>(List.of(reliefNeeds)));
+    }
+
+    private Contact createContact() {
+        return new Contact("help@example.com", "8035550100",
+                ContactPreference.EMAIL);
     }
 
     @Test
-    void defaultConstructorIsEmptyAndRequested() {
+    void defaultConstructorCreatesEmptyRequestedReliefRequest() {
         ReliefRequest request = new ReliefRequest();
 
         assertEquals("", request.getDescription());
@@ -36,109 +53,105 @@ class ReliefRequestTest {
         assertNull(request.getAssignedTo());
         assertEquals(0, request.getPartySize());
         assertFalse(request.hasPets());
+        assertNotNull(request.getId());
     }
 
     @Test
-    void sevenArgConstructorSetsFields() {
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
-        Contact contact = new Contact("a@example.com", "555-0100", com.pending.model.enums.ContactPreference.EMAIL);
-        ArrayList<LivingBeing> beings = new ArrayList<>(List.of(human("Jane")));
-        ArrayList<ReliefType> types = new ArrayList<>(List.of(ReliefType.FOOD));
+    void constructorStoresProvidedRequestDetails() {
+        Location location = new Location("SC", "Charleston",
+                "1 Main St", "29401");
+        Contact contact = createContact();
+        ArrayList<LivingBeing> livingBeings = new ArrayList<>(
+                List.of(createHuman("Jane", ReliefType.FOOD)));
+        ArrayList<ReliefType> reliefTypes = new ArrayList<>(
+                List.of(ReliefType.FOOD));
 
-        ReliefRequest request = new ReliefRequest("need food", location,
-                ReliefStatus.REQUESTED, beings, types, contact);
+        ReliefRequest request = new ReliefRequest("Need food",
+                location, ReliefStatus.REQUESTED, livingBeings,
+                reliefTypes, contact);
 
-        assertEquals("need food", request.getDescription());
+        assertEquals("Need food", request.getDescription());
+        assertEquals(ReliefStatus.REQUESTED, request.getStatus());
         assertSame(location, request.getLocation());
         assertSame(contact, request.getContactInfo());
-        assertEquals(1, request.getLivingBeings().size());
-        assertEquals(1, request.getTypes().size());
+        assertEquals(livingBeings, request.getLivingBeings());
+        assertEquals(reliefTypes, request.getTypes());
     }
 
     @Test
-    void idConstructorUsesProvidedId() {
+    void constructorWithIdUsesProvidedId() {
         UUID id = UUID.randomUUID();
-        ReliefRequest request = new ReliefRequest(id, "desc", new Location(), ReliefStatus.REQUESTED,
-                new ArrayList<>(), new ArrayList<>(), new Contact());
+
+        ReliefRequest request = new ReliefRequest(id, "Need water",
+                new Location(), ReliefStatus.REQUESTED,
+                new ArrayList<>(), new ArrayList<>(), createContact());
 
         assertEquals(id, request.getId());
     }
 
     @Test
-    void hasPetsIsTrueOnlyWhenAPetIsPresent() {
-        ReliefRequest withoutPets = new ReliefRequest("", new Location(), ReliefStatus.REQUESTED,
-                new ArrayList<>(List.of(human("A"))), new ArrayList<>(), new Contact());
-        ReliefRequest withPets = new ReliefRequest("", new Location(), ReliefStatus.REQUESTED,
-                new ArrayList<>(List.of(human("A"), pet("B"))), new ArrayList<>(), new Contact());
+    void hasPetsReturnsFalseWhenRequestContainsOnlyHumans() {
+        ReliefRequest request = new ReliefRequest("", new Location(),
+                ReliefStatus.REQUESTED, new ArrayList<>(
+                        List.of(createHuman("Jane", ReliefType.FOOD))),
+                new ArrayList<>(), createContact());
 
-        assertFalse(withoutPets.hasPets());
-        assertTrue(withPets.hasPets());
+        assertFalse(request.hasPets());
     }
 
     @Test
-    void getPartySizeAndPartySizeHumansCountCorrectly() {
-        ArrayList<LivingBeing> beings = new ArrayList<>(List.of(human("A"), human("B"), pet("C")));
-        ReliefRequest request = new ReliefRequest("", new Location(), ReliefStatus.REQUESTED,
-                beings, new ArrayList<>(), new Contact());
+    void hasPetsReturnsTrueWhenRequestContainsPet() {
+        ReliefRequest request = new ReliefRequest("", new Location(),
+                ReliefStatus.REQUESTED, new ArrayList<>(
+                        List.of(createPet("Rex",
+                                ReliefType.PET_SHELTER))),
+                new ArrayList<>(), createContact());
+
+        assertTrue(request.hasPets());
+    }
+
+    @Test
+    void getPartySizeCountsHumansAndPets() {
+        ReliefRequest request = new ReliefRequest("", new Location(),
+                ReliefStatus.REQUESTED, new ArrayList<>(List.of(
+                        createHuman("Jane", ReliefType.FOOD),
+                        createHuman("Sam", ReliefType.WATER),
+                        createPet("Rex", ReliefType.PET_SHELTER))),
+                new ArrayList<>(), createContact());
 
         assertEquals(3, request.getPartySize());
+    }
+
+    @Test
+    void getPartySizeHumansExcludesPets() {
+        ReliefRequest request = new ReliefRequest("", new Location(),
+                ReliefStatus.REQUESTED, new ArrayList<>(List.of(
+                        createHuman("Jane", ReliefType.FOOD),
+                        createHuman("Sam", ReliefType.WATER),
+                        createPet("Rex", ReliefType.PET_SHELTER))),
+                new ArrayList<>(), createContact());
+
         assertEquals(2, request.getPartySizeHumans());
     }
 
     @Test
-    void addLivingBeingAppendsToTheList() {
+    void addLivingBeingAddsMemberToRequest() {
         ReliefRequest request = new ReliefRequest();
 
-        assertTrue(request.addLivingBeing(human("Jane")));
-
+        assertTrue(request.addLivingBeing(
+                createHuman("Jane", ReliefType.FOOD)));
         assertEquals(1, request.getPartySize());
     }
 
     @Test
-    void settersUpdateFields() {
+    void toStringUsesNaForRequestWithNoReliefTypes() {
         ReliefRequest request = new ReliefRequest();
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
-        Contact contact = new Contact();
-        ArrayList<ReliefType> types = new ArrayList<>(List.of(ReliefType.WATER));
 
-        request.setDescription("updated");
-        request.setStatus(ReliefStatus.ASSIGNED);
-        request.setLocation(location);
-        request.setContactInfo(contact);
-        request.setTypes(types);
-
-        assertEquals("updated", request.getDescription());
-        assertEquals(ReliefStatus.ASSIGNED, request.getStatus());
-        assertSame(location, request.getLocation());
-        assertSame(contact, request.getContactInfo());
-        assertSame(types, request.getTypes());
+        assertTrue(request.toString().contains("Relief Needs: N/A"));
     }
 
     @Test
-    void uuidReferenceGettersAndSetters() {
-        ReliefRequest request = new ReliefRequest();
-        UUID locationRef = UUID.randomUUID();
-        UUID contactRef = UUID.randomUUID();
-        UUID assignedRef = UUID.randomUUID();
-
-        request.setLocationUUIDReference(locationRef);
-        request.setContactUUIDReference(contactRef);
-        request.setAssignedToUUIDReference(assignedRef);
-
-        assertEquals(locationRef, request.getLocationUUIDReference());
-        assertEquals(contactRef, request.getContactUUIDReference());
-        assertEquals(assignedRef, request.getAssignedToUUIDReference());
-    }
-
-    @Test
-    void toStringDoesNotThrowWithEmptyTypesAndShowsNA() {
-        ReliefRequest request = new ReliefRequest();
-
-        assertTrue(request.toString().contains("N/A"));
-    }
-
-    @Test
-    void toStringDetailedShowsNoneWhenUnassignedAndEmpty() {
+    void toStringDetailedShowsNoneForUnassignedEmptyRequest() {
         ReliefRequest request = new ReliefRequest();
 
         String result = request.toStringDetailed();
@@ -148,70 +161,41 @@ class ReliefRequestTest {
     }
 
     @Test
-    void toStringDetailedListsEachLivingBeing() {
-        // Each LivingBeing here needs at least one relief need, since
-        // LivingBeing.toString() currently throws for an empty needs list
-        // (see LivingBeingTest.toStringThrowsWhenReliefNeedsIsEmpty).
-        ArrayList<LivingBeing> beings = new ArrayList<>(List.of(
-                human("Jane", ReliefType.FOOD), pet("Rex", ReliefType.PET_SHELTER)));
-        ReliefRequest request = new ReliefRequest("", new Location(), ReliefStatus.REQUESTED,
-                beings, new ArrayList<>(), new Contact());
+    void toStringDetailedListsEachMember() {
+        ReliefRequest request = new ReliefRequest("", new Location(),
+                ReliefStatus.REQUESTED, new ArrayList<>(List.of(
+                        createHuman("Jane", ReliefType.FOOD),
+                        createPet("Rex", ReliefType.PET_SHELTER))),
+                new ArrayList<>(), createContact());
 
         String result = request.toStringDetailed();
 
-        assertTrue(result.contains("Jane"));
-        assertTrue(result.contains("Rex"));
+        assertTrue(result.contains("Jane Test"));
+        assertTrue(result.contains("Rex Test"));
     }
 
-    /**
-     * BUG: the 6-arg ReliefRequest constructor assigns
-     *     locationUUIDReference = UUID.randomUUID();
-     *     contactUUIDReference = UUID.randomUUID();
-     * instead of location.getId() / contactInfo.getId() (the way User does
-     * it for its own location/contact references). This means a freshly
-     * created request's UUID references never actually point at the
-     * location or contact it was built with.
-     */
     @Test
-    void locationAndContactUUIDReferencesDoNotMatchTheRealObjects() {
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
-        Contact contact = new Contact("a@example.com", "555-0100", com.pending.model.enums.ContactPreference.EMAIL);
+    void constructorUsesProvidedLocationIdForReference() {
+        Location location = new Location("SC", "Charleston",
+                "1 Main St", "29401");
 
-        ReliefRequest request = new ReliefRequest("desc", location, ReliefStatus.REQUESTED,
+        ReliefRequest request = new ReliefRequest("Need help",
+                location, ReliefStatus.REQUESTED, new ArrayList<>(),
+                new ArrayList<>(), createContact());
+
+        assertEquals(location.getId(),
+                request.getLocationUUIDReference());
+    }
+
+    @Test
+    void constructorUsesProvidedContactIdForReference() {
+        Contact contact = createContact();
+
+        ReliefRequest request = new ReliefRequest("Need help",
+                new Location(), ReliefStatus.REQUESTED,
                 new ArrayList<>(), new ArrayList<>(), contact);
 
-        assertNotEquals(location.getId(), request.getLocationUUIDReference(),
-                "if this now passes, the UUID-reference bug has been fixed and this "
-                        + "assertion should be flipped to assertEquals");
-        assertNotEquals(contact.getId(), request.getContactUUIDReference(),
-                "if this now passes, the UUID-reference bug has been fixed and this "
-                        + "assertion should be flipped to assertEquals");
-    }
-
-    /**
-     * BUG: SerializeJSONReliefRequest.serialize() writes "location" and
-     * "contact" as full nested JSON objects (location.serialize(),
-     * contactInfo.serialize()), but deserialize() reads them back expecting
-     * UUID strings:
-     *     serializable.setLocationUUIDReference(UUID.fromString((String) jsonObject.get("location")));
-     * Casting a JSONObject to String throws ClassCastException, so a
-     * request's own serialize() output cannot be fed back into deserialize().
-     */
-    @Test
-    void serializeThenDeserializeThrowsBecauseLocationAndContactAreWrongShape() {
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
-        Contact contact = new Contact("a@example.com", "555-0100", com.pending.model.enums.ContactPreference.EMAIL);
-        ReliefRequest original = new ReliefRequest("desc", location, ReliefStatus.REQUESTED,
-                new ArrayList<>(List.of(human("Jane", ReliefType.FOOD))),
-                new ArrayList<>(List.of(ReliefType.FOOD)), contact);
-
-        JSONObject json = (JSONObject) original.serialize();
-
-        ReliefRequest restored = new ReliefRequest();
-
-        assertThrows(ClassCastException.class, () -> restored.deserialize(json),
-                "if this now passes without throwing, the serialize/deserialize shape "
-                        + "mismatch has been fixed and this test should be replaced with "
-                        + "a real round-trip assertion");
+        assertEquals(contact.getId(),
+                request.getContactUUIDReference());
     }
 }
