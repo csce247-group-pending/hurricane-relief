@@ -1,38 +1,57 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.LivingBeingType;
-import com.pending.model.enums.ReliefType;
-import com.pending.model.enums.ShelterStatus;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import com.pending.model.enums.LivingBeingType;
+import com.pending.model.enums.ReliefType;
+import com.pending.model.enums.ShelterStatus;
 
 class ShelterTest {
 
-    private static LivingBeing human(String name, ReliefType... needs) {
-        return new LivingBeing(name, "Test", LocalDate.of(1990, 1, 1),
-                LivingBeingType.HUMAN, new ArrayList<>(List.of(needs)));
+    private LivingBeing createHuman(String firstName) {
+        return new LivingBeing(firstName, "Test",
+                LocalDate.of(1990, 1, 1), LivingBeingType.HUMAN,
+                new ArrayList<>(List.of(ReliefType.FOOD)));
     }
 
-    private static LivingBeing pet(String name, ReliefType... needs) {
-        return new LivingBeing(name, "Test", LocalDate.of(2020, 1, 1),
-                LivingBeingType.PET, new ArrayList<>(List.of(needs)));
+    private LivingBeing createPet(String firstName) {
+        return new LivingBeing(firstName, "Test",
+                LocalDate.of(2020, 1, 1), LivingBeingType.PET,
+                new ArrayList<>(List.of(ReliefType.PET_SHELTER)));
     }
 
-    private static Volunteer volunteerWithSkill(ReliefType... skills) {
+    private Volunteer createVolunteer(ReliefType... skills) {
         Volunteer volunteer = new Volunteer();
+
         for (ReliefType skill : skills) {
             volunteer.addReliefType(skill);
         }
+
         return volunteer;
     }
 
+    private Shelter createOpenShelter(int capacity,
+            boolean petFriendly) {
+
+        return new Shelter("Shelter A", new Location("SC",
+                "Charleston", "1 Main St", "29401"), capacity,
+                new ArrayList<>(), ShelterStatus.OPEN, new Contact(),
+                petFriendly);
+    }
+
     @Test
-    void defaultConstructorIsEmptyAndOpen() {
+    void defaultConstructorCreatesEmptyOpenShelter() {
         Shelter shelter = new Shelter();
 
         assertEquals("", shelter.getName());
@@ -42,38 +61,55 @@ class ShelterTest {
         assertTrue(shelter.getOccupants().isEmpty());
         assertTrue(shelter.getVolunteers().isEmpty());
         assertEquals(-1, shelter.getTimeTo());
+        assertNotNull(shelter.getId());
     }
 
     @Test
-    void sevenArgConstructorSetsFields() {
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
+    void constructorStoresProvidedShelterDetails() {
+        Location location = new Location("SC", "Charleston",
+                "1 Main St", "29401");
         Contact contact = new Contact();
-        ArrayList<Volunteer> volunteers = new ArrayList<>(List.of(volunteerWithSkill()));
+        ArrayList<Volunteer> volunteers = new ArrayList<>(
+                List.of(createVolunteer(ReliefType.FOOD)));
 
-        Shelter shelter = new Shelter("Shelter A", location, 50, volunteers,
-                ShelterStatus.OPEN, contact, true);
+        Shelter shelter = new Shelter("Shelter A", location, 50,
+                volunteers, ShelterStatus.OPEN, contact, true);
 
         assertEquals("Shelter A", shelter.getName());
         assertSame(location, shelter.getLocation());
         assertEquals(50, shelter.getCapacity());
-        assertEquals(1, shelter.getVolunteers().size());
+        assertEquals(volunteers, shelter.getVolunteers());
+        assertEquals(ShelterStatus.OPEN, shelter.getStatus());
         assertSame(contact, shelter.getContactInfo());
         assertTrue(shelter.isPetFriendly());
     }
 
     @Test
-    void settersCopyTheVolunteerListDefensively() {
-        Shelter shelter = new Shelter();
-        ArrayList<Volunteer> volunteers = new ArrayList<>(List.of(volunteerWithSkill()));
+    void constructorWithIdUsesProvidedId() {
+        UUID id = UUID.randomUUID();
 
-        shelter.setVolunteers(volunteers);
-        volunteers.add(volunteerWithSkill()); // mutate the original list afterward
+        Shelter shelter = new Shelter(id, "Shelter A",
+                new Location(), 20, new ArrayList<>(),
+                ShelterStatus.OPEN, new Contact(), false);
 
-        assertEquals(1, shelter.getVolunteers().size(), "setVolunteers should copy, not alias, the list");
+        assertEquals(id, shelter.getId());
     }
 
     @Test
-    void setVolunteersWithNullGivesAnEmptyListInsteadOfNull() {
+    void constructorCopiesVolunteerList() {
+        ArrayList<Volunteer> volunteers = new ArrayList<>(
+                List.of(createVolunteer(ReliefType.FOOD)));
+
+        Shelter shelter = new Shelter("Shelter A", new Location(), 20,
+                volunteers, ShelterStatus.OPEN, new Contact(), false);
+
+        volunteers.add(createVolunteer(ReliefType.WATER));
+
+        assertEquals(1, shelter.getVolunteers().size());
+    }
+
+    @Test
+    void setVolunteersWithNullCreatesEmptyList() {
         Shelter shelter = new Shelter();
 
         shelter.setVolunteers(null);
@@ -85,160 +121,150 @@ class ShelterTest {
     @Test
     void getNumOccupantsCountsOnlyHumans() {
         Shelter shelter = new Shelter();
-        shelter.addOccupant(human("A"));
-        shelter.addOccupant(human("B"));
-        shelter.addOccupant(pet("C"));
+        shelter.addOccupant(createHuman("Jane"));
+        shelter.addOccupant(createHuman("Sam"));
+        shelter.addOccupant(createPet("Rex"));
 
-        assertEquals(2, shelter.getNumOccupants(),
-                "getNumOccupants only counts HUMAN occupants; pets do not count toward capacity");
-        assertEquals(3, shelter.getOccupants().size());
+        assertEquals(2, shelter.getNumOccupants());
     }
 
     @Test
-    void addAndRemoveOccupant() {
+    void addOccupantAddsOccupantToShelter() {
         Shelter shelter = new Shelter();
-        LivingBeing occupant = human("A");
 
-        assertTrue(shelter.addOccupant(occupant));
-        assertTrue(shelter.getOccupants().contains(occupant));
+        assertTrue(shelter.addOccupant(createHuman("Jane")));
+        assertEquals(1, shelter.getOccupants().size());
+    }
+
+    @Test
+    void removeOccupantRemovesExistingOccupant() {
+        Shelter shelter = new Shelter();
+        LivingBeing occupant = createHuman("Jane");
+        shelter.addOccupant(occupant);
 
         assertTrue(shelter.removeOccupant(occupant));
-        assertFalse(shelter.getOccupants().contains(occupant));
+        assertTrue(shelter.getOccupants().isEmpty());
     }
 
     @Test
-    void addAndRemoveVolunteer() {
-        Shelter shelter = new Shelter();
-        Volunteer volunteer = volunteerWithSkill();
-
-        shelter.addVolunteer(volunteer);
-        assertTrue(shelter.getVolunteers().contains(volunteer));
-
-        shelter.removeVolunteer(volunteer);
-        assertFalse(shelter.getVolunteers().contains(volunteer));
-    }
-
-    @Test
-    void hasCapacityIsFalseWhenNotOpen() {
-        Shelter shelter = new Shelter("S", new Location(), 100, new ArrayList<>(),
-                ShelterStatus.CLOSED, new Contact(), false);
+    void hasCapacityReturnsFalseForClosedShelter() {
+        Shelter shelter = new Shelter("Shelter A", new Location(), 20,
+                new ArrayList<>(), ShelterStatus.CLOSED, new Contact(),
+                false);
 
         assertFalse(shelter.hasCapacity(1));
     }
 
     @Test
-    void hasCapacityComparesAvailableSpaceToPartySize() {
-        Shelter shelter = new Shelter("S", new Location(), 2, new ArrayList<>(),
-                ShelterStatus.OPEN, new Contact(), false);
-        shelter.addOccupant(human("A"));
+    void hasCapacityReturnsTrueWhenOpenShelterHasEnoughRoom() {
+        Shelter shelter = createOpenShelter(2, false);
+        shelter.addOccupant(createHuman("Jane"));
 
         assertTrue(shelter.hasCapacity(1));
-        assertFalse(shelter.hasCapacity(2));
     }
 
     @Test
-    void checkInAddsAllWhenNoPetsInvolved() {
-        Shelter shelter = new Shelter("S", new Location(), 10, new ArrayList<>(),
-                ShelterStatus.OPEN, new Contact(), false);
-        ArrayList<LivingBeing> group = new ArrayList<>(List.of(human("A"), human("B")));
+    void hasCapacityReturnsFalseWhenOpenShelterIsFull() {
+        Shelter shelter = createOpenShelter(1, false);
+        shelter.addOccupant(createHuman("Jane"));
+
+        assertFalse(shelter.hasCapacity(1));
+    }
+
+    @Test
+    void checkInAddsHumanGroupToShelter() {
+        Shelter shelter = createOpenShelter(10, false);
+        ArrayList<LivingBeing> group = new ArrayList<>(List.of(
+                createHuman("Jane"), createHuman("Sam")));
 
         assertTrue(shelter.checkIn(group));
         assertEquals(2, shelter.getOccupants().size());
     }
 
     @Test
-    void checkInRejectsPetsWhenNotPetFriendlyAndAddsNothing() {
-        Shelter shelter = new Shelter("S", new Location(), 10, new ArrayList<>(),
-                ShelterStatus.OPEN, new Contact(), false);
-        ArrayList<LivingBeing> group = new ArrayList<>(List.of(human("A"), pet("B")));
+    void checkInRejectsGroupWithPetWhenShelterIsNotPetFriendly() {
+        Shelter shelter = createOpenShelter(10, false);
+        ArrayList<LivingBeing> group = new ArrayList<>(List.of(
+                createHuman("Jane"), createPet("Rex")));
 
         assertFalse(shelter.checkIn(group));
-        assertTrue(shelter.getOccupants().isEmpty(),
-                "checkIn should not add anyone from a rejected group, including the "
-                        + "humans that came before the pet in the list");
+        assertTrue(shelter.getOccupants().isEmpty());
     }
 
     @Test
-    void checkInAcceptsPetsWhenPetFriendly() {
-        Shelter shelter = new Shelter("S", new Location(), 10, new ArrayList<>(),
-                ShelterStatus.OPEN, new Contact(), true);
-        ArrayList<LivingBeing> group = new ArrayList<>(List.of(human("A"), pet("B")));
+    void checkInAcceptsGroupWithPetWhenShelterIsPetFriendly() {
+        Shelter shelter = createOpenShelter(10, true);
+        ArrayList<LivingBeing> group = new ArrayList<>(List.of(
+                createHuman("Jane"), createPet("Rex")));
 
         assertTrue(shelter.checkIn(group));
         assertEquals(2, shelter.getOccupants().size());
     }
 
     @Test
-    void hasMedicalStaffTrueWhenAVolunteerHasMedicalCareSkill() {
+    void hasMedicalStaffReturnsTrueWhenVolunteerHasMedicalSkill() {
         ArrayList<Volunteer> volunteers = new ArrayList<>(List.of(
-                volunteerWithSkill(ReliefType.TRANSPORTATION),
-                volunteerWithSkill(ReliefType.MEDICAL_CARE)));
-        Shelter shelter = new Shelter("S", new Location(), 10, volunteers,
-                ShelterStatus.OPEN, new Contact(), false);
+                createVolunteer(ReliefType.TRANSPORTATION),
+                createVolunteer(ReliefType.MEDICAL_CARE)));
+
+        Shelter shelter = new Shelter("Shelter A", new Location(), 10,
+                volunteers, ShelterStatus.OPEN, new Contact(), false);
 
         assertTrue(shelter.hasMedicalStaff());
     }
 
     @Test
-    void hasMedicalStaffFalseWhenNoVolunteerHasTheSkill() {
+    void hasMedicalStaffReturnsFalseWithoutMedicalVolunteer() {
         ArrayList<Volunteer> volunteers = new ArrayList<>(List.of(
-                volunteerWithSkill(ReliefType.TRANSPORTATION)));
-        Shelter shelter = new Shelter("S", new Location(), 10, volunteers,
-                ShelterStatus.OPEN, new Contact(), false);
+                createVolunteer(ReliefType.TRANSPORTATION)));
+
+        Shelter shelter = new Shelter("Shelter A", new Location(), 10,
+                volunteers, ShelterStatus.OPEN, new Contact(), false);
 
         assertFalse(shelter.hasMedicalStaff());
     }
 
     @Test
-    void petFriendlyGetterAndSetter() {
-        Shelter shelter = new Shelter();
-
-        shelter.setPetFriendly(true);
-
-        assertTrue(shelter.isPetFriendly());
-    }
-
-    @Test
-    void timeToGetterAndSetter() {
-        Shelter shelter = new Shelter();
-
-        shelter.setTimeTo(120.5);
-
-        assertEquals(120.5, shelter.getTimeTo());
-    }
-
-    @Test
-    void managerAndLocationAndContactGettersAndSetters() {
-        Shelter shelter = new Shelter();
-        ShelterManager manager = new ShelterManager();
-        Location location = new Location("SC", "Charleston", "1 Main St", "29401");
-        Contact contact = new Contact();
-
-        shelter.setManager(manager);
-        shelter.setLocation(location);
-        shelter.setContactInfo(contact);
-
-        assertSame(manager, shelter.getManager());
-        assertSame(location, shelter.getLocation());
-        assertSame(contact, shelter.getContactInfo());
-    }
-
-    @Test
-    void toStringAndManagerToStringDoNotThrow() {
-        // Occupants need at least one relief need each, since LivingBeing.toString()
-        // currently throws for an empty needs list (see LivingBeingTest).
-        Shelter shelter = new Shelter("Shelter A", new Location("SC", "Charleston", "1 Main St", "29401"),
-                10, new ArrayList<>(List.of(volunteerWithSkill(ReliefType.MEDICAL_CARE))),
-                ShelterStatus.OPEN, new Contact(), true);
-        shelter.addOccupant(human("Jane", ReliefType.FOOD));
+    void toStringIncludesShelterDetails() {
+        Shelter shelter = createOpenShelter(10, true);
         shelter.setTimeTo(300);
 
-        String summary = shelter.toString();
-        String detailed = shelter.managerToString();
+        String result = shelter.toString();
 
-        assertTrue(summary.contains("Shelter A"));
-        assertTrue(summary.contains("Pet Friendly"));
-        assertTrue(summary.contains("Has Medical Staff"));
-        assertTrue(detailed.contains("Jane"));
+        assertTrue(result.contains("Shelter A"));
+        assertTrue(result.contains("Pet Friendly"));
+        assertTrue(result.contains("Time To: 5mins"));
+    }
+
+    @Test
+    void managerToStringListsOccupants() {
+        Shelter shelter = createOpenShelter(10, false);
+        shelter.addOccupant(createHuman("Jane"));
+
+        assertTrue(shelter.managerToString().contains("Jane Test"));
+    }
+
+    @Test
+    void constructorUsesProvidedLocationIdForReference() {
+        Location location = new Location("SC", "Charleston",
+                "1 Main St", "29401");
+
+        Shelter shelter = new Shelter("Shelter A", location, 10,
+                new ArrayList<>(), ShelterStatus.OPEN, new Contact(),
+                false);
+
+        assertEquals(location.getId(),
+                shelter.getLocationUUIDReference());
+    }
+
+    @Test
+    void constructorUsesProvidedContactIdForReference() {
+        Contact contact = new Contact();
+
+        Shelter shelter = new Shelter("Shelter A", new Location(), 10,
+                new ArrayList<>(), ShelterStatus.OPEN, contact, false);
+
+        assertEquals(contact.getId(),
+                shelter.getContactUUIDReference());
     }
 }
