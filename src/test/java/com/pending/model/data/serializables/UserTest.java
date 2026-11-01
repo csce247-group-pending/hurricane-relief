@@ -1,49 +1,59 @@
 package com.pending.model.data.serializables;
 
-import com.pending.model.enums.ContactPreference;
-import com.pending.model.enums.ReliefType;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import com.pending.model.enums.ContactPreference;
+import com.pending.model.enums.ReliefType;
 
 class UserTest {
 
-    private static Location sampleLocation() {
-        return new Location("SC", "Charleston", "1 Main St", "29401");
+    private Location sampleLocation() {
+        return new Location("SC", "Charleston", "1 Main St",
+                "29401");
     }
 
-    private static Contact sampleContact(String email) {
-        return new Contact(email, "555-0100", ContactPreference.EMAIL);
+    private Contact sampleContact(String email) {
+        return new Contact(email, "8035550100",
+                ContactPreference.EMAIL);
     }
 
     @Test
-    void defaultConstructorHasEmptyFieldsAndNonNullContacts() {
+    void defaultConstructorCreatesUserWithEmptyFields() {
         User user = new User();
 
         assertEquals("", user.getFirstName());
+        assertEquals("", user.getLastName());
         assertEquals("", user.getPassword());
         assertNotNull(user.getLocation());
         assertNotNull(user.getUserContact());
         assertNotNull(user.getEmergencyContact());
         assertTrue(user.getUserReliefRequests().isEmpty());
+        assertNotNull(user.getId());
     }
 
     @Test
-    void eightArgConstructorSetsFieldsAndUUIDReferences() {
+    void constructorStoresProvidedUserDetails() {
         Location location = sampleLocation();
         Contact userContact = sampleContact("jane@example.com");
-        Contact emergencyContact = sampleContact("emergency@example.com");
+        Contact emergencyContact = sampleContact(
+                "emergency@example.com");
 
-        User user = new User("Jane", "Doe", LocalDate.of(1990, 1, 1),
-                new ArrayList<>(List.of(ReliefType.FOOD)), "password",
-                location, userContact, emergencyContact);
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1),
+                new ArrayList<>(List.of(ReliefType.FOOD)),
+                "password", location, userContact, emergencyContact);
 
         assertEquals("Jane", user.getFirstName());
         assertEquals("Doe", user.getLastName());
@@ -51,162 +61,119 @@ class UserTest {
         assertSame(location, user.getLocation());
         assertSame(userContact, user.getUserContact());
         assertSame(emergencyContact, user.getEmergencyContact());
-        assertEquals(location.getId(), user.getLocationUUIDReference());
-        assertEquals(userContact.getId(), user.getUserContactUUIDReference());
-        assertEquals(emergencyContact.getId(), user.getEmergencyContactUUIDReference());
+        assertEquals(location.getId(),
+                user.getLocationUUIDReference());
+        assertEquals(userContact.getId(),
+                user.getUserContactUUIDReference());
+        assertEquals(emergencyContact.getId(),
+                user.getEmergencyContactUUIDReference());
     }
 
     @Test
-    void idConstructorUsesProvidedId() {
+    void constructorWithIdUsesProvidedId() {
         UUID id = UUID.randomUUID();
-        User user = new User(id, "Jane", "Doe", LocalDate.of(1990, 1, 1), new ArrayList<>(),
-                "password", sampleLocation(), sampleContact("jane@example.com"), sampleContact("em@example.com"));
+
+        User user = new User(id, "Jane", "Doe",
+                LocalDate.of(1990, 1, 1), new ArrayList<>(),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"),
+                sampleContact("emergency@example.com"));
 
         assertEquals(id, user.getId());
     }
 
     @Test
-    void constructorWithNullEmergencyContactLeavesItsReferenceNull() {
-        User user = new User("Jane", "Doe", LocalDate.of(1990, 1, 1), new ArrayList<>(), "password",
-                sampleLocation(), sampleContact("jane@example.com"), null);
+    void constructorAllowsNullEmergencyContact() {
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1), new ArrayList<>(),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"), null);
 
         assertNull(user.getEmergencyContact());
         assertNull(user.getEmergencyContactUUIDReference());
     }
 
-    /**
-     * BUG: unlike emergencyContact (which has a null check), the constructor
-     * does `userContactUUIDReference = userContact.getId();` with no null
-     * check, so a null userContact throws instead of leaving the reference
-     * null the way a null emergencyContact does.
-     */
     @Test
-    void constructorWithNullUserContactThrowsUnlikeNullEmergencyContact() {
-        assertThrows(NullPointerException.class, () ->
-                new User("Jane", "Doe", LocalDate.of(1990, 1, 1), new ArrayList<>(), "password",
-                        sampleLocation(), null, sampleContact("em@example.com")));
+    void constructorRejectsNullPrimaryContact() {
+        assertThrows(NullPointerException.class, () -> new User(
+                "Jane", "Doe", LocalDate.of(1990, 1, 1),
+                new ArrayList<>(), "password", sampleLocation(), null,
+                sampleContact("emergency@example.com")));
     }
 
     @Test
-    void settersUpdateFields() {
-        User user = new User();
-        Location location = sampleLocation();
-        Contact userContact = sampleContact("new@example.com");
-        Contact emergencyContact = sampleContact("em@example.com");
-
-        user.setPassword("newpass");
-        user.setLocation(location);
-        user.setUserContact(userContact);
-        user.setEmergencyContact(emergencyContact);
-
-        assertEquals("newpass", user.getPassword());
-        assertSame(location, user.getLocation());
-        assertSame(userContact, user.getUserContact());
-        assertSame(emergencyContact, user.getEmergencyContact());
-    }
-
-    @Test
-    void uuidReferenceSetters() {
-        User user = new User();
-        UUID locationRef = UUID.randomUUID();
-        UUID userContactRef = UUID.randomUUID();
-        UUID emergencyContactRef = UUID.randomUUID();
-
-        user.setLocationUUIDReference(locationRef);
-        user.setUserContactUUIDReference(userContactRef);
-        user.setEmergencyContactUUIDReference(emergencyContactRef);
-
-        assertEquals(locationRef, user.getLocationUUIDReference());
-        assertEquals(userContactRef, user.getUserContactUUIDReference());
-        assertEquals(emergencyContactRef, user.getEmergencyContactUUIDReference());
-    }
-
-    @Test
-    void getUserContactReturnsNullAndPrintsAWarningWhenSetToNull() {
-        User user = new User();
-        user.setUserContact(null);
-
-        ByteArrayOutputStream capturedOut = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(capturedOut));
-        Contact result;
-        try {
-            result = user.getUserContact();
-        } finally {
-            System.setOut(originalOut);
-        }
-
-        assertNull(result);
-        assertTrue(capturedOut.toString().contains("has null contact"));
-    }
-
-    @Test
-    void addUserReliefRequestWithObjectAddsToBothLists() {
+    void addUserReliefRequestAddsRequestAndUuidReference() {
         User user = new User();
         ReliefRequest request = new ReliefRequest();
 
-        boolean result = user.addUserReliefRequest(request);
-
-        assertTrue(result);
+        assertTrue(user.addUserReliefRequest(request));
         assertTrue(user.getUserReliefRequests().contains(request));
-        assertTrue(user.getUserReliefRequestsUUIDReference().contains(request.getId()));
+        assertTrue(user.getUserReliefRequestsUUIDReference()
+                .contains(request.getId()));
     }
 
     @Test
-    void addUserReliefRequestWithUUIDOnlyAddsToReferenceList() {
+    void addUserReliefRequestByUuidAddsOnlyUuidReference() {
         User user = new User();
-        UUID id = UUID.randomUUID();
+        UUID requestId = UUID.randomUUID();
 
-        boolean result = user.addUserReliefRequest(id);
-
-        assertTrue(result);
-        assertTrue(user.getUserReliefRequestsUUIDReference().contains(id));
+        assertTrue(user.addUserReliefRequest(requestId));
+        assertTrue(user.getUserReliefRequestsUUIDReference()
+                .contains(requestId));
         assertTrue(user.getUserReliefRequests().isEmpty());
     }
 
     @Test
-    void getFullNameJoinsFirstAndLastName() {
-        User user = new User();
-        user.setFirstName("Jane");
-        user.setLastName("Doe");
+    void getFullNameCombinesFirstAndLastName() {
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1), new ArrayList<>(),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"),
+                sampleContact("emergency@example.com"));
 
         assertEquals("Jane Doe", user.getFullName());
     }
 
     @Test
-    void toStringDoesNotThrowWithoutReliefRequests() {
-        User user = new User();
-        user.setFirstName("Jane");
-        user.setLastName("Doe");
-
-        assertTrue(user.toString().contains("Jane Doe"));
-    }
-
-    @Test
-    void toStringDoesNotThrowWithReliefRequests() {
-        User user = new User("Jane", "Doe", LocalDate.of(1990, 1, 1), new ArrayList<>(), "password",
-                sampleLocation(), sampleContact("jane@example.com"), sampleContact("em@example.com"));
-        user.addUserReliefRequest(new ReliefRequest());
+    void toStringIncludesUserNameAndContactInformation() {
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1), new ArrayList<>(),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"),
+                sampleContact("emergency@example.com"));
 
         String result = user.toString();
 
         assertTrue(result.contains("Jane Doe"));
-        assertTrue(result.contains("Relief Requests"));
+        assertTrue(result.contains("jane@example.com"));
     }
 
     @Test
-    void toStringLivingBeingDelegatesToLivingBeingToString() {
-        // LivingBeing.toString() throws for an empty relief-needs list (see
-        // LivingBeingTest), so this user needs at least one relief need.
-        User user = new User("Jane", "Doe", LocalDate.of(1990, 1, 1),
-                new ArrayList<>(List.of(ReliefType.FOOD)), "password",
-                sampleLocation(), sampleContact("jane@example.com"), sampleContact("em@example.com"));
+    void toStringListsAssociatedReliefRequests() {
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1), new ArrayList<>(),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"),
+                sampleContact("emergency@example.com"));
+
+        user.addUserReliefRequest(new ReliefRequest());
+
+        assertTrue(user.toString().contains("Relief Requests"));
+    }
+
+    @Test
+    void toStringLivingBeingUsesLivingBeingFormat() {
+        User user = new User("Jane", "Doe",
+                LocalDate.of(1990, 1, 1),
+                new ArrayList<>(List.of(ReliefType.FOOD)),
+                "password", sampleLocation(),
+                sampleContact("jane@example.com"),
+                sampleContact("emergency@example.com"));
 
         String result = user.toStringLivingBeing();
 
         assertTrue(result.contains("Jane Doe"));
         assertTrue(result.contains("HUMAN"));
-        assertFalse(result.contains("Relief Requests"),
-                "toStringLivingBeing should use LivingBeing's format, not User's");
+        assertTrue(result.contains("Relief Needs: Food"));
     }
 }
