@@ -131,33 +131,6 @@ public class DataList<T extends Serializable> {
     }
 
     /**
-     * Gets all objects in this data list.
-     *
-     * @return the list of stored objects
-     */
-    public ArrayList<T> getObjects() {
-        return objects;
-    }
-
-    /**
-     * Gets objects that match a filter.
-     *
-     * @param filter the filter used to select objects
-     * @return a list of matching objects
-     */
-    public ArrayList<T> getObjects(Filter<T> filter) {
-        ArrayList<T> output = new ArrayList<>();
-
-        for (T object : objects) {
-            if (filter.filter(object)) {
-                output.add(object);
-            }
-        }
-
-        return output;
-    }
-
-    /**
      * Gets the first object that matches a filter.
      *
      * @param filter the filter used to select an object
@@ -222,19 +195,6 @@ public class DataList<T extends Serializable> {
     public boolean remove(T object) {
         objectsById.remove(object.getId());
         return objects.remove(object);
-    }
-
-    /**
-     * Saves the objects in this list through the DataManager.
-     *
-     * @return true if the save succeeds; otherwise false
-     */
-    public boolean save() {
-        try {
-            return dataManager.write(objects);
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**

@@ -330,25 +330,6 @@ public class Database {
     }
 
     /**
-     * Gets all hurricanes.
-     *
-     * @return the list of hurricanes
-     */
-    public ArrayList<Hurricane> getHurricanes() {
-        return hurricanes.getAll();
-    }
-
-    /**
-     * Gets hurricanes that match a filter.
-     *
-     * @param filter the hurricane filter to apply
-     * @return a list of matching hurricanes
-     */
-    public ArrayList<Hurricane> getHurricanes(Filter<Hurricane> filter) {
-        return hurricanes.filterByAttribute(filter);
-    }
-
-    /**
      * Gets all shelters.
      *
      * @return the list of shelters
@@ -443,16 +424,6 @@ public class Database {
      */
     public ReliefRequest getReliefRequestByUUID(UUID id) {
         return requests.getObjectByUUID(id);
-    }
-
-    /**
-     * Finds a hurricane by its UUID.
-     *
-     * @param id the UUID to search for
-     * @return the matching hurricane, or null if none exists
-     */
-    public Hurricane getHurricaneByUUID(UUID id) {
-        return hurricanes.getObjectByUUID(id);
     }
 
     /**
