@@ -23,10 +23,11 @@ class DatabaseTest {
      *
      * post fresh instance | should require data to be loaded first
      * after reading corrupt data | should not change the files
-     * should write the appropriate data
+     * after reading proper data without making changes | should do nothing
+     * after reading proper data and making changes | should write the appropriate data
      */
     @Test
-    void testWrite() {
+    void write() {
     }
 
     /**
@@ -94,104 +95,35 @@ class DatabaseTest {
     void createReliefRequest() {
     }
 
-    @Test
-    void getLivingBeings() {
-    }
+    //Note to Claude: use the UUID getter tests from DataList.java here for all the get by UUID methods
 
+    /**
+     * test | reasoning
+     *
+     * User.class | standard
+     * ReliefRequest.class | standard
+     * Hurricane.class | standard
+     * Shelter.class | standard
+     * Contact.class | standard
+     * Location.class | standard
+     * LivingBeing.class | standard
+     * Volunteer.class | standard
+     * ShelterManager.class | standard
+     * String.class | object not in key set
+     * null | null check
+     */
     @Test
-    void getUsers() {
-    }
-
-    @Test
-    void testGetUsers() {
-    }
-
-    @Test
-    void getRequests() {
-    }
-
-    @Test
-    void testGetRequests() {
-    }
-
-
-    @Test
-    void getHurricanes() {
-    }
-
-    @Test
-    void testGetHurricanes() {
-    }
-
-    @Test
-    void getShelters() {
-    }
-
-    @Test
-    void testGetShelters() {
-    }
-
-    @Test
-    void getContacts() {
-    }
-
-    @Test
-    void testGetContacts() {
-    }
-
-    @Test
-    void getLocations() {
-    }
-
-    @Test
-    void testGetLocations() {
-    }
-
-    @Test
-    void getLivingBeingByUUID() {
-    }
-
-    @Test
-    void getUserByUUID() {
-    }
-
-    @Test
-    void getVolunteerByUUID() {
-    }
-
-    @Test
-    void getReliefRequestByUUID() {
+    void get() {
     }
 
     /**
      * test | reasoning
      *
-     * UUID.randomUUID() | not in key
+     * new SkillSort(rosaDelgado) | standard
+     * new SkillSort(null) | null check
+     * null | null check
      */
-    @Test
-    void getShelterByUUID() {
-    }
-
-    @Test
-    void getContactByUUID() {
-    }
-
-    @Test
-    void getLocationByUUID() {
-    }
-
-    @Test
-    void get() {
-    }
-
     @Test
     void getSortedReliefRequests() {
-    }
-
-    /**
-     *
-     */
-    @Test
-    void testGetSortedShelters() {
     }
 }
