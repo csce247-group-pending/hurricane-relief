@@ -7,8 +7,8 @@ module com.pending.hurricanerelief {
     requires javafx.fxml;
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
-    requires jdk.jsobject;
-    requires javafx.web;
+    // requires jdk.jsobject;
+    // requires javafx.web;
     requires json.simple;
     requires jdk.jshell;
     requires java.desktop;
