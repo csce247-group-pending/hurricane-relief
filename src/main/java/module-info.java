@@ -31,4 +31,6 @@ module com.pending.hurricanerelief {
 
     exports com.pending.model.data.serializables.behaviors;
     opens com.pending.model.data.serializables.behaviors to javafx.fxml, org.junit.platform.commons;
+    exports com.pending.controllers;
+    opens com.pending.controllers to javafx.fxml, org.junit.platform.commons;
 }

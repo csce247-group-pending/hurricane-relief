@@ -1,4 +1,4 @@
-package com.pending.hurricanerelief;
+package com.pending.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
