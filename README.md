@@ -19,7 +19,7 @@ Our hurricane relief project is a software system designed to **connect hurrican
 - [Project Board](https://github.com/orgs/csce247-group-pending/projects/1)
 
 ## Prototype
-- pending...
+- [Mobile App Prototype](https://github.com/csce247-group-pending/hurricane-relief/blob/main/docs/prototype-mobile.pdf)
 
 ## Presentation
 - [Official Presentation](https://youtu.be/SbweRlDeMPQ)
