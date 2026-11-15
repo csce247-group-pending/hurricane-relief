@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * Creates and displays the default Hurricane Relief JavaFX window.
  */
-public class HelloApplication extends Application {
+public class App extends Application {
 
     /**
      * Loads the welcome-screen layout and displays the application window.
@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("hello-view.fxml"));
+                App.class.getResource("login.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
