@@ -365,7 +365,7 @@
 }
 
 .button-primary:hover {
-    -fx-background-color: #1557B5;
+    -fx-background-color: #1557B5;  
 }
 
 .button-emergency {
