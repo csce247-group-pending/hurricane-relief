@@ -1,0 +1,92 @@
+/* Main Layout */
+.main-content {
+    -fx-background-color: #F0F1F1;
+}
+
+.top-bar {
+    -fx-background-color: #0B2D5B;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1 0 0 0;
+}
+
+.nav-icon-active {
+    -fx-background-color: #EAF1FF;
+    -fx-background-radius: 40;
+}
+
+/* Banners & Cards */
+.alert-banner {
+    -fx-background-color: #D62828;
+    -fx-background-radius: 12;
+}
+
+.action-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+.request-card {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+/* Login Screen */
+.login-sheet {
+    -fx-background-color: white;
+    -fx-background-radius: 35 35 0 0;
+}
+
+/* Input Fields */
+.input-container {
+    -fx-background-color: white;
+    -fx-border-color: #B8C7E0;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-border-width: 1.5;
+}
+
+.input-icon-container {
+    -fx-background-color: #E9F1FE;
+    -fx-background-radius: 9 0 0 9;
+    -fx-border-color: #AFCBFD;
+    -fx-border-width: 0 1.5 0 0;
+}
+
+.input-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-focus-traversable: transparent;
+}
+
+/* Buttons */
+.btn-view-details {
+    -fx-background-color: #0b2d5b;
+    -fx-background-radius: 10;
+}
+
+.btn-primary {
+    -fx-background-color: #0b2d4b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+}
+
+.btn-secondary {
+    -fx-background-color: #EAF1FF;
+    -fx-text-fill: #0B2D5B;
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-border-radius: 12;
+    -fx-border-color: #AFCBFD;
+}

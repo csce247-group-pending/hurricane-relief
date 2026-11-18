@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="380.0" stylesheets="@styles2.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="360.0" fitWidth="380.0" layoutX="83.0" layoutY="28.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -41,7 +41,7 @@
             </Label>
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" layoutX="158.0" layoutY="486.0" prefHeight="480.0" prefWidth="100.0" spacing="16.0" style="-fx-background-color: white; -fx-background-radius: 35 35 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <VBox alignment="TOP_CENTER" layoutX="158.0" layoutY="486.0" prefHeight="480.0" prefWidth="100.0" spacing="16.0" styleClass="login-sheet" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <padding>
             <Insets bottom="20.0" left="25.0" right="25.0" top="30.0" />
          </padding>
@@ -51,12 +51,12 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #B8C7E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 1.5;">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="input-container">
                <padding>
                   <Insets right="10.0" />
                </padding>
                <children>
-                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #E9F1FE; -fx-background-radius: 9 0 0 9; -fx-border-color: #AFCBFD; -fx-border-width: 0 1.5 0 0;">
+                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefHeight="48.0" prefWidth="48.0" styleClass="input-icon-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -68,19 +68,19 @@
                         <Insets left="8.0" right="8.0" />
                      </padding>
                   </StackPane>
-                  <TextField promptText="Email" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-traversable: transparent;" HBox.hgrow="ALWAYS">
+                  <TextField promptText="Email" styleClass="input-field" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </TextField>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #B8C7E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-width: 1.5;">
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="input-container">
                <padding>
                   <Insets right="10.0" />
                </padding>
                <children>
-                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefWidth="48.0" style="-fx-background-color: #E9F1FE; -fx-background-radius: 9 0 0 9; -fx-border-color: #AFCBFD; -fx-border-width: 0 1.5 0 0;">
+                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefWidth="48.0" styleClass="input-icon-container">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -92,14 +92,14 @@
                         <Insets left="8.0" right="8.0" />
                      </padding>
                   </StackPane>
-                  <PasswordField promptText="Password" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-focus-traversable: transparent;" HBox.hgrow="ALWAYS">
+                  <PasswordField promptText="Password" styleClass="input-field" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </PasswordField>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" style="-fx-background-color: #0b2d4b; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 18; -fx-background-radius: 12; -fx-cursor: hand;" text="Log In">
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" styleClass="btn-primary" text="Log In">
                <font>
                   <Font size="18.0" />
                </font>
@@ -112,7 +112,7 @@
                   <Separator minWidth="10.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" style="-fx-background-color: #EAF1FF; -fx-text-fill: #0B2D5B; -fx-font-weight: bold; -fx-font-size: 18; -fx-background-radius: 12; -fx-cursor: hand; -fx-border-radius: 12; -fx-border-color: #AFCBFD;" text="Create New Account" />
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" styleClass="btn-secondary" text="Create New Account" />
          </children>
       </VBox>
       <ImageView fitHeight="60.0" fitWidth="380.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
