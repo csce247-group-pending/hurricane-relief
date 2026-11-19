@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
         String password = password_field.getText();
         String loginResult = application.attemptLogin(email, password);
         System.out.println(loginResult);
-        App.setRoot("hello-view");
+        App.setRoot("home2");
     }
 
 }
