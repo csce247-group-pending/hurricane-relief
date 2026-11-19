@@ -27,7 +27,7 @@ private static Scene scene;
                 App.class.getResource("login.fxml"));
 
         // fix height to 800, fix width to 380 - JoshW's BandAid Solution
-        scene = new Scene(loadFXML("login2"), 380, 800);
+        scene = new Scene(loadFXML("login"), 380, 800);
 
         stage.setTitle("Hello!");
         stage.setScene(scene);
