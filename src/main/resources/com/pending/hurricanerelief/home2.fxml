@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.BottomNavigationButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
@@ -23,66 +22,50 @@
    <children>
       <HBox layoutX="106.0" layoutY="700.0" prefHeight="80.0" prefWidth="200.0" styleClass="nav-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <BottomNavigationButton prefHeight="200.0" prefWidth="100.0" styleClass="nav-btn">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <StackPane styleClass="nav-icon-active">
-                           <children>
-                              <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@images/Home.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </StackPane>
-                        <Label text="Home" textFill="#0b2d5b" />
-                     </children>
-                  </VBox>
-               </graphic>
-            </BottomNavigationButton>
-            <BottomNavigationButton prefWidth="100.0" styleClass="nav-btn">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <StackPane styleClass="nav-icon-active">
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@images/Location.png" />
+                              <Image url="@images/Home.png" />
                            </image>
                         </ImageView>
-                        <Label text="Shelters" textFill="#0b2d5b" />
                      </children>
-                  </VBox>
-               </graphic>
-            </BottomNavigationButton>
-            <BottomNavigationButton prefWidth="100.0" styleClass="nav-btn">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/Requests%20heart.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Requests" textFill="#0b2d5b" />
-                     </children>
-                  </VBox>
-               </graphic>
-            </BottomNavigationButton>
-            <BottomNavigationButton prefWidth="100.0" styleClass="nav-btn">
-               <graphic>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@images/User.png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Account" textFill="#0b2d5b" />
-                     </children>
-                  </VBox>
-               </graphic>
-            </BottomNavigationButton>
+                  </StackPane>
+                  <Label text="Home" textFill="#0b2d5b" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/Location.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Shelters" textFill="#0b2d5b" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/Requests%20heart.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Requests" textFill="#0b2d5b" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/User.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Account" textFill="#0b2d5b" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="126.0" layoutY="375.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -157,35 +140,39 @@
                         </HBox>
                      </children>
                   </AnchorPane>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
                      <VBox.margin>
-                        <Insets top="-50.0" />
+                        <Insets top="-40.0" />
                      </VBox.margin>
                      <children>
-                        <Button contentDisplay="TOP" minHeight="-Infinity" mnemonicParsing="false" prefHeight="140.0" prefWidth="165.0" styleClass="action-card" text="Shelters">
-                           <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" styleClass="btn-action">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="160.0" spacing="10.0" styleClass="action-card">
+                           <children>
+                              <ImageView fitHeight="75.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/Location.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
-                        <Button contentDisplay="TOP" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="140.0" prefWidth="165.0" styleClass="action-card" text="Relief Request" HBox.hgrow="ALWAYS">
-                           <graphic>
-                              <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                              <Label text="Find Shelter" textFill="#0b2d5b">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="160.0" spacing="10.0" styleClass="action-card">
+                           <children>
+                              <ImageView fitHeight="75.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@images/Requests%20heart.png" />
                                  </image>
                               </ImageView>
-                           </graphic>
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Button>
+                              <Label alignment="BOTTOM_CENTER" text="Request Relief" textFill="#0b2d5b">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
@@ -201,7 +188,7 @@
                                  </font>
                               </Label>
                               <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" styleClass="btn-borderless" text="Past Requests &gt;" />
+                              <Label alignment="CENTER" text="Past Requests &gt;" textAlignment="RIGHT" textFill="#0f5d9e" />
                            </children>
                         </HBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="12.0" styleClass="request-card">
