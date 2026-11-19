@@ -26,7 +26,7 @@ private static Scene scene;
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("login.fxml"));
 
-        scene = new Scene(loadFXML("login"), 540, 960);
+        scene = new Scene(loadFXML("login2"), 540, 960);
 
         stage.setTitle("Hello!");
         stage.setScene(scene);

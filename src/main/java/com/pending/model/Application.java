@@ -445,7 +445,7 @@ public class Application {
      *
      * @return relief requests available to the current user
      */
-    private ArrayList<ReliefRequest> getReliefRequests() {
+    public ArrayList<ReliefRequest> getReliefRequests() {
         if (currentUser instanceof Volunteer volunteer) {
             return database.getSortedReliefRequests(volunteer.getSorter());
         }
