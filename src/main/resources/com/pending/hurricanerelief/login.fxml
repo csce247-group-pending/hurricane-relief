@@ -1,55 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-  Copyright (c) 2017, 2019, Gluon and/or its affiliates.
-  All rights reserved. Use is subject to license terms.
-
-  This file is available and licensed under the following license:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions
-  are met:
-
-  - Redistributions of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-  - Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimer in
-    the documentation and/or other materials provided with the distribution.
-  - Neither the name of Oracle Corporation nor the names of its
-    contributors may be used to endorse or promote products derived
-    from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
--->
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pending.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="380.0" stylesheets="@styles2.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Email" />
-      <TextField fx:id="email_field" maxWidth="200.0" styleClass="text-field" stylesheets="@styles.css" />
-      <Label text="Password" />
-      <PasswordField fx:id="password_field" maxWidth="200.0" styleClass="password-field" stylesheets="@styles.css" />
-      <Button fx:id="btn_sign_in" mnemonicParsing="false" onAction="#login" styleClass="button-primary" stylesheets="@styles.css" text="Sign in" />
-      <Button fx:id="btn_create_account" mnemonicParsing="false" stylesheets="@styles.css" text="Create account">
-         <VBox.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </VBox.margin>
-      </Button>
+      <ImageView fitHeight="360.0" fitWidth="380.0" layoutX="83.0" layoutY="28.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/light_house.png" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" layoutX="140.0" layoutY="284.0" prefHeight="200.0" prefWidth="100.0" spacing="12.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/cyclone.png" />
+               </image>
+            </ImageView>
+            <Label text="CyclonusAid" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+            </Label>
+            <Label text="Be Safe. Find Help. Get Connected." textFill="#e0e0e0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="158.0" layoutY="486.0" prefHeight="480.0" prefWidth="100.0" spacing="16.0" styleClass="login-sheet" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <padding>
+            <Insets bottom="20.0" left="25.0" right="25.0" top="30.0" />
+         </padding>
+         <children>
+            <Label text="Log In" textAlignment="CENTER" textFill="#0b2d5b">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="input-container">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+               <children>
+                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefHeight="48.0" prefWidth="48.0" styleClass="input-icon-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/Mail.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                  </StackPane>
+                  <TextField promptText="Email" styleClass="input-field" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0" styleClass="input-container">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+               <children>
+                  <StackPane maxHeight="1.7976931348623157E308" minWidth="-Infinity" prefWidth="48.0" styleClass="input-icon-container">
+                     <children>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/Lock.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets left="8.0" right="8.0" />
+                     </padding>
+                  </StackPane>
+                  <PasswordField promptText="Password" styleClass="input-field" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" styleClass="btn-primary" text="Log In">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Hyperlink alignment="CENTER" text="Forgot Password?" textAlignment="CENTER" textFill="#0b2d5b" />
+            <HBox alignment="CENTER" minHeight="-Infinity" prefWidth="200.0" spacing="12.0">
+               <children>
+                  <Separator minWidth="10.0" HBox.hgrow="ALWAYS" />
+                  <Label alignment="CENTER" minHeight="-Infinity" prefWidth="24.0" text="or" textAlignment="CENTER" textFill="#0b2d5b" textOverrun="CLIP" HBox.hgrow="ALWAYS" />
+                  <Separator minWidth="10.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="1000.0" styleClass="btn-secondary" text="Create New Account" />
+         </children>
+      </VBox>
+      <ImageView fitHeight="60.0" fitWidth="380.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <image>
+            <Image url="@images/waves.png" />
+         </image>
+      </ImageView>
    </children>
-</VBox>
+</AnchorPane>
